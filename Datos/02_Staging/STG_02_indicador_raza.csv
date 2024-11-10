@@ -1,0 +1,29 @@
+"","Name","Ethnic Group Statistics"
+"1","ShortName","Ethnic Group Statistics"
+"2",NA,NA
+"3",NA,NA
+"4",NA,NA
+"5","Theme","Population"
+"6","Sub-theme","Diversity"
+"7",NA,NA
+"8","Title","Popuation by Ethnic Group by borough"
+"9","Description","Ethnic Group Statistics by 2011 Census groupings (Mixed & Other combined due to small sample sizes)"
+"10","Subject","Ethnicity"
+"11","Subject.keyword","Ethnicity, Diversity, population,"
+"12","Publisher","ONS Annual Population Survey"
+"13","Date.available","2012-2020"
+"14","Creator","Annual Population Survey"
+"15","Date.created","Feb 22"
+"16","Coverage.spatial","Local Authorities"
+"17","Coverage.temporal","Annual"
+"18","Type","Survey Estimates"
+"19","Language","English"
+"20","Rights","Crown Copyright"
+"21","More info",NA
+"22","Download from","https://discover.ukdataservice.ac.uk/series/?sn=200002"
+"23","Measures","Numbers"
+"24","Warnings/Notes","Figures may not add exactly due to rounding."
+"25",NA,"Numbers rounded to nearest thousand"
+"26",NA,"Cells with a value of ""-"" have been supressed due to small sample sizes"
+"27",NA,NA
+"28","Next Release:","Aug 22"

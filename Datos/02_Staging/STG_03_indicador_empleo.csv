@@ -1,0 +1,29 @@
+"","Name","Annual survey of hours and earnings","...3","...4","...5","...6","...7","...8","...9","...10","...11"
+"1","ShortName","ASHE",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"2",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"3",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"4",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"5","Theme","Employment and Skills",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"6","Sub-theme","Income and earnings",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"7",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"8","Title","Resident based median earnings (GBP) (Hourly and Weekly), by Full time/Part time, or Gender",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"9","Description","Gross earnings per head: by place of residence (ASHE)",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"10","Subject","Earnings",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"11","Subject.keyword","income, earnings, pay, salary",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"12","Publisher","NOMIS",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"13","Date.available","2002-2022",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"14","Creator","Annual Survey of Hours and Earnings (ASHE), ONS",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"15","Date.created","Oct 23",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"16","Coverage.spatial","London Boroughs",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"17","Coverage.temporal","Annual",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"18","Type","Survey",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"19","Language","English",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"20","Rights","Crown Copyright",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"21","More info","http://www.statistics.gov.uk/statBase/product.asp?vlnk=13101",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"22","Download from","https://www.nomisweb.co.uk/query/construct/summary.asp?mode=construct&version=0&dataset=30",NA,NA,NA,NA,NA,NA,NA,NA,"(Requires registration /advanced query)"
+"23","Warnings/Notes","Survey data from a sample frame, use caution if using for performance measurement and trend analysis",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"24",NA,"# These figures are suppressed as statistically unreliable.",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"25",NA,"! Estimate and confidence interval not available since the group sample size is zero or disclosive (0-2).",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"26",NA,"Results for 2003 and earlier exclude supplementary surveys. In 2006 there were a number of methodological changes made. For further details goto : http://www.nomisweb.co.uk/articles/341.aspx.",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"27",NA,"Standard error as a percentage of the figure",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"28","Next release","Oct 24",NA,NA,NA,NA,NA,NA,NA,NA,NA

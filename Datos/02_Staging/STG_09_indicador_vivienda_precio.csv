@@ -1,0 +1,31 @@
+"","Name","Average House Prices - Borough"
+"1","ShortName","House Prices"
+"2",NA,NA
+"3",NA,NA
+"4",NA,NA
+"5","Theme","Housing"
+"6","Sub-theme","House Prices- Sales"
+"7",NA,NA
+"8","Title","Average house prices"
+"9","Description","Quarterly, median and mean house prices, lower quartile prices and sales volumes"
+"10","Subject","House prices"
+"11","Subject.keyword","House prices, sales, property"
+"12","Publisher","DCLG, Land Registry"
+"13","Date.available","1995-2017"
+"14","Creator","Land Registry"
+"15","Date.created","Aug 18"
+"16","Coverage.spatial","Local Authority"
+"17","Coverage.temporal","Quartely"
+"18","Type","Administrative"
+"19","Language","English"
+"20","Rights","Crown Copyright"
+"21","More info","https://www.gov.uk/guidance/about-the-price-paid-data"
+"22","Download from","https://data.gov.uk/dataset/land-registry-monthly-price-paid-data"
+"23",NA,NA
+"24","Measure","GBP"
+"25","Warnings/Notes","Excluded from the above figures are sales at less than market price (e.g. Right To Buy), sales below £1,000 and sales above £20m."
+"26",NA,"The ""median"" property price is determined by ranking all property prices in ascending order."
+"27",NA,"The median is the mid-point of this ranking with 50 per cent of prices below the median and 50 per cent above"
+"28",NA,"Simple average values are useful in describing data, but there are limitations. These limitations occur when there are extreme values (either low or high) in the data. These extreme values have a larger influence on the average than the other values in the data set. One way to reduce the influence of extremes is by calculating a geometric mean instead of an arithmetic mean (the arithmetic mean is commonly referred to as the average). To calculate a geometric mean, the data are transformed into log values and these values are averaged. The average is then converted back to a linear value, which is the geometric mean. This technique reduces the influence of individual values because in log form, low/high values are not as extreme relative to the rest of the data."
+"29",NA,NA
+"30","Next release","Sep 18"

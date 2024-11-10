@@ -1,0 +1,31 @@
+"","Name","Number of Local Units in VAT and/or PAYE Based Enterprises By Broad Industry Group"
+"1","ShortName","Local Units by Industry"
+"2",NA,NA
+"3",NA,NA
+"4",NA,NA
+"5","Theme","Economy"
+"6","Sub-theme","Business"
+"7",NA,NA
+"8","Title","Local Units by Broad Industry Group"
+"9","Description","Number of businesses (local units) by Broad Industry Group"
+"10","Subject","Business"
+"11","Subject.keyword","VAT, PAYE, local units, business, Broad Industry Group"
+"12","Publisher","ONS in UK Business: Activity, Size and Location reports"
+"13","Date.available","2003 - 2024"
+"14","Creator","Inter Departmental Business Register (IDBR)"
+"15","Date.created","Oct 24"
+"16","Coverage.spatial","Local Authority"
+"17","Coverage.temporal","Annual"
+"18","Type","Survey"
+"19","Language","English"
+"20","Rights","Crown Copyright"
+"21","More info","http://www.ons.gov.uk/ons/publications/all-releases.html?definition=tcm%3A77-21554"
+"22","Download from","https://www.ons.gov.uk/businessindustryandtrade/business/activitysizeandlocation/datasets/ukbusinessactivitysizeandlocation"
+"23","Measure","Numbers"
+"24","Warnings/Notes","Since 2008 the publication has been enhanced to include enterprises based on PAYE employers that are not also registered for VAT, extending the scope from the previous VAT based enterprise publication. This is a major change to the scope of the publication. The increase in units is most noticeable in the VAT-exempt industries of finance (J), education (M), health
+(N) and public administration (L, O and Q)."
+"25",NA,"Analyses are provided for VAT and/or PAYE based enterprises and local units. Where an enterprise has several local units, the location of the enterprise is generally the main operating site or the head office."
+"26",NA,"The SIC groupings changed in 2009 when SIC2007 was used for the first time"
+"27",NA,NA
+"28",NA,NA
+"29","Next release","Oct 25"
