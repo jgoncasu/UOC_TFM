@@ -37,6 +37,7 @@ carga_indicador_01_edad <- function() {
 
 limpieza_indicador_01_edad <- function(df) {
   # TODO: Ver si nos quedamos con edad media por año o la cantidad de personas jóvenes (ver rango de edad)
+  # TODO: NO cargar datos de United Kingdom
   
   # Elimina la columna "No_Males"
   df$No_Males <- NULL
@@ -134,23 +135,159 @@ guardar_indicador_01_edad <- function(df) {
 # 02) Carga y limpieza de datos de los indicadores demográficos (raciales)
 ################################################################################
 
+#carga_indicador_02_raza <- function() {
+#  ruta_fichero <- '01_Demograficos/ethnic-groups-by-borough.xls'
+#  lista_pestanas <- 2012:2020
+#  nulos <- c("", "-")
+#  columnas <- c("Code", "Borough", "White", "Asian", "Black", "Other", "Total", "CI_Empty", "CI_White", "CI_Asian", "CI_Black", "CI_Other", "CI_Total")
+#  df <- data.frame(Code = NA, Borough = NA, White = NA, Asian = NA, Black = NA, Other = NA, Total = NA, CI_Empty = NA, CI_White = NA, CI_Asian = NA, CI_Black = NA, CI_Other = NA, CI_Total = NA)[0,]
+#  # Lee la lista de pestañas (desde 2012 hasta 2020)
+#  for (pestana in lista_pestanas) {
+#    df_tmp = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), sheet = (2022 - pestana), skip=2, col_names = columnas, na = nulos)
+#    # Añade el dato del año
+#    df_tmp["Year"] <- pestana
+#    # Fusiona los datos
+#    df <- rbind(df, df_tmp)
+#  }
+#  df <- df %>% select("Code", "Borough", "Year", "White", "Asian", "Black", "Other", "Total")
+#  return(df)
+#}
+
 carga_indicador_02_raza <- function() {
-  ruta_fichero <- '01_Demograficos/ethnic-groups-by-borough.xls'
-  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""))
+  ruta_fichero <- '01_Demograficos/Ethnic group projections (2016-based central trend).xlsx'
+  lista_anyos <- paste0("Year_", 2011:2050)
+  nulos <- c("", "-")
+  columnas <- c("Code", "Borough", "Sex", "Age", "Ethnic_group", lista_anyos)
+  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), sheet = "Population - Persons", skip = 1, na = nulos, col_names = columnas)
   return(df)
 }
 
 limpieza_indicador_02_raza <- function(df) {
-  # Sustituye valores "-" por NA
-  #df[df== "-"]<-NA
-  return(df)
-}
+  # Filtrar solo los registros "All ages"
+  df <- df %>% filter(Age == "All ages")
 
-imputar_valores_indicador_02_raza <- function(df) {
+    # Eliminar datos más allá de 2031 y las columnas Sex y Age
+  col_anyos_eliminar <- paste0("Year_", 2032:2050)
+  df <- df %>% select(-c(col_anyos_eliminar, "Sex", "Age"))
+  
+  # Crear registro White = White British + White Irish + Other White
+  df_white <- df %>%
+    filter(Ethnic_group %in% c("White British", "White Irish", "Other White")) %>%
+    group_by(Code, Borough) %>%
+    summarise(across(starts_with("Year_"), sum, na.rm = TRUE)) %>%
+    mutate(Ethnic_group = "White")
+  df <- bind_rows(df, df_white)
+  
+  # Eliminar registros que no son White ni BAME
+  df <- df %>% filter(Ethnic_group %in% c("White", "BAME"))
+
+  # Filtra los registros que no corresponden con barrios de Londres
+  barrios_londres <- unlist(lista_barrios)
+  barrios <- unique(df$Borough)
+  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
+  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
+    
+  # Ordena los datos
+  df <- df %>% arrange(Code, Ethnic_group)
+  
   return(df)
 }
+#limpieza_indicador_02_raza <- function(df) {
+#  # Filtra los registros que no corresponden con barrios de Londres
+#  barrios_londres <- unlist(lista_barrios)
+#  barrios <- unique(df$Borough)
+#  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
+#  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
+#  
+#  # El barrio de "Richmond upon Thames" no presenta en todos los años los habitantes de raza negra, se calcula su valor en base al resto de datos
+#  df <- df %>%
+#    mutate(Black = if_else(is.na(Black) & Borough == "Richmond upon Thames", Total - (White + Asian + Other), Black)
+#  )
+#  
+#  # TODO: Eliminar valores para City of London
+#  # Imputa valores para el barrio "City of London" en base a los datos de la ciudad de Londres
+#  anyos <- 2012:2020
+#  for (anyo in anyos) {
+#    sum_valores <- df %>% 
+#      filter(Year == anyo) %>% 
+#      summarise(
+#        white_london = sum(White[Borough == "London"], na.rm = TRUE),
+#        white_others = sum(White[!(Borough %in% c("United Kingdom", "London"))], na.rm = TRUE),
+#        black_london = sum(Black[Borough == "London"], na.rm = TRUE),
+#        black_others = sum(Black[!(Borough %in% c("United Kingdom", "London"))], na.rm = TRUE),
+#        asian_london = sum(Asian[Borough == "London"], na.rm = TRUE),
+#        asian_others = sum(Asian[!(Borough %in% c("United Kingdom", "London"))], na.rm = TRUE),
+#        other_london = sum(Other[Borough == "London"], na.rm = TRUE),
+#        other_others = sum(Other[!(Borough %in% c("United Kingdom", "London"))], na.rm = TRUE),
+#      ) %>%
+#      mutate(
+#        white_city_of_london = if_else(white_london - white_others >= 0, white_london - white_others, 0),
+#        black_city_of_london = if_else(black_london - black_others >= 0, black_london - black_others, 0),
+#        asian_city_of_london = if_else(asian_london - asian_others >= 0, asian_london - asian_others, 0),
+#        other_city_of_london = if_else(other_london - other_others >= 0, other_london - other_others, 0),
+#      )
+#      
+#    sum_white <- pull(sum_valores, white_city_of_london)
+#    sum_black <- pull(sum_valores, black_city_of_london)
+#    sum_asian <- pull(sum_valores, asian_city_of_london)
+#    sum_other <- pull(sum_valores, other_city_of_london)
+#    
+#    df <- df %>%
+#      mutate(
+#        White = if_else(Year == anyo & Borough == "City of London" & is.na(White), sum_white, White),
+#        Black = if_else(Year == anyo & Borough == "City of London" & is.na(Black), sum_black, Black),
+#        Asian = if_else(Year == anyo & Borough == "City of London" & is.na(Asian), sum_asian, Asian),
+#        Other = if_else(Year == anyo & Borough == "City of London" & is.na(Other), sum_other, Other),
+#        Total = if_else(Year == anyo & Borough == "City of London" & is.na(Total), White + Black + Asian + Other, Total)
+#      )
+#  }
+#  
+#  # Se realiza predicción para los años posteriores a 2020
+#  anyos_pred_prev <- 2001:2011
+#  anyos_pred_post <- 2021:2031
+#  razas <- c("White", "Asian", "Black", "Other")
+#  barrios <- unique(df$Borough)
+#  for (barrio in barrios) {
+#    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
+#    predicciones <- list()
+#    serie_white <- ts(df %>% filter(Borough == barrio) %>% pull("White"), start = 2012, end = 2020, frequency = 1)
+#    serie_black <- ts(df %>% filter(Borough == barrio) %>% pull("Black"), start = 2012, end = 2020, frequency = 1)
+#    serie_asian <- ts(df %>% filter(Borough == barrio) %>% pull("Asian"), start = 2012, end = 2020, frequency = 1)
+#    serie_other <- ts(df %>% filter(Borough == barrio) %>% pull("Other"), start = 2012, end = 2020, frequency = 1)
+#    
+#    modelo_white <- ets(serie_white)
+#    modelo_black <- ets(serie_black)
+#    modelo_asian <- ets(serie_asian)
+#    modelo_other <- ets(serie_other)
+#    
+#    pred_white_prev <- forecast(modelo_white, h = length(anyos))
+#    
+#    for (raza in razas) {
+#      serie_hombres <- ts(df %>% filter(Borough == barrio) %>% pull(paste0("M_", edad)), start = 1999, end = 2020, frequency = 1)
+#      serie_mujeres <- ts(df %>% filter(Borough == barrio) %>% pull(paste0("F_", edad)), start = 1999, end = 2020, frequency = 1)
+#      modelo_hombres <- ets(serie_hombres)
+#      modelo_mujeres <- ets(serie_mujeres)
+#      pred_hombres <- forecast(modelo_hombres, h = length(anyos_pred))
+#      pred_mujeres <- forecast(modelo_mujeres, h = length(anyos_pred))
+#      predicciones[[paste0("M_", edad)]] <- round(pred_hombres$mean, 0)
+#      predicciones[[paste0("F_", edad)]] <- round(pred_mujeres$mean, 0)
+#    }
+#    predicciones_df <- as.data.frame(predicciones)
+#    predicciones_df$Year <- anyos_pred
+#    predicciones_df$Borough <- barrio
+#    predicciones_df$Code <- codigo_barrio
+#    
+#    df <- bind_rows(df, predicciones_df)
+#  }
+#  
+#  # Ver si los datos de City of London se pueden imputar en base al total de Londres
+#  # Pivotar resultados
+#  return(df)
+#}
 
 validar_indicador_02_raza <- function(df) {
+  if (any(is.na(df)))
+    return(FALSE)
   return(TRUE)
 }
 
@@ -400,10 +537,10 @@ df_edad = limpieza_indicador_01_edad(df_edad)
 if (validar_indicador_01_edad(df_edad)) guardar_indicador_01_edad(df_edad) else print("[ERROR]: Revisar los datos del indicador 01 - Edad")
 
 # Indicador 02 - Raza
-#df_raza = carga_indicador_02_raza()
-#df_raza = limpieza_indicador_02_raza(df_raza)
-#df_raza = imputar_valores_indicador_02_raza(df_raza)
-#if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
+df_raza = carga_indicador_02_raza()
+df_raza = limpieza_indicador_02_raza(df_raza)
+df_raza = imputar_valores_indicador_02_raza(df_raza)
+if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
 
 # Indicador 03 - Empleo
 #df_empleo = carga_indicador_03_empleo()
