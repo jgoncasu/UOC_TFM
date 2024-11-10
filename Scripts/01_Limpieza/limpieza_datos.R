@@ -539,7 +539,6 @@ if (validar_indicador_01_edad(df_edad)) guardar_indicador_01_edad(df_edad) else 
 # Indicador 02 - Raza
 df_raza = carga_indicador_02_raza()
 df_raza = limpieza_indicador_02_raza(df_raza)
-df_raza = imputar_valores_indicador_02_raza(df_raza)
 if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
 
 # Indicador 03 - Empleo
