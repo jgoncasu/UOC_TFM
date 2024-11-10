@@ -108,6 +108,10 @@ limpieza_indicador_01_edad <- function(df) {
       values_from = Avg_Age
     )
   
+  # Elimina las columnas de los años 1999 y 2000
+  df$Year_1999 <- NULL
+  df$Year_2000 <- NULL
+  
   # Ordena los datos por barrio
   df <- df %>% arrange(Code)
   
