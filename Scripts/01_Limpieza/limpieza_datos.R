@@ -388,15 +388,65 @@ guardar_indicador_03_empleo <- function(df) {
 
 carga_indicador_04_estudios <- function() {
   ruta_fichero <- '03_Estudios/Qualifications-of-working-age-NVQ.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""))
+  nulos <- c("", "-", "!", "#")
+  columnas <- c("Code", "Borough", "Year", "Qualifications", "Number", "Habitants", "Percent", "Confidence")
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_names = columnas, na = nulos, skip = 1)
   return(df) 
 }
 
 limpieza_indicador_04_estudios <- function(df) {
-  return(df)
-}
+  # Filtrar por NVQ4+ y eliminar campo intervalo de confianza
+  df <- df %>% filter(Qualifications == "NVQ4+") %>% select(-c(Confidence, Qualifications))
 
-imputar_valores_indicador_04_estudios <- function(df) {
+  # Eliminar registros que no sean barrios de Londres
+  barrios_londres <- unlist(lista_barrios)
+  barrios <- unique(df$Borough)
+  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
+  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
+  
+  # Reemplazar , por . decimal, eliminar entrecomillado en campo Number
+  df <- df %>%
+    mutate(Number = as.numeric(gsub(",", "", gsub('"', "", Number))))
+  
+  # Imputar valores nulos para el porcentaje
+  df <- df %>%
+    mutate(Percent = ifelse(Borough == "City of London" & is.na(Percent), 80, Percent))
+  
+  # Actualiza el valor del campo Number en base a los campos Habitants y Percent
+  df <- df %>%
+    mutate(Number = ifelse(Borough == "City of London" & is.na(Number), round((Habitants * Percent) / 100), Number))
+  
+  # Imputar valores hasta 2031
+  anyos_pred <- 2022:2031
+  barrios <- unique(df$Borough)
+  for (barrio in barrios) {
+    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
+    predicciones <- list()
+    serie_Number <- ts(df %>% filter(Borough == barrio) %>% pull(Number), start = 2004, end = 2021, frequency = 1)
+    serie_Habitants <- ts(df %>% filter(Borough == barrio) %>% pull(Habitants), start = 2004, end = 2021, frequency = 1)
+    serie_Percent <- ts(df %>% filter(Borough == barrio) %>% pull(Percent), start = 2004, end = 2021, frequency = 1)
+    modelo_Number <- ets(serie_Number)
+    modelo_Habitants <- ets(serie_Habitants)
+    modelo_Percent <- ets(serie_Percent)
+    pred_Number <- forecast(modelo_Number, h = length(anyos_pred))
+    pred_Habitants <- forecast(modelo_Habitants, h = length(anyos_pred))
+    pred_Percent <- forecast(modelo_Percent, h = length(anyos_pred))
+    predicciones[["Number"]] <- round(pred_Number$mean, 0)
+    predicciones[["Habitants"]] <- round(pred_Habitants$mean, 0)
+    predicciones[["Percent"]] <- round(pred_Percent$mean, 0)
+
+    predicciones_df <- as.data.frame(predicciones)
+    predicciones_df$Year <- anyos_pred
+    predicciones_df$Borough <- barrio
+    predicciones_df$Code <- codigo_barrio
+
+    df <- bind_rows(df, predicciones_df)
+  }
+
+  # Ordenar por barrio
+  df <- df %>% arrange(Code, Year)
+  
+  # Pivotar años a columnas
   return(df)
 }
 
@@ -415,16 +465,53 @@ guardar_indicador_04_estudios <- function(df) {
 ################################################################################
 
 carga_indicador_05_trafico <- function() {
+  nulos <- c("", "-", "!", "#")
+  
+  columnas <- c("Code", "Borough", paste0("Year_", 1993:2023))
   ruta_fichero <- '04_Medio_Ambiente/traffic-flow-borough.xls'
-  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""))
+  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_names = columnas, na = nulos, skip = 1, sheet = "Traffic Flows - Cars")
   return(df)
 }
 
 limpieza_indicador_05_trafico <- function(df) {
-  return(df)
-}
+  # Filtra los registros que no corresponden con barrios de Londres
+  barrios_londres <- unlist(lista_barrios)
+  barrios <- unique(df$Borough)
+  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
+  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
 
-imputar_valores_indicador_05_trafico <- function(df) {
+  # Se pasan las columnas de años a una sola columna
+  df <- df %>%
+    pivot_longer(cols = starts_with("Year_"),
+                 names_to = "Year",
+                 names_prefix = "Year_",
+                 values_to = "Car_Traffic") %>%
+    mutate(Year = as.numeric(Year))
+    
+  # Imputar valores hasta 2031
+  anyos_pred <- 2024:2031
+  barrios <- unique(df$Borough)
+  for (barrio in barrios) {
+    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
+    predicciones <- list()
+    serie_Traffic <- ts(df %>% filter(Borough == barrio) %>% pull(Car_Traffic), start = 1993, end = 2023, frequency = 1)
+    modelo_Traffic <- ets(serie_Traffic)
+    print(length(anyos_pred))
+    pred_Traffic <- forecast(modelo_Traffic, h = length(anyos_pred))
+    print(pred_Traffic)
+    predicciones[["Car_Traffic"]] <- round(pred_Traffic$mean, 0)
+    
+    predicciones_df <- as.data.frame(predicciones)
+    predicciones_df$Year <- anyos_pred
+    predicciones_df$Borough <- barrio
+    predicciones_df$Code <- codigo_barrio
+    
+    df <- bind_rows(df, predicciones_df)
+  }
+  
+  # Ordenar por barrio
+  df <- df %>% arrange(Code, Year)
+
   return(df)
 }
 
@@ -582,6 +669,12 @@ guardar_indicador_10_vivienda_alquiler <- function(df) {
 # Cuerpo principal del programa
 ################################################################################
 
+# TODO:
+#   - Crear versión de los CSV sin pivotar tablas de años, es posible que sea necesario unificado en un campo para series temporales, disponer de ambas versiones
+#   - Ver qué modelo usar para las predicciones de series temporales
+#   - Ver el parámetro frequency en las estimaciones a qué se refiere con 1 (1 mes, 1 año). Por ejemplo en el indicador 5 - Tráfico no cambia valores desde el primer año estimado en adelante
+#   - Buscar datos más actuales sobre todo indicadores que no llegan a 2021
+
 # Barrios de Londres
 df_barrios <- carga_lista_barrios()
 lista_barrios <- as.list(df_barrios %>% select(Borough))
@@ -597,24 +690,22 @@ lista_barrios <- as.list(df_barrios %>% select(Borough))
 #if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
 
 # Indicador 03 - Empleo
-df_empleo = carga_indicador_03_empleo()
-df_empleo = limpieza_indicador_03_empleo(df_empleo)
-if (validar_indicador_03_empleo(df_empleo))
-  guardar_indicador_03_empleo(df_empleo)
+#df_empleo = carga_indicador_03_empleo()
+#df_empleo = limpieza_indicador_03_empleo(df_empleo)
+#if (validar_indicador_03_empleo(df_empleo))
+#  guardar_indicador_03_empleo(df_empleo)
 
 # Indicador 04 - Estudios
 #df_estudios = carga_indicador_04_estudios()
 #df_estudios = limpieza_indicador_04_estudios(df_estudios)
-#df_estudios = imputar_valores_indicador_04_estudios(df_estudios)
 #if (validar_indicador_04_estudios(df_estudios))
 #  guardar_indicador_04_estudios(df_estudios)
 
 # Indicador 05 - Tráfico
-#df_trafico = carga_indicador_05_trafico()
-#df_trafico = limpieza_indicador_05_trafico(df_trafico)
-#df_trafico = imputar_valores_indicador_05_trafico(df_trafico)
-#if (validar_indicador_05_trafico(df_trafico))
-#  guardar_indicador_05_trafico(df_trafico)
+df_trafico = carga_indicador_05_trafico()
+df_trafico = limpieza_indicador_05_trafico(df_trafico)
+if (validar_indicador_05_trafico(df_trafico))
+  guardar_indicador_05_trafico(df_trafico)
 
 # Indicador 06 - Esperanza de vida
 #df_esperanza_vida = carga_indicador_06_esperanza_vida()

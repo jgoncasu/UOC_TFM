@@ -1,37 +1,1327 @@
-"","Name","Traffic Flows","...3"
-"1","ShortName","Traffic Flows",NA
-"2",NA,NA,NA
-"3",NA,NA,NA
-"4",NA,NA,NA
-"5","Theme","Transport",NA
-"6","Sub-theme","Vehicles",NA
-"7",NA,NA,NA
-"8","Title","Traffic Flows of all vehicles and cars only",NA
-"9","Description","Million Vehicle Kilometres travelled by all motor vehicles and all cars in London.",NA
-"10","Subject","Traffic Flows",NA
-"11","Subject.keyword","Vehicles, Traffic Flows, Congestion",NA
-"12","Publisher","DFT",NA
-"13","Date.available","1993-2023",NA
-"14","Creator","DFT",NA
-"15","Date.created","Sep 24",NA
-"16","Coverage.spatial","London Boroughs",NA
-"17","Coverage.temporal","Annual",NA
-"18","Type","Survey",NA
-"19","Language","English",NA
-"20","Rights","Crown Copyright",NA
-"21","More info","http://www.dft.gov.uk/traffic-counts/",NA
-"22","Download from","https://www.gov.uk/government/statistical-data-sets/tra89-traffic-by-local-authority",NA
-"23","Measure","Million Vehicle Kilometres",NA
-"24","Notes","Table: TRA8904 + TRA8905",NA
-"25",NA,"note 1","Local Government has been reorganised over time with County Councils converted to Unitary Authorities, removing districts. In April 2009, this was implemented in County Durham, Northumberland, Shropshire, Cornwall, Isles of Scilly, Wiltshire. In April 2020, this was implemented in Buckinghamshire."
-"26",NA,"note 2","In April 2009, the former Cheshire County Council and Bedfordshire County Council were converted to two Unitary Authorities in these areas, removing districts."
-"27",NA,"note 3","On 1 April 2019 the former areas of Bournemouth Unitary Authority (UA), Poole UA and Christchurch District Council combined to form Bournemouth, Christchurch and Poole UA. In addition, the former county of Dorset transformed into a UA, but the area of Christchurch District Council is no longer part of Dorset UA."
-"28",NA,"note 4","In April 2021 the former county of Northamptonshire was separated into 2 new unitary authorities (UA): North Northamptonshire UA and West Northamptonshire UA."
-"29",NA,"note 5","These figures are affected by the September 2000 fuel protest."
-"30",NA,"note 6","These 2001 figures are affected by the impact of Foot and Mouth disease."
-"31",NA,"note 7","These figures are affected by the coronavirus (COVID-19) pandemic. Take caution when interpreting these data and comparing them with other time periods."
-"32",NA,"note 8","These 2001 figures are affected by the impact of Foot and Mouth disease."
-"33",NA,"note 9","These figures are affected by the coronavirus (COVID-19) pandemic. Take caution when interpreting these data and comparing them with other time periods."
-"34",NA,"[x]","Data not available."
-"35",NA,NA,NA
-"36","Next release","Sep 25",NA
+"Code","Borough","Year","Car_Traffic"
+"E09000001","City of London",1993,156
+"E09000001","City of London",1994,158
+"E09000001","City of London",1995,160
+"E09000001","City of London",1996,163
+"E09000001","City of London",1997,165
+"E09000001","City of London",1998,167
+"E09000001","City of London",1999,167
+"E09000001","City of London",2000,163
+"E09000001","City of London",2001,155
+"E09000001","City of London",2002,148
+"E09000001","City of London",2003,143
+"E09000001","City of London",2004,147
+"E09000001","City of London",2005,141
+"E09000001","City of London",2006,138
+"E09000001","City of London",2007,134
+"E09000001","City of London",2008,126
+"E09000001","City of London",2009,121
+"E09000001","City of London",2010,119
+"E09000001","City of London",2011,117
+"E09000001","City of London",2012,113
+"E09000001","City of London",2013,111
+"E09000001","City of London",2014,114
+"E09000001","City of London",2015,115
+"E09000001","City of London",2016,110
+"E09000001","City of London",2017,105
+"E09000001","City of London",2018,101
+"E09000001","City of London",2019,101
+"E09000001","City of London",2020,76
+"E09000001","City of London",2021,84
+"E09000001","City of London",2022,78
+"E09000001","City of London",2023,77
+"E09000001","City of London",2024,77
+"E09000001","City of London",2025,77
+"E09000001","City of London",2026,77
+"E09000001","City of London",2027,77
+"E09000001","City of London",2028,77
+"E09000001","City of London",2029,77
+"E09000001","City of London",2030,77
+"E09000001","City of London",2031,77
+"E09000002","Barking and Dagenham",1993,450
+"E09000002","Barking and Dagenham",1994,455
+"E09000002","Barking and Dagenham",1995,448
+"E09000002","Barking and Dagenham",1996,446
+"E09000002","Barking and Dagenham",1997,443
+"E09000002","Barking and Dagenham",1998,439
+"E09000002","Barking and Dagenham",1999,461
+"E09000002","Barking and Dagenham",2000,455
+"E09000002","Barking and Dagenham",2001,460
+"E09000002","Barking and Dagenham",2002,467
+"E09000002","Barking and Dagenham",2003,466
+"E09000002","Barking and Dagenham",2004,466
+"E09000002","Barking and Dagenham",2005,509
+"E09000002","Barking and Dagenham",2006,526
+"E09000002","Barking and Dagenham",2007,513
+"E09000002","Barking and Dagenham",2008,490
+"E09000002","Barking and Dagenham",2009,521
+"E09000002","Barking and Dagenham",2010,512
+"E09000002","Barking and Dagenham",2011,504
+"E09000002","Barking and Dagenham",2012,480
+"E09000002","Barking and Dagenham",2013,498
+"E09000002","Barking and Dagenham",2014,513
+"E09000002","Barking and Dagenham",2015,512
+"E09000002","Barking and Dagenham",2016,516
+"E09000002","Barking and Dagenham",2017,507
+"E09000002","Barking and Dagenham",2018,504
+"E09000002","Barking and Dagenham",2019,507
+"E09000002","Barking and Dagenham",2020,416
+"E09000002","Barking and Dagenham",2021,457
+"E09000002","Barking and Dagenham",2022,485
+"E09000002","Barking and Dagenham",2023,483
+"E09000002","Barking and Dagenham",2024,479
+"E09000002","Barking and Dagenham",2025,479
+"E09000002","Barking and Dagenham",2026,479
+"E09000002","Barking and Dagenham",2027,479
+"E09000002","Barking and Dagenham",2028,479
+"E09000002","Barking and Dagenham",2029,479
+"E09000002","Barking and Dagenham",2030,479
+"E09000002","Barking and Dagenham",2031,479
+"E09000003","Barnet",1993,1319
+"E09000003","Barnet",1994,1341
+"E09000003","Barnet",1995,1332
+"E09000003","Barnet",1996,1357
+"E09000003","Barnet",1997,1376
+"E09000003","Barnet",1998,1366
+"E09000003","Barnet",1999,1396
+"E09000003","Barnet",2000,1368
+"E09000003","Barnet",2001,1389
+"E09000003","Barnet",2002,1402
+"E09000003","Barnet",2003,1406
+"E09000003","Barnet",2004,1397
+"E09000003","Barnet",2005,1406
+"E09000003","Barnet",2006,1419
+"E09000003","Barnet",2007,1397
+"E09000003","Barnet",2008,1457
+"E09000003","Barnet",2009,1432
+"E09000003","Barnet",2010,1464
+"E09000003","Barnet",2011,1393
+"E09000003","Barnet",2012,1412
+"E09000003","Barnet",2013,1413
+"E09000003","Barnet",2014,1416
+"E09000003","Barnet",2015,1405
+"E09000003","Barnet",2016,1370
+"E09000003","Barnet",2017,1402
+"E09000003","Barnet",2018,1396
+"E09000003","Barnet",2019,1421
+"E09000003","Barnet",2020,1108
+"E09000003","Barnet",2021,1246
+"E09000003","Barnet",2022,1271
+"E09000003","Barnet",2023,1292
+"E09000003","Barnet",2024,1277
+"E09000003","Barnet",2025,1277
+"E09000003","Barnet",2026,1277
+"E09000003","Barnet",2027,1277
+"E09000003","Barnet",2028,1277
+"E09000003","Barnet",2029,1277
+"E09000003","Barnet",2030,1277
+"E09000003","Barnet",2031,1277
+"E09000004","Bexley",1993,729
+"E09000004","Bexley",1994,739
+"E09000004","Bexley",1995,730
+"E09000004","Bexley",1996,750
+"E09000004","Bexley",1997,758
+"E09000004","Bexley",1998,763
+"E09000004","Bexley",1999,775
+"E09000004","Bexley",2000,801
+"E09000004","Bexley",2001,817
+"E09000004","Bexley",2002,816
+"E09000004","Bexley",2003,821
+"E09000004","Bexley",2004,853
+"E09000004","Bexley",2005,858
+"E09000004","Bexley",2006,832
+"E09000004","Bexley",2007,824
+"E09000004","Bexley",2008,823
+"E09000004","Bexley",2009,832
+"E09000004","Bexley",2010,809
+"E09000004","Bexley",2011,795
+"E09000004","Bexley",2012,788
+"E09000004","Bexley",2013,772
+"E09000004","Bexley",2014,786
+"E09000004","Bexley",2015,791
+"E09000004","Bexley",2016,803
+"E09000004","Bexley",2017,805
+"E09000004","Bexley",2018,797
+"E09000004","Bexley",2019,814
+"E09000004","Bexley",2020,666
+"E09000004","Bexley",2021,749
+"E09000004","Bexley",2022,773
+"E09000004","Bexley",2023,778
+"E09000004","Bexley",2024,770
+"E09000004","Bexley",2025,770
+"E09000004","Bexley",2026,770
+"E09000004","Bexley",2027,770
+"E09000004","Bexley",2028,770
+"E09000004","Bexley",2029,770
+"E09000004","Bexley",2030,770
+"E09000004","Bexley",2031,770
+"E09000005","Brent",1993,774
+"E09000005","Brent",1994,783
+"E09000005","Brent",1995,773
+"E09000005","Brent",1996,795
+"E09000005","Brent",1997,792
+"E09000005","Brent",1998,811
+"E09000005","Brent",1999,828
+"E09000005","Brent",2000,836
+"E09000005","Brent",2001,835
+"E09000005","Brent",2002,859
+"E09000005","Brent",2003,853
+"E09000005","Brent",2004,865
+"E09000005","Brent",2005,865
+"E09000005","Brent",2006,851
+"E09000005","Brent",2007,837
+"E09000005","Brent",2008,800
+"E09000005","Brent",2009,793
+"E09000005","Brent",2010,833
+"E09000005","Brent",2011,798
+"E09000005","Brent",2012,794
+"E09000005","Brent",2013,774
+"E09000005","Brent",2014,791
+"E09000005","Brent",2015,770
+"E09000005","Brent",2016,791
+"E09000005","Brent",2017,784
+"E09000005","Brent",2018,784
+"E09000005","Brent",2019,806
+"E09000005","Brent",2020,677
+"E09000005","Brent",2021,746
+"E09000005","Brent",2022,742
+"E09000005","Brent",2023,753
+"E09000005","Brent",2024,747
+"E09000005","Brent",2025,747
+"E09000005","Brent",2026,747
+"E09000005","Brent",2027,747
+"E09000005","Brent",2028,747
+"E09000005","Brent",2029,747
+"E09000005","Brent",2030,747
+"E09000005","Brent",2031,747
+"E09000006","Bromley",1993,1087
+"E09000006","Bromley",1994,1087
+"E09000006","Bromley",1995,1082
+"E09000006","Bromley",1996,1101
+"E09000006","Bromley",1997,1107
+"E09000006","Bromley",1998,1115
+"E09000006","Bromley",1999,1120
+"E09000006","Bromley",2000,1130
+"E09000006","Bromley",2001,1164
+"E09000006","Bromley",2002,1170
+"E09000006","Bromley",2003,1175
+"E09000006","Bromley",2004,1187
+"E09000006","Bromley",2005,1185
+"E09000006","Bromley",2006,1180
+"E09000006","Bromley",2007,1165
+"E09000006","Bromley",2008,1161
+"E09000006","Bromley",2009,1158
+"E09000006","Bromley",2010,1126
+"E09000006","Bromley",2011,1130
+"E09000006","Bromley",2012,1127
+"E09000006","Bromley",2013,1135
+"E09000006","Bromley",2014,1156
+"E09000006","Bromley",2015,1160
+"E09000006","Bromley",2016,1160
+"E09000006","Bromley",2017,1155
+"E09000006","Bromley",2018,1135
+"E09000006","Bromley",2019,1180
+"E09000006","Bromley",2020,940
+"E09000006","Bromley",2021,1090
+"E09000006","Bromley",2022,1117
+"E09000006","Bromley",2023,1126
+"E09000006","Bromley",2024,1107
+"E09000006","Bromley",2025,1107
+"E09000006","Bromley",2026,1107
+"E09000006","Bromley",2027,1107
+"E09000006","Bromley",2028,1107
+"E09000006","Bromley",2029,1107
+"E09000006","Bromley",2030,1107
+"E09000006","Bromley",2031,1107
+"E09000007","Camden",1993,503
+"E09000007","Camden",1994,505
+"E09000007","Camden",1995,506
+"E09000007","Camden",1996,503
+"E09000007","Camden",1997,500
+"E09000007","Camden",1998,502
+"E09000007","Camden",1999,506
+"E09000007","Camden",2000,486
+"E09000007","Camden",2001,477
+"E09000007","Camden",2002,470
+"E09000007","Camden",2003,464
+"E09000007","Camden",2004,446
+"E09000007","Camden",2005,436
+"E09000007","Camden",2006,430
+"E09000007","Camden",2007,427
+"E09000007","Camden",2008,417
+"E09000007","Camden",2009,419
+"E09000007","Camden",2010,399
+"E09000007","Camden",2011,394
+"E09000007","Camden",2012,376
+"E09000007","Camden",2013,375
+"E09000007","Camden",2014,379
+"E09000007","Camden",2015,377
+"E09000007","Camden",2016,371
+"E09000007","Camden",2017,368
+"E09000007","Camden",2018,359
+"E09000007","Camden",2019,355
+"E09000007","Camden",2020,279
+"E09000007","Camden",2021,311
+"E09000007","Camden",2022,316
+"E09000007","Camden",2023,313
+"E09000007","Camden",2024,299
+"E09000007","Camden",2025,292
+"E09000007","Camden",2026,285
+"E09000007","Camden",2027,278
+"E09000007","Camden",2028,271
+"E09000007","Camden",2029,264
+"E09000007","Camden",2030,257
+"E09000007","Camden",2031,250
+"E09000008","Croydon",1993,1129
+"E09000008","Croydon",1994,1141
+"E09000008","Croydon",1995,1130
+"E09000008","Croydon",1996,1137
+"E09000008","Croydon",1997,1136
+"E09000008","Croydon",1998,1141
+"E09000008","Croydon",1999,1157
+"E09000008","Croydon",2000,1150
+"E09000008","Croydon",2001,1166
+"E09000008","Croydon",2002,1170
+"E09000008","Croydon",2003,1162
+"E09000008","Croydon",2004,1140
+"E09000008","Croydon",2005,1136
+"E09000008","Croydon",2006,1139
+"E09000008","Croydon",2007,1151
+"E09000008","Croydon",2008,1123
+"E09000008","Croydon",2009,1112
+"E09000008","Croydon",2010,1080
+"E09000008","Croydon",2011,1080
+"E09000008","Croydon",2012,1064
+"E09000008","Croydon",2013,1070
+"E09000008","Croydon",2014,1082
+"E09000008","Croydon",2015,1075
+"E09000008","Croydon",2016,1077
+"E09000008","Croydon",2017,1066
+"E09000008","Croydon",2018,1062
+"E09000008","Croydon",2019,1084
+"E09000008","Croydon",2020,884
+"E09000008","Croydon",2021,1012
+"E09000008","Croydon",2022,1036
+"E09000008","Croydon",2023,1052
+"E09000008","Croydon",2024,1031
+"E09000008","Croydon",2025,1031
+"E09000008","Croydon",2026,1031
+"E09000008","Croydon",2027,1031
+"E09000008","Croydon",2028,1031
+"E09000008","Croydon",2029,1031
+"E09000008","Croydon",2030,1031
+"E09000008","Croydon",2031,1031
+"E09000009","Ealing",1993,1085
+"E09000009","Ealing",1994,1095
+"E09000009","Ealing",1995,1078
+"E09000009","Ealing",1996,1095
+"E09000009","Ealing",1997,1091
+"E09000009","Ealing",1998,1089
+"E09000009","Ealing",1999,1160
+"E09000009","Ealing",2000,1156
+"E09000009","Ealing",2001,1166
+"E09000009","Ealing",2002,1173
+"E09000009","Ealing",2003,1162
+"E09000009","Ealing",2004,1154
+"E09000009","Ealing",2005,1145
+"E09000009","Ealing",2006,1123
+"E09000009","Ealing",2007,1078
+"E09000009","Ealing",2008,1104
+"E09000009","Ealing",2009,1112
+"E09000009","Ealing",2010,1084
+"E09000009","Ealing",2011,1072
+"E09000009","Ealing",2012,1028
+"E09000009","Ealing",2013,1083
+"E09000009","Ealing",2014,1053
+"E09000009","Ealing",2015,1059
+"E09000009","Ealing",2016,1046
+"E09000009","Ealing",2017,1063
+"E09000009","Ealing",2018,1057
+"E09000009","Ealing",2019,1064
+"E09000009","Ealing",2020,882
+"E09000009","Ealing",2021,960
+"E09000009","Ealing",2022,990
+"E09000009","Ealing",2023,977
+"E09000009","Ealing",2024,977
+"E09000009","Ealing",2025,977
+"E09000009","Ealing",2026,977
+"E09000009","Ealing",2027,977
+"E09000009","Ealing",2028,977
+"E09000009","Ealing",2029,977
+"E09000009","Ealing",2030,977
+"E09000009","Ealing",2031,977
+"E09000010","Enfield",1993,1158
+"E09000010","Enfield",1994,1183
+"E09000010","Enfield",1995,1183
+"E09000010","Enfield",1996,1204
+"E09000010","Enfield",1997,1224
+"E09000010","Enfield",1998,1219
+"E09000010","Enfield",1999,1244
+"E09000010","Enfield",2000,1256
+"E09000010","Enfield",2001,1213
+"E09000010","Enfield",2002,1236
+"E09000010","Enfield",2003,1274
+"E09000010","Enfield",2004,1280
+"E09000010","Enfield",2005,1259
+"E09000010","Enfield",2006,1318
+"E09000010","Enfield",2007,1312
+"E09000010","Enfield",2008,1259
+"E09000010","Enfield",2009,1288
+"E09000010","Enfield",2010,1340
+"E09000010","Enfield",2011,1237
+"E09000010","Enfield",2012,1291
+"E09000010","Enfield",2013,1238
+"E09000010","Enfield",2014,1286
+"E09000010","Enfield",2015,1319
+"E09000010","Enfield",2016,1306
+"E09000010","Enfield",2017,1304
+"E09000010","Enfield",2018,1308
+"E09000010","Enfield",2019,1328
+"E09000010","Enfield",2020,1026
+"E09000010","Enfield",2021,1194
+"E09000010","Enfield",2022,1273
+"E09000010","Enfield",2023,1296
+"E09000010","Enfield",2024,1251
+"E09000010","Enfield",2025,1251
+"E09000010","Enfield",2026,1251
+"E09000010","Enfield",2027,1251
+"E09000010","Enfield",2028,1251
+"E09000010","Enfield",2029,1251
+"E09000010","Enfield",2030,1251
+"E09000010","Enfield",2031,1251
+"E09000011","Greenwich",1993,886
+"E09000011","Greenwich",1994,898
+"E09000011","Greenwich",1995,890
+"E09000011","Greenwich",1996,887
+"E09000011","Greenwich",1997,896
+"E09000011","Greenwich",1998,901
+"E09000011","Greenwich",1999,919
+"E09000011","Greenwich",2000,917
+"E09000011","Greenwich",2001,924
+"E09000011","Greenwich",2002,947
+"E09000011","Greenwich",2003,954
+"E09000011","Greenwich",2004,990
+"E09000011","Greenwich",2005,986
+"E09000011","Greenwich",2006,966
+"E09000011","Greenwich",2007,959
+"E09000011","Greenwich",2008,942
+"E09000011","Greenwich",2009,944
+"E09000011","Greenwich",2010,926
+"E09000011","Greenwich",2011,948
+"E09000011","Greenwich",2012,919
+"E09000011","Greenwich",2013,911
+"E09000011","Greenwich",2014,920
+"E09000011","Greenwich",2015,928
+"E09000011","Greenwich",2016,914
+"E09000011","Greenwich",2017,917
+"E09000011","Greenwich",2018,913
+"E09000011","Greenwich",2019,925
+"E09000011","Greenwich",2020,771
+"E09000011","Greenwich",2021,866
+"E09000011","Greenwich",2022,892
+"E09000011","Greenwich",2023,907
+"E09000011","Greenwich",2024,890
+"E09000011","Greenwich",2025,890
+"E09000011","Greenwich",2026,890
+"E09000011","Greenwich",2027,890
+"E09000011","Greenwich",2028,890
+"E09000011","Greenwich",2029,890
+"E09000011","Greenwich",2030,890
+"E09000011","Greenwich",2031,890
+"E09000012","Hackney",1993,425
+"E09000012","Hackney",1994,428
+"E09000012","Hackney",1995,430
+"E09000012","Hackney",1996,432
+"E09000012","Hackney",1997,422
+"E09000012","Hackney",1998,416
+"E09000012","Hackney",1999,427
+"E09000012","Hackney",2000,439
+"E09000012","Hackney",2001,439
+"E09000012","Hackney",2002,447
+"E09000012","Hackney",2003,431
+"E09000012","Hackney",2004,411
+"E09000012","Hackney",2005,401
+"E09000012","Hackney",2006,408
+"E09000012","Hackney",2007,404
+"E09000012","Hackney",2008,399
+"E09000012","Hackney",2009,390
+"E09000012","Hackney",2010,382
+"E09000012","Hackney",2011,369
+"E09000012","Hackney",2012,355
+"E09000012","Hackney",2013,344
+"E09000012","Hackney",2014,349
+"E09000012","Hackney",2015,350
+"E09000012","Hackney",2016,349
+"E09000012","Hackney",2017,344
+"E09000012","Hackney",2018,333
+"E09000012","Hackney",2019,337
+"E09000012","Hackney",2020,278
+"E09000012","Hackney",2021,314
+"E09000012","Hackney",2022,308
+"E09000012","Hackney",2023,313
+"E09000012","Hackney",2024,312
+"E09000012","Hackney",2025,312
+"E09000012","Hackney",2026,312
+"E09000012","Hackney",2027,312
+"E09000012","Hackney",2028,312
+"E09000012","Hackney",2029,312
+"E09000012","Hackney",2030,312
+"E09000012","Hackney",2031,312
+"E09000013","Hammersmith and Fulham",1993,471
+"E09000013","Hammersmith and Fulham",1994,471
+"E09000013","Hammersmith and Fulham",1995,476
+"E09000013","Hammersmith and Fulham",1996,483
+"E09000013","Hammersmith and Fulham",1997,466
+"E09000013","Hammersmith and Fulham",1998,467
+"E09000013","Hammersmith and Fulham",1999,469
+"E09000013","Hammersmith and Fulham",2000,472
+"E09000013","Hammersmith and Fulham",2001,478
+"E09000013","Hammersmith and Fulham",2002,480
+"E09000013","Hammersmith and Fulham",2003,467
+"E09000013","Hammersmith and Fulham",2004,467
+"E09000013","Hammersmith and Fulham",2005,445
+"E09000013","Hammersmith and Fulham",2006,447
+"E09000013","Hammersmith and Fulham",2007,441
+"E09000013","Hammersmith and Fulham",2008,428
+"E09000013","Hammersmith and Fulham",2009,430
+"E09000013","Hammersmith and Fulham",2010,421
+"E09000013","Hammersmith and Fulham",2011,405
+"E09000013","Hammersmith and Fulham",2012,380
+"E09000013","Hammersmith and Fulham",2013,388
+"E09000013","Hammersmith and Fulham",2014,381
+"E09000013","Hammersmith and Fulham",2015,382
+"E09000013","Hammersmith and Fulham",2016,386
+"E09000013","Hammersmith and Fulham",2017,380
+"E09000013","Hammersmith and Fulham",2018,387
+"E09000013","Hammersmith and Fulham",2019,389
+"E09000013","Hammersmith and Fulham",2020,291
+"E09000013","Hammersmith and Fulham",2021,331
+"E09000013","Hammersmith and Fulham",2022,346
+"E09000013","Hammersmith and Fulham",2023,342
+"E09000013","Hammersmith and Fulham",2024,341
+"E09000013","Hammersmith and Fulham",2025,341
+"E09000013","Hammersmith and Fulham",2026,341
+"E09000013","Hammersmith and Fulham",2027,341
+"E09000013","Hammersmith and Fulham",2028,341
+"E09000013","Hammersmith and Fulham",2029,341
+"E09000013","Hammersmith and Fulham",2030,341
+"E09000013","Hammersmith and Fulham",2031,341
+"E09000014","Haringey",1993,506
+"E09000014","Haringey",1994,509
+"E09000014","Haringey",1995,509
+"E09000014","Haringey",1996,511
+"E09000014","Haringey",1997,509
+"E09000014","Haringey",1998,509
+"E09000014","Haringey",1999,515
+"E09000014","Haringey",2000,505
+"E09000014","Haringey",2001,499
+"E09000014","Haringey",2002,496
+"E09000014","Haringey",2003,492
+"E09000014","Haringey",2004,477
+"E09000014","Haringey",2005,474
+"E09000014","Haringey",2006,472
+"E09000014","Haringey",2007,471
+"E09000014","Haringey",2008,449
+"E09000014","Haringey",2009,434
+"E09000014","Haringey",2010,425
+"E09000014","Haringey",2011,425
+"E09000014","Haringey",2012,417
+"E09000014","Haringey",2013,415
+"E09000014","Haringey",2014,421
+"E09000014","Haringey",2015,421
+"E09000014","Haringey",2016,417
+"E09000014","Haringey",2017,413
+"E09000014","Haringey",2018,416
+"E09000014","Haringey",2019,424
+"E09000014","Haringey",2020,333
+"E09000014","Haringey",2021,376
+"E09000014","Haringey",2022,376
+"E09000014","Haringey",2023,377
+"E09000014","Haringey",2024,370
+"E09000014","Haringey",2025,365
+"E09000014","Haringey",2026,360
+"E09000014","Haringey",2027,355
+"E09000014","Haringey",2028,350
+"E09000014","Haringey",2029,345
+"E09000014","Haringey",2030,340
+"E09000014","Haringey",2031,336
+"E09000015","Harrow",1993,516
+"E09000015","Harrow",1994,523
+"E09000015","Harrow",1995,520
+"E09000015","Harrow",1996,526
+"E09000015","Harrow",1997,528
+"E09000015","Harrow",1998,537
+"E09000015","Harrow",1999,548
+"E09000015","Harrow",2000,549
+"E09000015","Harrow",2001,556
+"E09000015","Harrow",2002,589
+"E09000015","Harrow",2003,577
+"E09000015","Harrow",2004,573
+"E09000015","Harrow",2005,571
+"E09000015","Harrow",2006,570
+"E09000015","Harrow",2007,565
+"E09000015","Harrow",2008,565
+"E09000015","Harrow",2009,557
+"E09000015","Harrow",2010,538
+"E09000015","Harrow",2011,545
+"E09000015","Harrow",2012,552
+"E09000015","Harrow",2013,544
+"E09000015","Harrow",2014,547
+"E09000015","Harrow",2015,542
+"E09000015","Harrow",2016,540
+"E09000015","Harrow",2017,535
+"E09000015","Harrow",2018,529
+"E09000015","Harrow",2019,546
+"E09000015","Harrow",2020,421
+"E09000015","Harrow",2021,493
+"E09000015","Harrow",2022,511
+"E09000015","Harrow",2023,518
+"E09000015","Harrow",2024,508
+"E09000015","Harrow",2025,508
+"E09000015","Harrow",2026,508
+"E09000015","Harrow",2027,508
+"E09000015","Harrow",2028,508
+"E09000015","Harrow",2029,508
+"E09000015","Harrow",2030,508
+"E09000015","Harrow",2031,508
+"E09000016","Havering",1993,1091
+"E09000016","Havering",1994,1114
+"E09000016","Havering",1995,1119
+"E09000016","Havering",1996,1133
+"E09000016","Havering",1997,1146
+"E09000016","Havering",1998,1147
+"E09000016","Havering",1999,1196
+"E09000016","Havering",2000,1200
+"E09000016","Havering",2001,1190
+"E09000016","Havering",2002,1234
+"E09000016","Havering",2003,1154
+"E09000016","Havering",2004,1157
+"E09000016","Havering",2005,1197
+"E09000016","Havering",2006,1247
+"E09000016","Havering",2007,1222
+"E09000016","Havering",2008,1233
+"E09000016","Havering",2009,1282
+"E09000016","Havering",2010,1257
+"E09000016","Havering",2011,1231
+"E09000016","Havering",2012,1240
+"E09000016","Havering",2013,1271
+"E09000016","Havering",2014,1283
+"E09000016","Havering",2015,1267
+"E09000016","Havering",2016,1286
+"E09000016","Havering",2017,1297
+"E09000016","Havering",2018,1303
+"E09000016","Havering",2019,1333
+"E09000016","Havering",2020,1078
+"E09000016","Havering",2021,1197
+"E09000016","Havering",2022,1270
+"E09000016","Havering",2023,1296
+"E09000016","Havering",2024,1277
+"E09000016","Havering",2025,1278
+"E09000016","Havering",2026,1280
+"E09000016","Havering",2027,1281
+"E09000016","Havering",2028,1282
+"E09000016","Havering",2029,1284
+"E09000016","Havering",2030,1285
+"E09000016","Havering",2031,1286
+"E09000017","Hillingdon",1993,1754
+"E09000017","Hillingdon",1994,1787
+"E09000017","Hillingdon",1995,1792
+"E09000017","Hillingdon",1996,1824
+"E09000017","Hillingdon",1997,1865
+"E09000017","Hillingdon",1998,1920
+"E09000017","Hillingdon",1999,1950
+"E09000017","Hillingdon",2000,1950
+"E09000017","Hillingdon",2001,1929
+"E09000017","Hillingdon",2002,1973
+"E09000017","Hillingdon",2003,1936
+"E09000017","Hillingdon",2004,1932
+"E09000017","Hillingdon",2005,1937
+"E09000017","Hillingdon",2006,1926
+"E09000017","Hillingdon",2007,1923
+"E09000017","Hillingdon",2008,1967
+"E09000017","Hillingdon",2009,2016
+"E09000017","Hillingdon",2010,1898
+"E09000017","Hillingdon",2011,1890
+"E09000017","Hillingdon",2012,1932
+"E09000017","Hillingdon",2013,1965
+"E09000017","Hillingdon",2014,1998
+"E09000017","Hillingdon",2015,1943
+"E09000017","Hillingdon",2016,1975
+"E09000017","Hillingdon",2017,1950
+"E09000017","Hillingdon",2018,1980
+"E09000017","Hillingdon",2019,2023
+"E09000017","Hillingdon",2020,1561
+"E09000017","Hillingdon",2021,1767
+"E09000017","Hillingdon",2022,1840
+"E09000017","Hillingdon",2023,1852
+"E09000017","Hillingdon",2024,1829
+"E09000017","Hillingdon",2025,1829
+"E09000017","Hillingdon",2026,1829
+"E09000017","Hillingdon",2027,1829
+"E09000017","Hillingdon",2028,1829
+"E09000017","Hillingdon",2029,1829
+"E09000017","Hillingdon",2030,1829
+"E09000017","Hillingdon",2031,1829
+"E09000018","Hounslow",1993,1364
+"E09000018","Hounslow",1994,1387
+"E09000018","Hounslow",1995,1380
+"E09000018","Hounslow",1996,1408
+"E09000018","Hounslow",1997,1428
+"E09000018","Hounslow",1998,1440
+"E09000018","Hounslow",1999,1467
+"E09000018","Hounslow",2000,1440
+"E09000018","Hounslow",2001,1423
+"E09000018","Hounslow",2002,1437
+"E09000018","Hounslow",2003,1421
+"E09000018","Hounslow",2004,1451
+"E09000018","Hounslow",2005,1415
+"E09000018","Hounslow",2006,1441
+"E09000018","Hounslow",2007,1383
+"E09000018","Hounslow",2008,1399
+"E09000018","Hounslow",2009,1409
+"E09000018","Hounslow",2010,1367
+"E09000018","Hounslow",2011,1366
+"E09000018","Hounslow",2012,1356
+"E09000018","Hounslow",2013,1359
+"E09000018","Hounslow",2014,1373
+"E09000018","Hounslow",2015,1350
+"E09000018","Hounslow",2016,1370
+"E09000018","Hounslow",2017,1346
+"E09000018","Hounslow",2018,1354
+"E09000018","Hounslow",2019,1415
+"E09000018","Hounslow",2020,1035
+"E09000018","Hounslow",2021,1180
+"E09000018","Hounslow",2022,1287
+"E09000018","Hounslow",2023,1313
+"E09000018","Hounslow",2024,1272
+"E09000018","Hounslow",2025,1272
+"E09000018","Hounslow",2026,1272
+"E09000018","Hounslow",2027,1272
+"E09000018","Hounslow",2028,1272
+"E09000018","Hounslow",2029,1272
+"E09000018","Hounslow",2030,1272
+"E09000018","Hounslow",2031,1272
+"E09000019","Islington",1993,385
+"E09000019","Islington",1994,386
+"E09000019","Islington",1995,387
+"E09000019","Islington",1996,382
+"E09000019","Islington",1997,380
+"E09000019","Islington",1998,378
+"E09000019","Islington",1999,386
+"E09000019","Islington",2000,378
+"E09000019","Islington",2001,373
+"E09000019","Islington",2002,373
+"E09000019","Islington",2003,367
+"E09000019","Islington",2004,344
+"E09000019","Islington",2005,335
+"E09000019","Islington",2006,336
+"E09000019","Islington",2007,331
+"E09000019","Islington",2008,322
+"E09000019","Islington",2009,312
+"E09000019","Islington",2010,304
+"E09000019","Islington",2011,301
+"E09000019","Islington",2012,291
+"E09000019","Islington",2013,285
+"E09000019","Islington",2014,289
+"E09000019","Islington",2015,287
+"E09000019","Islington",2016,286
+"E09000019","Islington",2017,282
+"E09000019","Islington",2018,274
+"E09000019","Islington",2019,276
+"E09000019","Islington",2020,217
+"E09000019","Islington",2021,244
+"E09000019","Islington",2022,250
+"E09000019","Islington",2023,251
+"E09000019","Islington",2024,241
+"E09000019","Islington",2025,236
+"E09000019","Islington",2026,232
+"E09000019","Islington",2027,227
+"E09000019","Islington",2028,222
+"E09000019","Islington",2029,217
+"E09000019","Islington",2030,212
+"E09000019","Islington",2031,207
+"E09000020","Kensington and Chelsea",1993,459
+"E09000020","Kensington and Chelsea",1994,464
+"E09000020","Kensington and Chelsea",1995,468
+"E09000020","Kensington and Chelsea",1996,468
+"E09000020","Kensington and Chelsea",1997,467
+"E09000020","Kensington and Chelsea",1998,464
+"E09000020","Kensington and Chelsea",1999,468
+"E09000020","Kensington and Chelsea",2000,458
+"E09000020","Kensington and Chelsea",2001,458
+"E09000020","Kensington and Chelsea",2002,457
+"E09000020","Kensington and Chelsea",2003,436
+"E09000020","Kensington and Chelsea",2004,428
+"E09000020","Kensington and Chelsea",2005,423
+"E09000020","Kensington and Chelsea",2006,429
+"E09000020","Kensington and Chelsea",2007,405
+"E09000020","Kensington and Chelsea",2008,394
+"E09000020","Kensington and Chelsea",2009,393
+"E09000020","Kensington and Chelsea",2010,392
+"E09000020","Kensington and Chelsea",2011,392
+"E09000020","Kensington and Chelsea",2012,367
+"E09000020","Kensington and Chelsea",2013,362
+"E09000020","Kensington and Chelsea",2014,374
+"E09000020","Kensington and Chelsea",2015,371
+"E09000020","Kensington and Chelsea",2016,370
+"E09000020","Kensington and Chelsea",2017,362
+"E09000020","Kensington and Chelsea",2018,376
+"E09000020","Kensington and Chelsea",2019,383
+"E09000020","Kensington and Chelsea",2020,300
+"E09000020","Kensington and Chelsea",2021,326
+"E09000020","Kensington and Chelsea",2022,340
+"E09000020","Kensington and Chelsea",2023,342
+"E09000020","Kensington and Chelsea",2024,326
+"E09000020","Kensington and Chelsea",2025,321
+"E09000020","Kensington and Chelsea",2026,316
+"E09000020","Kensington and Chelsea",2027,311
+"E09000020","Kensington and Chelsea",2028,306
+"E09000020","Kensington and Chelsea",2029,302
+"E09000020","Kensington and Chelsea",2030,297
+"E09000020","Kensington and Chelsea",2031,292
+"E09000021","Kingston upon Thames",1993,852
+"E09000021","Kingston upon Thames",1994,862
+"E09000021","Kingston upon Thames",1995,850
+"E09000021","Kingston upon Thames",1996,867
+"E09000021","Kingston upon Thames",1997,863
+"E09000021","Kingston upon Thames",1998,871
+"E09000021","Kingston upon Thames",1999,877
+"E09000021","Kingston upon Thames",2000,883
+"E09000021","Kingston upon Thames",2001,869
+"E09000021","Kingston upon Thames",2002,867
+"E09000021","Kingston upon Thames",2003,865
+"E09000021","Kingston upon Thames",2004,868
+"E09000021","Kingston upon Thames",2005,868
+"E09000021","Kingston upon Thames",2006,835
+"E09000021","Kingston upon Thames",2007,856
+"E09000021","Kingston upon Thames",2008,844
+"E09000021","Kingston upon Thames",2009,861
+"E09000021","Kingston upon Thames",2010,903
+"E09000021","Kingston upon Thames",2011,828
+"E09000021","Kingston upon Thames",2012,817
+"E09000021","Kingston upon Thames",2013,814
+"E09000021","Kingston upon Thames",2014,808
+"E09000021","Kingston upon Thames",2015,803
+"E09000021","Kingston upon Thames",2016,809
+"E09000021","Kingston upon Thames",2017,798
+"E09000021","Kingston upon Thames",2018,794
+"E09000021","Kingston upon Thames",2019,817
+"E09000021","Kingston upon Thames",2020,641
+"E09000021","Kingston upon Thames",2021,744
+"E09000021","Kingston upon Thames",2022,754
+"E09000021","Kingston upon Thames",2023,768
+"E09000021","Kingston upon Thames",2024,755
+"E09000021","Kingston upon Thames",2025,755
+"E09000021","Kingston upon Thames",2026,755
+"E09000021","Kingston upon Thames",2027,755
+"E09000021","Kingston upon Thames",2028,755
+"E09000021","Kingston upon Thames",2029,755
+"E09000021","Kingston upon Thames",2030,755
+"E09000021","Kingston upon Thames",2031,755
+"E09000022","Lambeth",1993,739
+"E09000022","Lambeth",1994,743
+"E09000022","Lambeth",1995,745
+"E09000022","Lambeth",1996,753
+"E09000022","Lambeth",1997,745
+"E09000022","Lambeth",1998,740
+"E09000022","Lambeth",1999,759
+"E09000022","Lambeth",2000,739
+"E09000022","Lambeth",2001,733
+"E09000022","Lambeth",2002,723
+"E09000022","Lambeth",2003,689
+"E09000022","Lambeth",2004,663
+"E09000022","Lambeth",2005,644
+"E09000022","Lambeth",2006,642
+"E09000022","Lambeth",2007,640
+"E09000022","Lambeth",2008,620
+"E09000022","Lambeth",2009,598
+"E09000022","Lambeth",2010,578
+"E09000022","Lambeth",2011,573
+"E09000022","Lambeth",2012,556
+"E09000022","Lambeth",2013,544
+"E09000022","Lambeth",2014,552
+"E09000022","Lambeth",2015,549
+"E09000022","Lambeth",2016,555
+"E09000022","Lambeth",2017,558
+"E09000022","Lambeth",2018,541
+"E09000022","Lambeth",2019,550
+"E09000022","Lambeth",2020,439
+"E09000022","Lambeth",2021,501
+"E09000022","Lambeth",2022,515
+"E09000022","Lambeth",2023,520
+"E09000022","Lambeth",2024,519
+"E09000022","Lambeth",2025,519
+"E09000022","Lambeth",2026,519
+"E09000022","Lambeth",2027,519
+"E09000022","Lambeth",2028,519
+"E09000022","Lambeth",2029,519
+"E09000022","Lambeth",2030,519
+"E09000022","Lambeth",2031,519
+"E09000023","Lewisham",1993,700
+"E09000023","Lewisham",1994,705
+"E09000023","Lewisham",1995,706
+"E09000023","Lewisham",1996,713
+"E09000023","Lewisham",1997,709
+"E09000023","Lewisham",1998,713
+"E09000023","Lewisham",1999,721
+"E09000023","Lewisham",2000,716
+"E09000023","Lewisham",2001,715
+"E09000023","Lewisham",2002,713
+"E09000023","Lewisham",2003,699
+"E09000023","Lewisham",2004,671
+"E09000023","Lewisham",2005,658
+"E09000023","Lewisham",2006,654
+"E09000023","Lewisham",2007,649
+"E09000023","Lewisham",2008,636
+"E09000023","Lewisham",2009,623
+"E09000023","Lewisham",2010,606
+"E09000023","Lewisham",2011,610
+"E09000023","Lewisham",2012,597
+"E09000023","Lewisham",2013,583
+"E09000023","Lewisham",2014,589
+"E09000023","Lewisham",2015,591
+"E09000023","Lewisham",2016,598
+"E09000023","Lewisham",2017,596
+"E09000023","Lewisham",2018,575
+"E09000023","Lewisham",2019,588
+"E09000023","Lewisham",2020,469
+"E09000023","Lewisham",2021,533
+"E09000023","Lewisham",2022,529
+"E09000023","Lewisham",2023,532
+"E09000023","Lewisham",2024,531
+"E09000023","Lewisham",2025,531
+"E09000023","Lewisham",2026,531
+"E09000023","Lewisham",2027,531
+"E09000023","Lewisham",2028,531
+"E09000023","Lewisham",2029,531
+"E09000023","Lewisham",2030,531
+"E09000023","Lewisham",2031,531
+"E09000024","Merton",1993,555
+"E09000024","Merton",1994,562
+"E09000024","Merton",1995,556
+"E09000024","Merton",1996,565
+"E09000024","Merton",1997,563
+"E09000024","Merton",1998,565
+"E09000024","Merton",1999,572
+"E09000024","Merton",2000,576
+"E09000024","Merton",2001,583
+"E09000024","Merton",2002,579
+"E09000024","Merton",2003,562
+"E09000024","Merton",2004,565
+"E09000024","Merton",2005,565
+"E09000024","Merton",2006,569
+"E09000024","Merton",2007,566
+"E09000024","Merton",2008,564
+"E09000024","Merton",2009,560
+"E09000024","Merton",2010,550
+"E09000024","Merton",2011,538
+"E09000024","Merton",2012,533
+"E09000024","Merton",2013,529
+"E09000024","Merton",2014,525
+"E09000024","Merton",2015,520
+"E09000024","Merton",2016,515
+"E09000024","Merton",2017,509
+"E09000024","Merton",2018,516
+"E09000024","Merton",2019,528
+"E09000024","Merton",2020,415
+"E09000024","Merton",2021,476
+"E09000024","Merton",2022,490
+"E09000024","Merton",2023,497
+"E09000024","Merton",2024,462
+"E09000024","Merton",2025,458
+"E09000024","Merton",2026,454
+"E09000024","Merton",2027,450
+"E09000024","Merton",2028,446
+"E09000024","Merton",2029,442
+"E09000024","Merton",2030,438
+"E09000024","Merton",2031,434
+"E09000025","Newham",1993,682
+"E09000025","Newham",1994,684
+"E09000025","Newham",1995,684
+"E09000025","Newham",1996,694
+"E09000025","Newham",1997,710
+"E09000025","Newham",1998,705
+"E09000025","Newham",1999,739
+"E09000025","Newham",2000,726
+"E09000025","Newham",2001,715
+"E09000025","Newham",2002,712
+"E09000025","Newham",2003,706
+"E09000025","Newham",2004,709
+"E09000025","Newham",2005,727
+"E09000025","Newham",2006,743
+"E09000025","Newham",2007,753
+"E09000025","Newham",2008,749
+"E09000025","Newham",2009,780
+"E09000025","Newham",2010,758
+"E09000025","Newham",2011,722
+"E09000025","Newham",2012,696
+"E09000025","Newham",2013,653
+"E09000025","Newham",2014,694
+"E09000025","Newham",2015,704
+"E09000025","Newham",2016,707
+"E09000025","Newham",2017,729
+"E09000025","Newham",2018,731
+"E09000025","Newham",2019,726
+"E09000025","Newham",2020,604
+"E09000025","Newham",2021,628
+"E09000025","Newham",2022,661
+"E09000025","Newham",2023,674
+"E09000025","Newham",2024,673
+"E09000025","Newham",2025,673
+"E09000025","Newham",2026,673
+"E09000025","Newham",2027,673
+"E09000025","Newham",2028,673
+"E09000025","Newham",2029,673
+"E09000025","Newham",2030,673
+"E09000025","Newham",2031,673
+"E09000026","Redbridge",1993,793
+"E09000026","Redbridge",1994,804
+"E09000026","Redbridge",1995,794
+"E09000026","Redbridge",1996,792
+"E09000026","Redbridge",1997,799
+"E09000026","Redbridge",1998,793
+"E09000026","Redbridge",1999,846
+"E09000026","Redbridge",2000,855
+"E09000026","Redbridge",2001,875
+"E09000026","Redbridge",2002,867
+"E09000026","Redbridge",2003,852
+"E09000026","Redbridge",2004,858
+"E09000026","Redbridge",2005,903
+"E09000026","Redbridge",2006,911
+"E09000026","Redbridge",2007,908
+"E09000026","Redbridge",2008,890
+"E09000026","Redbridge",2009,898
+"E09000026","Redbridge",2010,909
+"E09000026","Redbridge",2011,959
+"E09000026","Redbridge",2012,935
+"E09000026","Redbridge",2013,934
+"E09000026","Redbridge",2014,948
+"E09000026","Redbridge",2015,934
+"E09000026","Redbridge",2016,938
+"E09000026","Redbridge",2017,942
+"E09000026","Redbridge",2018,955
+"E09000026","Redbridge",2019,952
+"E09000026","Redbridge",2020,799
+"E09000026","Redbridge",2021,866
+"E09000026","Redbridge",2022,920
+"E09000026","Redbridge",2023,895
+"E09000026","Redbridge",2024,896
+"E09000026","Redbridge",2025,896
+"E09000026","Redbridge",2026,896
+"E09000026","Redbridge",2027,896
+"E09000026","Redbridge",2028,896
+"E09000026","Redbridge",2029,896
+"E09000026","Redbridge",2030,896
+"E09000026","Redbridge",2031,896
+"E09000027","Richmond upon Thames",1993,764
+"E09000027","Richmond upon Thames",1994,773
+"E09000027","Richmond upon Thames",1995,762
+"E09000027","Richmond upon Thames",1996,769
+"E09000027","Richmond upon Thames",1997,772
+"E09000027","Richmond upon Thames",1998,773
+"E09000027","Richmond upon Thames",1999,784
+"E09000027","Richmond upon Thames",2000,774
+"E09000027","Richmond upon Thames",2001,778
+"E09000027","Richmond upon Thames",2002,785
+"E09000027","Richmond upon Thames",2003,773
+"E09000027","Richmond upon Thames",2004,772
+"E09000027","Richmond upon Thames",2005,762
+"E09000027","Richmond upon Thames",2006,755
+"E09000027","Richmond upon Thames",2007,753
+"E09000027","Richmond upon Thames",2008,744
+"E09000027","Richmond upon Thames",2009,737
+"E09000027","Richmond upon Thames",2010,713
+"E09000027","Richmond upon Thames",2011,703
+"E09000027","Richmond upon Thames",2012,716
+"E09000027","Richmond upon Thames",2013,709
+"E09000027","Richmond upon Thames",2014,707
+"E09000027","Richmond upon Thames",2015,703
+"E09000027","Richmond upon Thames",2016,701
+"E09000027","Richmond upon Thames",2017,702
+"E09000027","Richmond upon Thames",2018,685
+"E09000027","Richmond upon Thames",2019,704
+"E09000027","Richmond upon Thames",2020,550
+"E09000027","Richmond upon Thames",2021,623
+"E09000027","Richmond upon Thames",2022,637
+"E09000027","Richmond upon Thames",2023,648
+"E09000027","Richmond upon Thames",2024,640
+"E09000027","Richmond upon Thames",2025,640
+"E09000027","Richmond upon Thames",2026,640
+"E09000027","Richmond upon Thames",2027,640
+"E09000027","Richmond upon Thames",2028,640
+"E09000027","Richmond upon Thames",2029,640
+"E09000027","Richmond upon Thames",2030,640
+"E09000027","Richmond upon Thames",2031,640
+"E09000028","Southwark",1993,685
+"E09000028","Southwark",1994,689
+"E09000028","Southwark",1995,692
+"E09000028","Southwark",1996,690
+"E09000028","Southwark",1997,692
+"E09000028","Southwark",1998,689
+"E09000028","Southwark",1999,705
+"E09000028","Southwark",2000,690
+"E09000028","Southwark",2001,693
+"E09000028","Southwark",2002,688
+"E09000028","Southwark",2003,655
+"E09000028","Southwark",2004,635
+"E09000028","Southwark",2005,624
+"E09000028","Southwark",2006,632
+"E09000028","Southwark",2007,623
+"E09000028","Southwark",2008,598
+"E09000028","Southwark",2009,589
+"E09000028","Southwark",2010,570
+"E09000028","Southwark",2011,565
+"E09000028","Southwark",2012,536
+"E09000028","Southwark",2013,523
+"E09000028","Southwark",2014,530
+"E09000028","Southwark",2015,537
+"E09000028","Southwark",2016,532
+"E09000028","Southwark",2017,524
+"E09000028","Southwark",2018,509
+"E09000028","Southwark",2019,521
+"E09000028","Southwark",2020,422
+"E09000028","Southwark",2021,483
+"E09000028","Southwark",2022,490
+"E09000028","Southwark",2023,494
+"E09000028","Southwark",2024,492
+"E09000028","Southwark",2025,492
+"E09000028","Southwark",2026,492
+"E09000028","Southwark",2027,492
+"E09000028","Southwark",2028,492
+"E09000028","Southwark",2029,492
+"E09000028","Southwark",2030,492
+"E09000028","Southwark",2031,492
+"E09000029","Sutton",1993,600
+"E09000029","Sutton",1994,607
+"E09000029","Sutton",1995,604
+"E09000029","Sutton",1996,602
+"E09000029","Sutton",1997,605
+"E09000029","Sutton",1998,607
+"E09000029","Sutton",1999,621
+"E09000029","Sutton",2000,617
+"E09000029","Sutton",2001,627
+"E09000029","Sutton",2002,635
+"E09000029","Sutton",2003,629
+"E09000029","Sutton",2004,621
+"E09000029","Sutton",2005,628
+"E09000029","Sutton",2006,619
+"E09000029","Sutton",2007,634
+"E09000029","Sutton",2008,604
+"E09000029","Sutton",2009,605
+"E09000029","Sutton",2010,582
+"E09000029","Sutton",2011,579
+"E09000029","Sutton",2012,577
+"E09000029","Sutton",2013,576
+"E09000029","Sutton",2014,584
+"E09000029","Sutton",2015,582
+"E09000029","Sutton",2016,587
+"E09000029","Sutton",2017,582
+"E09000029","Sutton",2018,568
+"E09000029","Sutton",2019,585
+"E09000029","Sutton",2020,480
+"E09000029","Sutton",2021,546
+"E09000029","Sutton",2022,580
+"E09000029","Sutton",2023,582
+"E09000029","Sutton",2024,569
+"E09000029","Sutton",2025,569
+"E09000029","Sutton",2026,569
+"E09000029","Sutton",2027,569
+"E09000029","Sutton",2028,569
+"E09000029","Sutton",2029,569
+"E09000029","Sutton",2030,569
+"E09000029","Sutton",2031,569
+"E09000030","Tower Hamlets",1993,709
+"E09000030","Tower Hamlets",1994,712
+"E09000030","Tower Hamlets",1995,712
+"E09000030","Tower Hamlets",1996,709
+"E09000030","Tower Hamlets",1997,717
+"E09000030","Tower Hamlets",1998,711
+"E09000030","Tower Hamlets",1999,715
+"E09000030","Tower Hamlets",2000,741
+"E09000030","Tower Hamlets",2001,733
+"E09000030","Tower Hamlets",2002,741
+"E09000030","Tower Hamlets",2003,734
+"E09000030","Tower Hamlets",2004,720
+"E09000030","Tower Hamlets",2005,706
+"E09000030","Tower Hamlets",2006,729
+"E09000030","Tower Hamlets",2007,734
+"E09000030","Tower Hamlets",2008,712
+"E09000030","Tower Hamlets",2009,721
+"E09000030","Tower Hamlets",2010,735
+"E09000030","Tower Hamlets",2011,692
+"E09000030","Tower Hamlets",2012,655
+"E09000030","Tower Hamlets",2013,653
+"E09000030","Tower Hamlets",2014,633
+"E09000030","Tower Hamlets",2015,625
+"E09000030","Tower Hamlets",2016,635
+"E09000030","Tower Hamlets",2017,642
+"E09000030","Tower Hamlets",2018,640
+"E09000030","Tower Hamlets",2019,643
+"E09000030","Tower Hamlets",2020,525
+"E09000030","Tower Hamlets",2021,573
+"E09000030","Tower Hamlets",2022,586
+"E09000030","Tower Hamlets",2023,594
+"E09000030","Tower Hamlets",2024,591
+"E09000030","Tower Hamlets",2025,591
+"E09000030","Tower Hamlets",2026,591
+"E09000030","Tower Hamlets",2027,591
+"E09000030","Tower Hamlets",2028,591
+"E09000030","Tower Hamlets",2029,591
+"E09000030","Tower Hamlets",2030,591
+"E09000030","Tower Hamlets",2031,591
+"E09000031","Waltham Forest",1993,583
+"E09000031","Waltham Forest",1994,590
+"E09000031","Waltham Forest",1995,581
+"E09000031","Waltham Forest",1996,586
+"E09000031","Waltham Forest",1997,581
+"E09000031","Waltham Forest",1998,575
+"E09000031","Waltham Forest",1999,596
+"E09000031","Waltham Forest",2000,606
+"E09000031","Waltham Forest",2001,630
+"E09000031","Waltham Forest",2002,627
+"E09000031","Waltham Forest",2003,628
+"E09000031","Waltham Forest",2004,611
+"E09000031","Waltham Forest",2005,639
+"E09000031","Waltham Forest",2006,620
+"E09000031","Waltham Forest",2007,608
+"E09000031","Waltham Forest",2008,596
+"E09000031","Waltham Forest",2009,596
+"E09000031","Waltham Forest",2010,617
+"E09000031","Waltham Forest",2011,573
+"E09000031","Waltham Forest",2012,575
+"E09000031","Waltham Forest",2013,596
+"E09000031","Waltham Forest",2014,650
+"E09000031","Waltham Forest",2015,608
+"E09000031","Waltham Forest",2016,610
+"E09000031","Waltham Forest",2017,613
+"E09000031","Waltham Forest",2018,652
+"E09000031","Waltham Forest",2019,643
+"E09000031","Waltham Forest",2020,542
+"E09000031","Waltham Forest",2021,588
+"E09000031","Waltham Forest",2022,592
+"E09000031","Waltham Forest",2023,602
+"E09000031","Waltham Forest",2024,604
+"E09000031","Waltham Forest",2025,604
+"E09000031","Waltham Forest",2026,604
+"E09000031","Waltham Forest",2027,604
+"E09000031","Waltham Forest",2028,604
+"E09000031","Waltham Forest",2029,604
+"E09000031","Waltham Forest",2030,604
+"E09000031","Waltham Forest",2031,604
+"E09000032","Wandsworth",1993,827
+"E09000032","Wandsworth",1994,830
+"E09000032","Wandsworth",1995,831
+"E09000032","Wandsworth",1996,834
+"E09000032","Wandsworth",1997,842
+"E09000032","Wandsworth",1998,839
+"E09000032","Wandsworth",1999,856
+"E09000032","Wandsworth",2000,833
+"E09000032","Wandsworth",2001,833
+"E09000032","Wandsworth",2002,814
+"E09000032","Wandsworth",2003,788
+"E09000032","Wandsworth",2004,764
+"E09000032","Wandsworth",2005,740
+"E09000032","Wandsworth",2006,661
+"E09000032","Wandsworth",2007,690
+"E09000032","Wandsworth",2008,674
+"E09000032","Wandsworth",2009,647
+"E09000032","Wandsworth",2010,660
+"E09000032","Wandsworth",2011,627
+"E09000032","Wandsworth",2012,615
+"E09000032","Wandsworth",2013,597
+"E09000032","Wandsworth",2014,582
+"E09000032","Wandsworth",2015,586
+"E09000032","Wandsworth",2016,572
+"E09000032","Wandsworth",2017,593
+"E09000032","Wandsworth",2018,589
+"E09000032","Wandsworth",2019,607
+"E09000032","Wandsworth",2020,483
+"E09000032","Wandsworth",2021,534
+"E09000032","Wandsworth",2022,537
+"E09000032","Wandsworth",2023,536
+"E09000032","Wandsworth",2024,536
+"E09000032","Wandsworth",2025,536
+"E09000032","Wandsworth",2026,536
+"E09000032","Wandsworth",2027,536
+"E09000032","Wandsworth",2028,536
+"E09000032","Wandsworth",2029,536
+"E09000032","Wandsworth",2030,536
+"E09000032","Wandsworth",2031,536
+"E09000033","Westminster",1993,828
+"E09000033","Westminster",1994,838
+"E09000033","Westminster",1995,847
+"E09000033","Westminster",1996,833
+"E09000033","Westminster",1997,823
+"E09000033","Westminster",1998,836
+"E09000033","Westminster",1999,836
+"E09000033","Westminster",2000,819
+"E09000033","Westminster",2001,790
+"E09000033","Westminster",2002,768
+"E09000033","Westminster",2003,727
+"E09000033","Westminster",2004,746
+"E09000033","Westminster",2005,734
+"E09000033","Westminster",2006,721
+"E09000033","Westminster",2007,693
+"E09000033","Westminster",2008,668
+"E09000033","Westminster",2009,651
+"E09000033","Westminster",2010,638
+"E09000033","Westminster",2011,628
+"E09000033","Westminster",2012,609
+"E09000033","Westminster",2013,595
+"E09000033","Westminster",2014,617
+"E09000033","Westminster",2015,631
+"E09000033","Westminster",2016,620
+"E09000033","Westminster",2017,608
+"E09000033","Westminster",2018,598
+"E09000033","Westminster",2019,581
+"E09000033","Westminster",2020,436
+"E09000033","Westminster",2021,468
+"E09000033","Westminster",2022,479
+"E09000033","Westminster",2023,484
+"E09000033","Westminster",2024,484
+"E09000033","Westminster",2025,484
+"E09000033","Westminster",2026,484
+"E09000033","Westminster",2027,484
+"E09000033","Westminster",2028,484
+"E09000033","Westminster",2029,484
+"E09000033","Westminster",2030,484
+"E09000033","Westminster",2031,484
+"E12000007","London",1993,25560
+"E12000007","London",1994,25851
+"E12000007","London",1995,25755
+"E12000007","London",1996,26009
+"E12000007","London",1997,26119
+"E12000007","London",1998,26205
+"E12000007","London",1999,26785
+"E12000007","London",2000,26682
+"E12000007","London",2001,26686
+"E12000007","London",2002,26859
+"E12000007","London",2003,26466
+"E12000007","London",2004,26367
+"E12000007","London",2005,26322
+"E12000007","London",2006,26287
+"E12000007","London",2007,26047
+"E12000007","London",2008,25756
+"E12000007","London",2009,25819
+"E12000007","London",2010,25499
+"E12000007","London",2011,24986
+"E12000007","London",2012,24695
+"E12000007","London",2013,24616
+"E12000007","London",2014,24927
+"E12000007","London",2015,24795
+"E12000007","London",2016,24818
+"E12000007","London",2017,24780
+"E12000007","London",2018,24720
+"E12000007","London",2019,25152
+"E12000007","London",2020,20042
+"E12000007","London",2021,22504
+"E12000007","London",2022,23270
+"E12000007","London",2023,23482
+"E12000007","London",2024,23176
+"E12000007","London",2025,23176
+"E12000007","London",2026,23176
+"E12000007","London",2027,23176
+"E12000007","London",2028,23176
+"E12000007","London",2029,23176
+"E12000007","London",2030,23176
+"E12000007","London",2031,23176
