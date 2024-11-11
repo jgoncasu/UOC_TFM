@@ -14,7 +14,8 @@ PATH_FICHEROS_SALIDA <- 'DATOS/02_Staging/'
 ################################################################################
 
 carga_lista_barrios <- function() {
-  ruta_fichero <- '00_Barrios/barrios_londres.csv'
+  #ruta_fichero <- '00_Barrios/barrios_londres.csv'
+  ruta_fichero <- '00_Barrios/barrios_londres_Con_Londres_y_UK.csv'
   df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""))
   return(df)
 }
@@ -37,7 +38,6 @@ carga_indicador_01_edad <- function() {
 
 limpieza_indicador_01_edad <- function(df) {
   # TODO: Ver si nos quedamos con edad media por año o la cantidad de personas jóvenes (ver rango de edad)
-  # TODO: NO cargar datos de United Kingdom
   
   # Elimina la columna "No_Males"
   df$No_Males <- NULL
@@ -303,19 +303,75 @@ guardar_indicador_02_raza <- function(df) {
 
 carga_indicador_03_empleo <- function() {
   ruta_fichero <- '02_Empleo/earnings-residence-borough.xlsx'
-  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""))
-  return(df) 
-}
-
-limpieza_indicador_03_empleo <- function(df) {
+  nulos <- c("", "-", "!", "#")
+  columnas <- c("Code", "Borough", "Year_2002", "Conf_2002", "Year_2003", "Conf_2003", "Year_2004", "Conf_2004", "Year_2005", "Conf_2005"
+                , "Year_2006", "Conf_2006", "Year_2007", "Conf_2007", "Year_2008", "Conf_2008", "Year_2009", "Conf_2009", "Year_2010", "Conf_2010"
+                , "Year_2011", "Conf_2011", "Year_2012", "Conf_2012", "Year_2013", "Conf_2013", "Year_2014", "Conf_2014", "Year_2015", "Conf_2015"
+                , "Year_2016", "Conf_2016", "Year_2017", "Conf_2017", "Year_2018", "Conf_2018", "Year_2019", "Conf_2019", "Year_2020", "Conf_2020"
+                , "Year_2021", "Conf_2021", "Year_2022", "Conf_2022")
+  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), sheet = "Total, weekly", skip = 3, na = nulos, col_names = columnas)
   return(df)
 }
 
-imputar_valores_indicador_03_empleo <- function(df) {
+limpieza_indicador_03_empleo <- function(df) {
+  # Eliminar columnas Conf_Y
+  col_intconf <- paste0("Conf_", 2002:2022)
+  df <- df %>% select(-col_intconf)
+  
+  # Eliminar registros que no sean barrios de Londres
+  barrios_londres <- unlist(lista_barrios)
+  barrios <- unique(df$Borough)
+  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
+  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
+  
+  # Actualizar los códigos de barrio
+  df <- df %>%
+    left_join(select(df_barrios, Borough, Code), by = "Borough", suffix = c("", "_barrio")) %>%
+    mutate(Code = ifelse(!is.na(Code_barrio), Code_barrio, Code)) %>%
+    select(-Code_barrio)
+
+  # Imputamos valores para "City of London", mismos que ya tiene los años posteriores
+  df <- df %>%
+    mutate(across(starts_with("Year_"),
+                  ~ ifelse(Borough == "City of London" & is.na(.),
+                         ifelse(as.numeric(gsub("Year_", "", cur_column())) < 2009,
+                                Year_2009, Year_2018),.)))
+  
+  # Previsión valores hasta 2031
+  df_tmp <- df %>%
+    pivot_longer(cols = starts_with("Year_"), names_to = "Year", names_prefix = "Year_", values_to = "Week_Earnings") %>%
+    mutate(Year = as.numeric(Year))
+  forecast_results <- data.frame()
+  for (barrio in unique(df_tmp$Borough)) {
+    df_barrio <- df_tmp %>% filter(Borough == barrio)
+    ts_data <- ts(df_barrio$Week_Earnings, start = min(df_barrio$Year), frequency = 1)
+    model <- auto.arima(ts_data)
+    forecast_values <- round(forecast(model, h = 9)$mean, 2)
+    code <- df %>% filter(Borough == barrio) %>% distinct(Code)
+    forecast_df <- data.frame(Code = code,
+                              Borough = replicate(9, barrio),
+                              Year = 2023:2031,
+                              Week_Earnings = as.numeric(forecast_values))
+    forecast_results <- bind_rows(forecast_results, forecast_df)
+  }
+  
+  print(forecast_results)
+  
+  df <- df %>%
+    pivot_longer(cols = starts_with("Year_"),
+                 names_to = "Year",
+                 names_prefix = "Year_",
+                 values_to = "Week_Earnings") %>%
+    mutate(Year = as.numeric(Year)) %>%
+    bind_rows(forecast_results) %>%
+    pivot_wider(names_from = Year, values_from = Week_Earnings, names_prefix = "Year_")
+  
   return(df)
 }
 
 validar_indicador_03_empleo <- function(df) {
+  if (any(is.na(df)))
+    return(FALSE)
   return(TRUE)
 }
 
@@ -324,7 +380,6 @@ guardar_indicador_03_empleo <- function(df) {
   write.csv(df, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)
   
 }
-
 
 
 ################################################################################
@@ -532,21 +587,20 @@ df_barrios <- carga_lista_barrios()
 lista_barrios <- as.list(df_barrios %>% select(Borough))
 
 # Indicador 01 - Edad
-df_edad = carga_indicador_01_edad()
-df_edad = limpieza_indicador_01_edad(df_edad)
-if (validar_indicador_01_edad(df_edad)) guardar_indicador_01_edad(df_edad) else print("[ERROR]: Revisar los datos del indicador 01 - Edad")
+#df_edad = carga_indicador_01_edad()
+#df_edad = limpieza_indicador_01_edad(df_edad)
+#if (validar_indicador_01_edad(df_edad)) guardar_indicador_01_edad(df_edad) else print("[ERROR]: Revisar los datos del indicador 01 - Edad")
 
 # Indicador 02 - Raza
-df_raza = carga_indicador_02_raza()
-df_raza = limpieza_indicador_02_raza(df_raza)
-if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
+#df_raza = carga_indicador_02_raza()
+#df_raza = limpieza_indicador_02_raza(df_raza)
+#if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
 
 # Indicador 03 - Empleo
-#df_empleo = carga_indicador_03_empleo()
-#df_empleo = limpieza_indicador_03_empleo(df_empleo)
-#df_empleo = imputar_valores_indicador_03_empleo(df_empleo)
-#if (validar_indicador_03_empleo(df_empleo))
-#  guardar_indicador_03_empleo(df_empleo)
+df_empleo = carga_indicador_03_empleo()
+df_empleo = limpieza_indicador_03_empleo(df_empleo)
+if (validar_indicador_03_empleo(df_empleo))
+  guardar_indicador_03_empleo(df_empleo)
 
 # Indicador 04 - Estudios
 #df_estudios = carga_indicador_04_estudios()
