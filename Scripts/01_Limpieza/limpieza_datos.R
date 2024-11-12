@@ -466,7 +466,6 @@ guardar_indicador_04_estudios <- function(df) {
 
 carga_indicador_05_trafico <- function() {
   nulos <- c("", "-", "!", "#")
-  
   columnas <- c("Code", "Borough", paste0("Year_", 1993:2023))
   ruta_fichero <- '04_Medio_Ambiente/traffic-flow-borough.xls'
   df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_names = columnas, na = nulos, skip = 1, sheet = "Traffic Flows - Cars")
@@ -496,9 +495,7 @@ limpieza_indicador_05_trafico <- function(df) {
     predicciones <- list()
     serie_Traffic <- ts(df %>% filter(Borough == barrio) %>% pull(Car_Traffic), start = 1993, end = 2023, frequency = 1)
     modelo_Traffic <- ets(serie_Traffic)
-    print(length(anyos_pred))
     pred_Traffic <- forecast(modelo_Traffic, h = length(anyos_pred))
-    print(pred_Traffic)
     predicciones[["Car_Traffic"]] <- round(pred_Traffic$mean, 0)
     
     predicciones_df <- as.data.frame(predicciones)
@@ -530,12 +527,73 @@ guardar_indicador_05_trafico <- function(df) {
 ################################################################################
 
 carga_indicador_06_esperanza_vida <- function() {
-  ruta_fichero <- '05_Sanidad/life-expectancy-birth-over65-borough.xls'
-  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""))
-  return(df) 
+  nulos <- c("", "-")
+  anyos <- 2003:2022
+  rep_anyos <- rep(anyos, each = 3)
+  etiquetas <- c("life_exp_", "lower_ci_", "upper_ci_")
+  columnas <- paste0(etiquetas, rep_anyos)
+  columnas <- c("Code", "Borough", "Sex", "Age", columnas)
+  ruta_fichero <- '05_Sanidad/lifeexpectancylocalareas.xlsx'
+  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), sheet = 5, skip = 12, na = nulos, col_names = columnas)
+  return(df)
 }
 
 limpieza_indicador_06_esperanza_vida <- function(df) {
+  # Filtra los registros que no corresponden con barrios de Londres
+  barrios_londres <- unlist(lista_barrios)
+  barrios <- unique(df$Borough)
+  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
+  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
+  
+  # Filtrar Age = < 1
+  df <- df %>% filter(Age == "<1")
+  
+  # Eliminar columnas lower_ci, upper_ci y edad
+  df <- df %>% select(-paste0("lower_ci_", 2003:2022))
+  df <- df %>% select(-paste0("upper_ci_", 2003:2022))
+  df <- df %>% select(-Age)
+  
+  # Pivot años a filas
+  df <- df %>%
+    pivot_longer(cols = starts_with("life_exp_"),
+                 names_to = "Year",
+                 names_prefix = "life_exp_",
+                 values_to = "Life_Expectancy") %>%
+    mutate(Year = as.numeric(Year))
+
+  # Previsión hasta 2031
+  anyos_pred <- 2023:2031
+  barrios <- unique(df$Borough)
+  for (barrio in barrios) {
+    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
+    predicciones_Female <- list()
+    predicciones_Male <- list()
+    serie_Female <- ts(df %>% filter(Borough == barrio & Sex == "Female") %>% pull(Life_Expectancy), start = 2003, end = 2022, frequency = 1)
+    serie_Male <- ts(df %>% filter(Borough == barrio & Sex == "Male") %>% pull(Life_Expectancy), start = 2003, end = 2022, frequency = 1)
+    modelo_Female <- ets(serie_Female)
+    modelo_Male <- ets(serie_Male)
+    pred_Female <- forecast(modelo_Female, h = length(anyos_pred))
+    pred_Male <- forecast(modelo_Male, h = length(anyos_pred))
+    predicciones_Female[["Life_Expectancy"]] <- round(pred_Female$mean, 2)
+    predicciones_Female[["Sex"]] <- "Female"
+    predicciones_Male[["Life_Expectancy"]] <- round(pred_Male$mean, 2)
+    predicciones_Male[["Sex"]] <- "Male"
+    
+    predicciones_df <- as.data.frame(predicciones_Female)
+    predicciones_df$Year <- anyos_pred
+    predicciones_df$Borough <- barrio
+    predicciones_df$Code <- codigo_barrio
+    df <- bind_rows(df, predicciones_df)
+    
+    predicciones_df <- as.data.frame(predicciones_Male)
+    predicciones_df$Year <- anyos_pred
+    predicciones_df$Borough <- barrio
+    predicciones_df$Code <- codigo_barrio
+    df <- bind_rows(df, predicciones_df)
+  }
+  
+  # Ordenar datos por barrio, sexo y año
+  df <- df %>% arrange(Code, Sex, Year)
   return(df)
 }
 
@@ -702,17 +760,16 @@ lista_barrios <- as.list(df_barrios %>% select(Borough))
 #  guardar_indicador_04_estudios(df_estudios)
 
 # Indicador 05 - Tráfico
-df_trafico = carga_indicador_05_trafico()
-df_trafico = limpieza_indicador_05_trafico(df_trafico)
-if (validar_indicador_05_trafico(df_trafico))
-  guardar_indicador_05_trafico(df_trafico)
+#df_trafico = carga_indicador_05_trafico()
+#df_trafico = limpieza_indicador_05_trafico(df_trafico)
+#if (validar_indicador_05_trafico(df_trafico))
+#  guardar_indicador_05_trafico(df_trafico)
 
 # Indicador 06 - Esperanza de vida
-#df_esperanza_vida = carga_indicador_06_esperanza_vida()
-#df_esperanza_vida = limpieza_indicador_06_esperanza_vida(df_esperanza_vida)
-#df_esperanza_vida = imputar_valores_indicador_06_esperanza_vida(df_esperanza_vida)
-#if (validar_indicador_06_esperanza_vida(df_esperanza_vida))
-#  guardar_indicador_06_esperanza_vida(df_esperanza_vida)
+df_esperanza_vida = carga_indicador_06_esperanza_vida()
+df_esperanza_vida = limpieza_indicador_06_esperanza_vida(df_esperanza_vida)
+if (validar_indicador_06_esperanza_vida(df_esperanza_vida))
+  guardar_indicador_06_esperanza_vida(df_esperanza_vida)
 
 # Indicador 07 - Delitos
 #df_delitos = carga_indicador_07_delitos()

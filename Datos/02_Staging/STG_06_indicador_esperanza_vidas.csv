@@ -1,30 +1,1915 @@
-"","Name","Life expectancy at birth and age 65"
-"1","ShortName","Life expectancy"
-"2",NA,NA
-"3",NA,NA
-"4",NA,NA
-"5","Theme","Health"
-"6","Sub-theme","Life Expectancy"
-"7",NA,NA
-"8","Title","Life expectancy at birth and at age 65"
-"9","Description","Life expectancy at birth by sex, and at age 65 by sex"
-"10","Subject","Life Expectancy"
-"11","Subject.keyword","Life Expectancy at birth, sex, males, females"
-"12","Publisher","Office for National Statistics"
-"13","Date.available","1991-1993 to 2016-2018 (65+ starts at 2001-03)"
-"14","Creator","Office for National Statistics"
-"15","Date.created","Mar 2021"
-"16","Coverage.spatial","Local authorities"
-"17","Coverage.temporal","Annual"
-"18","Type","Estimates"
-"19","Language","English"
-"20","Rights","Crown Copyright 2009"
-"21","More info",NA
-"22","Download from","http://www.ons.gov.uk/ons/rel/subnational-health4/life-expectancy-at-birth-and-at-age-65-by-local-areas-in-england-and-wales/index.html"
-"23","Measure","Years"
-"24","Warnings/Notes","Based on boundaries as of 2010."
-"25",NA,"Data for 2000-2002 to 2008-2010 revised on 24 July 2013. "
-"26",NA,"1England and Wales - non-resident deaths included"
-"27",NA,"2England, Wales - non-resident deaths excluded"
-"28",NA,"Figures given for 3 combined years to increase reliability at local levels."
-"29","Next release","Dec 21"
+"Code","Borough","Sex","Year","Life_Expectancy"
+"E09000002","Barking and Dagenham","Female",2003,79.33
+"E09000002","Barking and Dagenham","Female",2004,79.2
+"E09000002","Barking and Dagenham","Female",2005,79.36
+"E09000002","Barking and Dagenham","Female",2006,79.77
+"E09000002","Barking and Dagenham","Female",2007,80.18
+"E09000002","Barking and Dagenham","Female",2008,80.3
+"E09000002","Barking and Dagenham","Female",2009,80.62
+"E09000002","Barking and Dagenham","Female",2010,80.74
+"E09000002","Barking and Dagenham","Female",2011,81.4
+"E09000002","Barking and Dagenham","Female",2012,81.74
+"E09000002","Barking and Dagenham","Female",2013,82.15
+"E09000002","Barking and Dagenham","Female",2014,81.97
+"E09000002","Barking and Dagenham","Female",2015,81.7
+"E09000002","Barking and Dagenham","Female",2016,81.79
+"E09000002","Barking and Dagenham","Female",2017,81.98
+"E09000002","Barking and Dagenham","Female",2018,82.46
+"E09000002","Barking and Dagenham","Female",2019,82.12
+"E09000002","Barking and Dagenham","Female",2020,81.45
+"E09000002","Barking and Dagenham","Female",2021,80.81
+"E09000002","Barking and Dagenham","Female",2022,80.44
+"E09000002","Barking and Dagenham","Female",2023,80.44
+"E09000002","Barking and Dagenham","Female",2024,80.44
+"E09000002","Barking and Dagenham","Female",2025,80.44
+"E09000002","Barking and Dagenham","Female",2026,80.44
+"E09000002","Barking and Dagenham","Female",2027,80.44
+"E09000002","Barking and Dagenham","Female",2028,80.44
+"E09000002","Barking and Dagenham","Female",2029,80.44
+"E09000002","Barking and Dagenham","Female",2030,80.44
+"E09000002","Barking and Dagenham","Female",2031,80.44
+"E09000002","Barking and Dagenham","Male",2003,74.52
+"E09000002","Barking and Dagenham","Male",2004,74.81
+"E09000002","Barking and Dagenham","Male",2005,75.17
+"E09000002","Barking and Dagenham","Male",2006,75.73
+"E09000002","Barking and Dagenham","Male",2007,75.99
+"E09000002","Barking and Dagenham","Male",2008,76
+"E09000002","Barking and Dagenham","Male",2009,76.05
+"E09000002","Barking and Dagenham","Male",2010,76.44
+"E09000002","Barking and Dagenham","Male",2011,77.09
+"E09000002","Barking and Dagenham","Male",2012,77.49
+"E09000002","Barking and Dagenham","Male",2013,77.55
+"E09000002","Barking and Dagenham","Male",2014,77.46
+"E09000002","Barking and Dagenham","Male",2015,77.4
+"E09000002","Barking and Dagenham","Male",2016,77.42
+"E09000002","Barking and Dagenham","Male",2017,77.68
+"E09000002","Barking and Dagenham","Male",2018,77.77
+"E09000002","Barking and Dagenham","Male",2019,77.83
+"E09000002","Barking and Dagenham","Male",2020,76.83
+"E09000002","Barking and Dagenham","Male",2021,76.2
+"E09000002","Barking and Dagenham","Male",2022,76.26
+"E09000002","Barking and Dagenham","Male",2023,76.26
+"E09000002","Barking and Dagenham","Male",2024,76.26
+"E09000002","Barking and Dagenham","Male",2025,76.26
+"E09000002","Barking and Dagenham","Male",2026,76.26
+"E09000002","Barking and Dagenham","Male",2027,76.26
+"E09000002","Barking and Dagenham","Male",2028,76.26
+"E09000002","Barking and Dagenham","Male",2029,76.26
+"E09000002","Barking and Dagenham","Male",2030,76.26
+"E09000002","Barking and Dagenham","Male",2031,76.26
+"E09000003","Barnet","Female",2003,82.2
+"E09000003","Barnet","Female",2004,82.63
+"E09000003","Barnet","Female",2005,82.92
+"E09000003","Barnet","Female",2006,83.32
+"E09000003","Barnet","Female",2007,83.45
+"E09000003","Barnet","Female",2008,83.8
+"E09000003","Barnet","Female",2009,83.9
+"E09000003","Barnet","Female",2010,83.93
+"E09000003","Barnet","Female",2011,84.05
+"E09000003","Barnet","Female",2012,84.41
+"E09000003","Barnet","Female",2013,84.87
+"E09000003","Barnet","Female",2014,85
+"E09000003","Barnet","Female",2015,84.97
+"E09000003","Barnet","Female",2016,85.07
+"E09000003","Barnet","Female",2017,85.32
+"E09000003","Barnet","Female",2018,85.63
+"E09000003","Barnet","Female",2019,85.8
+"E09000003","Barnet","Female",2020,85.3
+"E09000003","Barnet","Female",2021,85.23
+"E09000003","Barnet","Female",2022,84.93
+"E09000003","Barnet","Female",2023,84.77
+"E09000003","Barnet","Female",2024,84.61
+"E09000003","Barnet","Female",2025,84.45
+"E09000003","Barnet","Female",2026,84.29
+"E09000003","Barnet","Female",2027,84.13
+"E09000003","Barnet","Female",2028,83.98
+"E09000003","Barnet","Female",2029,83.82
+"E09000003","Barnet","Female",2030,83.66
+"E09000003","Barnet","Female",2031,83.5
+"E09000003","Barnet","Male",2003,77.98
+"E09000003","Barnet","Male",2004,78.27
+"E09000003","Barnet","Male",2005,78.43
+"E09000003","Barnet","Male",2006,78.85
+"E09000003","Barnet","Male",2007,79.33
+"E09000003","Barnet","Male",2008,79.79
+"E09000003","Barnet","Male",2009,79.95
+"E09000003","Barnet","Male",2010,80.09
+"E09000003","Barnet","Male",2011,80.58
+"E09000003","Barnet","Male",2012,81.2
+"E09000003","Barnet","Male",2013,81.62
+"E09000003","Barnet","Male",2014,81.88
+"E09000003","Barnet","Male",2015,81.75
+"E09000003","Barnet","Male",2016,81.81
+"E09000003","Barnet","Male",2017,81.84
+"E09000003","Barnet","Male",2018,82.05
+"E09000003","Barnet","Male",2019,82.35
+"E09000003","Barnet","Male",2020,81.42
+"E09000003","Barnet","Male",2021,80.86
+"E09000003","Barnet","Male",2022,80.85
+"E09000003","Barnet","Male",2023,80.64
+"E09000003","Barnet","Male",2024,80.42
+"E09000003","Barnet","Male",2025,80.21
+"E09000003","Barnet","Male",2026,80
+"E09000003","Barnet","Male",2027,79.78
+"E09000003","Barnet","Male",2028,79.57
+"E09000003","Barnet","Male",2029,79.36
+"E09000003","Barnet","Male",2030,79.14
+"E09000003","Barnet","Male",2031,78.93
+"E09000004","Bexley","Female",2003,81.23
+"E09000004","Bexley","Female",2004,81.57
+"E09000004","Bexley","Female",2005,81.96
+"E09000004","Bexley","Female",2006,82.48
+"E09000004","Bexley","Female",2007,82.6
+"E09000004","Bexley","Female",2008,82.53
+"E09000004","Bexley","Female",2009,82.82
+"E09000004","Bexley","Female",2010,83.21
+"E09000004","Bexley","Female",2011,83.78
+"E09000004","Bexley","Female",2012,84.06
+"E09000004","Bexley","Female",2013,84.06
+"E09000004","Bexley","Female",2014,84.13
+"E09000004","Bexley","Female",2015,83.94
+"E09000004","Bexley","Female",2016,84.03
+"E09000004","Bexley","Female",2017,83.87
+"E09000004","Bexley","Female",2018,83.83
+"E09000004","Bexley","Female",2019,83.79
+"E09000004","Bexley","Female",2020,83.5
+"E09000004","Bexley","Female",2021,83.38
+"E09000004","Bexley","Female",2022,83.21
+"E09000004","Bexley","Female",2023,83.05
+"E09000004","Bexley","Female",2024,82.9
+"E09000004","Bexley","Female",2025,82.74
+"E09000004","Bexley","Female",2026,82.58
+"E09000004","Bexley","Female",2027,82.43
+"E09000004","Bexley","Female",2028,82.27
+"E09000004","Bexley","Female",2029,82.11
+"E09000004","Bexley","Female",2030,81.96
+"E09000004","Bexley","Female",2031,81.8
+"E09000004","Bexley","Male",2003,77.07
+"E09000004","Bexley","Male",2004,77.57
+"E09000004","Bexley","Male",2005,78.18
+"E09000004","Bexley","Male",2006,78.41
+"E09000004","Bexley","Male",2007,78.6
+"E09000004","Bexley","Male",2008,78.92
+"E09000004","Bexley","Male",2009,79.19
+"E09000004","Bexley","Male",2010,79.68
+"E09000004","Bexley","Male",2011,79.84
+"E09000004","Bexley","Male",2012,80.12
+"E09000004","Bexley","Male",2013,80.12
+"E09000004","Bexley","Male",2014,80.29
+"E09000004","Bexley","Male",2015,80.06
+"E09000004","Bexley","Male",2016,80.05
+"E09000004","Bexley","Male",2017,79.98
+"E09000004","Bexley","Male",2018,80.02
+"E09000004","Bexley","Male",2019,80.07
+"E09000004","Bexley","Male",2020,79.84
+"E09000004","Bexley","Male",2021,79.63
+"E09000004","Bexley","Male",2022,79.68
+"E09000004","Bexley","Male",2023,79.66
+"E09000004","Bexley","Male",2024,79.65
+"E09000004","Bexley","Male",2025,79.64
+"E09000004","Bexley","Male",2026,79.63
+"E09000004","Bexley","Male",2027,79.62
+"E09000004","Bexley","Male",2028,79.61
+"E09000004","Bexley","Male",2029,79.61
+"E09000004","Bexley","Male",2030,79.6
+"E09000004","Bexley","Male",2031,79.6
+"E09000005","Brent","Female",2003,81.57
+"E09000005","Brent","Female",2004,82.11
+"E09000005","Brent","Female",2005,82.61
+"E09000005","Brent","Female",2006,83.1
+"E09000005","Brent","Female",2007,83.41
+"E09000005","Brent","Female",2008,83.51
+"E09000005","Brent","Female",2009,83.59
+"E09000005","Brent","Female",2010,83.57
+"E09000005","Brent","Female",2011,84.07
+"E09000005","Brent","Female",2012,84.16
+"E09000005","Brent","Female",2013,84.39
+"E09000005","Brent","Female",2014,84.54
+"E09000005","Brent","Female",2015,84.8
+"E09000005","Brent","Female",2016,84.92
+"E09000005","Brent","Female",2017,84.76
+"E09000005","Brent","Female",2018,84.81
+"E09000005","Brent","Female",2019,85.1
+"E09000005","Brent","Female",2020,84.61
+"E09000005","Brent","Female",2021,84.24
+"E09000005","Brent","Female",2022,84.27
+"E09000005","Brent","Female",2023,84.28
+"E09000005","Brent","Female",2024,84.29
+"E09000005","Brent","Female",2025,84.3
+"E09000005","Brent","Female",2026,84.31
+"E09000005","Brent","Female",2027,84.32
+"E09000005","Brent","Female",2028,84.32
+"E09000005","Brent","Female",2029,84.32
+"E09000005","Brent","Female",2030,84.33
+"E09000005","Brent","Female",2031,84.33
+"E09000005","Brent","Male",2003,76.01
+"E09000005","Brent","Male",2004,76.47
+"E09000005","Brent","Male",2005,77.19
+"E09000005","Brent","Male",2006,77.84
+"E09000005","Brent","Male",2007,78.1
+"E09000005","Brent","Male",2008,78.35
+"E09000005","Brent","Male",2009,78.61
+"E09000005","Brent","Male",2010,79.06
+"E09000005","Brent","Male",2011,79.55
+"E09000005","Brent","Male",2012,79.62
+"E09000005","Brent","Male",2013,79.75
+"E09000005","Brent","Male",2014,79.84
+"E09000005","Brent","Male",2015,79.79
+"E09000005","Brent","Male",2016,79.96
+"E09000005","Brent","Male",2017,80
+"E09000005","Brent","Male",2018,80.38
+"E09000005","Brent","Male",2019,80.82
+"E09000005","Brent","Male",2020,79.78
+"E09000005","Brent","Male",2021,79.04
+"E09000005","Brent","Male",2022,78.55
+"E09000005","Brent","Male",2023,78.03
+"E09000005","Brent","Male",2024,77.51
+"E09000005","Brent","Male",2025,76.99
+"E09000005","Brent","Male",2026,76.47
+"E09000005","Brent","Male",2027,75.94
+"E09000005","Brent","Male",2028,75.42
+"E09000005","Brent","Male",2029,74.9
+"E09000005","Brent","Male",2030,74.38
+"E09000005","Brent","Male",2031,73.86
+"E09000006","Bromley","Female",2003,82.02
+"E09000006","Bromley","Female",2004,82.29
+"E09000006","Bromley","Female",2005,82.61
+"E09000006","Bromley","Female",2006,83.26
+"E09000006","Bromley","Female",2007,83.37
+"E09000006","Bromley","Female",2008,83.44
+"E09000006","Bromley","Female",2009,83.54
+"E09000006","Bromley","Female",2010,83.93
+"E09000006","Bromley","Female",2011,84.24
+"E09000006","Bromley","Female",2012,84.36
+"E09000006","Bromley","Female",2013,84.74
+"E09000006","Bromley","Female",2014,84.72
+"E09000006","Bromley","Female",2015,85.05
+"E09000006","Bromley","Female",2016,84.9
+"E09000006","Bromley","Female",2017,85.25
+"E09000006","Bromley","Female",2018,84.99
+"E09000006","Bromley","Female",2019,85.05
+"E09000006","Bromley","Female",2020,84.77
+"E09000006","Bromley","Female",2021,84.76
+"E09000006","Bromley","Female",2022,85.01
+"E09000006","Bromley","Female",2023,84.99
+"E09000006","Bromley","Female",2024,85.03
+"E09000006","Bromley","Female",2025,85.05
+"E09000006","Bromley","Female",2026,85.08
+"E09000006","Bromley","Female",2027,85.1
+"E09000006","Bromley","Female",2028,85.12
+"E09000006","Bromley","Female",2029,85.13
+"E09000006","Bromley","Female",2030,85.15
+"E09000006","Bromley","Female",2031,85.16
+"E09000006","Bromley","Male",2003,77.67
+"E09000006","Bromley","Male",2004,78.1
+"E09000006","Bromley","Male",2005,78.49
+"E09000006","Bromley","Male",2006,79.04
+"E09000006","Bromley","Male",2007,79.32
+"E09000006","Bromley","Male",2008,79.53
+"E09000006","Bromley","Male",2009,79.68
+"E09000006","Bromley","Male",2010,80.01
+"E09000006","Bromley","Male",2011,80.48
+"E09000006","Bromley","Male",2012,80.8
+"E09000006","Bromley","Male",2013,81.07
+"E09000006","Bromley","Male",2014,81.21
+"E09000006","Bromley","Male",2015,81.32
+"E09000006","Bromley","Male",2016,81.3
+"E09000006","Bromley","Male",2017,81.37
+"E09000006","Bromley","Male",2018,81.37
+"E09000006","Bromley","Male",2019,81.64
+"E09000006","Bromley","Male",2020,81.38
+"E09000006","Bromley","Male",2021,81.32
+"E09000006","Bromley","Male",2022,81.28
+"E09000006","Bromley","Male",2023,81.33
+"E09000006","Bromley","Male",2024,81.37
+"E09000006","Bromley","Male",2025,81.4
+"E09000006","Bromley","Male",2026,81.43
+"E09000006","Bromley","Male",2027,81.46
+"E09000006","Bromley","Male",2028,81.49
+"E09000006","Bromley","Male",2029,81.51
+"E09000006","Bromley","Male",2030,81.53
+"E09000006","Bromley","Male",2031,81.54
+"E09000007","Camden","Female",2003,80.97
+"E09000007","Camden","Female",2004,81.24
+"E09000007","Camden","Female",2005,81.72
+"E09000007","Camden","Female",2006,81.83
+"E09000007","Camden","Female",2007,82.37
+"E09000007","Camden","Female",2008,82.74
+"E09000007","Camden","Female",2009,83.52
+"E09000007","Camden","Female",2010,84.08
+"E09000007","Camden","Female",2011,84.4
+"E09000007","Camden","Female",2012,84.76
+"E09000007","Camden","Female",2013,85.2
+"E09000007","Camden","Female",2014,85.61
+"E09000007","Camden","Female",2015,85.45
+"E09000007","Camden","Female",2016,85.73
+"E09000007","Camden","Female",2017,85.16
+"E09000007","Camden","Female",2018,85.18
+"E09000007","Camden","Female",2019,84.8
+"E09000007","Camden","Female",2020,84.85
+"E09000007","Camden","Female",2021,84.41
+"E09000007","Camden","Female",2022,84.52
+"E09000007","Camden","Female",2023,84.33
+"E09000007","Camden","Female",2024,84.26
+"E09000007","Camden","Female",2025,84.18
+"E09000007","Camden","Female",2026,84.11
+"E09000007","Camden","Female",2027,84.04
+"E09000007","Camden","Female",2028,83.96
+"E09000007","Camden","Female",2029,83.89
+"E09000007","Camden","Female",2030,83.82
+"E09000007","Camden","Female",2031,83.74
+"E09000007","Camden","Male",2003,74.66
+"E09000007","Camden","Male",2004,75.43
+"E09000007","Camden","Male",2005,75.61
+"E09000007","Camden","Male",2006,76.32
+"E09000007","Camden","Male",2007,76.85
+"E09000007","Camden","Male",2008,77.64
+"E09000007","Camden","Male",2009,78.22
+"E09000007","Camden","Male",2010,78.73
+"E09000007","Camden","Male",2011,79.56
+"E09000007","Camden","Male",2012,80.04
+"E09000007","Camden","Male",2013,80.43
+"E09000007","Camden","Male",2014,80.8
+"E09000007","Camden","Male",2015,80.75
+"E09000007","Camden","Male",2016,80.8
+"E09000007","Camden","Male",2017,80.53
+"E09000007","Camden","Male",2018,80.37
+"E09000007","Camden","Male",2019,80.43
+"E09000007","Camden","Male",2020,79.58
+"E09000007","Camden","Male",2021,79.37
+"E09000007","Camden","Male",2022,79.19
+"E09000007","Camden","Male",2023,78.75
+"E09000007","Camden","Male",2024,78.43
+"E09000007","Camden","Male",2025,78.11
+"E09000007","Camden","Male",2026,77.79
+"E09000007","Camden","Male",2027,77.47
+"E09000007","Camden","Male",2028,77.15
+"E09000007","Camden","Male",2029,76.83
+"E09000007","Camden","Male",2030,76.51
+"E09000007","Camden","Male",2031,76.19
+"E09000008","Croydon","Female",2003,80.69
+"E09000008","Croydon","Female",2004,80.8
+"E09000008","Croydon","Female",2005,81.02
+"E09000008","Croydon","Female",2006,81.23
+"E09000008","Croydon","Female",2007,81.86
+"E09000008","Croydon","Female",2008,82.11
+"E09000008","Croydon","Female",2009,82.62
+"E09000008","Croydon","Female",2010,82.49
+"E09000008","Croydon","Female",2011,82.87
+"E09000008","Croydon","Female",2012,83.03
+"E09000008","Croydon","Female",2013,83.3
+"E09000008","Croydon","Female",2014,83.39
+"E09000008","Croydon","Female",2015,83.34
+"E09000008","Croydon","Female",2016,83.55
+"E09000008","Croydon","Female",2017,83.57
+"E09000008","Croydon","Female",2018,83.87
+"E09000008","Croydon","Female",2019,83.82
+"E09000008","Croydon","Female",2020,83.58
+"E09000008","Croydon","Female",2021,83.45
+"E09000008","Croydon","Female",2022,83.64
+"E09000008","Croydon","Female",2023,83.61
+"E09000008","Croydon","Female",2024,83.61
+"E09000008","Croydon","Female",2025,83.62
+"E09000008","Croydon","Female",2026,83.63
+"E09000008","Croydon","Female",2027,83.63
+"E09000008","Croydon","Female",2028,83.64
+"E09000008","Croydon","Female",2029,83.65
+"E09000008","Croydon","Female",2030,83.65
+"E09000008","Croydon","Female",2031,83.66
+"E09000008","Croydon","Male",2003,76.8
+"E09000008","Croydon","Male",2004,76.82
+"E09000008","Croydon","Male",2005,77.1
+"E09000008","Croydon","Male",2006,77.43
+"E09000008","Croydon","Male",2007,77.78
+"E09000008","Croydon","Male",2008,78.25
+"E09000008","Croydon","Male",2009,78.89
+"E09000008","Croydon","Male",2010,78.97
+"E09000008","Croydon","Male",2011,79.12
+"E09000008","Croydon","Male",2012,79.13
+"E09000008","Croydon","Male",2013,79.77
+"E09000008","Croydon","Male",2014,80.06
+"E09000008","Croydon","Male",2015,80.28
+"E09000008","Croydon","Male",2016,80.16
+"E09000008","Croydon","Male",2017,80.16
+"E09000008","Croydon","Male",2018,80.02
+"E09000008","Croydon","Male",2019,80.13
+"E09000008","Croydon","Male",2020,79.38
+"E09000008","Croydon","Male",2021,79
+"E09000008","Croydon","Male",2022,78.95
+"E09000008","Croydon","Male",2023,78.74
+"E09000008","Croydon","Male",2024,78.54
+"E09000008","Croydon","Male",2025,78.33
+"E09000008","Croydon","Male",2026,78.12
+"E09000008","Croydon","Male",2027,77.92
+"E09000008","Croydon","Male",2028,77.71
+"E09000008","Croydon","Male",2029,77.5
+"E09000008","Croydon","Male",2030,77.3
+"E09000008","Croydon","Male",2031,77.09
+"E09000009","Ealing","Female",2003,81.17
+"E09000009","Ealing","Female",2004,81.3
+"E09000009","Ealing","Female",2005,81.59
+"E09000009","Ealing","Female",2006,82.03
+"E09000009","Ealing","Female",2007,82.73
+"E09000009","Ealing","Female",2008,82.8
+"E09000009","Ealing","Female",2009,82.94
+"E09000009","Ealing","Female",2010,83
+"E09000009","Ealing","Female",2011,83.61
+"E09000009","Ealing","Female",2012,83.9
+"E09000009","Ealing","Female",2013,84.07
+"E09000009","Ealing","Female",2014,84
+"E09000009","Ealing","Female",2015,83.99
+"E09000009","Ealing","Female",2016,84.18
+"E09000009","Ealing","Female",2017,84.54
+"E09000009","Ealing","Female",2018,84.69
+"E09000009","Ealing","Female",2019,84.61
+"E09000009","Ealing","Female",2020,83.99
+"E09000009","Ealing","Female",2021,83.76
+"E09000009","Ealing","Female",2022,83.96
+"E09000009","Ealing","Female",2023,83.96
+"E09000009","Ealing","Female",2024,83.96
+"E09000009","Ealing","Female",2025,83.96
+"E09000009","Ealing","Female",2026,83.96
+"E09000009","Ealing","Female",2027,83.96
+"E09000009","Ealing","Female",2028,83.96
+"E09000009","Ealing","Female",2029,83.96
+"E09000009","Ealing","Female",2030,83.96
+"E09000009","Ealing","Female",2031,83.96
+"E09000009","Ealing","Male",2003,75.95
+"E09000009","Ealing","Male",2004,76.34
+"E09000009","Ealing","Male",2005,76.8
+"E09000009","Ealing","Male",2006,77.44
+"E09000009","Ealing","Male",2007,77.85
+"E09000009","Ealing","Male",2008,78.35
+"E09000009","Ealing","Male",2009,78.51
+"E09000009","Ealing","Male",2010,78.43
+"E09000009","Ealing","Male",2011,78.53
+"E09000009","Ealing","Male",2012,79.02
+"E09000009","Ealing","Male",2013,79.75
+"E09000009","Ealing","Male",2014,80.36
+"E09000009","Ealing","Male",2015,80.68
+"E09000009","Ealing","Male",2016,80.61
+"E09000009","Ealing","Male",2017,80.75
+"E09000009","Ealing","Male",2018,80.52
+"E09000009","Ealing","Male",2019,80.81
+"E09000009","Ealing","Male",2020,79.66
+"E09000009","Ealing","Male",2021,79.09
+"E09000009","Ealing","Male",2022,78.89
+"E09000009","Ealing","Male",2023,78.52
+"E09000009","Ealing","Male",2024,78.16
+"E09000009","Ealing","Male",2025,77.79
+"E09000009","Ealing","Male",2026,77.43
+"E09000009","Ealing","Male",2027,77.06
+"E09000009","Ealing","Male",2028,76.7
+"E09000009","Ealing","Male",2029,76.33
+"E09000009","Ealing","Male",2030,75.97
+"E09000009","Ealing","Male",2031,75.6
+"E09000010","Enfield","Female",2003,81.03
+"E09000010","Enfield","Female",2004,81.13
+"E09000010","Enfield","Female",2005,81.3
+"E09000010","Enfield","Female",2006,81.89
+"E09000010","Enfield","Female",2007,82.31
+"E09000010","Enfield","Female",2008,82.49
+"E09000010","Enfield","Female",2009,82.69
+"E09000010","Enfield","Female",2010,82.75
+"E09000010","Enfield","Female",2011,83.67
+"E09000010","Enfield","Female",2012,83.81
+"E09000010","Enfield","Female",2013,84.19
+"E09000010","Enfield","Female",2014,84.1
+"E09000010","Enfield","Female",2015,84.18
+"E09000010","Enfield","Female",2016,84.55
+"E09000010","Enfield","Female",2017,84.54
+"E09000010","Enfield","Female",2018,84.8
+"E09000010","Enfield","Female",2019,84.77
+"E09000010","Enfield","Female",2020,84.29
+"E09000010","Enfield","Female",2021,84.15
+"E09000010","Enfield","Female",2022,84.09
+"E09000010","Enfield","Female",2023,84.09
+"E09000010","Enfield","Female",2024,84.09
+"E09000010","Enfield","Female",2025,84.09
+"E09000010","Enfield","Female",2026,84.09
+"E09000010","Enfield","Female",2027,84.09
+"E09000010","Enfield","Female",2028,84.09
+"E09000010","Enfield","Female",2029,84.09
+"E09000010","Enfield","Female",2030,84.09
+"E09000010","Enfield","Female",2031,84.09
+"E09000010","Enfield","Male",2003,76.62
+"E09000010","Enfield","Male",2004,76.81
+"E09000010","Enfield","Male",2005,76.96
+"E09000010","Enfield","Male",2006,77.68
+"E09000010","Enfield","Male",2007,78.23
+"E09000010","Enfield","Male",2008,78.46
+"E09000010","Enfield","Male",2009,78.76
+"E09000010","Enfield","Male",2010,79.07
+"E09000010","Enfield","Male",2011,79.67
+"E09000010","Enfield","Male",2012,80.37
+"E09000010","Enfield","Male",2013,80.38
+"E09000010","Enfield","Male",2014,80.42
+"E09000010","Enfield","Male",2015,80.09
+"E09000010","Enfield","Male",2016,80.12
+"E09000010","Enfield","Male",2017,80.28
+"E09000010","Enfield","Male",2018,80.57
+"E09000010","Enfield","Male",2019,80.86
+"E09000010","Enfield","Male",2020,79.92
+"E09000010","Enfield","Male",2021,79.33
+"E09000010","Enfield","Male",2022,79.32
+"E09000010","Enfield","Male",2023,79.32
+"E09000010","Enfield","Male",2024,79.32
+"E09000010","Enfield","Male",2025,79.32
+"E09000010","Enfield","Male",2026,79.32
+"E09000010","Enfield","Male",2027,79.32
+"E09000010","Enfield","Male",2028,79.32
+"E09000010","Enfield","Male",2029,79.32
+"E09000010","Enfield","Male",2030,79.32
+"E09000010","Enfield","Male",2031,79.32
+"E09000011","Greenwich","Female",2003,79.93
+"E09000011","Greenwich","Female",2004,80.02
+"E09000011","Greenwich","Female",2005,80.06
+"E09000011","Greenwich","Female",2006,80.54
+"E09000011","Greenwich","Female",2007,81.15
+"E09000011","Greenwich","Female",2008,81.42
+"E09000011","Greenwich","Female",2009,81.58
+"E09000011","Greenwich","Female",2010,81.48
+"E09000011","Greenwich","Female",2011,82
+"E09000011","Greenwich","Female",2012,82.1
+"E09000011","Greenwich","Female",2013,82.65
+"E09000011","Greenwich","Female",2014,82.45
+"E09000011","Greenwich","Female",2015,82.54
+"E09000011","Greenwich","Female",2016,82.32
+"E09000011","Greenwich","Female",2017,82.67
+"E09000011","Greenwich","Female",2018,82.87
+"E09000011","Greenwich","Female",2019,83.3
+"E09000011","Greenwich","Female",2020,82.66
+"E09000011","Greenwich","Female",2021,82.25
+"E09000011","Greenwich","Female",2022,82.15
+"E09000011","Greenwich","Female",2023,82.15
+"E09000011","Greenwich","Female",2024,82.15
+"E09000011","Greenwich","Female",2025,82.15
+"E09000011","Greenwich","Female",2026,82.15
+"E09000011","Greenwich","Female",2027,82.15
+"E09000011","Greenwich","Female",2028,82.15
+"E09000011","Greenwich","Female",2029,82.15
+"E09000011","Greenwich","Female",2030,82.15
+"E09000011","Greenwich","Female",2031,82.15
+"E09000011","Greenwich","Male",2003,74.13
+"E09000011","Greenwich","Male",2004,74.59
+"E09000011","Greenwich","Male",2005,74.81
+"E09000011","Greenwich","Male",2006,75.14
+"E09000011","Greenwich","Male",2007,75.07
+"E09000011","Greenwich","Male",2008,75.64
+"E09000011","Greenwich","Male",2009,76.13
+"E09000011","Greenwich","Male",2010,77.02
+"E09000011","Greenwich","Male",2011,77.76
+"E09000011","Greenwich","Male",2012,78.4
+"E09000011","Greenwich","Male",2013,78.57
+"E09000011","Greenwich","Male",2014,78.85
+"E09000011","Greenwich","Male",2015,78.83
+"E09000011","Greenwich","Male",2016,79.06
+"E09000011","Greenwich","Male",2017,78.83
+"E09000011","Greenwich","Male",2018,79.09
+"E09000011","Greenwich","Male",2019,79.1
+"E09000011","Greenwich","Male",2020,78.63
+"E09000011","Greenwich","Male",2021,78.06
+"E09000011","Greenwich","Male",2022,78.16
+"E09000011","Greenwich","Male",2023,78.01
+"E09000011","Greenwich","Male",2024,77.87
+"E09000011","Greenwich","Male",2025,77.72
+"E09000011","Greenwich","Male",2026,77.58
+"E09000011","Greenwich","Male",2027,77.43
+"E09000011","Greenwich","Male",2028,77.29
+"E09000011","Greenwich","Male",2029,77.14
+"E09000011","Greenwich","Male",2030,77
+"E09000011","Greenwich","Male",2031,76.85
+"E09000012","Hackney","Female",2003,80.18
+"E09000012","Hackney","Female",2004,80.57
+"E09000012","Hackney","Female",2005,81.11
+"E09000012","Hackney","Female",2006,81.18
+"E09000012","Hackney","Female",2007,81.32
+"E09000012","Hackney","Female",2008,81.12
+"E09000012","Hackney","Female",2009,81.34
+"E09000012","Hackney","Female",2010,81.53
+"E09000012","Hackney","Female",2011,82.1
+"E09000012","Hackney","Female",2012,82.41
+"E09000012","Hackney","Female",2013,82.77
+"E09000012","Hackney","Female",2014,82.74
+"E09000012","Hackney","Female",2015,82.51
+"E09000012","Hackney","Female",2016,82.49
+"E09000012","Hackney","Female",2017,82.51
+"E09000012","Hackney","Female",2018,83.14
+"E09000012","Hackney","Female",2019,83.53
+"E09000012","Hackney","Female",2020,82.96
+"E09000012","Hackney","Female",2021,82.27
+"E09000012","Hackney","Female",2022,81.79
+"E09000012","Hackney","Female",2023,81.79
+"E09000012","Hackney","Female",2024,81.79
+"E09000012","Hackney","Female",2025,81.79
+"E09000012","Hackney","Female",2026,81.79
+"E09000012","Hackney","Female",2027,81.79
+"E09000012","Hackney","Female",2028,81.79
+"E09000012","Hackney","Female",2029,81.79
+"E09000012","Hackney","Female",2030,81.79
+"E09000012","Hackney","Female",2031,81.79
+"E09000012","Hackney","Male",2003,74.43
+"E09000012","Hackney","Male",2004,74.53
+"E09000012","Hackney","Male",2005,75
+"E09000012","Hackney","Male",2006,74.91
+"E09000012","Hackney","Male",2007,75.42
+"E09000012","Hackney","Male",2008,75.54
+"E09000012","Hackney","Male",2009,76.64
+"E09000012","Hackney","Male",2010,76.93
+"E09000012","Hackney","Male",2011,77.52
+"E09000012","Hackney","Male",2012,77.5
+"E09000012","Hackney","Male",2013,77.91
+"E09000012","Hackney","Male",2014,78.17
+"E09000012","Hackney","Male",2015,78.3
+"E09000012","Hackney","Male",2016,78.37
+"E09000012","Hackney","Male",2017,78.03
+"E09000012","Hackney","Male",2018,78.64
+"E09000012","Hackney","Male",2019,78.64
+"E09000012","Hackney","Male",2020,77.96
+"E09000012","Hackney","Male",2021,76.75
+"E09000012","Hackney","Male",2022,76.71
+"E09000012","Hackney","Male",2023,76.71
+"E09000012","Hackney","Male",2024,76.71
+"E09000012","Hackney","Male",2025,76.71
+"E09000012","Hackney","Male",2026,76.71
+"E09000012","Hackney","Male",2027,76.71
+"E09000012","Hackney","Male",2028,76.71
+"E09000012","Hackney","Male",2029,76.71
+"E09000012","Hackney","Male",2030,76.71
+"E09000012","Hackney","Male",2031,76.71
+"E09000013","Hammersmith and Fulham","Female",2003,81.33
+"E09000013","Hammersmith and Fulham","Female",2004,81.66
+"E09000013","Hammersmith and Fulham","Female",2005,81.92
+"E09000013","Hammersmith and Fulham","Female",2006,82.84
+"E09000013","Hammersmith and Fulham","Female",2007,83.2
+"E09000013","Hammersmith and Fulham","Female",2008,83.3
+"E09000013","Hammersmith and Fulham","Female",2009,83.27
+"E09000013","Hammersmith and Fulham","Female",2010,83.06
+"E09000013","Hammersmith and Fulham","Female",2011,83.23
+"E09000013","Hammersmith and Fulham","Female",2012,83.18
+"E09000013","Hammersmith and Fulham","Female",2013,83.28
+"E09000013","Hammersmith and Fulham","Female",2014,83.82
+"E09000013","Hammersmith and Fulham","Female",2015,83.78
+"E09000013","Hammersmith and Fulham","Female",2016,84.09
+"E09000013","Hammersmith and Fulham","Female",2017,84.1
+"E09000013","Hammersmith and Fulham","Female",2018,84.07
+"E09000013","Hammersmith and Fulham","Female",2019,84.09
+"E09000013","Hammersmith and Fulham","Female",2020,83.15
+"E09000013","Hammersmith and Fulham","Female",2021,83.04
+"E09000013","Hammersmith and Fulham","Female",2022,83.12
+"E09000013","Hammersmith and Fulham","Female",2023,83.12
+"E09000013","Hammersmith and Fulham","Female",2024,83.12
+"E09000013","Hammersmith and Fulham","Female",2025,83.12
+"E09000013","Hammersmith and Fulham","Female",2026,83.12
+"E09000013","Hammersmith and Fulham","Female",2027,83.12
+"E09000013","Hammersmith and Fulham","Female",2028,83.12
+"E09000013","Hammersmith and Fulham","Female",2029,83.12
+"E09000013","Hammersmith and Fulham","Female",2030,83.12
+"E09000013","Hammersmith and Fulham","Female",2031,83.12
+"E09000013","Hammersmith and Fulham","Male",2003,75.65
+"E09000013","Hammersmith and Fulham","Male",2004,75.96
+"E09000013","Hammersmith and Fulham","Male",2005,76.29
+"E09000013","Hammersmith and Fulham","Male",2006,77.45
+"E09000013","Hammersmith and Fulham","Male",2007,77.24
+"E09000013","Hammersmith and Fulham","Male",2008,77.25
+"E09000013","Hammersmith and Fulham","Male",2009,77.23
+"E09000013","Hammersmith and Fulham","Male",2010,77.98
+"E09000013","Hammersmith and Fulham","Male",2011,78.37
+"E09000013","Hammersmith and Fulham","Male",2012,78.77
+"E09000013","Hammersmith and Fulham","Male",2013,78.79
+"E09000013","Hammersmith and Fulham","Male",2014,79.4
+"E09000013","Hammersmith and Fulham","Male",2015,79.03
+"E09000013","Hammersmith and Fulham","Male",2016,79.34
+"E09000013","Hammersmith and Fulham","Male",2017,79.09
+"E09000013","Hammersmith and Fulham","Male",2018,79.19
+"E09000013","Hammersmith and Fulham","Male",2019,79.1
+"E09000013","Hammersmith and Fulham","Male",2020,78.23
+"E09000013","Hammersmith and Fulham","Male",2021,77.55
+"E09000013","Hammersmith and Fulham","Male",2022,77.58
+"E09000013","Hammersmith and Fulham","Male",2023,77.58
+"E09000013","Hammersmith and Fulham","Male",2024,77.58
+"E09000013","Hammersmith and Fulham","Male",2025,77.58
+"E09000013","Hammersmith and Fulham","Male",2026,77.58
+"E09000013","Hammersmith and Fulham","Male",2027,77.58
+"E09000013","Hammersmith and Fulham","Male",2028,77.58
+"E09000013","Hammersmith and Fulham","Male",2029,77.58
+"E09000013","Hammersmith and Fulham","Male",2030,77.58
+"E09000013","Hammersmith and Fulham","Male",2031,77.58
+"E09000014","Haringey","Female",2003,79.77
+"E09000014","Haringey","Female",2004,80.19
+"E09000014","Haringey","Female",2005,80.85
+"E09000014","Haringey","Female",2006,81.97
+"E09000014","Haringey","Female",2007,82.65
+"E09000014","Haringey","Female",2008,82.97
+"E09000014","Haringey","Female",2009,83.5
+"E09000014","Haringey","Female",2010,83.5
+"E09000014","Haringey","Female",2011,83.51
+"E09000014","Haringey","Female",2012,83.53
+"E09000014","Haringey","Female",2013,84.25
+"E09000014","Haringey","Female",2014,84.42
+"E09000014","Haringey","Female",2015,84.36
+"E09000014","Haringey","Female",2016,84.4
+"E09000014","Haringey","Female",2017,84.52
+"E09000014","Haringey","Female",2018,84.74
+"E09000014","Haringey","Female",2019,84.6
+"E09000014","Haringey","Female",2020,84.14
+"E09000014","Haringey","Female",2021,83.71
+"E09000014","Haringey","Female",2022,83.96
+"E09000014","Haringey","Female",2023,83.97
+"E09000014","Haringey","Female",2024,83.99
+"E09000014","Haringey","Female",2025,84.01
+"E09000014","Haringey","Female",2026,84.02
+"E09000014","Haringey","Female",2027,84.03
+"E09000014","Haringey","Female",2028,84.04
+"E09000014","Haringey","Female",2029,84.04
+"E09000014","Haringey","Female",2030,84.05
+"E09000014","Haringey","Female",2031,84.06
+"E09000014","Haringey","Male",2003,74.61
+"E09000014","Haringey","Male",2004,74.72
+"E09000014","Haringey","Male",2005,75.22
+"E09000014","Haringey","Male",2006,76.04
+"E09000014","Haringey","Male",2007,76.2
+"E09000014","Haringey","Male",2008,76.42
+"E09000014","Haringey","Male",2009,76.9
+"E09000014","Haringey","Male",2010,77.8
+"E09000014","Haringey","Male",2011,78.68
+"E09000014","Haringey","Male",2012,79.18
+"E09000014","Haringey","Male",2013,79.85
+"E09000014","Haringey","Male",2014,79.85
+"E09000014","Haringey","Male",2015,79.82
+"E09000014","Haringey","Male",2016,79.83
+"E09000014","Haringey","Male",2017,80.14
+"E09000014","Haringey","Male",2018,80.4
+"E09000014","Haringey","Male",2019,80.23
+"E09000014","Haringey","Male",2020,79.14
+"E09000014","Haringey","Male",2021,78.49
+"E09000014","Haringey","Male",2022,78.46
+"E09000014","Haringey","Male",2023,78.43
+"E09000014","Haringey","Male",2024,78.4
+"E09000014","Haringey","Male",2025,78.37
+"E09000014","Haringey","Male",2026,78.34
+"E09000014","Haringey","Male",2027,78.31
+"E09000014","Haringey","Male",2028,78.28
+"E09000014","Haringey","Male",2029,78.25
+"E09000014","Haringey","Male",2030,78.22
+"E09000014","Haringey","Male",2031,78.19
+"E09000015","Harrow","Female",2003,82.84
+"E09000015","Harrow","Female",2004,82.82
+"E09000015","Harrow","Female",2005,82.63
+"E09000015","Harrow","Female",2006,83.12
+"E09000015","Harrow","Female",2007,83.58
+"E09000015","Harrow","Female",2008,84.08
+"E09000015","Harrow","Female",2009,84.3
+"E09000015","Harrow","Female",2010,84.44
+"E09000015","Harrow","Female",2011,84.95
+"E09000015","Harrow","Female",2012,85.11
+"E09000015","Harrow","Female",2013,85.52
+"E09000015","Harrow","Female",2014,85.66
+"E09000015","Harrow","Female",2015,85.89
+"E09000015","Harrow","Female",2016,85.85
+"E09000015","Harrow","Female",2017,85.79
+"E09000015","Harrow","Female",2018,85.85
+"E09000015","Harrow","Female",2019,86.06
+"E09000015","Harrow","Female",2020,85.54
+"E09000015","Harrow","Female",2021,85.19
+"E09000015","Harrow","Female",2022,84.92
+"E09000015","Harrow","Female",2023,84.66
+"E09000015","Harrow","Female",2024,84.4
+"E09000015","Harrow","Female",2025,84.15
+"E09000015","Harrow","Female",2026,83.89
+"E09000015","Harrow","Female",2027,83.63
+"E09000015","Harrow","Female",2028,83.37
+"E09000015","Harrow","Female",2029,83.11
+"E09000015","Harrow","Female",2030,82.85
+"E09000015","Harrow","Female",2031,82.6
+"E09000015","Harrow","Male",2003,78.39
+"E09000015","Harrow","Male",2004,78.51
+"E09000015","Harrow","Male",2005,78.79
+"E09000015","Harrow","Male",2006,79.03
+"E09000015","Harrow","Male",2007,79.72
+"E09000015","Harrow","Male",2008,80.49
+"E09000015","Harrow","Male",2009,81.15
+"E09000015","Harrow","Male",2010,81.4
+"E09000015","Harrow","Male",2011,81.4
+"E09000015","Harrow","Male",2012,81.64
+"E09000015","Harrow","Male",2013,82.03
+"E09000015","Harrow","Male",2014,82.34
+"E09000015","Harrow","Male",2015,82.2
+"E09000015","Harrow","Male",2016,82.33
+"E09000015","Harrow","Male",2017,82.42
+"E09000015","Harrow","Male",2018,82.91
+"E09000015","Harrow","Male",2019,82.79
+"E09000015","Harrow","Male",2020,81.8
+"E09000015","Harrow","Male",2021,80.89
+"E09000015","Harrow","Male",2022,80.79
+"E09000015","Harrow","Male",2023,80.4
+"E09000015","Harrow","Male",2024,80.01
+"E09000015","Harrow","Male",2025,79.62
+"E09000015","Harrow","Male",2026,79.23
+"E09000015","Harrow","Male",2027,78.84
+"E09000015","Harrow","Male",2028,78.45
+"E09000015","Harrow","Male",2029,78.05
+"E09000015","Harrow","Male",2030,77.66
+"E09000015","Harrow","Male",2031,77.27
+"E09000016","Havering","Female",2003,80.91
+"E09000016","Havering","Female",2004,81.08
+"E09000016","Havering","Female",2005,81.42
+"E09000016","Havering","Female",2006,81.93
+"E09000016","Havering","Female",2007,81.98
+"E09000016","Havering","Female",2008,82.35
+"E09000016","Havering","Female",2009,82.7
+"E09000016","Havering","Female",2010,83.08
+"E09000016","Havering","Female",2011,83.58
+"E09000016","Havering","Female",2012,83.46
+"E09000016","Havering","Female",2013,83.58
+"E09000016","Havering","Female",2014,83.66
+"E09000016","Havering","Female",2015,84.08
+"E09000016","Havering","Female",2016,84.12
+"E09000016","Havering","Female",2017,84.09
+"E09000016","Havering","Female",2018,83.87
+"E09000016","Havering","Female",2019,83.89
+"E09000016","Havering","Female",2020,83.29
+"E09000016","Havering","Female",2021,83
+"E09000016","Havering","Female",2022,82.79
+"E09000016","Havering","Female",2023,82.48
+"E09000016","Havering","Female",2024,82.2
+"E09000016","Havering","Female",2025,81.91
+"E09000016","Havering","Female",2026,81.62
+"E09000016","Havering","Female",2027,81.33
+"E09000016","Havering","Female",2028,81.04
+"E09000016","Havering","Female",2029,80.76
+"E09000016","Havering","Female",2030,80.47
+"E09000016","Havering","Female",2031,80.18
+"E09000016","Havering","Male",2003,76.65
+"E09000016","Havering","Male",2004,77.04
+"E09000016","Havering","Male",2005,77.72
+"E09000016","Havering","Male",2006,78.09
+"E09000016","Havering","Male",2007,78.18
+"E09000016","Havering","Male",2008,78.32
+"E09000016","Havering","Male",2009,78.59
+"E09000016","Havering","Male",2010,78.59
+"E09000016","Havering","Male",2011,78.92
+"E09000016","Havering","Male",2012,79.16
+"E09000016","Havering","Male",2013,79.61
+"E09000016","Havering","Male",2014,80.1
+"E09000016","Havering","Male",2015,80.26
+"E09000016","Havering","Male",2016,80.17
+"E09000016","Havering","Male",2017,79.61
+"E09000016","Havering","Male",2018,79.76
+"E09000016","Havering","Male",2019,80.16
+"E09000016","Havering","Male",2020,79.75
+"E09000016","Havering","Male",2021,79.24
+"E09000016","Havering","Male",2022,79.08
+"E09000016","Havering","Male",2023,79.08
+"E09000016","Havering","Male",2024,79.08
+"E09000016","Havering","Male",2025,79.08
+"E09000016","Havering","Male",2026,79.08
+"E09000016","Havering","Male",2027,79.08
+"E09000016","Havering","Male",2028,79.08
+"E09000016","Havering","Male",2029,79.08
+"E09000016","Havering","Male",2030,79.08
+"E09000016","Havering","Male",2031,79.08
+"E09000017","Hillingdon","Female",2003,81.33
+"E09000017","Hillingdon","Female",2004,81.28
+"E09000017","Hillingdon","Female",2005,81.53
+"E09000017","Hillingdon","Female",2006,82.08
+"E09000017","Hillingdon","Female",2007,82.5
+"E09000017","Hillingdon","Female",2008,82.93
+"E09000017","Hillingdon","Female",2009,83.1
+"E09000017","Hillingdon","Female",2010,83.27
+"E09000017","Hillingdon","Female",2011,83.36
+"E09000017","Hillingdon","Female",2012,83.29
+"E09000017","Hillingdon","Female",2013,83.56
+"E09000017","Hillingdon","Female",2014,83.77
+"E09000017","Hillingdon","Female",2015,83.67
+"E09000017","Hillingdon","Female",2016,83.8
+"E09000017","Hillingdon","Female",2017,83.8
+"E09000017","Hillingdon","Female",2018,84.02
+"E09000017","Hillingdon","Female",2019,84.04
+"E09000017","Hillingdon","Female",2020,83.69
+"E09000017","Hillingdon","Female",2021,83.45
+"E09000017","Hillingdon","Female",2022,83.45
+"E09000017","Hillingdon","Female",2023,83.36
+"E09000017","Hillingdon","Female",2024,83.28
+"E09000017","Hillingdon","Female",2025,83.19
+"E09000017","Hillingdon","Female",2026,83.11
+"E09000017","Hillingdon","Female",2027,83.02
+"E09000017","Hillingdon","Female",2028,82.94
+"E09000017","Hillingdon","Female",2029,82.85
+"E09000017","Hillingdon","Female",2030,82.77
+"E09000017","Hillingdon","Female",2031,82.68
+"E09000017","Hillingdon","Male",2003,76.5
+"E09000017","Hillingdon","Male",2004,76.73
+"E09000017","Hillingdon","Male",2005,77.35
+"E09000017","Hillingdon","Male",2006,77.36
+"E09000017","Hillingdon","Male",2007,78.01
+"E09000017","Hillingdon","Male",2008,78.17
+"E09000017","Hillingdon","Male",2009,78.62
+"E09000017","Hillingdon","Male",2010,78.73
+"E09000017","Hillingdon","Male",2011,79.47
+"E09000017","Hillingdon","Male",2012,79.79
+"E09000017","Hillingdon","Male",2013,80.16
+"E09000017","Hillingdon","Male",2014,80.18
+"E09000017","Hillingdon","Male",2015,80.27
+"E09000017","Hillingdon","Male",2016,80.49
+"E09000017","Hillingdon","Male",2017,80.44
+"E09000017","Hillingdon","Male",2018,80.02
+"E09000017","Hillingdon","Male",2019,79.69
+"E09000017","Hillingdon","Male",2020,79.14
+"E09000017","Hillingdon","Male",2021,79.04
+"E09000017","Hillingdon","Male",2022,78.9
+"E09000017","Hillingdon","Male",2023,78.63
+"E09000017","Hillingdon","Male",2024,78.44
+"E09000017","Hillingdon","Male",2025,78.26
+"E09000017","Hillingdon","Male",2026,78.08
+"E09000017","Hillingdon","Male",2027,77.89
+"E09000017","Hillingdon","Male",2028,77.71
+"E09000017","Hillingdon","Male",2029,77.53
+"E09000017","Hillingdon","Male",2030,77.34
+"E09000017","Hillingdon","Male",2031,77.16
+"E09000018","Hounslow","Female",2003,79.88
+"E09000018","Hounslow","Female",2004,80.11
+"E09000018","Hounslow","Female",2005,80.47
+"E09000018","Hounslow","Female",2006,80.86
+"E09000018","Hounslow","Female",2007,81.47
+"E09000018","Hounslow","Female",2008,81.9
+"E09000018","Hounslow","Female",2009,82.31
+"E09000018","Hounslow","Female",2010,82.54
+"E09000018","Hounslow","Female",2011,82.81
+"E09000018","Hounslow","Female",2012,83.04
+"E09000018","Hounslow","Female",2013,83.21
+"E09000018","Hounslow","Female",2014,83.73
+"E09000018","Hounslow","Female",2015,84.1
+"E09000018","Hounslow","Female",2016,84.22
+"E09000018","Hounslow","Female",2017,83.96
+"E09000018","Hounslow","Female",2018,83.73
+"E09000018","Hounslow","Female",2019,83.92
+"E09000018","Hounslow","Female",2020,83.66
+"E09000018","Hounslow","Female",2021,83.43
+"E09000018","Hounslow","Female",2022,83.47
+"E09000018","Hounslow","Female",2023,83.4
+"E09000018","Hounslow","Female",2024,83.34
+"E09000018","Hounslow","Female",2025,83.27
+"E09000018","Hounslow","Female",2026,83.2
+"E09000018","Hounslow","Female",2027,83.14
+"E09000018","Hounslow","Female",2028,83.07
+"E09000018","Hounslow","Female",2029,83
+"E09000018","Hounslow","Female",2030,82.94
+"E09000018","Hounslow","Female",2031,82.87
+"E09000018","Hounslow","Male",2003,75.36
+"E09000018","Hounslow","Male",2004,75.73
+"E09000018","Hounslow","Male",2005,76.34
+"E09000018","Hounslow","Male",2006,76.8
+"E09000018","Hounslow","Male",2007,77.06
+"E09000018","Hounslow","Male",2008,77.59
+"E09000018","Hounslow","Male",2009,77.99
+"E09000018","Hounslow","Male",2010,78.57
+"E09000018","Hounslow","Male",2011,78.96
+"E09000018","Hounslow","Male",2012,79.38
+"E09000018","Hounslow","Male",2013,79.56
+"E09000018","Hounslow","Male",2014,79.8
+"E09000018","Hounslow","Male",2015,79.76
+"E09000018","Hounslow","Male",2016,79.9
+"E09000018","Hounslow","Male",2017,79.92
+"E09000018","Hounslow","Male",2018,79.94
+"E09000018","Hounslow","Male",2019,80.1
+"E09000018","Hounslow","Male",2020,79.29
+"E09000018","Hounslow","Male",2021,78.92
+"E09000018","Hounslow","Male",2022,78.99
+"E09000018","Hounslow","Male",2023,78.77
+"E09000018","Hounslow","Male",2024,78.59
+"E09000018","Hounslow","Male",2025,78.41
+"E09000018","Hounslow","Male",2026,78.23
+"E09000018","Hounslow","Male",2027,78.05
+"E09000018","Hounslow","Male",2028,77.87
+"E09000018","Hounslow","Male",2029,77.68
+"E09000018","Hounslow","Male",2030,77.5
+"E09000018","Hounslow","Male",2031,77.32
+"E09000019","Islington","Female",2003,79.48
+"E09000019","Islington","Female",2004,79.44
+"E09000019","Islington","Female",2005,79.77
+"E09000019","Islington","Female",2006,80.13
+"E09000019","Islington","Female",2007,80.93
+"E09000019","Islington","Female",2008,81.08
+"E09000019","Islington","Female",2009,81.34
+"E09000019","Islington","Female",2010,81.61
+"E09000019","Islington","Female",2011,82.24
+"E09000019","Islington","Female",2012,82.86
+"E09000019","Islington","Female",2013,83.08
+"E09000019","Islington","Female",2014,83.11
+"E09000019","Islington","Female",2015,82.86
+"E09000019","Islington","Female",2016,83.08
+"E09000019","Islington","Female",2017,82.92
+"E09000019","Islington","Female",2018,82.92
+"E09000019","Islington","Female",2019,82.97
+"E09000019","Islington","Female",2020,82.76
+"E09000019","Islington","Female",2021,82.75
+"E09000019","Islington","Female",2022,82.61
+"E09000019","Islington","Female",2023,82.53
+"E09000019","Islington","Female",2024,82.46
+"E09000019","Islington","Female",2025,82.38
+"E09000019","Islington","Female",2026,82.3
+"E09000019","Islington","Female",2027,82.23
+"E09000019","Islington","Female",2028,82.15
+"E09000019","Islington","Female",2029,82.07
+"E09000019","Islington","Female",2030,82
+"E09000019","Islington","Female",2031,81.92
+"E09000019","Islington","Male",2003,73.34
+"E09000019","Islington","Male",2004,73.94
+"E09000019","Islington","Male",2005,74.65
+"E09000019","Islington","Male",2006,74.87
+"E09000019","Islington","Male",2007,75.15
+"E09000019","Islington","Male",2008,75.25
+"E09000019","Islington","Male",2009,75.85
+"E09000019","Islington","Male",2010,76.59
+"E09000019","Islington","Male",2011,77.09
+"E09000019","Islington","Male",2012,77.62
+"E09000019","Islington","Male",2013,77.82
+"E09000019","Islington","Male",2014,78.46
+"E09000019","Islington","Male",2015,78.36
+"E09000019","Islington","Male",2016,78.93
+"E09000019","Islington","Male",2017,78.77
+"E09000019","Islington","Male",2018,78.86
+"E09000019","Islington","Male",2019,78.76
+"E09000019","Islington","Male",2020,78.43
+"E09000019","Islington","Male",2021,78.05
+"E09000019","Islington","Male",2022,77.96
+"E09000019","Islington","Male",2023,77.69
+"E09000019","Islington","Male",2024,77.46
+"E09000019","Islington","Male",2025,77.23
+"E09000019","Islington","Male",2026,77
+"E09000019","Islington","Male",2027,76.77
+"E09000019","Islington","Male",2028,76.54
+"E09000019","Islington","Male",2029,76.31
+"E09000019","Islington","Male",2030,76.08
+"E09000019","Islington","Male",2031,75.85
+"E09000020","Kensington and Chelsea","Female",2003,84.33
+"E09000020","Kensington and Chelsea","Female",2004,85.01
+"E09000020","Kensington and Chelsea","Female",2005,84.99
+"E09000020","Kensington and Chelsea","Female",2006,85.38
+"E09000020","Kensington and Chelsea","Female",2007,85.46
+"E09000020","Kensington and Chelsea","Female",2008,85.86
+"E09000020","Kensington and Chelsea","Female",2009,85.8
+"E09000020","Kensington and Chelsea","Female",2010,85.91
+"E09000020","Kensington and Chelsea","Female",2011,85.79
+"E09000020","Kensington and Chelsea","Female",2012,85.45
+"E09000020","Kensington and Chelsea","Female",2013,85.74
+"E09000020","Kensington and Chelsea","Female",2014,85.84
+"E09000020","Kensington and Chelsea","Female",2015,86.07
+"E09000020","Kensington and Chelsea","Female",2016,85.93
+"E09000020","Kensington and Chelsea","Female",2017,85.54
+"E09000020","Kensington and Chelsea","Female",2018,86
+"E09000020","Kensington and Chelsea","Female",2019,85.91
+"E09000020","Kensington and Chelsea","Female",2020,86.54
+"E09000020","Kensington and Chelsea","Female",2021,86.07
+"E09000020","Kensington and Chelsea","Female",2022,86.34
+"E09000020","Kensington and Chelsea","Female",2023,86.13
+"E09000020","Kensington and Chelsea","Female",2024,86.13
+"E09000020","Kensington and Chelsea","Female",2025,86.14
+"E09000020","Kensington and Chelsea","Female",2026,86.14
+"E09000020","Kensington and Chelsea","Female",2027,86.14
+"E09000020","Kensington and Chelsea","Female",2028,86.14
+"E09000020","Kensington and Chelsea","Female",2029,86.14
+"E09000020","Kensington and Chelsea","Female",2030,86.14
+"E09000020","Kensington and Chelsea","Female",2031,86.14
+"E09000020","Kensington and Chelsea","Male",2003,79.01
+"E09000020","Kensington and Chelsea","Male",2004,79.66
+"E09000020","Kensington and Chelsea","Male",2005,80.43
+"E09000020","Kensington and Chelsea","Male",2006,81.36
+"E09000020","Kensington and Chelsea","Male",2007,81.53
+"E09000020","Kensington and Chelsea","Male",2008,81.68
+"E09000020","Kensington and Chelsea","Male",2009,81.44
+"E09000020","Kensington and Chelsea","Male",2010,81.49
+"E09000020","Kensington and Chelsea","Male",2011,81.44
+"E09000020","Kensington and Chelsea","Male",2012,81.71
+"E09000020","Kensington and Chelsea","Male",2013,82.02
+"E09000020","Kensington and Chelsea","Male",2014,82.48
+"E09000020","Kensington and Chelsea","Male",2015,82.66
+"E09000020","Kensington and Chelsea","Male",2016,82.65
+"E09000020","Kensington and Chelsea","Male",2017,81.8
+"E09000020","Kensington and Chelsea","Male",2018,81.55
+"E09000020","Kensington and Chelsea","Male",2019,81.66
+"E09000020","Kensington and Chelsea","Male",2020,81.54
+"E09000020","Kensington and Chelsea","Male",2021,81.12
+"E09000020","Kensington and Chelsea","Male",2022,80.67
+"E09000020","Kensington and Chelsea","Male",2023,80.33
+"E09000020","Kensington and Chelsea","Male",2024,80.06
+"E09000020","Kensington and Chelsea","Male",2025,79.84
+"E09000020","Kensington and Chelsea","Male",2026,79.67
+"E09000020","Kensington and Chelsea","Male",2027,79.53
+"E09000020","Kensington and Chelsea","Male",2028,79.42
+"E09000020","Kensington and Chelsea","Male",2029,79.33
+"E09000020","Kensington and Chelsea","Male",2030,79.26
+"E09000020","Kensington and Chelsea","Male",2031,79.2
+"E09000021","Kingston upon Thames","Female",2003,81.31
+"E09000021","Kingston upon Thames","Female",2004,81.61
+"E09000021","Kingston upon Thames","Female",2005,82.27
+"E09000021","Kingston upon Thames","Female",2006,82.8
+"E09000021","Kingston upon Thames","Female",2007,82.99
+"E09000021","Kingston upon Thames","Female",2008,83.15
+"E09000021","Kingston upon Thames","Female",2009,83.45
+"E09000021","Kingston upon Thames","Female",2010,83.86
+"E09000021","Kingston upon Thames","Female",2011,84.23
+"E09000021","Kingston upon Thames","Female",2012,84.53
+"E09000021","Kingston upon Thames","Female",2013,84.33
+"E09000021","Kingston upon Thames","Female",2014,84.39
+"E09000021","Kingston upon Thames","Female",2015,84.28
+"E09000021","Kingston upon Thames","Female",2016,84.65
+"E09000021","Kingston upon Thames","Female",2017,84.54
+"E09000021","Kingston upon Thames","Female",2018,84.56
+"E09000021","Kingston upon Thames","Female",2019,84.7
+"E09000021","Kingston upon Thames","Female",2020,84.66
+"E09000021","Kingston upon Thames","Female",2021,84.74
+"E09000021","Kingston upon Thames","Female",2022,84.67
+"E09000021","Kingston upon Thames","Female",2023,84.74
+"E09000021","Kingston upon Thames","Female",2024,84.75
+"E09000021","Kingston upon Thames","Female",2025,84.76
+"E09000021","Kingston upon Thames","Female",2026,84.77
+"E09000021","Kingston upon Thames","Female",2027,84.78
+"E09000021","Kingston upon Thames","Female",2028,84.78
+"E09000021","Kingston upon Thames","Female",2029,84.79
+"E09000021","Kingston upon Thames","Female",2030,84.79
+"E09000021","Kingston upon Thames","Female",2031,84.79
+"E09000021","Kingston upon Thames","Male",2003,77.67
+"E09000021","Kingston upon Thames","Male",2004,78.21
+"E09000021","Kingston upon Thames","Male",2005,78.4
+"E09000021","Kingston upon Thames","Male",2006,78.78
+"E09000021","Kingston upon Thames","Male",2007,79.1
+"E09000021","Kingston upon Thames","Male",2008,79.68
+"E09000021","Kingston upon Thames","Male",2009,80.25
+"E09000021","Kingston upon Thames","Male",2010,80.73
+"E09000021","Kingston upon Thames","Male",2011,80.92
+"E09000021","Kingston upon Thames","Male",2012,81.19
+"E09000021","Kingston upon Thames","Male",2013,81.11
+"E09000021","Kingston upon Thames","Male",2014,81.65
+"E09000021","Kingston upon Thames","Male",2015,81.34
+"E09000021","Kingston upon Thames","Male",2016,81.39
+"E09000021","Kingston upon Thames","Male",2017,81.08
+"E09000021","Kingston upon Thames","Male",2018,81.15
+"E09000021","Kingston upon Thames","Male",2019,81.37
+"E09000021","Kingston upon Thames","Male",2020,81.25
+"E09000021","Kingston upon Thames","Male",2021,81.07
+"E09000021","Kingston upon Thames","Male",2022,81.1
+"E09000021","Kingston upon Thames","Male",2023,81.04
+"E09000021","Kingston upon Thames","Male",2024,80.98
+"E09000021","Kingston upon Thames","Male",2025,80.93
+"E09000021","Kingston upon Thames","Male",2026,80.88
+"E09000021","Kingston upon Thames","Male",2027,80.83
+"E09000021","Kingston upon Thames","Male",2028,80.77
+"E09000021","Kingston upon Thames","Male",2029,80.72
+"E09000021","Kingston upon Thames","Male",2030,80.67
+"E09000021","Kingston upon Thames","Male",2031,80.62
+"E09000022","Lambeth","Female",2003,79.76
+"E09000022","Lambeth","Female",2004,79.94
+"E09000022","Lambeth","Female",2005,79.84
+"E09000022","Lambeth","Female",2006,80.17
+"E09000022","Lambeth","Female",2007,80.61
+"E09000022","Lambeth","Female",2008,81.02
+"E09000022","Lambeth","Female",2009,81.02
+"E09000022","Lambeth","Female",2010,81.1
+"E09000022","Lambeth","Female",2011,82.01
+"E09000022","Lambeth","Female",2012,82.74
+"E09000022","Lambeth","Female",2013,83.19
+"E09000022","Lambeth","Female",2014,82.89
+"E09000022","Lambeth","Female",2015,82.89
+"E09000022","Lambeth","Female",2016,83
+"E09000022","Lambeth","Female",2017,83.25
+"E09000022","Lambeth","Female",2018,83.47
+"E09000022","Lambeth","Female",2019,83.82
+"E09000022","Lambeth","Female",2020,83.5
+"E09000022","Lambeth","Female",2021,83.12
+"E09000022","Lambeth","Female",2022,82.86
+"E09000022","Lambeth","Female",2023,82.86
+"E09000022","Lambeth","Female",2024,82.86
+"E09000022","Lambeth","Female",2025,82.86
+"E09000022","Lambeth","Female",2026,82.86
+"E09000022","Lambeth","Female",2027,82.86
+"E09000022","Lambeth","Female",2028,82.86
+"E09000022","Lambeth","Female",2029,82.86
+"E09000022","Lambeth","Female",2030,82.86
+"E09000022","Lambeth","Female",2031,82.86
+"E09000022","Lambeth","Male",2003,73.51
+"E09000022","Lambeth","Male",2004,74.07
+"E09000022","Lambeth","Male",2005,74.84
+"E09000022","Lambeth","Male",2006,75.05
+"E09000022","Lambeth","Male",2007,75.73
+"E09000022","Lambeth","Male",2008,75.67
+"E09000022","Lambeth","Male",2009,76.3
+"E09000022","Lambeth","Male",2010,76.82
+"E09000022","Lambeth","Male",2011,77.48
+"E09000022","Lambeth","Male",2012,78.1
+"E09000022","Lambeth","Male",2013,78.19
+"E09000022","Lambeth","Male",2014,78.64
+"E09000022","Lambeth","Male",2015,78.34
+"E09000022","Lambeth","Male",2016,78.39
+"E09000022","Lambeth","Male",2017,78.43
+"E09000022","Lambeth","Male",2018,78.84
+"E09000022","Lambeth","Male",2019,79.07
+"E09000022","Lambeth","Male",2020,78.2
+"E09000022","Lambeth","Male",2021,78.26
+"E09000022","Lambeth","Male",2022,77.94
+"E09000022","Lambeth","Male",2023,77.79
+"E09000022","Lambeth","Male",2024,77.59
+"E09000022","Lambeth","Male",2025,77.4
+"E09000022","Lambeth","Male",2026,77.21
+"E09000022","Lambeth","Male",2027,77.02
+"E09000022","Lambeth","Male",2028,76.82
+"E09000022","Lambeth","Male",2029,76.63
+"E09000022","Lambeth","Male",2030,76.44
+"E09000022","Lambeth","Male",2031,76.25
+"E09000023","Lewisham","Female",2003,79.07
+"E09000023","Lewisham","Female",2004,79.62
+"E09000023","Lewisham","Female",2005,79.84
+"E09000023","Lewisham","Female",2006,80.48
+"E09000023","Lewisham","Female",2007,80.92
+"E09000023","Lewisham","Female",2008,81.11
+"E09000023","Lewisham","Female",2009,81.5
+"E09000023","Lewisham","Female",2010,81.59
+"E09000023","Lewisham","Female",2011,82.11
+"E09000023","Lewisham","Female",2012,82.37
+"E09000023","Lewisham","Female",2013,82.74
+"E09000023","Lewisham","Female",2014,83.17
+"E09000023","Lewisham","Female",2015,83.05
+"E09000023","Lewisham","Female",2016,83.19
+"E09000023","Lewisham","Female",2017,83.55
+"E09000023","Lewisham","Female",2018,83.69
+"E09000023","Lewisham","Female",2019,83.65
+"E09000023","Lewisham","Female",2020,82.96
+"E09000023","Lewisham","Female",2021,82.58
+"E09000023","Lewisham","Female",2022,82.59
+"E09000023","Lewisham","Female",2023,82.43
+"E09000023","Lewisham","Female",2024,82.28
+"E09000023","Lewisham","Female",2025,82.12
+"E09000023","Lewisham","Female",2026,81.96
+"E09000023","Lewisham","Female",2027,81.81
+"E09000023","Lewisham","Female",2028,81.65
+"E09000023","Lewisham","Female",2029,81.49
+"E09000023","Lewisham","Female",2030,81.33
+"E09000023","Lewisham","Female",2031,81.18
+"E09000023","Lewisham","Male",2003,74.51
+"E09000023","Lewisham","Male",2004,75.12
+"E09000023","Lewisham","Male",2005,75.18
+"E09000023","Lewisham","Male",2006,75.73
+"E09000023","Lewisham","Male",2007,76.06
+"E09000023","Lewisham","Male",2008,76.27
+"E09000023","Lewisham","Male",2009,76.42
+"E09000023","Lewisham","Male",2010,76.84
+"E09000023","Lewisham","Male",2011,77.59
+"E09000023","Lewisham","Male",2012,78.13
+"E09000023","Lewisham","Male",2013,78.54
+"E09000023","Lewisham","Male",2014,78.75
+"E09000023","Lewisham","Male",2015,78.65
+"E09000023","Lewisham","Male",2016,78.94
+"E09000023","Lewisham","Male",2017,78.82
+"E09000023","Lewisham","Male",2018,78.96
+"E09000023","Lewisham","Male",2019,78.84
+"E09000023","Lewisham","Male",2020,78.41
+"E09000023","Lewisham","Male",2021,77.99
+"E09000023","Lewisham","Male",2022,77.89
+"E09000023","Lewisham","Male",2023,77.67
+"E09000023","Lewisham","Male",2024,77.46
+"E09000023","Lewisham","Male",2025,77.25
+"E09000023","Lewisham","Male",2026,77.03
+"E09000023","Lewisham","Male",2027,76.82
+"E09000023","Lewisham","Male",2028,76.61
+"E09000023","Lewisham","Male",2029,76.39
+"E09000023","Lewisham","Male",2030,76.18
+"E09000023","Lewisham","Male",2031,75.97
+"E09000024","Merton","Female",2003,81.7
+"E09000024","Merton","Female",2004,82.04
+"E09000024","Merton","Female",2005,82.24
+"E09000024","Merton","Female",2006,82.66
+"E09000024","Merton","Female",2007,82.54
+"E09000024","Merton","Female",2008,82.78
+"E09000024","Merton","Female",2009,82.97
+"E09000024","Merton","Female",2010,83.6
+"E09000024","Merton","Female",2011,83.74
+"E09000024","Merton","Female",2012,84
+"E09000024","Merton","Female",2013,83.94
+"E09000024","Merton","Female",2014,84.12
+"E09000024","Merton","Female",2015,84.23
+"E09000024","Merton","Female",2016,84.25
+"E09000024","Merton","Female",2017,84.38
+"E09000024","Merton","Female",2018,84.46
+"E09000024","Merton","Female",2019,84.65
+"E09000024","Merton","Female",2020,84.32
+"E09000024","Merton","Female",2021,84.28
+"E09000024","Merton","Female",2022,84.43
+"E09000024","Merton","Female",2023,84.46
+"E09000024","Merton","Female",2024,84.5
+"E09000024","Merton","Female",2025,84.54
+"E09000024","Merton","Female",2026,84.57
+"E09000024","Merton","Female",2027,84.6
+"E09000024","Merton","Female",2028,84.63
+"E09000024","Merton","Female",2029,84.65
+"E09000024","Merton","Female",2030,84.67
+"E09000024","Merton","Female",2031,84.69
+"E09000024","Merton","Male",2003,76.97
+"E09000024","Merton","Male",2004,77.53
+"E09000024","Merton","Male",2005,77.77
+"E09000024","Merton","Male",2006,78.67
+"E09000024","Merton","Male",2007,79.3
+"E09000024","Merton","Male",2008,79.45
+"E09000024","Merton","Male",2009,79.8
+"E09000024","Merton","Male",2010,79.87
+"E09000024","Merton","Male",2011,80.22
+"E09000024","Merton","Male",2012,80.09
+"E09000024","Merton","Male",2013,80.13
+"E09000024","Merton","Male",2014,80.34
+"E09000024","Merton","Male",2015,80.58
+"E09000024","Merton","Male",2016,80.85
+"E09000024","Merton","Male",2017,80.91
+"E09000024","Merton","Male",2018,81.07
+"E09000024","Merton","Male",2019,81.16
+"E09000024","Merton","Male",2020,80.35
+"E09000024","Merton","Male",2021,79.81
+"E09000024","Merton","Male",2022,79.67
+"E09000024","Merton","Male",2023,79.39
+"E09000024","Merton","Male",2024,79.11
+"E09000024","Merton","Male",2025,78.83
+"E09000024","Merton","Male",2026,78.54
+"E09000024","Merton","Male",2027,78.26
+"E09000024","Merton","Male",2028,77.98
+"E09000024","Merton","Male",2029,77.7
+"E09000024","Merton","Male",2030,77.42
+"E09000024","Merton","Male",2031,77.14
+"E09000025","Newham","Female",2003,78.84
+"E09000025","Newham","Female",2004,78.77
+"E09000025","Newham","Female",2005,78.82
+"E09000025","Newham","Female",2006,79.34
+"E09000025","Newham","Female",2007,79.73
+"E09000025","Newham","Female",2008,80.3
+"E09000025","Newham","Female",2009,80.61
+"E09000025","Newham","Female",2010,81.29
+"E09000025","Newham","Female",2011,81.86
+"E09000025","Newham","Female",2012,82.45
+"E09000025","Newham","Female",2013,82.32
+"E09000025","Newham","Female",2014,82.75
+"E09000025","Newham","Female",2015,82.25
+"E09000025","Newham","Female",2016,82.7
+"E09000025","Newham","Female",2017,82.34
+"E09000025","Newham","Female",2018,82.59
+"E09000025","Newham","Female",2019,82.67
+"E09000025","Newham","Female",2020,82.14
+"E09000025","Newham","Female",2021,81.65
+"E09000025","Newham","Female",2022,81.57
+"E09000025","Newham","Female",2023,81.57
+"E09000025","Newham","Female",2024,81.57
+"E09000025","Newham","Female",2025,81.57
+"E09000025","Newham","Female",2026,81.57
+"E09000025","Newham","Female",2027,81.57
+"E09000025","Newham","Female",2028,81.57
+"E09000025","Newham","Female",2029,81.57
+"E09000025","Newham","Female",2030,81.57
+"E09000025","Newham","Female",2031,81.57
+"E09000025","Newham","Male",2003,73.66
+"E09000025","Newham","Male",2004,74.29
+"E09000025","Newham","Male",2005,74.71
+"E09000025","Newham","Male",2006,74.71
+"E09000025","Newham","Male",2007,75.36
+"E09000025","Newham","Male",2008,75.58
+"E09000025","Newham","Male",2009,76.26
+"E09000025","Newham","Male",2010,76.41
+"E09000025","Newham","Male",2011,77.44
+"E09000025","Newham","Male",2012,77.62
+"E09000025","Newham","Male",2013,78.21
+"E09000025","Newham","Male",2014,78.16
+"E09000025","Newham","Male",2015,78.49
+"E09000025","Newham","Male",2016,78.54
+"E09000025","Newham","Male",2017,78.74
+"E09000025","Newham","Male",2018,79.02
+"E09000025","Newham","Male",2019,78.96
+"E09000025","Newham","Male",2020,77.53
+"E09000025","Newham","Male",2021,76.46
+"E09000025","Newham","Male",2022,76.48
+"E09000025","Newham","Male",2023,76.48
+"E09000025","Newham","Male",2024,76.48
+"E09000025","Newham","Male",2025,76.48
+"E09000025","Newham","Male",2026,76.48
+"E09000025","Newham","Male",2027,76.48
+"E09000025","Newham","Male",2028,76.48
+"E09000025","Newham","Male",2029,76.48
+"E09000025","Newham","Male",2030,76.48
+"E09000025","Newham","Male",2031,76.48
+"E09000026","Redbridge","Female",2003,80.99
+"E09000026","Redbridge","Female",2004,81.25
+"E09000026","Redbridge","Female",2005,81.58
+"E09000026","Redbridge","Female",2006,82.08
+"E09000026","Redbridge","Female",2007,82.34
+"E09000026","Redbridge","Female",2008,82.45
+"E09000026","Redbridge","Female",2009,82.76
+"E09000026","Redbridge","Female",2010,82.99
+"E09000026","Redbridge","Female",2011,83.47
+"E09000026","Redbridge","Female",2012,83.82
+"E09000026","Redbridge","Female",2013,84.05
+"E09000026","Redbridge","Female",2014,84.43
+"E09000026","Redbridge","Female",2015,84.18
+"E09000026","Redbridge","Female",2016,84.28
+"E09000026","Redbridge","Female",2017,84.24
+"E09000026","Redbridge","Female",2018,84.66
+"E09000026","Redbridge","Female",2019,85.07
+"E09000026","Redbridge","Female",2020,84.4
+"E09000026","Redbridge","Female",2021,83.86
+"E09000026","Redbridge","Female",2022,83.47
+"E09000026","Redbridge","Female",2023,83.47
+"E09000026","Redbridge","Female",2024,83.47
+"E09000026","Redbridge","Female",2025,83.47
+"E09000026","Redbridge","Female",2026,83.47
+"E09000026","Redbridge","Female",2027,83.47
+"E09000026","Redbridge","Female",2028,83.47
+"E09000026","Redbridge","Female",2029,83.47
+"E09000026","Redbridge","Female",2030,83.47
+"E09000026","Redbridge","Female",2031,83.47
+"E09000026","Redbridge","Male",2003,76.95
+"E09000026","Redbridge","Male",2004,77.28
+"E09000026","Redbridge","Male",2005,77.44
+"E09000026","Redbridge","Male",2006,77.79
+"E09000026","Redbridge","Male",2007,78.2
+"E09000026","Redbridge","Male",2008,78.74
+"E09000026","Redbridge","Male",2009,79.08
+"E09000026","Redbridge","Male",2010,79.18
+"E09000026","Redbridge","Male",2011,79.72
+"E09000026","Redbridge","Male",2012,80.1
+"E09000026","Redbridge","Male",2013,80.53
+"E09000026","Redbridge","Male",2014,80.68
+"E09000026","Redbridge","Male",2015,80.48
+"E09000026","Redbridge","Male",2016,80.81
+"E09000026","Redbridge","Male",2017,80.81
+"E09000026","Redbridge","Male",2018,81.19
+"E09000026","Redbridge","Male",2019,81.19
+"E09000026","Redbridge","Male",2020,80.14
+"E09000026","Redbridge","Male",2021,79.43
+"E09000026","Redbridge","Male",2022,79.04
+"E09000026","Redbridge","Male",2023,78.55
+"E09000026","Redbridge","Male",2024,78.06
+"E09000026","Redbridge","Male",2025,77.57
+"E09000026","Redbridge","Male",2026,77.08
+"E09000026","Redbridge","Male",2027,76.59
+"E09000026","Redbridge","Male",2028,76.1
+"E09000026","Redbridge","Male",2029,75.61
+"E09000026","Redbridge","Male",2030,75.13
+"E09000026","Redbridge","Male",2031,74.64
+"E09000027","Richmond upon Thames","Female",2003,82.26
+"E09000027","Richmond upon Thames","Female",2004,82.37
+"E09000027","Richmond upon Thames","Female",2005,82.7
+"E09000027","Richmond upon Thames","Female",2006,83
+"E09000027","Richmond upon Thames","Female",2007,83.59
+"E09000027","Richmond upon Thames","Female",2008,84.02
+"E09000027","Richmond upon Thames","Female",2009,84.93
+"E09000027","Richmond upon Thames","Female",2010,85.12
+"E09000027","Richmond upon Thames","Female",2011,85.55
+"E09000027","Richmond upon Thames","Female",2012,85.52
+"E09000027","Richmond upon Thames","Female",2013,85.55
+"E09000027","Richmond upon Thames","Female",2014,85.61
+"E09000027","Richmond upon Thames","Female",2015,85.33
+"E09000027","Richmond upon Thames","Female",2016,85.78
+"E09000027","Richmond upon Thames","Female",2017,85.5
+"E09000027","Richmond upon Thames","Female",2018,86.19
+"E09000027","Richmond upon Thames","Female",2019,85.98
+"E09000027","Richmond upon Thames","Female",2020,86.06
+"E09000027","Richmond upon Thames","Female",2021,85.79
+"E09000027","Richmond upon Thames","Female",2022,85.84
+"E09000027","Richmond upon Thames","Female",2023,85.66
+"E09000027","Richmond upon Thames","Female",2024,85.54
+"E09000027","Richmond upon Thames","Female",2025,85.41
+"E09000027","Richmond upon Thames","Female",2026,85.28
+"E09000027","Richmond upon Thames","Female",2027,85.16
+"E09000027","Richmond upon Thames","Female",2028,85.03
+"E09000027","Richmond upon Thames","Female",2029,84.9
+"E09000027","Richmond upon Thames","Female",2030,84.77
+"E09000027","Richmond upon Thames","Female",2031,84.65
+"E09000027","Richmond upon Thames","Male",2003,78.38
+"E09000027","Richmond upon Thames","Male",2004,78.68
+"E09000027","Richmond upon Thames","Male",2005,79.21
+"E09000027","Richmond upon Thames","Male",2006,79.48
+"E09000027","Richmond upon Thames","Male",2007,79.96
+"E09000027","Richmond upon Thames","Male",2008,80.22
+"E09000027","Richmond upon Thames","Male",2009,80.78
+"E09000027","Richmond upon Thames","Male",2010,81.09
+"E09000027","Richmond upon Thames","Male",2011,81.33
+"E09000027","Richmond upon Thames","Male",2012,81.5
+"E09000027","Richmond upon Thames","Male",2013,81.69
+"E09000027","Richmond upon Thames","Male",2014,82.11
+"E09000027","Richmond upon Thames","Male",2015,81.97
+"E09000027","Richmond upon Thames","Male",2016,82.15
+"E09000027","Richmond upon Thames","Male",2017,82.19
+"E09000027","Richmond upon Thames","Male",2018,82.35
+"E09000027","Richmond upon Thames","Male",2019,82.39
+"E09000027","Richmond upon Thames","Male",2020,82.02
+"E09000027","Richmond upon Thames","Male",2021,82.28
+"E09000027","Richmond upon Thames","Male",2022,82.37
+"E09000027","Richmond upon Thames","Male",2023,82.25
+"E09000027","Richmond upon Thames","Male",2024,82.26
+"E09000027","Richmond upon Thames","Male",2025,82.27
+"E09000027","Richmond upon Thames","Male",2026,82.28
+"E09000027","Richmond upon Thames","Male",2027,82.29
+"E09000027","Richmond upon Thames","Male",2028,82.3
+"E09000027","Richmond upon Thames","Male",2029,82.31
+"E09000027","Richmond upon Thames","Male",2030,82.32
+"E09000027","Richmond upon Thames","Male",2031,82.32
+"E09000028","Southwark","Female",2003,79.92
+"E09000028","Southwark","Female",2004,80.17
+"E09000028","Southwark","Female",2005,80.58
+"E09000028","Southwark","Female",2006,81.04
+"E09000028","Southwark","Female",2007,81.18
+"E09000028","Southwark","Female",2008,81.4
+"E09000028","Southwark","Female",2009,81.62
+"E09000028","Southwark","Female",2010,81.97
+"E09000028","Southwark","Female",2011,82.34
+"E09000028","Southwark","Female",2012,82.76
+"E09000028","Southwark","Female",2013,83.39
+"E09000028","Southwark","Female",2014,83.49
+"E09000028","Southwark","Female",2015,83.41
+"E09000028","Southwark","Female",2016,83.41
+"E09000028","Southwark","Female",2017,83.94
+"E09000028","Southwark","Female",2018,84.09
+"E09000028","Southwark","Female",2019,84.3
+"E09000028","Southwark","Female",2020,83.44
+"E09000028","Southwark","Female",2021,83.22
+"E09000028","Southwark","Female",2022,83.24
+"E09000028","Southwark","Female",2023,83.24
+"E09000028","Southwark","Female",2024,83.24
+"E09000028","Southwark","Female",2025,83.24
+"E09000028","Southwark","Female",2026,83.24
+"E09000028","Southwark","Female",2027,83.24
+"E09000028","Southwark","Female",2028,83.24
+"E09000028","Southwark","Female",2029,83.24
+"E09000028","Southwark","Female",2030,83.24
+"E09000028","Southwark","Female",2031,83.24
+"E09000028","Southwark","Male",2003,73.96
+"E09000028","Southwark","Male",2004,74.6
+"E09000028","Southwark","Male",2005,75.17
+"E09000028","Southwark","Male",2006,76.05
+"E09000028","Southwark","Male",2007,76.28
+"E09000028","Southwark","Male",2008,76.27
+"E09000028","Southwark","Male",2009,76.65
+"E09000028","Southwark","Male",2010,76.95
+"E09000028","Southwark","Male",2011,77.63
+"E09000028","Southwark","Male",2012,77.9
+"E09000028","Southwark","Male",2013,78.32
+"E09000028","Southwark","Male",2014,78.55
+"E09000028","Southwark","Male",2015,78.48
+"E09000028","Southwark","Male",2016,78.53
+"E09000028","Southwark","Male",2017,78.23
+"E09000028","Southwark","Male",2018,78.49
+"E09000028","Southwark","Male",2019,78.6
+"E09000028","Southwark","Male",2020,78.53
+"E09000028","Southwark","Male",2021,78.25
+"E09000028","Southwark","Male",2022,78.37
+"E09000028","Southwark","Male",2023,78.4
+"E09000028","Southwark","Male",2024,78.44
+"E09000028","Southwark","Male",2025,78.46
+"E09000028","Southwark","Male",2026,78.49
+"E09000028","Southwark","Male",2027,78.51
+"E09000028","Southwark","Male",2028,78.52
+"E09000028","Southwark","Male",2029,78.54
+"E09000028","Southwark","Male",2030,78.55
+"E09000028","Southwark","Male",2031,78.56
+"E09000029","Sutton","Female",2003,80.64
+"E09000029","Sutton","Female",2004,81.23
+"E09000029","Sutton","Female",2005,81.84
+"E09000029","Sutton","Female",2006,82.54
+"E09000029","Sutton","Female",2007,82.51
+"E09000029","Sutton","Female",2008,82.55
+"E09000029","Sutton","Female",2009,82.84
+"E09000029","Sutton","Female",2010,83.33
+"E09000029","Sutton","Female",2011,83.83
+"E09000029","Sutton","Female",2012,83.79
+"E09000029","Sutton","Female",2013,83.87
+"E09000029","Sutton","Female",2014,83.33
+"E09000029","Sutton","Female",2015,83.56
+"E09000029","Sutton","Female",2016,83.55
+"E09000029","Sutton","Female",2017,84.28
+"E09000029","Sutton","Female",2018,83.91
+"E09000029","Sutton","Female",2019,84.36
+"E09000029","Sutton","Female",2020,84.03
+"E09000029","Sutton","Female",2021,84.06
+"E09000029","Sutton","Female",2022,83.92
+"E09000029","Sutton","Female",2023,84.08
+"E09000029","Sutton","Female",2024,84.09
+"E09000029","Sutton","Female",2025,84.1
+"E09000029","Sutton","Female",2026,84.11
+"E09000029","Sutton","Female",2027,84.12
+"E09000029","Sutton","Female",2028,84.12
+"E09000029","Sutton","Female",2029,84.13
+"E09000029","Sutton","Female",2030,84.13
+"E09000029","Sutton","Female",2031,84.13
+"E09000029","Sutton","Male",2003,77.25
+"E09000029","Sutton","Male",2004,78.02
+"E09000029","Sutton","Male",2005,77.98
+"E09000029","Sutton","Male",2006,78.48
+"E09000029","Sutton","Male",2007,78.59
+"E09000029","Sutton","Male",2008,78.87
+"E09000029","Sutton","Male",2009,79.12
+"E09000029","Sutton","Male",2010,79.25
+"E09000029","Sutton","Male",2011,79.74
+"E09000029","Sutton","Male",2012,80.31
+"E09000029","Sutton","Male",2013,80.64
+"E09000029","Sutton","Male",2014,80.68
+"E09000029","Sutton","Male",2015,80.69
+"E09000029","Sutton","Male",2016,80.51
+"E09000029","Sutton","Male",2017,80.65
+"E09000029","Sutton","Male",2018,80.39
+"E09000029","Sutton","Male",2019,80.72
+"E09000029","Sutton","Male",2020,80.04
+"E09000029","Sutton","Male",2021,79.87
+"E09000029","Sutton","Male",2022,79.8
+"E09000029","Sutton","Male",2023,79.56
+"E09000029","Sutton","Male",2024,79.36
+"E09000029","Sutton","Male",2025,79.16
+"E09000029","Sutton","Male",2026,78.96
+"E09000029","Sutton","Male",2027,78.76
+"E09000029","Sutton","Male",2028,78.56
+"E09000029","Sutton","Male",2029,78.36
+"E09000029","Sutton","Male",2030,78.16
+"E09000029","Sutton","Male",2031,77.96
+"E09000030","Tower Hamlets","Female",2003,78.8
+"E09000030","Tower Hamlets","Female",2004,79.15
+"E09000030","Tower Hamlets","Female",2005,79.81
+"E09000030","Tower Hamlets","Female",2006,80.11
+"E09000030","Tower Hamlets","Female",2007,80.31
+"E09000030","Tower Hamlets","Female",2008,80.27
+"E09000030","Tower Hamlets","Female",2009,80.64
+"E09000030","Tower Hamlets","Female",2010,81.04
+"E09000030","Tower Hamlets","Female",2011,81.66
+"E09000030","Tower Hamlets","Female",2012,81.72
+"E09000030","Tower Hamlets","Female",2013,82.23
+"E09000030","Tower Hamlets","Female",2014,81.92
+"E09000030","Tower Hamlets","Female",2015,81.88
+"E09000030","Tower Hamlets","Female",2016,81.61
+"E09000030","Tower Hamlets","Female",2017,81.99
+"E09000030","Tower Hamlets","Female",2018,82.07
+"E09000030","Tower Hamlets","Female",2019,82.28
+"E09000030","Tower Hamlets","Female",2020,81.71
+"E09000030","Tower Hamlets","Female",2021,81.08
+"E09000030","Tower Hamlets","Female",2022,81.15
+"E09000030","Tower Hamlets","Female",2023,81.15
+"E09000030","Tower Hamlets","Female",2024,81.15
+"E09000030","Tower Hamlets","Female",2025,81.15
+"E09000030","Tower Hamlets","Female",2026,81.15
+"E09000030","Tower Hamlets","Female",2027,81.15
+"E09000030","Tower Hamlets","Female",2028,81.15
+"E09000030","Tower Hamlets","Female",2029,81.15
+"E09000030","Tower Hamlets","Female",2030,81.15
+"E09000030","Tower Hamlets","Female",2031,81.15
+"E09000030","Tower Hamlets","Male",2003,72.85
+"E09000030","Tower Hamlets","Male",2004,73.71
+"E09000030","Tower Hamlets","Male",2005,74.61
+"E09000030","Tower Hamlets","Male",2006,74.87
+"E09000030","Tower Hamlets","Male",2007,74.9
+"E09000030","Tower Hamlets","Male",2008,74.83
+"E09000030","Tower Hamlets","Male",2009,75.48
+"E09000030","Tower Hamlets","Male",2010,76.03
+"E09000030","Tower Hamlets","Male",2011,76.59
+"E09000030","Tower Hamlets","Male",2012,76.91
+"E09000030","Tower Hamlets","Male",2013,77.26
+"E09000030","Tower Hamlets","Male",2014,77.55
+"E09000030","Tower Hamlets","Male",2015,77.63
+"E09000030","Tower Hamlets","Male",2016,77.62
+"E09000030","Tower Hamlets","Male",2017,77.7
+"E09000030","Tower Hamlets","Male",2018,77.79
+"E09000030","Tower Hamlets","Male",2019,78.52
+"E09000030","Tower Hamlets","Male",2020,77.8
+"E09000030","Tower Hamlets","Male",2021,77.63
+"E09000030","Tower Hamlets","Male",2022,77.04
+"E09000030","Tower Hamlets","Male",2023,77.08
+"E09000030","Tower Hamlets","Male",2024,77.11
+"E09000030","Tower Hamlets","Male",2025,77.14
+"E09000030","Tower Hamlets","Male",2026,77.16
+"E09000030","Tower Hamlets","Male",2027,77.18
+"E09000030","Tower Hamlets","Male",2028,77.2
+"E09000030","Tower Hamlets","Male",2029,77.22
+"E09000030","Tower Hamlets","Male",2030,77.23
+"E09000030","Tower Hamlets","Male",2031,77.24
+"E09000031","Waltham Forest","Female",2003,79.6
+"E09000031","Waltham Forest","Female",2004,80.06
+"E09000031","Waltham Forest","Female",2005,80.5
+"E09000031","Waltham Forest","Female",2006,80.94
+"E09000031","Waltham Forest","Female",2007,81.22
+"E09000031","Waltham Forest","Female",2008,81.42
+"E09000031","Waltham Forest","Female",2009,81.89
+"E09000031","Waltham Forest","Female",2010,82.29
+"E09000031","Waltham Forest","Female",2011,82.77
+"E09000031","Waltham Forest","Female",2012,83.11
+"E09000031","Waltham Forest","Female",2013,83.41
+"E09000031","Waltham Forest","Female",2014,83.52
+"E09000031","Waltham Forest","Female",2015,83.49
+"E09000031","Waltham Forest","Female",2016,83.6
+"E09000031","Waltham Forest","Female",2017,83.71
+"E09000031","Waltham Forest","Female",2018,83.94
+"E09000031","Waltham Forest","Female",2019,84.26
+"E09000031","Waltham Forest","Female",2020,83.67
+"E09000031","Waltham Forest","Female",2021,83.42
+"E09000031","Waltham Forest","Female",2022,83
+"E09000031","Waltham Forest","Female",2023,82.66
+"E09000031","Waltham Forest","Female",2024,82.32
+"E09000031","Waltham Forest","Female",2025,81.98
+"E09000031","Waltham Forest","Female",2026,81.64
+"E09000031","Waltham Forest","Female",2027,81.3
+"E09000031","Waltham Forest","Female",2028,80.97
+"E09000031","Waltham Forest","Female",2029,80.63
+"E09000031","Waltham Forest","Female",2030,80.29
+"E09000031","Waltham Forest","Female",2031,79.95
+"E09000031","Waltham Forest","Male",2003,74.66
+"E09000031","Waltham Forest","Male",2004,75.05
+"E09000031","Waltham Forest","Male",2005,75.55
+"E09000031","Waltham Forest","Male",2006,75.54
+"E09000031","Waltham Forest","Male",2007,76.25
+"E09000031","Waltham Forest","Male",2008,76.86
+"E09000031","Waltham Forest","Male",2009,77.68
+"E09000031","Waltham Forest","Male",2010,78.09
+"E09000031","Waltham Forest","Male",2011,78.86
+"E09000031","Waltham Forest","Male",2012,79.07
+"E09000031","Waltham Forest","Male",2013,79.55
+"E09000031","Waltham Forest","Male",2014,79.12
+"E09000031","Waltham Forest","Male",2015,79.16
+"E09000031","Waltham Forest","Male",2016,79.12
+"E09000031","Waltham Forest","Male",2017,79.67
+"E09000031","Waltham Forest","Male",2018,80.07
+"E09000031","Waltham Forest","Male",2019,80.12
+"E09000031","Waltham Forest","Male",2020,79.11
+"E09000031","Waltham Forest","Male",2021,78.64
+"E09000031","Waltham Forest","Male",2022,78.49
+"E09000031","Waltham Forest","Male",2023,78.24
+"E09000031","Waltham Forest","Male",2024,77.99
+"E09000031","Waltham Forest","Male",2025,77.74
+"E09000031","Waltham Forest","Male",2026,77.49
+"E09000031","Waltham Forest","Male",2027,77.24
+"E09000031","Waltham Forest","Male",2028,76.99
+"E09000031","Waltham Forest","Male",2029,76.75
+"E09000031","Waltham Forest","Male",2030,76.5
+"E09000031","Waltham Forest","Male",2031,76.25
+"E09000032","Wandsworth","Female",2003,80.21
+"E09000032","Wandsworth","Female",2004,80.52
+"E09000032","Wandsworth","Female",2005,80.84
+"E09000032","Wandsworth","Female",2006,81.13
+"E09000032","Wandsworth","Female",2007,81.34
+"E09000032","Wandsworth","Female",2008,81.36
+"E09000032","Wandsworth","Female",2009,81.84
+"E09000032","Wandsworth","Female",2010,82.39
+"E09000032","Wandsworth","Female",2011,83
+"E09000032","Wandsworth","Female",2012,83.15
+"E09000032","Wandsworth","Female",2013,83.22
+"E09000032","Wandsworth","Female",2014,83.62
+"E09000032","Wandsworth","Female",2015,83.64
+"E09000032","Wandsworth","Female",2016,83.82
+"E09000032","Wandsworth","Female",2017,83.61
+"E09000032","Wandsworth","Female",2018,83.97
+"E09000032","Wandsworth","Female",2019,84.13
+"E09000032","Wandsworth","Female",2020,84.23
+"E09000032","Wandsworth","Female",2021,84.06
+"E09000032","Wandsworth","Female",2022,84.18
+"E09000032","Wandsworth","Female",2023,84.29
+"E09000032","Wandsworth","Female",2024,84.41
+"E09000032","Wandsworth","Female",2025,84.52
+"E09000032","Wandsworth","Female",2026,84.63
+"E09000032","Wandsworth","Female",2027,84.74
+"E09000032","Wandsworth","Female",2028,84.86
+"E09000032","Wandsworth","Female",2029,84.97
+"E09000032","Wandsworth","Female",2030,85.08
+"E09000032","Wandsworth","Female",2031,85.19
+"E09000032","Wandsworth","Male",2003,75.6
+"E09000032","Wandsworth","Male",2004,76.18
+"E09000032","Wandsworth","Male",2005,76.24
+"E09000032","Wandsworth","Male",2006,76.71
+"E09000032","Wandsworth","Male",2007,76.96
+"E09000032","Wandsworth","Male",2008,77.54
+"E09000032","Wandsworth","Male",2009,77.85
+"E09000032","Wandsworth","Male",2010,78.26
+"E09000032","Wandsworth","Male",2011,78.76
+"E09000032","Wandsworth","Male",2012,79.07
+"E09000032","Wandsworth","Male",2013,79.2
+"E09000032","Wandsworth","Male",2014,79.43
+"E09000032","Wandsworth","Male",2015,79.7
+"E09000032","Wandsworth","Male",2016,79.95
+"E09000032","Wandsworth","Male",2017,80.08
+"E09000032","Wandsworth","Male",2018,80.31
+"E09000032","Wandsworth","Male",2019,80.4
+"E09000032","Wandsworth","Male",2020,79.73
+"E09000032","Wandsworth","Male",2021,79.43
+"E09000032","Wandsworth","Male",2022,79.8
+"E09000032","Wandsworth","Male",2023,79.82
+"E09000032","Wandsworth","Male",2024,79.85
+"E09000032","Wandsworth","Male",2025,79.87
+"E09000032","Wandsworth","Male",2026,79.9
+"E09000032","Wandsworth","Male",2027,79.92
+"E09000032","Wandsworth","Male",2028,79.95
+"E09000032","Wandsworth","Male",2029,79.97
+"E09000032","Wandsworth","Male",2030,79.99
+"E09000032","Wandsworth","Male",2031,80.02
+"E09000033","Westminster","Female",2003,82.34
+"E09000033","Westminster","Female",2004,82.63
+"E09000033","Westminster","Female",2005,82.62
+"E09000033","Westminster","Female",2006,83.44
+"E09000033","Westminster","Female",2007,83.82
+"E09000033","Westminster","Female",2008,84.6
+"E09000033","Westminster","Female",2009,84.83
+"E09000033","Westminster","Female",2010,84.82
+"E09000033","Westminster","Female",2011,84.65
+"E09000033","Westminster","Female",2012,84.55
+"E09000033","Westminster","Female",2013,85.09
+"E09000033","Westminster","Female",2014,85.29
+"E09000033","Westminster","Female",2015,85.28
+"E09000033","Westminster","Female",2016,84.99
+"E09000033","Westminster","Female",2017,84.77
+"E09000033","Westminster","Female",2018,84.94
+"E09000033","Westminster","Female",2019,85.27
+"E09000033","Westminster","Female",2020,84.79
+"E09000033","Westminster","Female",2021,84.59
+"E09000033","Westminster","Female",2022,84.73
+"E09000033","Westminster","Female",2023,84.73
+"E09000033","Westminster","Female",2024,84.73
+"E09000033","Westminster","Female",2025,84.73
+"E09000033","Westminster","Female",2026,84.73
+"E09000033","Westminster","Female",2027,84.73
+"E09000033","Westminster","Female",2028,84.73
+"E09000033","Westminster","Female",2029,84.73
+"E09000033","Westminster","Female",2030,84.73
+"E09000033","Westminster","Female",2031,84.73
+"E09000033","Westminster","Male",2003,77.34
+"E09000033","Westminster","Male",2004,77.65
+"E09000033","Westminster","Male",2005,78.16
+"E09000033","Westminster","Male",2006,79.36
+"E09000033","Westminster","Male",2007,80.26
+"E09000033","Westminster","Male",2008,81.14
+"E09000033","Westminster","Male",2009,81.18
+"E09000033","Westminster","Male",2010,81.18
+"E09000033","Westminster","Male",2011,80.99
+"E09000033","Westminster","Male",2012,80.8
+"E09000033","Westminster","Male",2013,81.12
+"E09000033","Westminster","Male",2014,81.28
+"E09000033","Westminster","Male",2015,81.14
+"E09000033","Westminster","Male",2016,80.96
+"E09000033","Westminster","Male",2017,80.82
+"E09000033","Westminster","Male",2018,81.49
+"E09000033","Westminster","Male",2019,81.79
+"E09000033","Westminster","Male",2020,81
+"E09000033","Westminster","Male",2021,80.44
+"E09000033","Westminster","Male",2022,80.29
+"E09000033","Westminster","Male",2023,80.29
+"E09000033","Westminster","Male",2024,80.29
+"E09000033","Westminster","Male",2025,80.29
+"E09000033","Westminster","Male",2026,80.29
+"E09000033","Westminster","Male",2027,80.29
+"E09000033","Westminster","Male",2028,80.29
+"E09000033","Westminster","Male",2029,80.29
+"E09000033","Westminster","Male",2030,80.29
+"E09000033","Westminster","Male",2031,80.29
+"E12000007","London","Female",2003,80.79
+"E12000007","London","Female",2004,81.04
+"E12000007","London","Female",2005,81.35
+"E12000007","London","Female",2006,81.85
+"E12000007","London","Female",2007,82.19
+"E12000007","London","Female",2008,82.42
+"E12000007","London","Female",2009,82.71
+"E12000007","London","Female",2010,82.92
+"E12000007","London","Female",2011,83.36
+"E12000007","London","Female",2012,83.57
+"E12000007","London","Female",2013,83.84
+"E12000007","London","Female",2014,83.93
+"E12000007","London","Female",2015,83.94
+"E12000007","London","Female",2016,84.04
+"E12000007","London","Female",2017,84.1
+"E12000007","London","Female",2018,84.25
+"E12000007","London","Female",2019,84.36
+"E12000007","London","Female",2020,83.95
+"E12000007","London","Female",2021,83.69
+"E12000007","London","Female",2022,83.64
+"E12000007","London","Female",2023,83.51
+"E12000007","London","Female",2024,83.39
+"E12000007","London","Female",2025,83.26
+"E12000007","London","Female",2026,83.14
+"E12000007","London","Female",2027,83.01
+"E12000007","London","Female",2028,82.88
+"E12000007","London","Female",2029,82.76
+"E12000007","London","Female",2030,82.63
+"E12000007","London","Female",2031,82.5
+"E12000007","London","Male",2003,75.95
+"E12000007","London","Male",2004,76.37
+"E12000007","London","Male",2005,76.79
+"E12000007","London","Male",2006,77.25
+"E12000007","London","Male",2007,77.63
+"E12000007","London","Male",2008,77.95
+"E12000007","London","Male",2009,78.34
+"E12000007","London","Male",2010,78.68
+"E12000007","London","Male",2011,79.16
+"E12000007","London","Male",2012,79.49
+"E12000007","London","Male",2013,79.81
+"E12000007","London","Male",2014,80.04
+"E12000007","London","Male",2015,80.03
+"E12000007","London","Male",2016,80.12
+"E12000007","London","Male",2017,80.1
+"E12000007","London","Male",2018,80.25
+"E12000007","London","Male",2019,80.37
+"E12000007","London","Male",2020,79.66
+"E12000007","London","Male",2021,79.22
+"E12000007","London","Male",2022,79.13
+"E12000007","London","Male",2023,78.9
+"E12000007","London","Male",2024,78.67
+"E12000007","London","Male",2025,78.44
+"E12000007","London","Male",2026,78.21
+"E12000007","London","Male",2027,77.98
+"E12000007","London","Male",2028,77.75
+"E12000007","London","Male",2029,77.52
+"E12000007","London","Male",2030,77.29
+"E12000007","London","Male",2031,77.06
