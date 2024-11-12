@@ -451,6 +451,8 @@ limpieza_indicador_04_estudios <- function(df) {
 }
 
 validar_indicador_04_estudios <- function(df) {
+  if (any(is.na(df)))
+    return(FALSE)
   return(TRUE)
 }
 
@@ -513,6 +515,8 @@ limpieza_indicador_05_trafico <- function(df) {
 }
 
 validar_indicador_05_trafico <- function(df) {
+  if (any(is.na(df)))
+    return(FALSE)
   return(TRUE)
 }
 
@@ -597,11 +601,9 @@ limpieza_indicador_06_esperanza_vida <- function(df) {
   return(df)
 }
 
-imputar_valores_indicador_06_esperanza_vida <- function(df) {
-  return(df)
-}
-
 validar_indicador_06_esperanza_vida <- function(df) {
+  if (any(is.na(df)))
+    return(FALSE)
   return(TRUE)
 }
 
@@ -616,20 +618,94 @@ guardar_indicador_06_esperanza_vida <- function(df) {
 ################################################################################
 
 carga_indicador_07_delitos <- function() {
+  nulos <- c("", "-")
+  cols_2010 <- seq.Date(as.Date("2010-04-01"), as.Date("2010-12-01"), by = "month")
+  cols_2011_2021 <- seq.Date(as.Date("2011-01-01"), as.Date("2021-12-01"), by = "month")
+  cols_2022 <- seq.Date(as.Date("2022-01-01"), as.Date("2022-09-01"), by = "month")
+  columnas <- c("MajorText", "MinorText", "Borough", paste0("M_", format(c(cols_2010, cols_2011_2021, cols_2022), "%Y%m")))
   ruta_fichero <- '06_Seguridad/MPS Borough Level Crime (Historical).csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""))
-  return(df) 
-}
-
-limpieza_indicador_07_delitos <- function(df) {
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), skip = 1, na = nulos, col_names = columnas)
   return(df)
 }
 
-imputar_valores_indicador_07_delitos <- function(df) {
+limpieza_indicador_07_delitos <- function(df) {
+  # Filtra los registros que no corresponden con barrios de Londres
+  barrios_londres <- unlist(lista_barrios)
+  barrios <- unique(df$Borough)
+  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
+  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
+  
+  # Eliminar columnas tipo de delito
+  df <- df %>% select(-c("MajorText", "MinorText"))
+  
+  columnas <- colnames(df)
+  # Agrupar por barrios
+  df <- df %>%
+    group_by(Borough) %>%
+    summarise(across(starts_with("M_"), sum, na.rm = TRUE))
+
+  # Crear columna media por año
+  df <- df %>%
+    rowwise() %>%  # Permite realizar operaciones fila por fila
+    mutate(across(starts_with("M_"), as.numeric)) %>%  # Asegura que los datos sean numéricos
+    summarise(
+      Borough = first(Borough),
+      # Calcula la media anual para cada año
+      Mean_2010 = round(mean(c_across(starts_with("M_2010")), na.rm = TRUE), 2),
+      Mean_2011 = round(mean(c_across(starts_with("M_2011")), na.rm = TRUE), 2),
+      Mean_2012 = round(mean(c_across(starts_with("M_2012")), na.rm = TRUE), 2),
+      Mean_2013 = round(mean(c_across(starts_with("M_2013")), na.rm = TRUE), 2),
+      Mean_2014 = round(mean(c_across(starts_with("M_2014")), na.rm = TRUE), 2),
+      Mean_2015 = round(mean(c_across(starts_with("M_2015")), na.rm = TRUE), 2),
+      Mean_2016 = round(mean(c_across(starts_with("M_2016")), na.rm = TRUE), 2),
+      Mean_2017 = round(mean(c_across(starts_with("M_2017")), na.rm = TRUE), 2),
+      Mean_2018 = round(mean(c_across(starts_with("M_2018")), na.rm = TRUE), 2),
+      Mean_2019 = round(mean(c_across(starts_with("M_2019")), na.rm = TRUE), 2),
+      Mean_2020 = round(mean(c_across(starts_with("M_2020")), na.rm = TRUE), 2),
+      Mean_2021 = round(mean(c_across(starts_with("M_2021")), na.rm = TRUE), 2),
+      Mean_2022 = round(mean(c_across(starts_with("M_2022")), na.rm = TRUE), 2),
+  )
+
+  df <- df %>%
+    left_join(select(df_barrios, Borough, Code), by = "Borough", suffix = c("", "_barrio"))
+
+  # Pivotar los años
+  df <- df %>%
+    pivot_longer(cols = starts_with("Mean_"),
+                 names_to = "Year",
+                 names_prefix = "Mean_",
+                 values_to = "Crimes") %>%
+    mutate(Year = as.numeric(Year))
+  
+  # Estimación datos hasta 2031
+  # Imputar valores hasta 2031
+  anyos_pred <- 2023:2031
+  barrios <- unique(df$Borough)
+  for (barrio in barrios) {
+    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
+    predicciones <- list()
+    serie_Crimes <- ts(df %>% filter(Borough == barrio) %>% pull(Crimes), start = 2010, end = 2022, frequency = 1)
+    modelo_Crimes <- ets(serie_Crimes)
+    pred_Crimes <- forecast(modelo_Crimes, h = length(anyos_pred))
+    predicciones[["Crimes"]] <- round(pred_Crimes$mean, 0)
+    
+    predicciones_df <- as.data.frame(predicciones)
+    predicciones_df$Year <- anyos_pred
+    predicciones_df$Borough <- barrio
+    predicciones_df$Code <- codigo_barrio
+    
+    df <- bind_rows(df, predicciones_df)
+  }
+  
+  # Ordenar los datos y mostrar las columnas en orden correcto
+  df <- df %>% select(Code, Borough, Year, Crimes) %>% arrange(Code, Year)
+  
   return(df)
 }
 
 validar_indicador_07_delitos <- function(df) {
+  if (any(is.na(df)))
+    return(FALSE)
   return(TRUE)
 }
 
@@ -645,15 +721,70 @@ guardar_indicador_07_delitos <- function(df) {
 
 carga_indicador_08_servicios <- function() {
   ruta_fichero <- '07_Servicios/local-units-by-broad-industry-group.xls'
-  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""))
+  # Lectura de las pestañas desde 2009 hasta 2024
+  lista_pestanas <- 2009:2024
+  nulos <- c("", "-")
+  columnas <- c("Code", "Borough", "Agriculture", "Production", "Construction", "Motor", "Wholesale", "Retail", "Transport", "Food", "Information", "Finance", "Property", "Professional", "Business", "Public", 
+                "Education", "Health", "Entertainment", "Total")
+  df <- data.frame(Code = NA, Borough = NA, Agriculture = NA, Production = NA, Construction = NA, Motor = NA, Wholesale = NA, Retail = NA, Transport = NA, Food = NA, Information = NA, Finance = NA, 
+                   Property = NA, Professional = NA, Business = NA, Public = NA, Education = NA, Health = NA, Entertainment = NA, Total = NA)[0,]
+  # Lee la lista de pestañas (desde 2009 hasta 2024)
+  for (pestana in lista_pestanas) {
+    df_tmp = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), sheet = (8 + (pestana - 2009)), skip = 3, col_names = columnas, na = nulos)
+    # Añade el dato del año
+    df_tmp["Year"] <- pestana
+    # Fusiona los datos
+    df <- rbind(df, df_tmp)
+  }  
+  df <- df %>% select(Code, Borough, Year, Retail, Food, Entertainment, Total)
   return(df) 
 }
 
 limpieza_indicador_08_servicios <- function(df) {
-  return(df)
-}
+  # Filtra los registros que no corresponden con barrios de Londres
+  barrios_londres <- unlist(lista_barrios)
+  barrios <- unique(df$Borough)
+  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
+  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
+  # Actualizar códigos de barrio
+  df <- df %>%
+    left_join(select(df_barrios, Borough, Code), by = "Borough", suffix = c("", "_barrio")) %>%
+    mutate(Code = ifelse(!is.na(Code_barrio), Code_barrio, Code)) %>%
+    select(-Code_barrio)
+  
+  # Previsión hasta 2031
+  anyos_pred <- 2025:2031
+  barrios <- unique(df$Borough)
+  for (barrio in barrios) {
+    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
+    predicciones <- list()
+    serie_Retail <- ts(df %>% filter(Borough == barrio) %>% pull(Retail), start = 2009, end = 2024, frequency = 1)
+    serie_Food <- ts(df %>% filter(Borough == barrio) %>% pull(Food), start = 2009, end = 2024, frequency = 1)
+    serie_Entertainment <- ts(df %>% filter(Borough == barrio) %>% pull(Entertainment), start = 2009, end = 2024, frequency = 1)
+    serie_Total <- ts(df %>% filter(Borough == barrio) %>% pull(Total), start = 2009, end = 2024, frequency = 1)
+    modelo_Retail <- ets(serie_Retail)
+    modelo_Food <- ets(serie_Food)
+    modelo_Entertainment <- ets(serie_Entertainment)
+    modelo_Total <- ets(serie_Total)
+    pred_Retail <- forecast(modelo_Retail, h = length(anyos_pred))
+    pred_Food <- forecast(modelo_Food, h = length(anyos_pred))
+    pred_Entertainment <- forecast(modelo_Entertainment, h = length(anyos_pred))
+    pred_Total <- forecast(modelo_Total, h = length(anyos_pred))
+    predicciones[["Retail"]] <- round(pred_Retail$mean, 2)
+    predicciones[["Food"]] <- round(pred_Food$mean, 2)
+    predicciones[["Entertainment"]] <- round(pred_Entertainment$mean, 2)
+    predicciones[["Total"]] <- round(pred_Total$mean, 2)
+    print(predicciones)
+    
+    predicciones_df <- as.data.frame(predicciones)
+    predicciones_df$Year <- anyos_pred
+    predicciones_df$Borough <- barrio
+    predicciones_df$Code <- codigo_barrio
+    df <- bind_rows(df, predicciones_df)
+  }
 
-imputar_valores_indicador_08_servicios <- function(df) {
+  # Ordenar salida
+  df <- df %>% arrange(Code, Year)
   return(df)
 }
 
@@ -732,6 +863,7 @@ guardar_indicador_10_vivienda_alquiler <- function(df) {
 #   - Ver qué modelo usar para las predicciones de series temporales
 #   - Ver el parámetro frequency en las estimaciones a qué se refiere con 1 (1 mes, 1 año). Por ejemplo en el indicador 5 - Tráfico no cambia valores desde el primer año estimado en adelante
 #   - Buscar datos más actuales sobre todo indicadores que no llegan a 2021
+#   - En el indicador 8 falta incluir un total para los tipos de negocios para gentrificación
 
 # Barrios de Londres
 df_barrios <- carga_lista_barrios()
@@ -766,24 +898,22 @@ lista_barrios <- as.list(df_barrios %>% select(Borough))
 #  guardar_indicador_05_trafico(df_trafico)
 
 # Indicador 06 - Esperanza de vida
-df_esperanza_vida = carga_indicador_06_esperanza_vida()
-df_esperanza_vida = limpieza_indicador_06_esperanza_vida(df_esperanza_vida)
-if (validar_indicador_06_esperanza_vida(df_esperanza_vida))
-  guardar_indicador_06_esperanza_vida(df_esperanza_vida)
+#df_esperanza_vida = carga_indicador_06_esperanza_vida()
+#df_esperanza_vida = limpieza_indicador_06_esperanza_vida(df_esperanza_vida)
+#if (validar_indicador_06_esperanza_vida(df_esperanza_vida))
+#  guardar_indicador_06_esperanza_vida(df_esperanza_vida)
 
 # Indicador 07 - Delitos
 #df_delitos = carga_indicador_07_delitos()
 #df_delitos = limpieza_indicador_07_delitos(df_delitos)
-#df_delitos = imputar_valores_indicador_07_delitos(df_delitos)
 #if (validar_indicador_07_delitos(df_delitos))
 #  guardar_indicador_07_delitos(df_delitos)
 
 # Indicador 08 - Servicios
-#df_servicios = carga_indicador_08_servicios()
-#df_servicios = limpieza_indicador_08_servicios(df_servicios)
-#df_servicios = imputar_valores_indicador_08_servicios(df_servicios)
-#if (validar_indicador_08_servicios(df_servicios))
-#  guardar_indicador_08_servicios(df_servicios)
+df_servicios = carga_indicador_08_servicios()
+df_servicios = limpieza_indicador_08_servicios(df_servicios)
+if (validar_indicador_08_servicios(df_servicios))
+  guardar_indicador_08_servicios(df_servicios)
 
 # Indicador 09 - Precio vivienda
 #df_vivienda_precio = carga_indicador_09_vivienda_precio()
