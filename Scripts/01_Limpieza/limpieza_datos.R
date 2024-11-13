@@ -215,9 +215,18 @@ limpieza_indicador_02_raza <- function(df) {
   barrios <- unique(df$Borough)
   barrios_a_eliminar <- setdiff(barrios, barrios_londres)
   df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
-    
+  
+  # Pivotar los años
+  df <- df %>%
+    pivot_longer(cols = starts_with("Year_"),
+                 names_to = "Year",
+                 names_prefix = "Year_",
+                 values_to = "Persons") %>%
+    mutate(Year = as.numeric(Year)) %>%
+    pivot_wider(names_from = Ethnic_group, values_from = Persons, names_prefix = "")
+  
   # Ordena los datos
-  df <- df %>% arrange(Code, Ethnic_group)
+  df <- df %>% arrange(Code, Borough, Year)
   
   return(df)
 }
@@ -989,14 +998,14 @@ df_barrios <- carga_lista_barrios()
 lista_barrios <- as.list(df_barrios %>% select(Borough))
 
 # Indicador 01 - Edad
-df_edad = carga_indicador_01_edad()
-df_edad = limpieza_indicador_01_edad(df_edad)
-if (validar_indicador_01_edad(df_edad)) guardar_indicador_01_edad(df_edad) else print("[ERROR]: Revisar los datos del indicador 01 - Edad")
+#df_edad = carga_indicador_01_edad()
+#df_edad = limpieza_indicador_01_edad(df_edad)
+#if (validar_indicador_01_edad(df_edad)) guardar_indicador_01_edad(df_edad) else print("[ERROR]: Revisar los datos del indicador 01 - Edad")
 
 # Indicador 02 - Raza
-#df_raza = carga_indicador_02_raza()
-#df_raza = limpieza_indicador_02_raza(df_raza)
-#if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
+df_raza = carga_indicador_02_raza()
+df_raza = limpieza_indicador_02_raza(df_raza)
+if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
 
 # Indicador 03 - Empleo
 #df_empleo = carga_indicador_03_empleo()
