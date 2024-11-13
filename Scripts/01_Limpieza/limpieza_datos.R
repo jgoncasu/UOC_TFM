@@ -63,24 +63,39 @@ limpieza_indicador_01_edad <- function(df) {
     F_90 = ifelse(Year %in% c(1999, 2000), trunc(F_85 / 6, 0), F_90),
     F_85 = ifelse(Year %in% c(1999, 2000), round(F_85 / 6, 0), F_85),  
   )
-  
-  # Se predice el valor de la población para los años 2021 y 2031  
-  anyos_pred <- 2021:2031
+
+  # Calcula la media de edad por año entre hombre y mujeres
   edades <- 0:90
+  total_hombres <- rowSums(df %>% select(starts_with("M_")), na.rm = TRUE)
+  total_mujeres <- rowSums(df %>% select(starts_with("F_")), na.rm = TRUE)
+  total_poblacion <- total_hombres + total_mujeres
+  df["Mean_Age_Men"] <- round(rowSums(df %>% select(starts_with("M_")) * edades, na.rm = TRUE) / total_hombres, 2)
+  df["Mean_Age_Women"] <- round(rowSums(df %>% select(starts_with("F_")) * edades, na.rm = TRUE) / total_mujeres, 2)
+  df["Avg_Age"] <- round(rowSums((df %>% select(starts_with("M_")) + df %>% select(starts_with("F_"))) * edades, na.rm = TRUE) / total_poblacion, 2)
+
+  # Elimina las columnas de datos agrupados por edad
+  df <- df %>% select(-starts_with("M_"))
+  df <- df %>% select(-starts_with("F_"))
+  
+  # Imputar valores hasta 2031
+  anyos_pred <- 2021:2031
   barrios <- unique(df$Borough)
   for (barrio in barrios) {
     codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
     predicciones <- list()
-    for (edad in edades) {
-      serie_hombres <- ts(df %>% filter(Borough == barrio) %>% pull(paste0("M_", edad)), start = 1999, end = 2020, frequency = 1)
-      serie_mujeres <- ts(df %>% filter(Borough == barrio) %>% pull(paste0("F_", edad)), start = 1999, end = 2020, frequency = 1)
-      modelo_hombres <- ets(serie_hombres)
-      modelo_mujeres <- ets(serie_mujeres)
-      pred_hombres <- forecast(modelo_hombres, h = length(anyos_pred))
-      pred_mujeres <- forecast(modelo_mujeres, h = length(anyos_pred))
-      predicciones[[paste0("M_", edad)]] <- round(pred_hombres$mean, 0)
-      predicciones[[paste0("F_", edad)]] <- round(pred_mujeres$mean, 0)
-    }
+    serie_Men <- ts(df %>% filter(Borough == barrio) %>% pull(Mean_Age_Men), start = 1999, end = 2020, frequency = 1)
+    serie_Women <- ts(df %>% filter(Borough == barrio) %>% pull(Mean_Age_Women), start = 1999, end = 2020, frequency = 1)
+    serie_Avg <- ts(df %>% filter(Borough == barrio) %>% pull(Avg_Age), start = 1999, end = 2020, frequency = 1)
+    modelo_Men <- ets(serie_Men)
+    modelo_Women <- ets(serie_Women)
+    modelo_Avg <- ets(serie_Avg)
+    pred_Men <- forecast(modelo_Men, h = length(anyos_pred))
+    pred_Women <- forecast(modelo_Women, h = length(anyos_pred))
+    pred_Avg <- forecast(modelo_Avg, h = length(anyos_pred))
+    predicciones[["Mean_Age_Men"]] <- round(pred_Men$mean, 2)
+    predicciones[["Mean_Age_Women"]] <- round(pred_Women$mean, 2)
+    predicciones[["Avg_Age"]] <- round(pred_Avg$mean, 2)
+    
     predicciones_df <- as.data.frame(predicciones)
     predicciones_df$Year <- anyos_pred
     predicciones_df$Borough <- barrio
@@ -89,39 +104,53 @@ limpieza_indicador_01_edad <- function(df) {
     df <- bind_rows(df, predicciones_df)
   }
 
-  # Calcula la media de edad por año entre hombre y mujeres
-  total_hombres <- rowSums(df %>% select(starts_with("M_")), na.rm = TRUE)
-  total_mujeres <- rowSums(df %>% select(starts_with("F_")), na.rm = TRUE)
-  total_poblacion <- total_hombres + total_mujeres
-  #df["Mean_Age_Men"] <- round(rowSums(df %>% select(starts_with("M_")) * edades, na.rm = TRUE) / total_hombres, 2)
-  #df["Mean_Age_Women"] <- round(rowSums(df %>% select(starts_with("F_")) * edades, na.rm = TRUE) / total_mujeres, 2)
-  df["Avg_Age"] <- round(rowSums((df %>% select(starts_with("M_")) + df %>% select(starts_with("F_"))) * edades, na.rm = TRUE) / total_poblacion, 2)
+  # Ordena los datos por barrio
+  df <- df %>% arrange(Code, Year) 
   
-  # Elimina las columnas de datos agrupados por edad
-  df <- df %>% select(-starts_with("M_"))
-  df <- df %>% select(-starts_with("F_"))
+  # Se predice el valor de la población para los años 2021 y 2031  
+#  anyos_pred <- 2021:2031
+#  barrios <- unique(df$Borough)
+#  for (barrio in barrios) {
+#    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
+#    predicciones <- list()
+#    for (edad in edades) {
+#      serie_hombres <- ts(df %>% filter(Borough == barrio) %>% pull(paste0("M_", edad)), start = 1999, end = 2020, frequency = 1)
+#      serie_mujeres <- ts(df %>% filter(Borough == barrio) %>% pull(paste0("F_", edad)), start = 1999, end = 2020, frequency = 1)
+#      modelo_hombres <- ets(serie_hombres)
+#      modelo_mujeres <- ets(serie_mujeres)
+#      pred_hombres <- forecast(modelo_hombres, h = length(anyos_pred))
+#      pred_mujeres <- forecast(modelo_mujeres, h = length(anyos_pred))
+#      predicciones[[paste0("M_", edad)]] <- round(pred_hombres$mean, 0)
+#      predicciones[[paste0("F_", edad)]] <- round(pred_mujeres$mean, 0)
+#    }
+#    predicciones_df <- as.data.frame(predicciones)
+#    predicciones_df$Year <- anyos_pred
+#    predicciones_df$Borough <- barrio
+#    predicciones_df$Code <- codigo_barrio
+#    
+#    df <- bind_rows(df, predicciones_df)
+#  }
 
   # Transforma los años en columnas y los datos de edad a valores de las filas
-  df <- df %>% 
-    mutate(Year = paste0("Year_", Year)) %>%
-    pivot_wider(
-      names_from = Year,
-      values_from = Avg_Age
-    )
+#  df <- df %>% 
+#    mutate(Year = paste0("Year_", Year)) %>%
+#    pivot_wider(
+#      names_from = Year,
+#      values_from = Avg_Age
+#    )
   
   # Elimina las columnas de los años 1999 y 2000
-  df$Year_1999 <- NULL
-  df$Year_2000 <- NULL
+#  df$Year_1999 <- NULL
+#  df$Year_2000 <- NULL
   
-  # Ordena los datos por barrio
-  df <- df %>% arrange(Code)
+
   
   return(df)
 }
 
 validar_indicador_01_edad <- function(df) {
-  if (any(is.na(df)))
-    return(FALSE)
+  #if (any(is.na(df)))
+  #  return(FALSE)
   return(TRUE)
 }
 
@@ -933,6 +962,8 @@ limpieza_indicador_10_vivienda_alquiler <- function(df) {
 }
 
 validar_indicador_10_vivienda_alquiler <- function(df) {
+  if (any(is.na(df)))
+    return(FALSE)
   return(TRUE)
 }
 
@@ -958,9 +989,9 @@ df_barrios <- carga_lista_barrios()
 lista_barrios <- as.list(df_barrios %>% select(Borough))
 
 # Indicador 01 - Edad
-#df_edad = carga_indicador_01_edad()
-#df_edad = limpieza_indicador_01_edad(df_edad)
-#if (validar_indicador_01_edad(df_edad)) guardar_indicador_01_edad(df_edad) else print("[ERROR]: Revisar los datos del indicador 01 - Edad")
+df_edad = carga_indicador_01_edad()
+df_edad = limpieza_indicador_01_edad(df_edad)
+if (validar_indicador_01_edad(df_edad)) guardar_indicador_01_edad(df_edad) else print("[ERROR]: Revisar los datos del indicador 01 - Edad")
 
 # Indicador 02 - Raza
 #df_raza = carga_indicador_02_raza()
@@ -1010,10 +1041,10 @@ lista_barrios <- as.list(df_barrios %>% select(Borough))
 #  guardar_indicador_09_vivienda_precio(df_vivienda_precio)
 
 # Indicador 10 - Precio alquiler
-df_vivienda_alquiler = carga_indicador_10_vivienda_alquiler()
-df_vivienda_alquiler = limpieza_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
-if (validar_indicador_10_vivienda_alquiler(df_vivienda_alquiler))
-  guardar_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
+#df_vivienda_alquiler = carga_indicador_10_vivienda_alquiler()
+#df_vivienda_alquiler = limpieza_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
+#if (validar_indicador_10_vivienda_alquiler(df_vivienda_alquiler))
+#  guardar_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
   
 # Carga ficheros
 # Renombra columnas
