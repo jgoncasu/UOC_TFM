@@ -876,16 +876,59 @@ guardar_indicador_09_vivienda_precio <- function(df) {
 ################################################################################
 
 carga_indicador_10_vivienda_alquiler <- function() {
+  nulos <- c("", "-", "..")
+  columnas <- c("ShortCode", "Code", "Borough", paste0("Year_", 1997:2023))
   ruta_fichero <- '08_Vivienda/social-landlord-rents-borough.xls'
-  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""))
+  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), sheet = "RSL Rents", skip = 2, na = nulos, col_names = columnas)
   return(df)  
 }
 
 limpieza_indicador_10_vivienda_alquiler <- function(df) {
-  return(df)
-}
+  # Eliminar columna ShortCode
+  df <- df %>% select(-ShortCode)
+  
+  # Elimina el registro de London que tiene muchos NA
+  df <- df %>% filter(Borough != "London")
+  
+  # Filtra los registros que no corresponden con barrios de Londres
+  barrios_londres <- unlist(lista_barrios)
+  barrios <- unique(df$Borough)
+  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
+  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
 
-imputar_valores_indicador_10_vivienda_alquiler <- function(df) {
+  # Reemplazar dobles comillas por nada y redondear valores a dos dígitos en columnas Year_
+  df <- df %>%
+    mutate(across(starts_with("Year_"), ~ round(as.numeric(gsub('"','',.)), 2)))
+  
+  # Pivotar los años
+  df <- df %>%
+    pivot_longer(cols = starts_with("Year_"),
+                 names_to = "Year",
+                 names_prefix = "Year_",
+                 values_to = "Rent") %>%
+    mutate(Year = as.numeric(Year))
+  
+  # Estimación datos hasta 2031
+  anyos_pred <- 2024:2031
+  barrios <- unique(df$Borough)
+  for (barrio in barrios) {
+    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
+    predicciones <- list()
+    serie_Rent <- ts(df %>% filter(Borough == barrio) %>% pull(Rent), start = 1997, end = 2023, frequency = 1)
+    modelo_Rent <- ets(serie_Rent)
+    pred_Rent <- forecast(modelo_Rent, h = length(anyos_pred))
+    predicciones[["Rent"]] <- round(pred_Rent$mean, 2)
+    
+    predicciones_df <- as.data.frame(predicciones)
+    predicciones_df$Year <- anyos_pred
+    predicciones_df$Borough <- barrio
+    predicciones_df$Code <- codigo_barrio
+    
+    df <- bind_rows(df, predicciones_df)
+  }
+  
+  # Ordenar los datos y mostrar las columnas en orden correcto
+  df <- df %>% arrange(Code, Year)
   return(df)
 }
 
@@ -961,17 +1004,16 @@ lista_barrios <- as.list(df_barrios %>% select(Borough))
 #  guardar_indicador_08_servicios(df_servicios)
 
 # Indicador 09 - Precio vivienda
-df_vivienda_precio = carga_indicador_09_vivienda_precio()
-df_vivienda_precio = limpieza_indicador_09_vivienda_precio(df_vivienda_precio)
-if (validar_indicador_09_vivienda_precio(df_vivienda_precio))
-  guardar_indicador_09_vivienda_precio(df_vivienda_precio)
+#df_vivienda_precio = carga_indicador_09_vivienda_precio()
+#df_vivienda_precio = limpieza_indicador_09_vivienda_precio(df_vivienda_precio)
+#if (validar_indicador_09_vivienda_precio(df_vivienda_precio))
+#  guardar_indicador_09_vivienda_precio(df_vivienda_precio)
 
 # Indicador 10 - Precio alquiler
-#df_vivienda_alquiler = carga_indicador_10_vivienda_alquiler()
-#df_vivienda_alquiler = limpieza_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
-#df_vivienda_alquiler = imputar_valores_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
-#if (validar_indicador_10_vivienda_alquiler(df_vivienda_alquiler))
-#  guardar_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
+df_vivienda_alquiler = carga_indicador_10_vivienda_alquiler()
+df_vivienda_alquiler = limpieza_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
+if (validar_indicador_10_vivienda_alquiler(df_vivienda_alquiler))
+  guardar_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
   
 # Carga ficheros
 # Renombra columnas
