@@ -678,7 +678,6 @@ limpieza_indicador_07_delitos <- function(df) {
     mutate(Year = as.numeric(Year))
   
   # Estimación datos hasta 2031
-  # Imputar valores hasta 2031
   anyos_pred <- 2023:2031
   barrios <- unique(df$Borough)
   for (barrio in barrios) {
@@ -746,7 +745,8 @@ limpieza_indicador_08_servicios <- function(df) {
   barrios <- unique(df$Borough)
   barrios_a_eliminar <- setdiff(barrios, barrios_londres)
   df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
-  # Actualizar códigos de barrio
+
+    # Actualizar códigos de barrio
   df <- df %>%
     left_join(select(df_barrios, Borough, Code), by = "Borough", suffix = c("", "_barrio")) %>%
     mutate(Code = ifelse(!is.na(Code_barrio), Code_barrio, Code)) %>%
@@ -789,6 +789,8 @@ limpieza_indicador_08_servicios <- function(df) {
 }
 
 validar_indicador_08_servicios <- function(df) {
+  if (any(is.na(df)))
+    return(FALSE)
   return(TRUE)
 }
 
@@ -803,20 +805,63 @@ guardar_indicador_08_servicios <- function(df) {
 ################################################################################
 
 carga_indicador_09_vivienda_precio <- function() {
+  nulos <- c("", "-")
+  anyos <- rep(1996:2017, each=4)
+  print(anyos)
+  meses <- c("Mar_", "Jun_", "Sep_", "Dec_")
+  print(meses)
+  columnas <- c("Code", "Borough", "Dec_1995", paste0(meses, anyos))
   ruta_fichero <- '08_Vivienda/land-registry-house-prices-borough.xls'
-  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""))
+  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), sheet = "Median", skip = 2, na = nulos, col_names = columnas)
   return(df)  
 }
 
 limpieza_indicador_09_vivienda_precio <- function(df) {
-  return(df)
-}
-
-imputar_valores_indicador_09_vivienda_precio <- function(df) {
+  # Filtra los registros que no corresponden con barrios de Londres
+  barrios_londres <- unlist(lista_barrios)
+  barrios <- unique(df$Borough)
+  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
+  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
+  
+  # Eliminar columnas que empiecen por Mar_, Jun_ y Sep_
+  df <- df %>% select(-starts_with("Mar_"), -starts_with("Jun_"), -starts_with("Sep_"))
+  
+  # Pivotar los años
+  df <- df %>%
+    pivot_longer(cols = starts_with("Dec_"),
+                 names_to = "Year",
+                 names_prefix = "Dec_",
+                 values_to = "Price") %>%
+    mutate(Year = as.numeric(Year))
+  
+  # Estimación datos hasta 2031
+  anyos_pred <- 2018:2031
+  barrios <- unique(df$Borough)
+  for (barrio in barrios) {
+    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
+    predicciones <- list()
+    serie_Price <- ts(df %>% filter(Borough == barrio) %>% pull(Price), start = 1995, end = 2017, frequency = 1)
+    modelo_Price <- ets(serie_Price)
+    pred_Price <- forecast(modelo_Price, h = length(anyos_pred))
+    predicciones[["Price"]] <- round(pred_Price$mean, 2)
+    
+    predicciones_df <- as.data.frame(predicciones)
+    predicciones_df$Year <- anyos_pred
+    predicciones_df$Borough <- barrio
+    predicciones_df$Code <- codigo_barrio
+    
+    df <- bind_rows(df, predicciones_df)
+  }
+  
+  # Ordenar los datos y mostrar las columnas en orden correcto
+  df <- df %>% arrange(Code, Year)
+  
   return(df)
 }
 
 validar_indicador_09_vivienda_precio <- function(df) {
+  if (any(is.na(df)))
+    return(FALSE)
   return(TRUE)
 }
 
@@ -910,17 +955,16 @@ lista_barrios <- as.list(df_barrios %>% select(Borough))
 #  guardar_indicador_07_delitos(df_delitos)
 
 # Indicador 08 - Servicios
-df_servicios = carga_indicador_08_servicios()
-df_servicios = limpieza_indicador_08_servicios(df_servicios)
-if (validar_indicador_08_servicios(df_servicios))
-  guardar_indicador_08_servicios(df_servicios)
+#df_servicios = carga_indicador_08_servicios()
+#df_servicios = limpieza_indicador_08_servicios(df_servicios)
+#if (validar_indicador_08_servicios(df_servicios))
+#  guardar_indicador_08_servicios(df_servicios)
 
 # Indicador 09 - Precio vivienda
-#df_vivienda_precio = carga_indicador_09_vivienda_precio()
-#df_vivienda_precio = limpieza_indicador_09_vivienda_precio(df_vivienda_precio)
-#df_vivienda_precio = imputar_valores_indicador_09_vivienda_precio(df_vivienda_precio)
-#if (validar_indicador_09_vivienda_precio(df_vivienda_precio))
-#  guardar_indicador_09_vivienda_precio(df_vivienda_precio)
+df_vivienda_precio = carga_indicador_09_vivienda_precio()
+df_vivienda_precio = limpieza_indicador_09_vivienda_precio(df_vivienda_precio)
+if (validar_indicador_09_vivienda_precio(df_vivienda_precio))
+  guardar_indicador_09_vivienda_precio(df_vivienda_precio)
 
 # Indicador 10 - Precio alquiler
 #df_vivienda_alquiler = carga_indicador_10_vivienda_alquiler()
