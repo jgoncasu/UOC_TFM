@@ -353,9 +353,9 @@ carga_indicador_03_empleo <- function() {
 
 limpieza_indicador_03_empleo <- function(df) {
   # Eliminar columnas Conf_Y
-  col_intconf <- paste0("Conf_", 2002:2022)
-  df <- df %>% select(-col_intconf)
-  
+  #col_intconf <- paste0("Conf_", 2002:2022)
+  df <- df %>% select(-starts_with("Conf_"))
+
   # Eliminar registros que no sean barrios de Londres
   barrios_londres <- unlist(lista_barrios)
   barrios <- unique(df$Borough)
@@ -374,35 +374,63 @@ limpieza_indicador_03_empleo <- function(df) {
                   ~ ifelse(Borough == "City of London" & is.na(.),
                          ifelse(as.numeric(gsub("Year_", "", cur_column())) < 2009,
                                 Year_2009, Year_2018),.)))
-  
-  # Previsión valores hasta 2031
-  df_tmp <- df %>%
-    pivot_longer(cols = starts_with("Year_"), names_to = "Year", names_prefix = "Year_", values_to = "Week_Earnings") %>%
-    mutate(Year = as.numeric(Year))
-  forecast_results <- data.frame()
-  for (barrio in unique(df_tmp$Borough)) {
-    df_barrio <- df_tmp %>% filter(Borough == barrio)
-    ts_data <- ts(df_barrio$Week_Earnings, start = min(df_barrio$Year), frequency = 1)
-    model <- auto.arima(ts_data)
-    forecast_values <- round(forecast(model, h = 9)$mean, 2)
-    code <- df %>% filter(Borough == barrio) %>% distinct(Code)
-    forecast_df <- data.frame(Code = code,
-                              Borough = replicate(9, barrio),
-                              Year = 2023:2031,
-                              Week_Earnings = as.numeric(forecast_values))
-    forecast_results <- bind_rows(forecast_results, forecast_df)
-  }
-  
-  print(forecast_results)
-  
+
+  # Se pasan las columnas de años a una sola columna
   df <- df %>%
     pivot_longer(cols = starts_with("Year_"),
                  names_to = "Year",
                  names_prefix = "Year_",
                  values_to = "Week_Earnings") %>%
-    mutate(Year = as.numeric(Year)) %>%
-    bind_rows(forecast_results) %>%
-    pivot_wider(names_from = Year, values_from = Week_Earnings, names_prefix = "Year_")
+    mutate(Year = as.numeric(Year))
+
+  # Imputar valores hasta 2031
+  anyos_pred <- 2023:2031
+  barrios <- unique(df$Borough)
+  for (barrio in barrios) {
+    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
+    predicciones <- list()
+    serie_Earnings <- ts(df %>% filter(Borough == barrio) %>% pull(Week_Earnings), start = 2002, end = 2022, frequency = 1)
+    modelo_Earnings <- ets(serie_Earnings)
+    pred_Earnings <- forecast(modelo_Earnings, h = length(anyos_pred))
+    predicciones[["Week_Earnings"]] <- round(pred_Earnings$mean, 1)
+    
+    predicciones_df <- as.data.frame(predicciones)
+    predicciones_df$Year <- anyos_pred
+    predicciones_df$Borough <- barrio
+    predicciones_df$Code <- codigo_barrio
+    
+    df <- bind_rows(df, predicciones_df)
+  }
+  
+  # Ordenar por barrio
+  df <- df %>% arrange(Code, Year)
+  
+  # Previsión valores hasta 2031
+#  df_tmp <- df %>%
+#    pivot_longer(cols = starts_with("Year_"), names_to = "Year", names_prefix = "Year_", values_to = "Week_Earnings") %>%
+#    mutate(Year = as.numeric(Year))
+#  forecast_results <- data.frame()
+#  for (barrio in unique(df_tmp$Borough)) {
+#    df_barrio <- df_tmp %>% filter(Borough == barrio)
+#    ts_data <- ts(df_barrio$Week_Earnings, start = min(df_barrio$Year), frequency = 1)
+#    model <- auto.arima(ts_data)
+#    forecast_values <- round(forecast(model, h = 9)$mean, 2)
+#    code <- df %>% filter(Borough == barrio) %>% distinct(Code)
+#    forecast_df <- data.frame(Code = code,
+#                              Borough = replicate(9, barrio),
+#                              Year = 2023:2031,
+#                              Week_Earnings = as.numeric(forecast_values))
+#    forecast_results <- bind_rows(forecast_results, forecast_df)
+#  }
+  
+#  df <- df %>%
+#    pivot_longer(cols = starts_with("Year_"),
+#                 names_to = "Year",
+#                 names_prefix = "Year_",
+#                 values_to = "Week_Earnings") %>%
+#    mutate(Year = as.numeric(Year)) %>%
+#    bind_rows(forecast_results) %>%
+#    pivot_wider(names_from = Year, values_from = Week_Earnings, names_prefix = "Year_")
   
   return(df)
 }
@@ -483,8 +511,7 @@ limpieza_indicador_04_estudios <- function(df) {
 
   # Ordenar por barrio
   df <- df %>% arrange(Code, Year)
-  
-  # Pivotar años a columnas
+
   return(df)
 }
 
@@ -1003,15 +1030,15 @@ lista_barrios <- as.list(df_barrios %>% select(Borough))
 #if (validar_indicador_01_edad(df_edad)) guardar_indicador_01_edad(df_edad) else print("[ERROR]: Revisar los datos del indicador 01 - Edad")
 
 # Indicador 02 - Raza
-df_raza = carga_indicador_02_raza()
-df_raza = limpieza_indicador_02_raza(df_raza)
-if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
+#df_raza = carga_indicador_02_raza()
+#df_raza = limpieza_indicador_02_raza(df_raza)
+#if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
 
 # Indicador 03 - Empleo
-#df_empleo = carga_indicador_03_empleo()
-#df_empleo = limpieza_indicador_03_empleo(df_empleo)
+df_empleo = carga_indicador_03_empleo()
+df_empleo = limpieza_indicador_03_empleo(df_empleo)
 #if (validar_indicador_03_empleo(df_empleo))
-#  guardar_indicador_03_empleo(df_empleo)
+  guardar_indicador_03_empleo(df_empleo)
 
 # Indicador 04 - Estudios
 #df_estudios = carga_indicador_04_estudios()
