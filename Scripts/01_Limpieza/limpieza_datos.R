@@ -489,7 +489,7 @@ limpieza_indicador_03_empleo <- function(df) {
                  values_to = "Week_Earnings") %>%
     mutate(Year = as.numeric(Year))
 
-  # Imputar valores hasta 2031
+  # Estimar valores hasta 2031
   anyos_pred <- 2023:2031
   for (barrio in unique(df$Borough)) {
     df_barrio <- df %>% filter(Borough == barrio)
@@ -621,36 +621,26 @@ limpieza_indicador_05_trafico <- function(df) {
                  names_prefix = "Year_",
                  values_to = "Car_Traffic") %>%
     mutate(Year = as.numeric(Year))
-    
-  # Imputar valores hasta 2031
+
+  # Estimar valores hasta 2031
   anyos_pred <- 2024:2031
-  barrios <- unique(df$Borough)
-  for (barrio in barrios) {
-    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-    predicciones <- list()
-    serie_Traffic <- ts(df %>% filter(Borough == barrio) %>% pull(Car_Traffic), start = 1993, end = 2023, frequency = 1)
-    modelo_Traffic <- ets(serie_Traffic)
-    pred_Traffic <- forecast(modelo_Traffic, h = length(anyos_pred))
-    predicciones[["Car_Traffic"]] <- round(pred_Traffic$mean, 0)
+  for (barrio in unique(df$Borough)) {
+    df_barrio <- df %>% filter(Borough == barrio)
+    ts_data <- ts(df_barrio$Car_Traffic, start = 1993, end = 2023, frequency = 1)
+    model <- auto.arima(ts_data)
+    forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 0)
+    forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
+                              Borough = rep(c(barrio), length(anyos_pred)),
+                              Year = anyos_pred,
+                              Car_Traffic = forecast_values)
     
-    predicciones_df <- as.data.frame(predicciones)
-    predicciones_df$Year <- anyos_pred
-    predicciones_df$Borough <- barrio
-    predicciones_df$Code <- codigo_barrio
-    
-    df <- bind_rows(df, predicciones_df)
+    df <- rbind(df, forecast_df)
   }
   
   # Ordenar por barrio
   df <- df %>% arrange(Code, Year)
 
   return(df)
-}
-
-validar_indicador_05_trafico <- function(df) {
-  if (any(is.na(df)))
-    return(FALSE)
-  return(TRUE)
 }
 
 guardar_indicador_05_trafico <- function(df) {
@@ -854,23 +844,19 @@ limpieza_indicador_07_delitos <- function(df_aux, df) {
                  values_to = "Crimes") %>%
     mutate(Year = as.numeric(Year))
   
-  # Estimación datos hasta 2031
+  # Estimar valores hasta 2031
   anyos_pred <- 2023:2031
-  barrios <- unique(df$Borough)
-  for (barrio in barrios) {
-    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-    predicciones <- list()
-    serie_Crimes <- ts(df %>% filter(Borough == barrio) %>% pull(Crimes), start = 2010, end = 2022, frequency = 1)
-    modelo_Crimes <- ets(serie_Crimes)
-    pred_Crimes <- forecast(modelo_Crimes, h = length(anyos_pred))
-    predicciones[["Crimes"]] <- round(pred_Crimes$mean, 2)
+  for (barrio in unique(df$Borough)) {
+    df_barrio <- df %>% filter(Borough == barrio)
+    ts_data <- ts(df_barrio$Crimes, start = 2010, end = 2022, frequency = 1)
+    model <- auto.arima(ts_data)
+    forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
+    forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
+                              Borough = rep(c(barrio), length(anyos_pred)),
+                              Year = anyos_pred,
+                              Crimes = forecast_values)
     
-    predicciones_df <- as.data.frame(predicciones)
-    predicciones_df$Year <- anyos_pred
-    predicciones_df$Borough <- barrio
-    predicciones_df$Code <- codigo_barrio
-    
-    df <- bind_rows(df, predicciones_df)
+    df <- rbind(df, forecast_df)
   }
   
   # Fusiona los dos dataframes
@@ -880,12 +866,6 @@ limpieza_indicador_07_delitos <- function(df_aux, df) {
   df <- df %>% select(Code, Borough, Year, Crimes) %>% arrange(Code, Year)
   
   return(df)
-}
-
-validar_indicador_07_delitos <- function(df) {
-  if (any(is.na(df)))
-    return(FALSE)
-  return(TRUE)
 }
 
 guardar_indicador_07_delitos <- function(df) {
@@ -1047,35 +1027,25 @@ limpieza_indicador_09_vivienda_precio <- function(df) {
   df <- df %>%
     mutate(Price = round(Price, 2))
 
-  # Estimación datos hasta 2031
+  # Estimar valores hasta 2031
   anyos_pred <- 2025:2031
-  barrios <- unique(df$Borough)
-  for (barrio in barrios) {
-    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-    predicciones <- list()
-    serie_Price <- ts(df %>% filter(Borough == barrio) %>% pull(Price), start = 1995, end = 2031, frequency = 1)
-    modelo_Price <- ets(serie_Price)
-    pred_Price <- forecast(modelo_Price, h = length(anyos_pred))
-    predicciones[["Price"]] <- round(pred_Price$mean, 2)
+  for (barrio in unique(df$Borough)) {
+    df_barrio <- df %>% filter(Borough == barrio)
+    ts_data <- ts(df_barrio$Price, start = 1995, end = 2024, frequency = 1)
+    model <- auto.arima(ts_data)
+    forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
+    forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
+                              Borough = rep(c(barrio), length(anyos_pred)),
+                              Year = anyos_pred,
+                              Price = forecast_values)
     
-    predicciones_df <- as.data.frame(predicciones)
-    predicciones_df$Year <- anyos_pred
-    predicciones_df$Borough <- barrio
-    predicciones_df$Code <- codigo_barrio
-    
-    df <- bind_rows(df, predicciones_df)
+    df <- rbind(df, forecast_df)
   }
   
   # Ordenar los datos y mostrar las columnas en orden correcto
   df <- df %>% arrange(Code, Year)
   
   return(df)
-}
-
-validar_indicador_09_vivienda_precio <- function(df) {
-  if (any(is.na(df)))
-    return(FALSE)
-  return(TRUE)
 }
 
 guardar_indicador_09_vivienda_precio <- function(df) {
@@ -1168,6 +1138,9 @@ guardar_indicador_10_vivienda_alquiler <- function(df) {
 #   - Revisar barrio/año que aparezcan todos
 #   - Donde no haya datos de Londres, añadir totales
 #   - Eliminar UK de los barrios
+#   - De la estimación solo guardar los datos de 2031 y si acaso en edad los de 2021
+#   - Eliminar datos previos a 2001
+#   - Homogeneizar los comentarios
 
 # Barrios de Londres
 df_barrios <- carga_lista_barrios()
@@ -1187,9 +1160,9 @@ lista_codes <- as.list(df_barrios %>% select(Code))
 #if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
 
 # Indicador 03 - Empleo
-df_empleo = carga_indicador_03_empleo()
-df_empleo = limpieza_indicador_03_empleo(df_empleo)
-guardar_indicador_03_empleo(df_empleo)
+#df_empleo = carga_indicador_03_empleo()
+#df_empleo = limpieza_indicador_03_empleo(df_empleo)
+#guardar_indicador_03_empleo(df_empleo)
 
 # Indicador 04 - Estudios
 #df_estudios = carga_indicador_04_estudios()
@@ -1200,8 +1173,7 @@ guardar_indicador_03_empleo(df_empleo)
 # Indicador 05 - Tráfico
 #df_trafico = carga_indicador_05_trafico()
 #df_trafico = limpieza_indicador_05_trafico(df_trafico)
-#if (validar_indicador_05_trafico(df_trafico))
-#  guardar_indicador_05_trafico(df_trafico)
+#guardar_indicador_05_trafico(df_trafico)
 
 # Indicador 06 - Esperanza de vida
 #df_esperanza_vida = carga_indicador_06_esperanza_vida()
@@ -1214,8 +1186,7 @@ guardar_indicador_03_empleo(df_empleo)
 #df_delitos_aux <- df_result$df_aux
 #df_delitos <- df_result$df
 #df_delitos = limpieza_indicador_07_delitos(df_delitos_aux, df_delitos)
-#if (validar_indicador_07_delitos(df_delitos))
-#  guardar_indicador_07_delitos(df_delitos)
+#guardar_indicador_07_delitos(df_delitos)
 
 # Indicador 08 - Servicios
 #df_servicios = carga_indicador_08_servicios()
@@ -1224,10 +1195,9 @@ guardar_indicador_03_empleo(df_empleo)
 #  guardar_indicador_08_servicios(df_servicios)
 
 # Indicador 09 - Precio vivienda
-#df_vivienda_precio = carga_indicador_09_vivienda_precio()
-#df_vivienda_precio = limpieza_indicador_09_vivienda_precio(df_vivienda_precio)
-#if (validar_indicador_09_vivienda_precio(df_vivienda_precio))
-#  guardar_indicador_09_vivienda_precio(df_vivienda_precio)
+df_vivienda_precio = carga_indicador_09_vivienda_precio()
+df_vivienda_precio = limpieza_indicador_09_vivienda_precio(df_vivienda_precio)
+guardar_indicador_09_vivienda_precio(df_vivienda_precio)
 
 # Indicador 10 - Precio alquiler
 #df_vivienda_alquiler = carga_indicador_10_vivienda_alquiler()
