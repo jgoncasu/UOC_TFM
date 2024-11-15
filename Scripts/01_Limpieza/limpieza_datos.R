@@ -687,40 +687,44 @@ limpieza_indicador_06_esperanza_vida <- function(df) {
                  names_prefix = "life_exp_",
                  values_to = "Life_Expectancy") %>%
     mutate(Year = as.numeric(Year))
+  
+  # Pivot sexo a columnas
+  df <- df %>%
+    pivot_wider(names_from = Sex, values_from = Life_Expectancy)
+  # Asignamos la edad media (suponiendo mismo número de mujeres que de hombres)
+  print("A1")
+  df <- df %>% mutate(Avg_Sex = rowMeans(select(., Female, Male), na.rm = TRUE))
+  print("A2")
 
-  # Previsión hasta 2031
+  # Estimar valores hasta 2031
   anyos_pred <- 2023:2031
-  barrios <- unique(df$Borough)
-  for (barrio in barrios) {
-    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-    predicciones_Female <- list()
-    predicciones_Male <- list()
-    serie_Female <- ts(df %>% filter(Borough == barrio & Sex == "Female") %>% pull(Life_Expectancy), start = 2003, end = 2022, frequency = 1)
-    serie_Male <- ts(df %>% filter(Borough == barrio & Sex == "Male") %>% pull(Life_Expectancy), start = 2003, end = 2022, frequency = 1)
-    modelo_Female <- ets(serie_Female)
-    modelo_Male <- ets(serie_Male)
-    pred_Female <- forecast(modelo_Female, h = length(anyos_pred))
-    pred_Male <- forecast(modelo_Male, h = length(anyos_pred))
-    predicciones_Female[["Life_Expectancy"]] <- round(pred_Female$mean, 2)
-    predicciones_Female[["Sex"]] <- "Female"
-    predicciones_Male[["Life_Expectancy"]] <- round(pred_Male$mean, 2)
-    predicciones_Male[["Sex"]] <- "Male"
+  for (barrio in unique(df$Borough)) {
+    df_barrio <- df %>% filter(Borough == barrio)
+    # Female
+    ts_data_female <- ts(df_barrio$Female, start = 2003, end = 2022, frequency = 1)
+    model_female <- auto.arima(ts_data_female)
+    forecast_values_female <- round(forecast(model_female, h = length(anyos_pred))$mean, 2)
+    # Male
+    ts_data_male <- ts(df_barrio$Male, start = 2003, end = 2022, frequency = 1)
+    model_male <- auto.arima(ts_data_male)
+    forecast_values_male <- round(forecast(model_male, h = length(anyos_pred))$mean, 2)
+    # Avg_Sex
+    ts_data_avg <- ts(df_barrio$Avg_Sex, start = 2003, end = 2022, frequency = 1)
+    model_avg <- auto.arima(ts_data_avg)
+    forecast_values_avg <- round(forecast(model_avg, h = length(anyos_pred))$mean, 2)
+    forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
+                              Borough = rep(c(barrio), length(anyos_pred)),
+                              Year = anyos_pred,
+                              Female = forecast_values_female,
+                              Male = forecast_values_male,
+                              Avg_Sex = forecast_values_avg)
     
-    predicciones_df <- as.data.frame(predicciones_Female)
-    predicciones_df$Year <- anyos_pred
-    predicciones_df$Borough <- barrio
-    predicciones_df$Code <- codigo_barrio
-    df <- bind_rows(df, predicciones_df)
-    
-    predicciones_df <- as.data.frame(predicciones_Male)
-    predicciones_df$Year <- anyos_pred
-    predicciones_df$Borough <- barrio
-    predicciones_df$Code <- codigo_barrio
-    df <- bind_rows(df, predicciones_df)
+    df <- rbind(df, forecast_df)
   }
   
   # Ordenar datos por barrio, sexo y año
-  df <- df %>% arrange(Code, Sex, Year)
+  df <- df %>% arrange(Code, Year)
+
   return(df)
 }
 
@@ -1158,8 +1162,7 @@ lista_codes <- as.list(df_barrios %>% select(Code))
 # Indicador 06 - Esperanza de vida
 #df_esperanza_vida = carga_indicador_06_esperanza_vida()
 #df_esperanza_vida = limpieza_indicador_06_esperanza_vida(df_esperanza_vida)
-#if (validar_indicador_06_esperanza_vida(df_esperanza_vida))
-#  guardar_indicador_06_esperanza_vida(df_esperanza_vida)
+#guardar_indicador_06_esperanza_vida(df_esperanza_vida)
 
 # Indicador 07 - Delitos
 #df_result = carga_indicador_07_delitos()
@@ -1169,9 +1172,9 @@ lista_codes <- as.list(df_barrios %>% select(Code))
 #guardar_indicador_07_delitos(df_delitos)
 
 # Indicador 08 - Servicios
-df_servicios = carga_indicador_08_servicios()
-df_servicios = limpieza_indicador_08_servicios(df_servicios)
-guardar_indicador_08_servicios(df_servicios)
+#df_servicios = carga_indicador_08_servicios()
+#df_servicios = limpieza_indicador_08_servicios(df_servicios)
+#guardar_indicador_08_servicios(df_servicios)
 
 # Indicador 09 - Precio vivienda
 #df_vivienda_precio = carga_indicador_09_vivienda_precio()
