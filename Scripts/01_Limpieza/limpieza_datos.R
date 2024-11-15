@@ -1090,35 +1090,26 @@ limpieza_indicador_10_vivienda_alquiler <- function(df) {
                  names_prefix = "Year_",
                  values_to = "Rent") %>%
     mutate(Year = as.numeric(Year))
-  
-  # Estimación datos hasta 2031
+
+  # Estimar valores hasta 2031
   anyos_pred <- 2024:2031
-  barrios <- unique(df$Borough)
-  for (barrio in barrios) {
-    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-    predicciones <- list()
-    serie_Rent <- ts(df %>% filter(Borough == barrio) %>% pull(Rent), start = 1997, end = 2023, frequency = 1)
-    modelo_Rent <- ets(serie_Rent)
-    pred_Rent <- forecast(modelo_Rent, h = length(anyos_pred))
-    predicciones[["Rent"]] <- round(pred_Rent$mean, 2)
+  for (barrio in unique(df$Borough)) {
+    df_barrio <- df %>% filter(Borough == barrio)
+    ts_data <- ts(df_barrio$Rent, start = 1997, end = 2023, frequency = 1)
+    model <- auto.arima(ts_data)
+    forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
+    forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
+                              Borough = rep(c(barrio), length(anyos_pred)),
+                              Year = anyos_pred,
+                              Rent = forecast_values)
     
-    predicciones_df <- as.data.frame(predicciones)
-    predicciones_df$Year <- anyos_pred
-    predicciones_df$Borough <- barrio
-    predicciones_df$Code <- codigo_barrio
-    
-    df <- bind_rows(df, predicciones_df)
+    df <- rbind(df, forecast_df)
   }
   
   # Ordenar los datos y mostrar las columnas en orden correcto
   df <- df %>% arrange(Code, Year)
+  
   return(df)
-}
-
-validar_indicador_10_vivienda_alquiler <- function(df) {
-  if (any(is.na(df)))
-    return(FALSE)
-  return(TRUE)
 }
 
 guardar_indicador_10_vivienda_alquiler <- function(df) {
@@ -1195,15 +1186,14 @@ lista_codes <- as.list(df_barrios %>% select(Code))
 #  guardar_indicador_08_servicios(df_servicios)
 
 # Indicador 09 - Precio vivienda
-df_vivienda_precio = carga_indicador_09_vivienda_precio()
-df_vivienda_precio = limpieza_indicador_09_vivienda_precio(df_vivienda_precio)
-guardar_indicador_09_vivienda_precio(df_vivienda_precio)
+#df_vivienda_precio = carga_indicador_09_vivienda_precio()
+#df_vivienda_precio = limpieza_indicador_09_vivienda_precio(df_vivienda_precio)
+#guardar_indicador_09_vivienda_precio(df_vivienda_precio)
 
 # Indicador 10 - Precio alquiler
 #df_vivienda_alquiler = carga_indicador_10_vivienda_alquiler()
 #df_vivienda_alquiler = limpieza_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
-#if (validar_indicador_10_vivienda_alquiler(df_vivienda_alquiler))
-#  guardar_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
+#guardar_indicador_10_vivienda_alquiler(df_vivienda_alquiler)
   
 # Carga ficheros
 # Renombra columnas
