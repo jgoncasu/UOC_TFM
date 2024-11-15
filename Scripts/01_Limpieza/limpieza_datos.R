@@ -925,52 +925,41 @@ limpieza_indicador_08_servicios <- function(df) {
   barrios_a_eliminar <- setdiff(barrios, barrios_londres)
   df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
 
-    # Actualizar códigos de barrio
+  # Actualizar códigos de barrio
   df <- df %>%
     left_join(select(df_barrios, Borough, Code), by = "Borough", suffix = c("", "_barrio")) %>%
     mutate(Code = ifelse(!is.na(Code_barrio), Code_barrio, Code)) %>%
     select(-Code_barrio)
-  
-  # Previsión hasta 2031
-  anyos_pred <- 2025:2031
-  barrios <- unique(df$Borough)
-  for (barrio in barrios) {
-    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-    predicciones <- list()
-    serie_Retail <- ts(df %>% filter(Borough == barrio) %>% pull(Retail), start = 2009, end = 2024, frequency = 1)
-    serie_Food_Hotels <- ts(df %>% filter(Borough == barrio) %>% pull(Food_Hotels), start = 2009, end = 2024, frequency = 1)
-    #serie_Entertainment <- ts(df %>% filter(Borough == barrio) %>% pull(Entertainment), start = 2009, end = 2024, frequency = 1)
-    serie_Total <- ts(df %>% filter(Borough == barrio) %>% pull(Total), start = 2009, end = 2024, frequency = 1)
-    modelo_Retail <- ets(serie_Retail)
-    modelo_Food_Hotels <- ets(serie_Food_Hotels)
-    #modelo_Entertainment <- ets(serie_Entertainment)
-    modelo_Total <- ets(serie_Total)
-    pred_Retail <- forecast(modelo_Retail, h = length(anyos_pred))
-    pred_Food_Hotels <- forecast(modelo_Food_Hotels, h = length(anyos_pred))
-    #pred_Entertainment <- forecast(modelo_Entertainment, h = length(anyos_pred))
-    pred_Total <- forecast(modelo_Total, h = length(anyos_pred))
-    predicciones[["Retail"]] <- round(pred_Retail$mean, 0)
-    predicciones[["Food_Hotels"]] <- round(pred_Food_Hotels$mean, 0)
-    #predicciones[["Entertainment"]] <- round(pred_Entertainment$mean, 2)
-    predicciones[["Total"]] <- round(pred_Total$mean, 0)
-    print(predicciones)
-    
-    predicciones_df <- as.data.frame(predicciones)
-    predicciones_df$Year <- anyos_pred
-    predicciones_df$Borough <- barrio
-    predicciones_df$Code <- codigo_barrio
-    df <- bind_rows(df, predicciones_df)
-  }
 
+  # Estimar valores hasta 2031
+  anyos_pred <- 2025:2031
+  for (barrio in unique(df$Borough)) {
+    df_barrio <- df %>% filter(Borough == barrio)
+    # Retail
+    ts_data_retail <- ts(df_barrio$Retail, start = 2003, end = 2024, frequency = 1)
+    model_retail <- auto.arima(ts_data_retail)
+    forecast_values_retail <- round(forecast(model_retail, h = length(anyos_pred))$mean, 0)
+    # Food
+    ts_data_food <- ts(df_barrio$Food_Hotels, start = 2003, end = 2024, frequency = 1)
+    model_food <- auto.arima(ts_data_food)
+    forecast_values_food <- round(forecast(model_food, h = length(anyos_pred))$mean, 0)
+    # Total
+    ts_data_total <- ts(df_barrio$Total, start = 2003, end = 2024, frequency = 1)
+    model_total <- auto.arima(ts_data_total)
+    forecast_values_total <- round(forecast(model_total, h = length(anyos_pred))$mean, 0)
+    forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
+                              Borough = rep(c(barrio), length(anyos_pred)),
+                              Year = anyos_pred,
+                              Retail = forecast_values_retail,
+                              Food_Hotels = forecast_values_food,
+                              Total = forecast_values_total)
+    
+    df <- rbind(df, forecast_df)
+  }
+  
   # Ordenar salida
   df <- df %>% arrange(Code, Year)
   return(df)
-}
-
-validar_indicador_08_servicios <- function(df) {
-  if (any(is.na(df)))
-    return(FALSE)
-  return(TRUE)
 }
 
 guardar_indicador_08_servicios <- function(df) {
@@ -1180,10 +1169,9 @@ lista_codes <- as.list(df_barrios %>% select(Code))
 #guardar_indicador_07_delitos(df_delitos)
 
 # Indicador 08 - Servicios
-#df_servicios = carga_indicador_08_servicios()
-#df_servicios = limpieza_indicador_08_servicios(df_servicios)
-#if (validar_indicador_08_servicios(df_servicios))
-#  guardar_indicador_08_servicios(df_servicios)
+df_servicios = carga_indicador_08_servicios()
+df_servicios = limpieza_indicador_08_servicios(df_servicios)
+guardar_indicador_08_servicios(df_servicios)
 
 # Indicador 09 - Precio vivienda
 #df_vivienda_precio = carga_indicador_09_vivienda_precio()
