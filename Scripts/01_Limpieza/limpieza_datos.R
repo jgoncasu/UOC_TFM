@@ -37,8 +37,6 @@ carga_indicador_01_edad <- function() {
 }
 
 limpieza_indicador_01_edad <- function(df) {
-  # TODO: Ver si nos quedamos con edad media por año o la cantidad de personas jóvenes (ver rango de edad)
-  
   # Elimina la columna "No_Males"
   df$No_Males <- NULL
   
@@ -77,109 +75,35 @@ limpieza_indicador_01_edad <- function(df) {
   df <- df %>% select(-starts_with("M_"))
   df <- df %>% select(-starts_with("F_"))
 
-  # Imputar valores hasta 2031
+  # Estimar valores hasta 2031
   anyos_pred <- 2021:2031
   for (barrio in unique(df$Borough)) {
     df_barrio <- df %>% filter(Borough == barrio)
-    #print(df_barrio)
-    ts_data <- ts(df_barrio$Mean_Age, start = 1999, end = 2020, frequency = 1)
-    model_Men <- auto.arima(ts_data_Men)
-    forecast_values_Men <- round(forecast(model_Men, h = length(anyos_pred))$mean, 2)
-    #ts_data_Women <- ts(df_barrio$Mean_Age_Women, start = 1999, end = 2020, frequency = 1)
-    #model_Women <- auto.arima(ts_data_Women)
-    #forecast_values_Women <- round(forecast(model_Women, h = length(anyos_pred))$mean, 2)
-    #ts_data_Avg <- ts(df_barrio$Avg_Age, start = 1999, end = 2020, frequency = 1)
-    #model_Avg <- auto.arima(ts_data_Avg)
-    #forecast_values_Avg <- round(forecast(model_Avg, h = length(anyos_pred))$mean, 2)
-    
-    if (barrio == "Barking and Dagenham")
-    {
-      print(typeof(df_barrio$Mean_Age_Men))
-      print(df_barrio$Mean_Age_Men)
-      #print(df_barrio$Mean_Age_Women)
-      #print(df_barrio$Avg_Age)
-      print(forecast_values_Men)
-      #print(forecast_values_Women)
-      #print(forecast_values_Avg)
-    }
-      
+    # Men
+    ts_data_men <- ts(df_barrio$Mean_Age_Men, start = 1999, end = 2020, frequency = 1)
+    model_men <- auto.arima(ts_data_men)
+    forecast_values_men <- round(forecast(model_men, h = length(anyos_pred))$mean, 2)
+    # Women
+    ts_data_women <- ts(df_barrio$Mean_Age_Women, start = 1999, end = 2020, frequency = 1)
+    model_women <- auto.arima(ts_data_women)
+    forecast_values_women <- round(forecast(model_women, h = length(anyos_pred))$mean, 2)
+    # Avg_Age
+    ts_data_avg <- ts(df_barrio$Avg_Age, start = 1999, end = 2020, frequency = 1)
+    model_avg <- auto.arima(ts_data_avg)
+    forecast_values_avg <- round(forecast(model_avg, h = length(anyos_pred))$mean, 2)
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
                               Borough = rep(c(barrio), length(anyos_pred)),
                               Year = anyos_pred,
-                              Mean_Age_Men = forecast_values_Men,
-                              #Mean_Age_Women = forecast_values_Women,
-                              #Avg_Age = forecast_values_Avg
-                              )
+                              Mean_Age_Men = forecast_values_men,
+                              Mean_Age_Women = forecast_values_women,
+                              Avg_Age = forecast_values_avg)
     
     df <- rbind(df, forecast_df)
   }
-    
-  # Imputar valores hasta 2031
-#  anyos_pred <- 2021:2031
-#  barrios <- unique(df$Borough)
-#  for (barrio in barrios) {
-#    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-#    predicciones <- list()
-#    serie_Men <- ts(df %>% filter(Borough == barrio) %>% pull(Mean_Age_Men), start = 1999, end = 2020, frequency = 1)
-#    serie_Women <- ts(df %>% filter(Borough == barrio) %>% pull(Mean_Age_Women), start = 1999, end = 2020, frequency = 1)
-#    serie_Avg <- ts(df %>% filter(Borough == barrio) %>% pull(Avg_Age), start = 1999, end = 2020, frequency = 1)
-#    modelo_Men <- ets(serie_Men)
-#    modelo_Women <- ets(serie_Women)
-#    modelo_Avg <- ets(serie_Avg)
-#    pred_Men <- forecast(modelo_Men, h = length(anyos_pred))
-#    pred_Women <- forecast(modelo_Women, h = length(anyos_pred))
-#    pred_Avg <- forecast(modelo_Avg, h = length(anyos_pred))
-#    predicciones[["Mean_Age_Men"]] <- round(pred_Men$mean, 2)
-#    predicciones[["Mean_Age_Women"]] <- round(pred_Women$mean, 2)
-#    predicciones[["Avg_Age"]] <- round(pred_Avg$mean, 2)
-#    
-#    predicciones_df <- as.data.frame(predicciones)
-#    predicciones_df$Year <- anyos_pred
-#    predicciones_df$Borough <- barrio
-#    predicciones_df$Code <- codigo_barrio
-#    
-#    df <- bind_rows(df, predicciones_df)
-#  }
-
+  
   # Ordena los datos por barrio
   df <- df %>% arrange(Code, Year) 
-  
-  # Se predice el valor de la población para los años 2021 y 2031  
-#  anyos_pred <- 2021:2031
-#  barrios <- unique(df$Borough)
-#  for (barrio in barrios) {
-#    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-#    predicciones <- list()
-#    for (edad in edades) {
-#      serie_hombres <- ts(df %>% filter(Borough == barrio) %>% pull(paste0("M_", edad)), start = 1999, end = 2020, frequency = 1)
-#      serie_mujeres <- ts(df %>% filter(Borough == barrio) %>% pull(paste0("F_", edad)), start = 1999, end = 2020, frequency = 1)
-#      modelo_hombres <- ets(serie_hombres)
-#      modelo_mujeres <- ets(serie_mujeres)
-#      pred_hombres <- forecast(modelo_hombres, h = length(anyos_pred))
-#      pred_mujeres <- forecast(modelo_mujeres, h = length(anyos_pred))
-#      predicciones[[paste0("M_", edad)]] <- round(pred_hombres$mean, 0)
-#      predicciones[[paste0("F_", edad)]] <- round(pred_mujeres$mean, 0)
-#    }
-#    predicciones_df <- as.data.frame(predicciones)
-#    predicciones_df$Year <- anyos_pred
-#    predicciones_df$Borough <- barrio
-#    predicciones_df$Code <- codigo_barrio
-#    
-#    df <- bind_rows(df, predicciones_df)
-#  }
 
-  # Transforma los años en columnas y los datos de edad a valores de las filas
-#  df <- df %>% 
-#    mutate(Year = paste0("Year_", Year)) %>%
-#    pivot_wider(
-#      names_from = Year,
-#      values_from = Avg_Age
-#    )
-  
-  # Elimina las columnas de los años 1999 y 2000
-#  df$Year_1999 <- NULL
-#  df$Year_2000 <- NULL
-  
   return(df)
 }
 
@@ -192,24 +116,6 @@ guardar_indicador_01_edad <- function(df) {
 ################################################################################
 # 02) Carga y limpieza de datos de los indicadores demográficos (raciales)
 ################################################################################
-
-#carga_indicador_02_raza <- function() {
-#  ruta_fichero <- '01_Demograficos/ethnic-groups-by-borough.xls'
-#  lista_pestanas <- 2012:2020
-#  nulos <- c("", "-")
-#  columnas <- c("Code", "Borough", "White", "Asian", "Black", "Other", "Total", "CI_Empty", "CI_White", "CI_Asian", "CI_Black", "CI_Other", "CI_Total")
-#  df <- data.frame(Code = NA, Borough = NA, White = NA, Asian = NA, Black = NA, Other = NA, Total = NA, CI_Empty = NA, CI_White = NA, CI_Asian = NA, CI_Black = NA, CI_Other = NA, CI_Total = NA)[0,]
-#  # Lee la lista de pestañas (desde 2012 hasta 2020)
-#  for (pestana in lista_pestanas) {
-#    df_tmp = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), sheet = (2022 - pestana), skip=2, col_names = columnas, na = nulos)
-#    # Añade el dato del año
-#    df_tmp["Year"] <- pestana
-#    # Fusiona los datos
-#    df <- rbind(df, df_tmp)
-#  }
-#  df <- df %>% select("Code", "Borough", "Year", "White", "Asian", "Black", "Other", "Total")
-#  return(df)
-#}
 
 carga_indicador_02_raza <- function() {
   # Lee el fichero con datos entre 2001 y 2009
@@ -264,28 +170,27 @@ limpieza_indicador_02_raza <- function(df_aux, df) {
       BAME = 1000 * rowSums(across(starts_with("BAME_")), na.rm = TRUE)
     ) %>%
     ungroup()
-
-  # Imputar valores para 2010
+  
+  # Estimar valores para 2010
   anyos_pred <- 2010
-  barrios <- unique(df_aux$Borough)
-  for (barrio in barrios) {
-    codigo_barrio <- df_aux %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-    predicciones <- list()
-    serie_White <- ts(df_aux %>% filter(Borough == barrio) %>% pull(White), start = 2001, end = 2009, frequency = 1)
-    serie_BAME <- ts(df_aux %>% filter(Borough == barrio) %>% pull(BAME), start = 2001, end = 2009, frequency = 1)
-    modelo_White <- ets(serie_White)
-    modelo_BAME <- ets(serie_BAME)
-    pred_White <- forecast(modelo_White, h = 1)
-    pred_BAME <- forecast(modelo_BAME, h = 1)
-    predicciones[["White"]] <- round(pred_White$mean, 0)
-    predicciones[["BAME"]] <- round(pred_BAME$mean, 0)
+  for (barrio in unique(df_aux$Borough)) {
+    df_barrio <- df_aux %>% filter(Borough == barrio)
+    # White
+    ts_data_white <- ts(df_barrio$White, start = 2001, end = 2009, frequency = 1)
+    model_white <- auto.arima(ts_data_white)
+    forecast_values_white <- round(forecast(model_white, h = length(anyos_pred))$mean, 0)
+    # BAME
+    ts_data_bame <- ts(df_barrio$BAME, start = 2001, end = 2009, frequency = 1)
+    model_bame <- auto.arima(ts_data_bame)
+    forecast_values_bame <- round(forecast(model_bame, h = length(anyos_pred))$mean, 0)
+    # Percent
+    forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
+                              Borough = rep(c(barrio), length(anyos_pred)),
+                              Year = anyos_pred,
+                              BAME = forecast_values_bame,
+                              White = forecast_values_white)
     
-    predicciones_df <- as.data.frame(predicciones)
-    predicciones_df$Year <- anyos_pred
-    predicciones_df$Borough <- barrio
-    predicciones_df$Code <- codigo_barrio
-    
-    df_aux <- bind_rows(df_aux, predicciones_df)
+    df_aux <- rbind(df_aux, forecast_df)
   }
   
   # LIMPIEZA DE LOS DATOS DESDE 2011
@@ -336,104 +241,6 @@ limpieza_indicador_02_raza <- function(df_aux, df) {
   df <- df %>% arrange(Code, Borough, Year)
   
   return(df)
-}
-#limpieza_indicador_02_raza <- function(df) {
-#  # Filtra los registros que no corresponden con barrios de Londres
-#  barrios_londres <- unlist(lista_barrios)
-#  barrios <- unique(df$Borough)
-#  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
-#  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
-#  
-#  # El barrio de "Richmond upon Thames" no presenta en todos los años los habitantes de raza negra, se calcula su valor en base al resto de datos
-#  df <- df %>%
-#    mutate(Black = if_else(is.na(Black) & Borough == "Richmond upon Thames", Total - (White + Asian + Other), Black)
-#  )
-#  
-#  # TODO: Eliminar valores para City of London
-#  # Imputa valores para el barrio "City of London" en base a los datos de la ciudad de Londres
-#  anyos <- 2012:2020
-#  for (anyo in anyos) {
-#    sum_valores <- df %>% 
-#      filter(Year == anyo) %>% 
-#      summarise(
-#        white_london = sum(White[Borough == "London"], na.rm = TRUE),
-#        white_others = sum(White[!(Borough %in% c("United Kingdom", "London"))], na.rm = TRUE),
-#        black_london = sum(Black[Borough == "London"], na.rm = TRUE),
-#        black_others = sum(Black[!(Borough %in% c("United Kingdom", "London"))], na.rm = TRUE),
-#        asian_london = sum(Asian[Borough == "London"], na.rm = TRUE),
-#        asian_others = sum(Asian[!(Borough %in% c("United Kingdom", "London"))], na.rm = TRUE),
-#        other_london = sum(Other[Borough == "London"], na.rm = TRUE),
-#        other_others = sum(Other[!(Borough %in% c("United Kingdom", "London"))], na.rm = TRUE),
-#      ) %>%
-#      mutate(
-#        white_city_of_london = if_else(white_london - white_others >= 0, white_london - white_others, 0),
-#        black_city_of_london = if_else(black_london - black_others >= 0, black_london - black_others, 0),
-#        asian_city_of_london = if_else(asian_london - asian_others >= 0, asian_london - asian_others, 0),
-#        other_city_of_london = if_else(other_london - other_others >= 0, other_london - other_others, 0),
-#      )
-#      
-#    sum_white <- pull(sum_valores, white_city_of_london)
-#    sum_black <- pull(sum_valores, black_city_of_london)
-#    sum_asian <- pull(sum_valores, asian_city_of_london)
-#    sum_other <- pull(sum_valores, other_city_of_london)
-#    
-#    df <- df %>%
-#      mutate(
-#        White = if_else(Year == anyo & Borough == "City of London" & is.na(White), sum_white, White),
-#        Black = if_else(Year == anyo & Borough == "City of London" & is.na(Black), sum_black, Black),
-#        Asian = if_else(Year == anyo & Borough == "City of London" & is.na(Asian), sum_asian, Asian),
-#        Other = if_else(Year == anyo & Borough == "City of London" & is.na(Other), sum_other, Other),
-#        Total = if_else(Year == anyo & Borough == "City of London" & is.na(Total), White + Black + Asian + Other, Total)
-#      )
-#  }
-#  
-#  # Se realiza predicción para los años posteriores a 2020
-#  anyos_pred_prev <- 2001:2011
-#  anyos_pred_post <- 2021:2031
-#  razas <- c("White", "Asian", "Black", "Other")
-#  barrios <- unique(df$Borough)
-#  for (barrio in barrios) {
-#    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-#    predicciones <- list()
-#    serie_white <- ts(df %>% filter(Borough == barrio) %>% pull("White"), start = 2012, end = 2020, frequency = 1)
-#    serie_black <- ts(df %>% filter(Borough == barrio) %>% pull("Black"), start = 2012, end = 2020, frequency = 1)
-#    serie_asian <- ts(df %>% filter(Borough == barrio) %>% pull("Asian"), start = 2012, end = 2020, frequency = 1)
-#    serie_other <- ts(df %>% filter(Borough == barrio) %>% pull("Other"), start = 2012, end = 2020, frequency = 1)
-#    
-#    modelo_white <- ets(serie_white)
-#    modelo_black <- ets(serie_black)
-#    modelo_asian <- ets(serie_asian)
-#    modelo_other <- ets(serie_other)
-#    
-#    pred_white_prev <- forecast(modelo_white, h = length(anyos))
-#    
-#    for (raza in razas) {
-#      serie_hombres <- ts(df %>% filter(Borough == barrio) %>% pull(paste0("M_", edad)), start = 1999, end = 2020, frequency = 1)
-#      serie_mujeres <- ts(df %>% filter(Borough == barrio) %>% pull(paste0("F_", edad)), start = 1999, end = 2020, frequency = 1)
-#      modelo_hombres <- ets(serie_hombres)
-#      modelo_mujeres <- ets(serie_mujeres)
-#      pred_hombres <- forecast(modelo_hombres, h = length(anyos_pred))
-#      pred_mujeres <- forecast(modelo_mujeres, h = length(anyos_pred))
-#      predicciones[[paste0("M_", edad)]] <- round(pred_hombres$mean, 0)
-#      predicciones[[paste0("F_", edad)]] <- round(pred_mujeres$mean, 0)
-#    }
-#    predicciones_df <- as.data.frame(predicciones)
-#    predicciones_df$Year <- anyos_pred
-#    predicciones_df$Borough <- barrio
-#    predicciones_df$Code <- codigo_barrio
-#    
-#    df <- bind_rows(df, predicciones_df)
-#  }
-#  
-#  # Ver si los datos de City of London se pueden imputar en base al total de Londres
-#  # Pivotar resultados
-#  return(df)
-#}
-
-validar_indicador_02_raza <- function(df) {
-  if (any(is.na(df)))
-    return(FALSE)
-  return(TRUE)
 }
 
 guardar_indicador_02_raza <- function(df) {
@@ -549,44 +356,37 @@ limpieza_indicador_04_estudios <- function(df) {
   # Actualiza el valor del campo Number en base a los campos Habitants y Percent
   df <- df %>%
     mutate(Number = ifelse(Borough == "City of London" & is.na(Number), round((Habitants * Percent) / 100), Number))
-  
-  # Imputar valores hasta 2031
+
+  # Estimar valores hasta 2031
   anyos_pred <- 2022:2031
-  barrios <- unique(df$Borough)
-  for (barrio in barrios) {
-    codigo_barrio <- df %>% filter(Borough == barrio) %>% slice_head(n = 1) %>% pull(Code)
-    predicciones <- list()
-    serie_Number <- ts(df %>% filter(Borough == barrio) %>% pull(Number), start = 2004, end = 2021, frequency = 1)
-    serie_Habitants <- ts(df %>% filter(Borough == barrio) %>% pull(Habitants), start = 2004, end = 2021, frequency = 1)
-    serie_Percent <- ts(df %>% filter(Borough == barrio) %>% pull(Percent), start = 2004, end = 2021, frequency = 1)
-    modelo_Number <- ets(serie_Number)
-    modelo_Habitants <- ets(serie_Habitants)
-    modelo_Percent <- ets(serie_Percent)
-    pred_Number <- forecast(modelo_Number, h = length(anyos_pred))
-    pred_Habitants <- forecast(modelo_Habitants, h = length(anyos_pred))
-    pred_Percent <- forecast(modelo_Percent, h = length(anyos_pred))
-    predicciones[["Number"]] <- round(pred_Number$mean, 0)
-    predicciones[["Habitants"]] <- round(pred_Habitants$mean, 0)
-    predicciones[["Percent"]] <- round(pred_Percent$mean, 0)
-
-    predicciones_df <- as.data.frame(predicciones)
-    predicciones_df$Year <- anyos_pred
-    predicciones_df$Borough <- barrio
-    predicciones_df$Code <- codigo_barrio
-
-    df <- bind_rows(df, predicciones_df)
+  for (barrio in unique(df$Borough)) {
+    df_barrio <- df %>% filter(Borough == barrio)
+    # Number
+    ts_data_number <- ts(df_barrio$Number, start = 2004, end = 2021, frequency = 1)
+    model_number <- auto.arima(ts_data_number)
+    forecast_values_number <- round(forecast(model_number, h = length(anyos_pred))$mean, 0)
+    # Habitants
+    ts_data_habitants <- ts(df_barrio$Habitants, start = 2004, end = 2021, frequency = 1)
+    model_habitants <- auto.arima(ts_data_habitants)
+    forecast_values_habitants <- round(forecast(model_habitants, h = length(anyos_pred))$mean, 0)
+    # Percent
+    ts_data_percent <- ts(df_barrio$Percent, start = 2004, end = 2021, frequency = 1)
+    model_percent <- auto.arima(ts_data_percent)
+    forecast_values_percent <- round(forecast(model_percent, h = length(anyos_pred))$mean, 2)
+    forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
+                              Borough = rep(c(barrio), length(anyos_pred)),
+                              Year = anyos_pred,
+                              Number = forecast_values_number,
+                              Habitants = forecast_values_habitants,
+                              Percent = forecast_values_percent)
+    
+    df <- rbind(df, forecast_df)
   }
-
+    
   # Ordenar por barrio
   df <- df %>% arrange(Code, Year)
 
   return(df)
-}
-
-validar_indicador_04_estudios <- function(df) {
-  if (any(is.na(df)))
-    return(FALSE)
-  return(TRUE)
 }
 
 guardar_indicador_04_estudios <- function(df) {
@@ -726,12 +526,6 @@ limpieza_indicador_06_esperanza_vida <- function(df) {
   df <- df %>% arrange(Code, Year)
 
   return(df)
-}
-
-validar_indicador_06_esperanza_vida <- function(df) {
-  if (any(is.na(df)))
-    return(FALSE)
-  return(TRUE)
 }
 
 guardar_indicador_06_esperanza_vida <- function(df) {
@@ -1132,16 +926,16 @@ lista_barrios <- as.list(df_barrios %>% select(Borough))
 lista_codes <- as.list(df_barrios %>% select(Code))
 
 # Indicador 01 - Edad
-#df_edad = carga_indicador_01_edad()
-#df_edad = limpieza_indicador_01_edad(df_edad)
-#guardar_indicador_01_edad(df_edad)
+df_edad = carga_indicador_01_edad()
+df_edad = limpieza_indicador_01_edad(df_edad)
+guardar_indicador_01_edad(df_edad)
 
 # Indicador 02 - Raza
 #df_result = carga_indicador_02_raza()
 #df_raza_aux <- df_result$df_aux
 #df_raza <- df_result$df
 #df_raza = limpieza_indicador_02_raza(df_raza_aux, df_raza)
-#if (validar_indicador_02_raza(df_raza)) guardar_indicador_02_raza(df_raza) else print("ERROR")
+#guardar_indicador_02_raza(df_raza)
 
 # Indicador 03 - Empleo
 #df_empleo = carga_indicador_03_empleo()
@@ -1151,8 +945,7 @@ lista_codes <- as.list(df_barrios %>% select(Code))
 # Indicador 04 - Estudios
 #df_estudios = carga_indicador_04_estudios()
 #df_estudios = limpieza_indicador_04_estudios(df_estudios)
-#if (validar_indicador_04_estudios(df_estudios))
-#  guardar_indicador_04_estudios(df_estudios)
+#guardar_indicador_04_estudios(df_estudios)
 
 # Indicador 05 - Tráfico
 #df_trafico = carga_indicador_05_trafico()
