@@ -536,7 +536,7 @@ limpieza_indicador_06_esperanza_vida <- function(df) {
 }
 
 guardar_indicador_06_esperanza_vida <- function(df) {
-  ruta_fichero <- 'STG_06_indicador_esperanza_vidas.csv'
+  ruta_fichero <- 'STG_06_indicador_esperanza_vida.csv'
   write.csv(df, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)
 }
 
@@ -936,15 +936,6 @@ guardar_indicador_10_vivienda_alquiler <- function(df) {
 # Cuerpo principal del programa
 ################################################################################
 
-# TODO:
-#   - Revisar los que no tienen datos de un barrio para algún año, ponerlos al último valor conocido
-#   - Revisar barrio/año que aparezcan todos
-#   - Donde no haya datos de Londres, añadir totales
-#   - Eliminar UK de los barrios
-#   - De la estimación solo guardar los datos de 2031 y si acaso en edad los de 2021
-#   - Eliminar datos previos a 2001
-#   - Homogeneizar los comentarios
-
 # Barrios de Londres
 print("***** PASO 0: CARGANDO BARRIOS DE LONDRES *****")
 df_barrios <- carga_lista_barrios()
@@ -953,42 +944,42 @@ lista_codes <- as.list(df_barrios %>% select(Code))
 lista_old_codes <- as.list(df_barrios %>% select(Old_Code))
 
 # Indicador 01 - Edad
-#print("***** PASO 1: CARGANDO INDICADOR 01 - EDAD *****")
-#df_edad = carga_indicador_01_edad()
-#df_edad = limpieza_indicador_01_edad(df_edad)
-#guardar_indicador_01_edad(df_edad)
+print("***** PASO 1: CARGANDO INDICADOR 01 - EDAD *****")
+df_edad = carga_indicador_01_edad()
+df_edad = limpieza_indicador_01_edad(df_edad)
+guardar_indicador_01_edad(df_edad)
 
 # Indicador 02 - Raza
-#print("***** PASO 2: CARGANDO INDICADOR 02 - RAZA *****")
-#df_result = carga_indicador_02_raza()
-#df_raza_aux <- df_result$df_aux
-#df_raza <- df_result$df
-#df_raza = limpieza_indicador_02_raza(df_raza_aux, df_raza)
-#guardar_indicador_02_raza(df_raza)
+print("***** PASO 2: CARGANDO INDICADOR 02 - RAZA *****")
+df_result = carga_indicador_02_raza()
+df_raza_aux <- df_result$df_aux
+df_raza <- df_result$df
+df_raza = limpieza_indicador_02_raza(df_raza_aux, df_raza)
+guardar_indicador_02_raza(df_raza)
 
 # Indicador 03 - Empleo
-#print("***** PASO 3: CARGANDO INDICADOR 03 - EMPLEO *****")
-#df_empleo = carga_indicador_03_empleo()
-#df_empleo = limpieza_indicador_03_empleo(df_empleo)
-#guardar_indicador_03_empleo(df_empleo)
+print("***** PASO 3: CARGANDO INDICADOR 03 - EMPLEO *****")
+df_empleo = carga_indicador_03_empleo()
+df_empleo = limpieza_indicador_03_empleo(df_empleo)
+guardar_indicador_03_empleo(df_empleo)
 
 # Indicador 04 - Estudios
-#print("***** PASO 4: CARGANDO INDICADOR 04 - ESTUDIOS *****")
-#df_estudios = carga_indicador_04_estudios()
-#df_estudios = limpieza_indicador_04_estudios(df_estudios)
-#guardar_indicador_04_estudios(df_estudios)
+print("***** PASO 4: CARGANDO INDICADOR 04 - ESTUDIOS *****")
+df_estudios = carga_indicador_04_estudios()
+df_estudios = limpieza_indicador_04_estudios(df_estudios)
+guardar_indicador_04_estudios(df_estudios)
 
 # Indicador 05 - Tráfico
-#print("***** PASO 5: CARGANDO INDICADOR 05 - TRÁFICO *****")
-#df_trafico = carga_indicador_05_trafico()
-#df_trafico = limpieza_indicador_05_trafico(df_trafico)
-#guardar_indicador_05_trafico(df_trafico)
+print("***** PASO 5: CARGANDO INDICADOR 05 - TRÁFICO *****")
+df_trafico = carga_indicador_05_trafico()
+df_trafico = limpieza_indicador_05_trafico(df_trafico)
+guardar_indicador_05_trafico(df_trafico)
 
 # Indicador 06 - Esperanza de vida
-#print("***** PASO 6: CARGANDO INDICADOR 06 - ESPERANZA DE VIDA *****")
-#df_esperanza_vida = carga_indicador_06_esperanza_vida()
-#df_esperanza_vida = limpieza_indicador_06_esperanza_vida(df_esperanza_vida)
-#guardar_indicador_06_esperanza_vida(df_esperanza_vida)
+print("***** PASO 6: CARGANDO INDICADOR 06 - ESPERANZA DE VIDA *****")
+df_esperanza_vida = carga_indicador_06_esperanza_vida()
+df_esperanza_vida = limpieza_indicador_06_esperanza_vida(df_esperanza_vida)
+guardar_indicador_06_esperanza_vida(df_esperanza_vida)
 
 # Indicador 07 - Delitos
 print("***** PASO 7: CARGANDO INDICADOR 07 - DELITOS *****")
