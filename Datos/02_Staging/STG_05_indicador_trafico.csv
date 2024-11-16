@@ -1,12 +1,4 @@
 "Code","Borough","Year","Car_Traffic"
-"E09000001","City of London",1993,156
-"E09000001","City of London",1994,158
-"E09000001","City of London",1995,160
-"E09000001","City of London",1996,163
-"E09000001","City of London",1997,165
-"E09000001","City of London",1998,167
-"E09000001","City of London",1999,167
-"E09000001","City of London",2000,163
 "E09000001","City of London",2001,155
 "E09000001","City of London",2002,148
 "E09000001","City of London",2003,143
@@ -38,14 +30,6 @@
 "E09000001","City of London",2029,61
 "E09000001","City of London",2030,59
 "E09000001","City of London",2031,56
-"E09000002","Barking and Dagenham",1993,450
-"E09000002","Barking and Dagenham",1994,455
-"E09000002","Barking and Dagenham",1995,448
-"E09000002","Barking and Dagenham",1996,446
-"E09000002","Barking and Dagenham",1997,443
-"E09000002","Barking and Dagenham",1998,439
-"E09000002","Barking and Dagenham",1999,461
-"E09000002","Barking and Dagenham",2000,455
 "E09000002","Barking and Dagenham",2001,460
 "E09000002","Barking and Dagenham",2002,467
 "E09000002","Barking and Dagenham",2003,466
@@ -77,14 +61,6 @@
 "E09000002","Barking and Dagenham",2029,483
 "E09000002","Barking and Dagenham",2030,483
 "E09000002","Barking and Dagenham",2031,483
-"E09000003","Barnet",1993,1319
-"E09000003","Barnet",1994,1341
-"E09000003","Barnet",1995,1332
-"E09000003","Barnet",1996,1357
-"E09000003","Barnet",1997,1376
-"E09000003","Barnet",1998,1366
-"E09000003","Barnet",1999,1396
-"E09000003","Barnet",2000,1368
 "E09000003","Barnet",2001,1389
 "E09000003","Barnet",2002,1402
 "E09000003","Barnet",2003,1406
@@ -116,14 +92,6 @@
 "E09000003","Barnet",2029,1367
 "E09000003","Barnet",2030,1368
 "E09000003","Barnet",2031,1368
-"E09000004","Bexley",1993,729
-"E09000004","Bexley",1994,739
-"E09000004","Bexley",1995,730
-"E09000004","Bexley",1996,750
-"E09000004","Bexley",1997,758
-"E09000004","Bexley",1998,763
-"E09000004","Bexley",1999,775
-"E09000004","Bexley",2000,801
 "E09000004","Bexley",2001,817
 "E09000004","Bexley",2002,816
 "E09000004","Bexley",2003,821
@@ -155,14 +123,6 @@
 "E09000004","Bexley",2029,785
 "E09000004","Bexley",2030,785
 "E09000004","Bexley",2031,785
-"E09000005","Brent",1993,774
-"E09000005","Brent",1994,783
-"E09000005","Brent",1995,773
-"E09000005","Brent",1996,795
-"E09000005","Brent",1997,792
-"E09000005","Brent",1998,811
-"E09000005","Brent",1999,828
-"E09000005","Brent",2000,836
 "E09000005","Brent",2001,835
 "E09000005","Brent",2002,859
 "E09000005","Brent",2003,853
@@ -194,14 +154,6 @@
 "E09000005","Brent",2029,750
 "E09000005","Brent",2030,750
 "E09000005","Brent",2031,750
-"E09000006","Bromley",1993,1087
-"E09000006","Bromley",1994,1087
-"E09000006","Bromley",1995,1082
-"E09000006","Bromley",1996,1101
-"E09000006","Bromley",1997,1107
-"E09000006","Bromley",1998,1115
-"E09000006","Bromley",1999,1120
-"E09000006","Bromley",2000,1130
 "E09000006","Bromley",2001,1164
 "E09000006","Bromley",2002,1170
 "E09000006","Bromley",2003,1175
@@ -233,14 +185,6 @@
 "E09000006","Bromley",2029,1132
 "E09000006","Bromley",2030,1132
 "E09000006","Bromley",2031,1132
-"E09000007","Camden",1993,503
-"E09000007","Camden",1994,505
-"E09000007","Camden",1995,506
-"E09000007","Camden",1996,503
-"E09000007","Camden",1997,500
-"E09000007","Camden",1998,502
-"E09000007","Camden",1999,506
-"E09000007","Camden",2000,486
 "E09000007","Camden",2001,477
 "E09000007","Camden",2002,470
 "E09000007","Camden",2003,464
@@ -272,14 +216,6 @@
 "E09000007","Camden",2029,266
 "E09000007","Camden",2030,260
 "E09000007","Camden",2031,253
-"E09000008","Croydon",1993,1129
-"E09000008","Croydon",1994,1141
-"E09000008","Croydon",1995,1130
-"E09000008","Croydon",1996,1137
-"E09000008","Croydon",1997,1136
-"E09000008","Croydon",1998,1141
-"E09000008","Croydon",1999,1157
-"E09000008","Croydon",2000,1150
 "E09000008","Croydon",2001,1166
 "E09000008","Croydon",2002,1170
 "E09000008","Croydon",2003,1162
@@ -311,14 +247,6 @@
 "E09000008","Croydon",2029,1032
 "E09000008","Croydon",2030,1032
 "E09000008","Croydon",2031,1032
-"E09000009","Ealing",1993,1085
-"E09000009","Ealing",1994,1095
-"E09000009","Ealing",1995,1078
-"E09000009","Ealing",1996,1095
-"E09000009","Ealing",1997,1091
-"E09000009","Ealing",1998,1089
-"E09000009","Ealing",1999,1160
-"E09000009","Ealing",2000,1156
 "E09000009","Ealing",2001,1166
 "E09000009","Ealing",2002,1173
 "E09000009","Ealing",2003,1162
@@ -350,14 +278,6 @@
 "E09000009","Ealing",2029,977
 "E09000009","Ealing",2030,977
 "E09000009","Ealing",2031,977
-"E09000010","Enfield",1993,1158
-"E09000010","Enfield",1994,1183
-"E09000010","Enfield",1995,1183
-"E09000010","Enfield",1996,1204
-"E09000010","Enfield",1997,1224
-"E09000010","Enfield",1998,1219
-"E09000010","Enfield",1999,1244
-"E09000010","Enfield",2000,1256
 "E09000010","Enfield",2001,1213
 "E09000010","Enfield",2002,1236
 "E09000010","Enfield",2003,1274
@@ -389,14 +309,6 @@
 "E09000010","Enfield",2029,1253
 "E09000010","Enfield",2030,1253
 "E09000010","Enfield",2031,1253
-"E09000011","Greenwich",1993,886
-"E09000011","Greenwich",1994,898
-"E09000011","Greenwich",1995,890
-"E09000011","Greenwich",1996,887
-"E09000011","Greenwich",1997,896
-"E09000011","Greenwich",1998,901
-"E09000011","Greenwich",1999,919
-"E09000011","Greenwich",2000,917
 "E09000011","Greenwich",2001,924
 "E09000011","Greenwich",2002,947
 "E09000011","Greenwich",2003,954
@@ -428,14 +340,6 @@
 "E09000011","Greenwich",2029,916
 "E09000011","Greenwich",2030,916
 "E09000011","Greenwich",2031,916
-"E09000012","Hackney",1993,425
-"E09000012","Hackney",1994,428
-"E09000012","Hackney",1995,430
-"E09000012","Hackney",1996,432
-"E09000012","Hackney",1997,422
-"E09000012","Hackney",1998,416
-"E09000012","Hackney",1999,427
-"E09000012","Hackney",2000,439
 "E09000012","Hackney",2001,439
 "E09000012","Hackney",2002,447
 "E09000012","Hackney",2003,431
@@ -467,14 +371,6 @@
 "E09000012","Hackney",2029,288
 "E09000012","Hackney",2030,284
 "E09000012","Hackney",2031,280
-"E09000013","Hammersmith and Fulham",1993,471
-"E09000013","Hammersmith and Fulham",1994,471
-"E09000013","Hammersmith and Fulham",1995,476
-"E09000013","Hammersmith and Fulham",1996,483
-"E09000013","Hammersmith and Fulham",1997,466
-"E09000013","Hammersmith and Fulham",1998,467
-"E09000013","Hammersmith and Fulham",1999,469
-"E09000013","Hammersmith and Fulham",2000,472
 "E09000013","Hammersmith and Fulham",2001,478
 "E09000013","Hammersmith and Fulham",2002,480
 "E09000013","Hammersmith and Fulham",2003,467
@@ -506,14 +402,6 @@
 "E09000013","Hammersmith and Fulham",2029,307
 "E09000013","Hammersmith and Fulham",2030,302
 "E09000013","Hammersmith and Fulham",2031,297
-"E09000014","Haringey",1993,506
-"E09000014","Haringey",1994,509
-"E09000014","Haringey",1995,509
-"E09000014","Haringey",1996,511
-"E09000014","Haringey",1997,509
-"E09000014","Haringey",1998,509
-"E09000014","Haringey",1999,515
-"E09000014","Haringey",2000,505
 "E09000014","Haringey",2001,499
 "E09000014","Haringey",2002,496
 "E09000014","Haringey",2003,492
@@ -545,14 +433,6 @@
 "E09000014","Haringey",2029,342
 "E09000014","Haringey",2030,337
 "E09000014","Haringey",2031,332
-"E09000015","Harrow",1993,516
-"E09000015","Harrow",1994,523
-"E09000015","Harrow",1995,520
-"E09000015","Harrow",1996,526
-"E09000015","Harrow",1997,528
-"E09000015","Harrow",1998,537
-"E09000015","Harrow",1999,548
-"E09000015","Harrow",2000,549
 "E09000015","Harrow",2001,556
 "E09000015","Harrow",2002,589
 "E09000015","Harrow",2003,577
@@ -584,14 +464,6 @@
 "E09000015","Harrow",2029,537
 "E09000015","Harrow",2030,538
 "E09000015","Harrow",2031,538
-"E09000016","Havering",1993,1091
-"E09000016","Havering",1994,1114
-"E09000016","Havering",1995,1119
-"E09000016","Havering",1996,1133
-"E09000016","Havering",1997,1146
-"E09000016","Havering",1998,1147
-"E09000016","Havering",1999,1196
-"E09000016","Havering",2000,1200
 "E09000016","Havering",2001,1190
 "E09000016","Havering",2002,1234
 "E09000016","Havering",2003,1154
@@ -623,14 +495,6 @@
 "E09000016","Havering",2029,1258
 "E09000016","Havering",2030,1258
 "E09000016","Havering",2031,1258
-"E09000017","Hillingdon",1993,1754
-"E09000017","Hillingdon",1994,1787
-"E09000017","Hillingdon",1995,1792
-"E09000017","Hillingdon",1996,1824
-"E09000017","Hillingdon",1997,1865
-"E09000017","Hillingdon",1998,1920
-"E09000017","Hillingdon",1999,1950
-"E09000017","Hillingdon",2000,1950
 "E09000017","Hillingdon",2001,1929
 "E09000017","Hillingdon",2002,1973
 "E09000017","Hillingdon",2003,1936
@@ -662,14 +526,6 @@
 "E09000017","Hillingdon",2029,1897
 "E09000017","Hillingdon",2030,1897
 "E09000017","Hillingdon",2031,1897
-"E09000018","Hounslow",1993,1364
-"E09000018","Hounslow",1994,1387
-"E09000018","Hounslow",1995,1380
-"E09000018","Hounslow",1996,1408
-"E09000018","Hounslow",1997,1428
-"E09000018","Hounslow",1998,1440
-"E09000018","Hounslow",1999,1467
-"E09000018","Hounslow",2000,1440
 "E09000018","Hounslow",2001,1423
 "E09000018","Hounslow",2002,1437
 "E09000018","Hounslow",2003,1421
@@ -701,14 +557,6 @@
 "E09000018","Hounslow",2029,1272
 "E09000018","Hounslow",2030,1272
 "E09000018","Hounslow",2031,1272
-"E09000019","Islington",1993,385
-"E09000019","Islington",1994,386
-"E09000019","Islington",1995,387
-"E09000019","Islington",1996,382
-"E09000019","Islington",1997,380
-"E09000019","Islington",1998,378
-"E09000019","Islington",1999,386
-"E09000019","Islington",2000,378
 "E09000019","Islington",2001,373
 "E09000019","Islington",2002,373
 "E09000019","Islington",2003,367
@@ -740,14 +588,6 @@
 "E09000019","Islington",2029,216
 "E09000019","Islington",2030,211
 "E09000019","Islington",2031,206
-"E09000020","Kensington and Chelsea",1993,459
-"E09000020","Kensington and Chelsea",1994,464
-"E09000020","Kensington and Chelsea",1995,468
-"E09000020","Kensington and Chelsea",1996,468
-"E09000020","Kensington and Chelsea",1997,467
-"E09000020","Kensington and Chelsea",1998,464
-"E09000020","Kensington and Chelsea",1999,468
-"E09000020","Kensington and Chelsea",2000,458
 "E09000020","Kensington and Chelsea",2001,458
 "E09000020","Kensington and Chelsea",2002,457
 "E09000020","Kensington and Chelsea",2003,436
@@ -779,14 +619,6 @@
 "E09000020","Kensington and Chelsea",2029,303
 "E09000020","Kensington and Chelsea",2030,298
 "E09000020","Kensington and Chelsea",2031,294
-"E09000021","Kingston upon Thames",1993,852
-"E09000021","Kingston upon Thames",1994,862
-"E09000021","Kingston upon Thames",1995,850
-"E09000021","Kingston upon Thames",1996,867
-"E09000021","Kingston upon Thames",1997,863
-"E09000021","Kingston upon Thames",1998,871
-"E09000021","Kingston upon Thames",1999,877
-"E09000021","Kingston upon Thames",2000,883
 "E09000021","Kingston upon Thames",2001,869
 "E09000021","Kingston upon Thames",2002,867
 "E09000021","Kingston upon Thames",2003,865
@@ -818,14 +650,6 @@
 "E09000021","Kingston upon Thames",2029,755
 "E09000021","Kingston upon Thames",2030,755
 "E09000021","Kingston upon Thames",2031,755
-"E09000022","Lambeth",1993,739
-"E09000022","Lambeth",1994,743
-"E09000022","Lambeth",1995,745
-"E09000022","Lambeth",1996,753
-"E09000022","Lambeth",1997,745
-"E09000022","Lambeth",1998,740
-"E09000022","Lambeth",1999,759
-"E09000022","Lambeth",2000,739
 "E09000022","Lambeth",2001,733
 "E09000022","Lambeth",2002,723
 "E09000022","Lambeth",2003,689
@@ -857,14 +681,6 @@
 "E09000022","Lambeth",2029,465
 "E09000022","Lambeth",2030,457
 "E09000022","Lambeth",2031,449
-"E09000023","Lewisham",1993,700
-"E09000023","Lewisham",1994,705
-"E09000023","Lewisham",1995,706
-"E09000023","Lewisham",1996,713
-"E09000023","Lewisham",1997,709
-"E09000023","Lewisham",1998,713
-"E09000023","Lewisham",1999,721
-"E09000023","Lewisham",2000,716
 "E09000023","Lewisham",2001,715
 "E09000023","Lewisham",2002,713
 "E09000023","Lewisham",2003,699
@@ -896,14 +712,6 @@
 "E09000023","Lewisham",2029,494
 "E09000023","Lewisham",2030,489
 "E09000023","Lewisham",2031,483
-"E09000024","Merton",1993,555
-"E09000024","Merton",1994,562
-"E09000024","Merton",1995,556
-"E09000024","Merton",1996,565
-"E09000024","Merton",1997,563
-"E09000024","Merton",1998,565
-"E09000024","Merton",1999,572
-"E09000024","Merton",2000,576
 "E09000024","Merton",2001,583
 "E09000024","Merton",2002,579
 "E09000024","Merton",2003,562
@@ -935,14 +743,6 @@
 "E09000024","Merton",2029,489
 "E09000024","Merton",2030,489
 "E09000024","Merton",2031,489
-"E09000025","Newham",1993,682
-"E09000025","Newham",1994,684
-"E09000025","Newham",1995,684
-"E09000025","Newham",1996,694
-"E09000025","Newham",1997,710
-"E09000025","Newham",1998,705
-"E09000025","Newham",1999,739
-"E09000025","Newham",2000,726
 "E09000025","Newham",2001,715
 "E09000025","Newham",2002,712
 "E09000025","Newham",2003,706
@@ -974,14 +774,6 @@
 "E09000025","Newham",2029,701
 "E09000025","Newham",2030,702
 "E09000025","Newham",2031,702
-"E09000026","Redbridge",1993,793
-"E09000026","Redbridge",1994,804
-"E09000026","Redbridge",1995,794
-"E09000026","Redbridge",1996,792
-"E09000026","Redbridge",1997,799
-"E09000026","Redbridge",1998,793
-"E09000026","Redbridge",1999,846
-"E09000026","Redbridge",2000,855
 "E09000026","Redbridge",2001,875
 "E09000026","Redbridge",2002,867
 "E09000026","Redbridge",2003,852
@@ -1013,14 +805,6 @@
 "E09000026","Redbridge",2029,895
 "E09000026","Redbridge",2030,895
 "E09000026","Redbridge",2031,895
-"E09000027","Richmond upon Thames",1993,764
-"E09000027","Richmond upon Thames",1994,773
-"E09000027","Richmond upon Thames",1995,762
-"E09000027","Richmond upon Thames",1996,769
-"E09000027","Richmond upon Thames",1997,772
-"E09000027","Richmond upon Thames",1998,773
-"E09000027","Richmond upon Thames",1999,784
-"E09000027","Richmond upon Thames",2000,774
 "E09000027","Richmond upon Thames",2001,778
 "E09000027","Richmond upon Thames",2002,785
 "E09000027","Richmond upon Thames",2003,773
@@ -1052,14 +836,6 @@
 "E09000027","Richmond upon Thames",2029,604
 "E09000027","Richmond upon Thames",2030,600
 "E09000027","Richmond upon Thames",2031,595
-"E09000028","Southwark",1993,685
-"E09000028","Southwark",1994,689
-"E09000028","Southwark",1995,692
-"E09000028","Southwark",1996,690
-"E09000028","Southwark",1997,692
-"E09000028","Southwark",1998,689
-"E09000028","Southwark",1999,705
-"E09000028","Southwark",2000,690
 "E09000028","Southwark",2001,693
 "E09000028","Southwark",2002,688
 "E09000028","Southwark",2003,655
@@ -1091,14 +867,6 @@
 "E09000028","Southwark",2029,443
 "E09000028","Southwark",2030,436
 "E09000028","Southwark",2031,429
-"E09000029","Sutton",1993,600
-"E09000029","Sutton",1994,607
-"E09000029","Sutton",1995,604
-"E09000029","Sutton",1996,602
-"E09000029","Sutton",1997,605
-"E09000029","Sutton",1998,607
-"E09000029","Sutton",1999,621
-"E09000029","Sutton",2000,617
 "E09000029","Sutton",2001,627
 "E09000029","Sutton",2002,635
 "E09000029","Sutton",2003,629
@@ -1130,14 +898,6 @@
 "E09000029","Sutton",2029,570
 "E09000029","Sutton",2030,570
 "E09000029","Sutton",2031,570
-"E09000030","Tower Hamlets",1993,709
-"E09000030","Tower Hamlets",1994,712
-"E09000030","Tower Hamlets",1995,712
-"E09000030","Tower Hamlets",1996,709
-"E09000030","Tower Hamlets",1997,717
-"E09000030","Tower Hamlets",1998,711
-"E09000030","Tower Hamlets",1999,715
-"E09000030","Tower Hamlets",2000,741
 "E09000030","Tower Hamlets",2001,733
 "E09000030","Tower Hamlets",2002,741
 "E09000030","Tower Hamlets",2003,734
@@ -1169,14 +929,6 @@
 "E09000030","Tower Hamlets",2029,594
 "E09000030","Tower Hamlets",2030,594
 "E09000030","Tower Hamlets",2031,594
-"E09000031","Waltham Forest",1993,583
-"E09000031","Waltham Forest",1994,590
-"E09000031","Waltham Forest",1995,581
-"E09000031","Waltham Forest",1996,586
-"E09000031","Waltham Forest",1997,581
-"E09000031","Waltham Forest",1998,575
-"E09000031","Waltham Forest",1999,596
-"E09000031","Waltham Forest",2000,606
 "E09000031","Waltham Forest",2001,630
 "E09000031","Waltham Forest",2002,627
 "E09000031","Waltham Forest",2003,628
@@ -1208,14 +960,6 @@
 "E09000031","Waltham Forest",2029,604
 "E09000031","Waltham Forest",2030,604
 "E09000031","Waltham Forest",2031,604
-"E09000032","Wandsworth",1993,827
-"E09000032","Wandsworth",1994,830
-"E09000032","Wandsworth",1995,831
-"E09000032","Wandsworth",1996,834
-"E09000032","Wandsworth",1997,842
-"E09000032","Wandsworth",1998,839
-"E09000032","Wandsworth",1999,856
-"E09000032","Wandsworth",2000,833
 "E09000032","Wandsworth",2001,833
 "E09000032","Wandsworth",2002,814
 "E09000032","Wandsworth",2003,788
@@ -1247,14 +991,6 @@
 "E09000032","Wandsworth",2029,474
 "E09000032","Wandsworth",2030,464
 "E09000032","Wandsworth",2031,454
-"E09000033","Westminster",1993,828
-"E09000033","Westminster",1994,838
-"E09000033","Westminster",1995,847
-"E09000033","Westminster",1996,833
-"E09000033","Westminster",1997,823
-"E09000033","Westminster",1998,836
-"E09000033","Westminster",1999,836
-"E09000033","Westminster",2000,819
 "E09000033","Westminster",2001,790
 "E09000033","Westminster",2002,768
 "E09000033","Westminster",2003,727
@@ -1286,14 +1022,6 @@
 "E09000033","Westminster",2029,415
 "E09000033","Westminster",2030,404
 "E09000033","Westminster",2031,392
-"E12000007","London",1993,25560
-"E12000007","London",1994,25851
-"E12000007","London",1995,25755
-"E12000007","London",1996,26009
-"E12000007","London",1997,26119
-"E12000007","London",1998,26205
-"E12000007","London",1999,26785
-"E12000007","London",2000,26682
 "E12000007","London",2001,26686
 "E12000007","London",2002,26859
 "E12000007","London",2003,26466
