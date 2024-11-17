@@ -37,10 +37,28 @@ prep_indicador_01_edad <- function() {
     mutate(
       VAR_01_AGE = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ (VAL_01_AGE - lag(VAL_01_AGE)) / lag(VAL_01_AGE) * 100
+        TRUE ~ round((VAL_01_AGE - lag(VAL_01_AGE)) / lag(VAL_01_AGE) * 100, 2)
       )
     ) %>%
     ungroup()
+  
+  # Calcula la variación respecto a la ciudad de Londres
+  df <- df %>%
+    left_join(
+      df %>%
+        filter(BOROUGH == "London") %>%
+        select(YEAR, VAR_01_AGE) %>%
+        rename(VAR_LONDON = VAR_01_AGE),
+      by = "YEAR"
+    ) %>%
+    mutate (
+      IND_01_AGE = if_else(
+        !is.na(VAR_LONDON) & VAR_LONDON != 0,
+        round(((VAR_01_AGE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        0
+      )
+    ) %>%
+    select(-VAR_LONDON)
 
   return(df)
 }
@@ -64,10 +82,28 @@ prep_indicador_02_raza <- function() {
     mutate(
       VAR_02_RACE_WHITE = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ (VAL_02_RACE_WHITE - lag(VAL_02_RACE_WHITE)) / lag(VAL_02_RACE_WHITE) * 100
+        TRUE ~ round((VAL_02_RACE_WHITE - lag(VAL_02_RACE_WHITE)) / lag(VAL_02_RACE_WHITE) * 100, 2)
       )
     ) %>%
     ungroup()
+
+  # Calcula la variación respecto a la ciudad de Londres
+  df <- df %>%
+    left_join(
+      df %>%
+        filter(BOROUGH == "London") %>%
+        select(YEAR, VAR_02_RACE_WHITE) %>%
+        rename(VAR_LONDON = VAR_02_RACE_WHITE),
+      by = "YEAR"
+    ) %>%
+    mutate (
+      IND_02_RACE_WHITE = if_else(
+        !is.na(VAR_LONDON) & VAR_LONDON != 0,
+        round(((VAR_02_RACE_WHITE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        0
+      )
+    ) %>%
+    select(-VAR_LONDON)
   
   return(df) 
 }
@@ -81,7 +117,9 @@ prep_indicador_03_empleo <- function() {
   df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
 
   # Selecciona el campo con el valor para el indicador
-  df <- df %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Week_Earnings)
+  df <- df %>% filter(Year %in% c(2002, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Week_Earnings)
+  # Se asigna el valor del año 2001 a los datos más antiguos correspondientes a 2002
+  df <- df %>% mutate(Year = ifelse(Year == 2002, 2001, Year))
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_03_WEEK_EARNINGS")
 
   # Calcula la variación del indicador en las tres décadas
@@ -91,12 +129,30 @@ prep_indicador_03_empleo <- function() {
     mutate(
       VAR_03_WEEK_EARNINGS = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ (VAL_03_WEEK_EARNINGS - lag(VAL_03_WEEK_EARNINGS)) / lag(VAL_03_WEEK_EARNINGS) * 100
+        TRUE ~ round((VAL_03_WEEK_EARNINGS - lag(VAL_03_WEEK_EARNINGS)) / lag(VAL_03_WEEK_EARNINGS) * 100, 2)
       )
     ) %>%
     ungroup()
   
-  return(df) 
+  # Calcula la variación respecto a la ciudad de Londres
+  df <- df %>%
+    left_join(
+      df %>%
+        filter(BOROUGH == "London") %>%
+        select(YEAR, VAR_03_WEEK_EARNINGS) %>%
+        rename(VAR_LONDON = VAR_03_WEEK_EARNINGS),
+      by = "YEAR"
+    ) %>%
+    mutate (
+      IND_03_WEEK_EARNINGS = if_else(
+        !is.na(VAR_LONDON) & VAR_LONDON != 0,
+        round(((VAR_03_WEEK_EARNINGS - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        0
+      )
+    ) %>%
+    select(-VAR_LONDON)
+
+    return(df) 
 }
 
 
@@ -120,10 +176,28 @@ prep_indicador_04_estudios <- function() {
     mutate(
       VAR_04_PERCENT_NVQ4 = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ (VAL_04_PERCENT_NVQ4 - lag(VAL_04_PERCENT_NVQ4)) / lag(VAL_04_PERCENT_NVQ4) * 100
+        TRUE ~ round((VAL_04_PERCENT_NVQ4 - lag(VAL_04_PERCENT_NVQ4)) / lag(VAL_04_PERCENT_NVQ4) * 100, 2)
       )
     ) %>%
     ungroup()
+  
+  # Calcula la variación respecto a la ciudad de Londres
+  df <- df %>%
+    left_join(
+      df %>%
+        filter(BOROUGH == "London") %>%
+        select(YEAR, VAR_04_PERCENT_NVQ4) %>%
+        rename(VAR_LONDON = VAR_04_PERCENT_NVQ4),
+      by = "YEAR"
+    ) %>%
+    mutate (
+      IND_04_PERCENT_NVQ4 = if_else(
+        !is.na(VAR_LONDON) & VAR_LONDON != 0,
+        round(((VAR_04_PERCENT_NVQ4 - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        0
+      )
+    ) %>%
+    select(-VAR_LONDON)
   
   return(df) 
 }
@@ -147,10 +221,28 @@ prep_indicador_05_trafico <- function() {
     mutate(
       VAR_05_CAR_TRAFFIC = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ (VAL_05_CAR_TRAFFIC - lag(VAL_05_CAR_TRAFFIC)) / lag(VAL_05_CAR_TRAFFIC) * 100
+        TRUE ~ round((VAL_05_CAR_TRAFFIC - lag(VAL_05_CAR_TRAFFIC)) / lag(VAL_05_CAR_TRAFFIC) * 100, 2)
       )
     ) %>%
     ungroup()
+
+  # Calcula la variación respecto a la ciudad de Londres
+  df <- df %>%
+    left_join(
+      df %>%
+        filter(BOROUGH == "London") %>%
+        select(YEAR, VAR_05_CAR_TRAFFIC) %>%
+        rename(VAR_LONDON = VAR_05_CAR_TRAFFIC),
+      by = "YEAR"
+    ) %>%
+    mutate (
+      IND_05_CAR_TRAFFIC = if_else(
+        !is.na(VAR_LONDON) & VAR_LONDON != 0,
+        round(((VAR_05_CAR_TRAFFIC - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        0
+      )
+    ) %>%
+    select(-VAR_LONDON)
   
   return(df) 
 }
@@ -176,10 +268,28 @@ prep_indicador_06_esperanza_vida <- function() {
     mutate(
       VAR_06_EXP_LIFE = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ (VAL_06_EXP_LIFE - lag(VAL_06_EXP_LIFE)) / lag(VAL_06_EXP_LIFE) * 100
+        TRUE ~ round((VAL_06_EXP_LIFE - lag(VAL_06_EXP_LIFE)) / lag(VAL_06_EXP_LIFE) * 100, 2)
       )
     ) %>%
     ungroup()
+
+  # Calcula la variación respecto a la ciudad de Londres
+  df <- df %>%
+    left_join(
+      df %>%
+        filter(BOROUGH == "London") %>%
+        select(YEAR, VAR_06_EXP_LIFE) %>%
+        rename(VAR_LONDON = VAR_06_EXP_LIFE),
+      by = "YEAR"
+    ) %>%
+    mutate (
+      IND_06_EXP_LIFE = if_else(
+        !is.na(VAR_LONDON) & VAR_LONDON != 0,
+        round(((VAR_06_EXP_LIFE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        0
+      )
+    ) %>%
+    select(-VAR_LONDON)
   
   return(df) 
 }
@@ -203,10 +313,28 @@ prep_indicador_07_delitos <- function() {
     mutate(
       VAR_07_CRIMES = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ (VAL_07_CRIMES - lag(VAL_07_CRIMES)) / lag(VAL_07_CRIMES) * 100
+        TRUE ~ round((VAL_07_CRIMES - lag(VAL_07_CRIMES)) / lag(VAL_07_CRIMES) * 100, 2)
       )
     ) %>%
     ungroup()
+
+  # Calcula la variación respecto a la ciudad de Londres
+  df <- df %>%
+    left_join(
+      df %>%
+        filter(BOROUGH == "London") %>%
+        select(YEAR, VAR_07_CRIMES) %>%
+        rename(VAR_LONDON = VAR_07_CRIMES),
+      by = "YEAR"
+    ) %>%
+    mutate (
+      IND_07_CRIMES = if_else(
+        !is.na(VAR_LONDON) & VAR_LONDON != 0,
+        round(((VAR_07_CRIMES - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        0
+      )
+    ) %>%
+    select(-VAR_LONDON)
   
   return(df) 
 }
@@ -232,10 +360,28 @@ prep_indicador_08_servicios <- function() {
     mutate(
       VAR_08_SERVICES = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ (VAL_08_SERVICES - lag(VAL_08_SERVICES)) / lag(VAL_08_SERVICES) * 100
+        TRUE ~ round((VAL_08_SERVICES - lag(VAL_08_SERVICES)) / lag(VAL_08_SERVICES) * 100, 2)
       )
     ) %>%
     ungroup()
+
+  # Calcula la variación respecto a la ciudad de Londres
+  df <- df %>%
+    left_join(
+      df %>%
+        filter(BOROUGH == "London") %>%
+        select(YEAR, VAR_08_SERVICES) %>%
+        rename(VAR_LONDON = VAR_08_SERVICES),
+      by = "YEAR"
+    ) %>%
+    mutate (
+      IND_08_SERVICES = if_else(
+        !is.na(VAR_LONDON) & VAR_LONDON != 0,
+        round(((VAR_08_SERVICES - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        0
+      )
+    ) %>%
+    select(-VAR_LONDON)
   
   return(df) 
 }
@@ -259,10 +405,28 @@ prep_indicador_09_vivienda_precio <- function() {
     mutate(
       VAR_09_HOUSE_PRICE = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ (VAL_09_HOUSE_PRICE - lag(VAL_09_HOUSE_PRICE)) / lag(VAL_09_HOUSE_PRICE) * 100
+        TRUE ~ round((VAL_09_HOUSE_PRICE - lag(VAL_09_HOUSE_PRICE)) / lag(VAL_09_HOUSE_PRICE) * 100, 2)
       )
     ) %>%
     ungroup()
+
+  # Calcula la variación respecto a la ciudad de Londres
+  df <- df %>%
+    left_join(
+      df %>%
+        filter(BOROUGH == "London") %>%
+        select(YEAR, VAR_09_HOUSE_PRICE) %>%
+        rename(VAR_LONDON = VAR_09_HOUSE_PRICE),
+      by = "YEAR"
+    ) %>%
+    mutate (
+      IND_09_HOUSE_PRICE = if_else(
+        !is.na(VAR_LONDON) & VAR_LONDON != 0,
+        round(((VAR_09_HOUSE_PRICE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        0
+      )
+    ) %>%
+    select(-VAR_LONDON)
   
   return(df) 
 }
@@ -286,10 +450,28 @@ prep_indicador_10_vivienda_alquiler <- function() {
     mutate(
       VAR_10_HOUSE_RENT = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ (VAL_10_HOUSE_RENT - lag(VAL_10_HOUSE_RENT)) / lag(VAL_10_HOUSE_RENT) * 100
+        TRUE ~ round((VAL_10_HOUSE_RENT - lag(VAL_10_HOUSE_RENT)) / lag(VAL_10_HOUSE_RENT) * 100, 2)
       )
     ) %>%
     ungroup()
+
+  # Calcula la variación respecto a la ciudad de Londres
+  df <- df %>%
+    left_join(
+      df %>%
+        filter(BOROUGH == "London") %>%
+        select(YEAR, VAR_10_HOUSE_RENT) %>%
+        rename(VAR_LONDON = VAR_10_HOUSE_RENT),
+      by = "YEAR"
+    ) %>%
+    mutate (
+      IND_10_HOUSE_RENT = if_else(
+        !is.na(VAR_LONDON) & VAR_LONDON != 0,
+        round(((VAR_10_HOUSE_RENT - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        0
+      )
+    ) %>%
+    select(-VAR_LONDON)
   
   return(df) 
 }
@@ -301,6 +483,9 @@ prep_indicador_10_vivienda_alquiler <- function() {
 fusiona_indicadores <- function(df_01_edad, df_02_raza, df_03_empleo, df_04_estudios, df_05_trafico,
                                 df_06_esperanza_vida, df_07_delitos, df_08_servicios, df_09_vivienda_precio, df_10_vivienda_alquiler) {
   df <- merge(df_01_edad, df_02_raza, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  
+  #print(df)
+
   df <- merge(df, df_03_empleo, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
   df <- merge(df, df_04_estudios, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
   df <- merge(df, df_05_trafico, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
@@ -367,5 +552,4 @@ df <- fusiona_indicadores(df_01_edad, df_02_raza, df_03_empleo, df_04_estudios, 
 print("***** PASO 12: GUARDAR DATOS PARA ANÁLISIS *****")
 guardar_indicadores(df)
 
-# TODO: Actualizar en la limpieza de datos los nombres de los barrios para unificarlos
 # TODO: Crear columna variación respecto a Londres

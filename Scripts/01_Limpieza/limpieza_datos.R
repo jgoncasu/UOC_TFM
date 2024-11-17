@@ -529,6 +529,24 @@ limpieza_indicador_06_esperanza_vida <- function(df) {
     df <- rbind(df, forecast_df)
   }
   
+  # Imputamos valores para City of London con la media de todos los barrios
+  avg_values <- df %>% filter(Borough != "London") %>%
+    group_by(Year) %>%
+    summarise(
+      Female = round(mean(Female, na.rm = TRUE), 2),
+      Male = round(mean(Male, na.rm = TRUE), 2),
+      Avg_Sex = round(mean(Avg_Sex, na.rm = TRUE), 2),
+      .groups = "drop"
+    ) %>%
+    filter(Year >= 2003 & Year <= 2031)
+  df_CoL <- avg_values %>%
+    mutate(
+      Code = "E09000001",
+      Borough = "City of London"
+    ) %>%
+    select(Code, Borough, Year, Female, Male, Avg_Sex)
+  df <- bind_rows(df, df_CoL)
+  
   # Ordenar datos por barrio, sexo y año
   df <- df %>% arrange(Code, Year)
 
@@ -584,7 +602,7 @@ limpieza_indicador_07_delitos <- function(df_aux, df) {
                  values_to = "Crimes") %>%
     mutate(Year = as.numeric(Year))
   
-  # Actualiza nombre de los barrios
+  # Normaliza nombre de los barrios
   df_aux <- df_aux %>% mutate(Borough = ifelse(Borough == "Barking & Dagenham", "Barking and Dagenham", Borough))
   df_aux <- df_aux %>% mutate(Borough = ifelse(Borough == "Hammersmith & Fulham", "Hammersmith and Fulham", Borough))
   df_aux <- df_aux %>% mutate(Borough = ifelse(Borough == "Kensington & Chelsea", "Kensington and Chelsea", Borough))
@@ -682,6 +700,22 @@ limpieza_indicador_07_delitos <- function(df_aux, df) {
     summarise(Crimes = sum(Crimes, na.rm = TRUE), .groups = "drop") %>%
     mutate(Code = "E12000007", Borough = "London")
   df <- bind_rows(df, df_london)
+
+  # Imputamos valores para City of London con la media de todos los barrios
+  avg_values <- df %>% filter(Borough != "London") %>%
+    group_by(Year) %>%
+    summarise(
+      Crimes = round(mean(Crimes, na.rm = TRUE), 2),
+      .groups = "drop"
+    ) %>%
+    filter(Year >= 2001 & Year <= 2031)
+  df_CoL <- avg_values %>%
+    mutate(
+      Code = "E09000001",
+      Borough = "City of London"
+    ) %>%
+    select(Code, Borough, Year, Crimes)
+  df <- bind_rows(df, df_CoL)
   
   # Ordenar los datos y mostrar las columnas en orden correcto
   df <- df %>% filter(Year >= 2001) %>% select(Code, Borough, Year, Crimes) %>% arrange(Code, Year)
@@ -818,6 +852,12 @@ limpieza_indicador_09_vivienda_precio <- function(df) {
   barrios <- unique(df$Code)
   barrios_a_eliminar <- setdiff(barrios, barrios_londres)
   df <- df %>% filter(!(Code %in% barrios_a_eliminar))
+  
+  # Normaliza nombre de los barrios
+  df <- df %>% mutate(Borough = ifelse(Borough == "Barking & Dagenham", "Barking and Dagenham", Borough))
+  df <- df %>% mutate(Borough = ifelse(Borough == "Hammersmith & Fulham", "Hammersmith and Fulham", Borough))
+  df <- df %>% mutate(Borough = ifelse(Borough == "Kensington & Chelsea", "Kensington and Chelsea", Borough))
+  df <- df %>% mutate(Borough = ifelse(Borough == "LONDON", "London", Borough))
   
   # Convierte los datos de precios en numéricos
   df <- df %>%
