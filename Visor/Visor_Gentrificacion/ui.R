@@ -40,7 +40,8 @@ sidebar <- dashboardSidebar(
     choices = list("City of London" = "AAA", "Camden" = "BBB", "Harley" = "CCC", "Kensington" = "DDD", "Chelsea" = "EEE"),
     multiple = TRUE,
     options = list(maxItems = 3)
-  )
+  ),
+  uiOutput("selDynBorough")
 )
 
 body <- dashboardBody(
