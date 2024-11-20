@@ -1,12 +1,3 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    https://shiny.posit.co/
-#
-
 library(shiny)
 library(shinydashboard)
 library(bslib)
@@ -17,7 +8,39 @@ header <- dashboardHeader(
 )
 
 sidebar <- dashboardSidebar(
-  input_task_button("id_01", "Ejemplo filtro")
+  tags$br(),
+  # Filtro por periodos
+  selectInput(
+    inputId = "selYear",
+    label = "Seleccione un periodo",
+    choices = list("2001 - 2011" = "2011", "2011 - 2021" = "2021", "2021 - 2031" = "2031"),
+    selected = "2021"
+  ),
+  sliderInput(
+    inputId = "sldYear",
+    label = "Seleccione un año",
+    min = 2011,
+    max = 2031,
+    value = 2021,
+    step = 10,
+    ticks = FALSE
+  ),
+  
+  # Filtro por barrios
+  selectInput(
+    inputId = "selBorough",
+    label = "Lista de barrios",
+    choices = list("City of London" = "AAA", "Camden" = "BBB", "Harley" = "CCC", "Kensington" = "DDD", "Chelsea" = "EEE"),
+    multiple = FALSE,
+    selectize = FALSE
+  ),
+  selectizeInput(
+    inputId = "selBoroughV2",
+    label = "Lista de barrios (max. 3)",
+    choices = list("City of London" = "AAA", "Camden" = "BBB", "Harley" = "CCC", "Kensington" = "DDD", "Chelsea" = "EEE"),
+    multiple = TRUE,
+    options = list(maxItems = 3)
+  )
 )
 
 body <- dashboardBody(
