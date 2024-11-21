@@ -1,7 +1,25 @@
 library(shiny)
 library(shinydashboard)
 library(bslib)
+if (!require('DT')) install.packages('DT'); library('DT')
 
+PATH_FICHEROS_DATOS <- 'DATOS/'
+
+################################################################################
+# Carga los barrios
+################################################################################
+carga_lista_barrios <- function() {
+  ruta_fichero <- 'barrios_londres.csv'
+  df = read_csv(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_character()))
+  return(df)
+}
+
+df_barrios <- carga_lista_barrios()
+lista_barrios <- setNames(df_barrios$Code, df_barrios$Borough)
+
+################################################################################
+# Interfaz
+################################################################################
 header <- dashboardHeader(
   title = "Dashboard"
   #titleWidth = 600
@@ -10,12 +28,6 @@ header <- dashboardHeader(
 sidebar <- dashboardSidebar(
   tags$br(),
   # Filtro por periodos
-  selectInput(
-    inputId = "selYear",
-    label = "Seleccione un periodo",
-    choices = list("2001 - 2011" = "2011", "2011 - 2021" = "2021", "2021 - 2031" = "2031"),
-    selected = "2021"
-  ),
   sliderInput(
     inputId = "sldYear",
     label = "Seleccione un año",
@@ -27,33 +39,19 @@ sidebar <- dashboardSidebar(
   ),
   
   # Filtro por barrios
-  selectInput(
-    inputId = "selBorough",
-    label = "Lista de barrios",
-    choices = list("City of London" = "AAA", "Camden" = "BBB", "Harley" = "CCC", "Kensington" = "DDD", "Chelsea" = "EEE"),
-    multiple = FALSE,
-    selectize = FALSE
-  ),
   selectizeInput(
-    inputId = "selBoroughV2",
+    inputId = "selBorough",
     label = "Lista de barrios (max. 3)",
-    choices = list("City of London" = "AAA", "Camden" = "BBB", "Harley" = "CCC", "Kensington" = "DDD", "Chelsea" = "EEE"),
+    choices = lista_barrios,
     multiple = TRUE,
     options = list(maxItems = 3)
-  ),
-  uiOutput("selDynBorough")
+  )
 )
 
 body <- dashboardBody(
   tags$br(),
   tags$h2("Análisis de la gentrificación en Londres"),
   page_fluid(
-    #title = "Análisis de la gentrificación en los barrios de Londres",
-    #layout_sidebar(
-    #  # Filtros
-    #  sidebar = sidebar(
-    #    title = "Filtros"
-    #  ),
       accordion(
         # Mapa gentrificación
         accordion_panel(
@@ -70,6 +68,7 @@ body <- dashboardBody(
         # Explorador de datos
         accordion_panel(
           title = "Explorador de datos",
+          DTOutput("tblDatos")
         ),
      # )
     )
@@ -77,8 +76,7 @@ body <- dashboardBody(
 )
 
 dashboardPage(
-  #dashboardHeader(disable = TRUE),
   header,
-  sidebar, #dashboardSidebar(disable = TRUE),
+  sidebar,
   body
 )

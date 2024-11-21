@@ -6,27 +6,54 @@ if (!require('tidyr')) install.packages('tidyr'); library('tidyr')
 if (!require('tidyverse')) install.packages('tidyverse'); library('tidyverse')
 if (!require('factoextra')) install.packages('factoextra'); library('factoextra')
 if (!require('cluster')) install.packages('cluster'); library('cluster')
+if (!require('DT')) install.packages('DT'); library('DT')
 
-PATH_FICHEROS_BARRIOS <- 'DATOS/'
+PATH_FICHEROS_DATOS <- 'DATOS/'
 
 ################################################################################
-# Carga los barrios
+# Carga los indicadores
 ################################################################################
-carga_lista_barrios <- function() {
-  ruta_fichero <- 'barrios_londres.csv'
-  df = read_csv(paste(PATH_FICHEROS_BARRIOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_character()))
+carga_indicadores <- function() {
+  ruta_fichero <- 'DAT_Indicadores_Londres.csv'
+  df = read_csv(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_integer(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_integer(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_integer(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double()
+  ))
   return(df)
 }
+
+################################################################################
+# Lee los orígenes de datos
+################################################################################
+df_indicadores <- carga_indicadores()
 
 ################################################################################
 # Lógica de la aplicación
 ################################################################################
 function(input, output, session) {
 
-  # Filtro por barrios
-  output$selDynBorough <- renderUI({
-    df_barrios <- carga_lista_barrios()
-    lista_barrios <- setNames(df_barrios$Code, df_barrios$Borough)
-    selectizeInput(inputId = "selDynBorough", label = "Lista de barrios (max. 3)", choices = lista_barrios, multiple = TRUE, options = list(maxItems = 3))
+  carga_indicadores_barrios <- reactive({
+    # Filtra por años
+    df <- df_indicadores %>% filter(YEAR == input$sldYear)
+    
+    # Filtra por barrios
+    if (length(input$selBorough) > 0)
+      df <- df %>% filter(CODE %in% input$selBorough)
+
+    df <- df %>% select(-starts_with("IND_"), -CODE) %>% arrange(BOROUGH)
+    colnames(df) <- c("Barrio", "Año", "Edad", "Var01", "Blancos", "Var02", "Salario", "Var03", "Estudios", "Var04", "Tráfico", "Var05", "Esp.Vida", "Var06", "Delitos", "Var07", "Servicios", "Var08", "Pr.Vivienda", "Var09", "Alquiler", "Var10")
+    
+    return(df)
   })
+  
+  # Tabla del explorador de datos
+  output$tblDatos <- DT::renderDT(expr = carga_indicadores_barrios(), rownames = FALSE, options = list(scrollX = TRUE, dom = 'tlip'))
 }

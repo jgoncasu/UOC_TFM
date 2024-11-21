@@ -18,21 +18,16 @@ carga_lista_barrios <- function() {
   return(df)
 }
 
-################################################################################
-# 01) Carga los datos demográficos (edad)
-################################################################################
-carga_datos_01_edad <- function() {
-  ruta_fichero <- 'STG_01_indicador_edad.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double(), col_double(), col_double()))
-  return(df)
-}
 
 ################################################################################
 # 01) Carga los indicadores demográficos (edad)
 ################################################################################
-prep_indicador_01_edad <- function(df_STG_datos) {
+prep_indicador_01_edad <- function() {
+  ruta_fichero <- 'STG_01_indicador_edad.csv'
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double(), col_double(), col_double()))
+
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Avg_Age)
+  df <- df %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Avg_Age)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_01_AGE")
   
   # Calcula la variación del indicador en las tres décadas
@@ -68,21 +63,16 @@ prep_indicador_01_edad <- function(df_STG_datos) {
   return(df)
 }
 
-################################################################################
-# 02) Carga los datos demográficos (raciales)
-################################################################################
-carga_datos_02_raza <- function() {
-  ruta_fichero <- 'STG_02_indicador_raza.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer(), col_integer()))
-  return(df)
-}
 
 ################################################################################
 # 02) Carga los indicadores demográficos (raciales)
 ################################################################################
-prep_indicador_02_raza <- function(df_STG_datos) {
+prep_indicador_02_raza <- function() {
+  ruta_fichero <- 'STG_02_indicador_raza.csv'
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer(), col_integer()))
+
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, White)
+  df <- df %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, White)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_02_RACE_WHITE")
 
   # Calcula la variación del indicador en las tres décadas
@@ -118,21 +108,16 @@ prep_indicador_02_raza <- function(df_STG_datos) {
   return(df) 
 }
 
-################################################################################
-# 03) Carga los datos de empleo
-################################################################################
-carga_datos_03_empleo <- function() {
-  ruta_fichero <- 'STG_03_indicador_empleo.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
-  return(df)
-}
 
 ################################################################################
 # 03) Carga los indicadores de empleo
 ################################################################################
-prep_indicador_03_empleo <- function(df_STG_datos) {
+prep_indicador_03_empleo <- function() {
+  ruta_fichero <- 'STG_03_indicador_empleo.csv'
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
+
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2002, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Week_Earnings)
+  df <- df %>% filter(Year %in% c(2002, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Week_Earnings)
   # Se asigna el valor del año 2001 a los datos más antiguos correspondientes a 2002
   df <- df %>% mutate(Year = ifelse(Year == 2002, 2001, Year))
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_03_WEEK_EARNINGS")
@@ -170,21 +155,16 @@ prep_indicador_03_empleo <- function(df_STG_datos) {
     return(df) 
 }
 
-################################################################################
-# 04) Carga los datos educativos
-################################################################################
-carga_datos_04_estudios <- function() {
-  ruta_fichero <- 'STG_04_indicador_estudios.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double(), col_integer(), col_double()))
-  return(df)
-}
 
 ################################################################################
 # 04) Carga los indicadores educativos
 ################################################################################
-prep_indicador_04_estudios <- function(df_STG_datos) {
+prep_indicador_04_estudios <- function() {
+  ruta_fichero <- 'STG_04_indicador_estudios.csv'
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double(), col_integer(), col_double()))
+
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2004, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Percent)
+  df <- df %>% filter(Year %in% c(2004, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Percent)
   # Se asigna el valor del año 2001 a los datos más antiguos correspondientes a 2004
   df <- df %>% mutate(Year = ifelse(Year == 2004, 2001, Year))
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_04_PERCENT_NVQ4")
@@ -222,21 +202,16 @@ prep_indicador_04_estudios <- function(df_STG_datos) {
   return(df) 
 }
 
-################################################################################
-# 05) Carga los datos medio ambientales
-################################################################################
-carga_datos_05_trafico <- function() {
-  ruta_fichero <- 'STG_05_indicador_trafico.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer()))
-  return(df)
-}
 
 ################################################################################
 # 05) Carga los indicadores medio ambientales
 ################################################################################
-prep_indicador_05_trafico <- function(df_STG_datos) {
+prep_indicador_05_trafico <- function() {
+  ruta_fichero <- 'STG_05_indicador_trafico.csv'
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer()))
+
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Car_Traffic)
+  df <- df %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Car_Traffic)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_05_CAR_TRAFFIC")
 
   # Calcula la variación del indicador en las tres décadas
@@ -272,21 +247,16 @@ prep_indicador_05_trafico <- function(df_STG_datos) {
   return(df) 
 }
 
-################################################################################
-# 06) Carga los datos sanitarios
-################################################################################
-carga_datos_06_esperanza_vida <- function() {
-  ruta_fichero <- 'STG_06_indicador_esperanza_vida.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double(), col_double(), col_double()))
-  return(df)
-}
 
 ################################################################################
 # 06) Carga los indicadores sanitarios
 ################################################################################
-prep_indicador_06_esperanza_vida <- function(df_STG_datos) {
+prep_indicador_06_esperanza_vida <- function() {
+  ruta_fichero <- 'STG_06_indicador_esperanza_vida.csv'
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double(), col_double(), col_double()))
+
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2003, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Avg_Sex)
+  df <- df %>% filter(Year %in% c(2003, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Avg_Sex)
   # Se asigna el valor del año 2001 a los datos más antiguos correspondientes a 2003
   df <- df %>% mutate(Year = ifelse(Year == 2003, 2001, Year))
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_06_EXP_LIFE")
@@ -324,21 +294,16 @@ prep_indicador_06_esperanza_vida <- function(df_STG_datos) {
   return(df) 
 }
 
-################################################################################
-# 07) Carga los datos sobre seguridad
-################################################################################
-carga_datos_07_delitos <- function() {
-  ruta_fichero <- 'STG_07_indicador_delitos.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
-  return(df)
-}
 
 ################################################################################
 # 07) Carga los indicadores sobre seguridad
 ################################################################################
-prep_indicador_07_delitos <- function(df_STG_datos) {
+prep_indicador_07_delitos <- function() {
+  ruta_fichero <- 'STG_07_indicador_delitos.csv'
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
+
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Crimes)
+  df <- df %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Crimes)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_07_CRIMES")
 
   # Calcula la variación del indicador en las tres décadas
@@ -374,21 +339,16 @@ prep_indicador_07_delitos <- function(df_STG_datos) {
   return(df) 
 }
 
-################################################################################
-# 08) Carga los datos sobre servicios
-################################################################################
-carga_datos_08_servicios <- function() {
-  ruta_fichero <- 'STG_08_indicador_servicios.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer(), col_integer(), col_integer()))
-  return(df)
-}
 
 ################################################################################
 # 08) Carga los indicadores sobre servicios
 ################################################################################
-prep_indicador_08_servicios <- function(df_STG_datos) {
+prep_indicador_08_servicios <- function() {
+  ruta_fichero <- 'STG_08_indicador_servicios.csv'
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer(), col_integer(), col_integer()))
+
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2003, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Total)
+  df <- df %>% filter(Year %in% c(2003, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Total)
   # Se asigna el valor del año 2001 a los datos más antiguos correspondientes a 2003
   df <- df %>% mutate(Year = ifelse(Year == 2003, 2001, Year))
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_08_SERVICES")
@@ -426,21 +386,16 @@ prep_indicador_08_servicios <- function(df_STG_datos) {
   return(df) 
 }
 
-################################################################################
-# 09) Carga los datos sobre vivienda (precio)
-################################################################################
-carga_datos_09_vivienda_precio <- function() {
-  ruta_fichero <- 'STG_09_indicador_vivienda_precio.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
-  return(df)
-}
 
 ################################################################################
 # 09) Carga los indicadores sobre vivienda (precio)
 ################################################################################
-prep_indicador_09_vivienda_precio <- function(df_STG_datos) {
+prep_indicador_09_vivienda_precio <- function() {
+  ruta_fichero <- 'STG_09_indicador_vivienda_precio.csv'
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
+
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Price)
+  df <- df %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Price)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_09_HOUSE_PRICE")
 
   # Calcula la variación del indicador en las tres décadas
@@ -476,21 +431,16 @@ prep_indicador_09_vivienda_precio <- function(df_STG_datos) {
   return(df) 
 }
 
-################################################################################
-# 10) Carga los datos sobre vivienda (alquiler)
-################################################################################
-carga_datos_10_vivienda_alquiler <- function() {
-  ruta_fichero <- 'STG_10_indicador_vivienda_alquiler.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
-  return(df)
-}
 
 ################################################################################
 # 10) Carga los indicadores sobre vivienda (alquiler)
 ################################################################################
-prep_indicador_10_vivienda_alquiler <- function(df_STG_datos) {
+prep_indicador_10_vivienda_alquiler <- function() {
+  ruta_fichero <- 'STG_10_indicador_vivienda_alquiler.csv'
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
+
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Rent)
+  df <- df %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Rent)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_10_HOUSE_RENT")
 
   # Calcula la variación del indicador en las tres décadas
@@ -564,69 +514,35 @@ guardar_indicadores <- function(df) {
 print("***** PASO 0: CARGANDO BARRIOS DE LONDRES *****")
 df_barrios <- carga_lista_barrios()
 
-print("***** PASO 1: CARGA DATOS INDICADOR 01 - EDAD *****")
-df_STG_01_edad <- carga_datos_01_edad()
-#print(df_STG_01_edad)
-print("***** PASO 2: CARGA DATOS INDICADOR 02 - RAZA *****")
-df_STG_02_raza <- carga_datos_02_raza()
-#print(df_STG_02_raza)
-print("***** PASO 3: CARGA DATOS INDICADOR 03 - EMPLEO *****")
-df_STG_03_empleo <- carga_datos_03_empleo()
-#print(df_STG_03_empleo)
-print("***** PASO 4: CARGA DATOS INDICADOR 04 - ESTUDIOS *****")
-df_STG_04_estudios <- carga_datos_04_estudios()
-#print(df_STG_04_estudios)
-print("***** PASO 5: CARGA DATOS INDICADOR 05 - TRÁFICO *****")
-df_STG_05_trafico <- carga_datos_05_trafico()
-#print(df_STG_05_trafico)
-print("***** PASO 6: CARGA DATOS INDICADOR 06 - ESPERANZA DE VIDA *****")
-df_STG_06_esperanza_vida <- carga_datos_06_esperanza_vida()
-#print(df_STG_06_esperanza_vida)
-print("***** PASO 7: CARGA DATOS INDICADOR 07 - DELITOS *****")
-df_STG_07_delitos <- carga_datos_07_delitos()
-#print(df_STG_07_delitos)
-print("***** PASO 8: CARGA DATOS INDICADOR 08 - SERVICIOS *****")
-df_STG_08_servicios <- carga_datos_08_servicios()
-#print(df_STG_08_servicios)
-print("***** PASO 9: CARGA DATOS INDICADOR 09 - PRECIO DE LA VIVIENDA *****")
-df_STG_09_vivienda_precio <- carga_datos_09_vivienda_precio()
-#print(df_STG_09_vivienda_precio)
-print("***** PASO 10: CARGA DATOS INDICADOR 10 - ALQUILER *****")
-df_STG_10_vivienda_alquiler <- carga_datos_10_vivienda_alquiler()
-#print(df_STG_10_vivienda_alquiler)
-
-
-
-
 print("***** PASO 1: PREPARACIÓN INDICADOR 01 - EDAD *****")
-df_01_edad <- prep_indicador_01_edad(df_STG_01_edad)
+df_01_edad <- prep_indicador_01_edad()
 #print(df_01_edad)
 print("***** PASO 2: PREPARACIÓN INDICADOR 02 - RAZA *****")
-df_02_raza <- prep_indicador_02_raza(df_STG_02_raza)
+df_02_raza <- prep_indicador_02_raza()
 #print(df_02_raza)
 print("***** PASO 3: PREPARACIÓN INDICADOR 03 - EMPLEO *****")
-df_03_empleo <- prep_indicador_03_empleo(df_STG_03_empleo)
+df_03_empleo <- prep_indicador_03_empleo()
 #print(df_03_empleo)
 print("***** PASO 4: PREPARACIÓN INDICADOR 04 - ESTUDIOS *****")
-df_04_estudios <- prep_indicador_04_estudios(df_STG_04_estudios)
+df_04_estudios <- prep_indicador_04_estudios()
 #print(df_04_estudios)
 print("***** PASO 5: PREPARACIÓN INDICADOR 05 - TRÁFICO *****")
-df_05_trafico <- prep_indicador_05_trafico(df_STG_05_trafico)
+df_05_trafico <- prep_indicador_05_trafico()
 #print(df_05_trafico)
 print("***** PASO 6: PREPARACIÓN INDICADOR 06 - ESPERANZA DE VIDA *****")
-df_06_esperanza_vida <- prep_indicador_06_esperanza_vida(df_STG_06_esperanza_vida)
+df_06_esperanza_vida <- prep_indicador_06_esperanza_vida()
 #print(df_06_esperanza_vida)
 print("***** PASO 7: PREPARACIÓN INDICADOR 07 - DELITOS *****")
-df_07_delitos <- prep_indicador_07_delitos(df_STG_07_delitos)
+df_07_delitos <- prep_indicador_07_delitos()
 #print(df_07_delitos)
 print("***** PASO 8: PREPARACIÓN INDICADOR 08 - SERVICIOS *****")
-df_08_servicios <- prep_indicador_08_servicios(df_STG_08_servicios)
+df_08_servicios <- prep_indicador_08_servicios()
 #print(df_08_servicios)
 print("***** PASO 9: PREPARACIÓN INDICADOR 09 - PRECIO DE LA VIVIENDA *****")
-df_09_vivienda_precio <- prep_indicador_09_vivienda_precio(df_STG_09_vivienda_precio)
+df_09_vivienda_precio <- prep_indicador_09_vivienda_precio()
 #print(df_09_vivienda_precio)
 print("***** PASO 10: PREPARACIÓN INDICADOR 10 - ALQUILER *****")
-df_10_vivienda_alquiler <- prep_indicador_10_vivienda_alquiler(df_STG_10_vivienda_alquiler)
+df_10_vivienda_alquiler <- prep_indicador_10_vivienda_alquiler()
 #print(df_10_vivienda_alquiler)
 
 print("***** PASO 11: PREPARACIÓN DE DATOS PARA ANÁLISIS *****")
