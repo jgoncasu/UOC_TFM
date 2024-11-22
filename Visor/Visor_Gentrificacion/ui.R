@@ -11,6 +11,7 @@ PATH_FICHEROS_DATOS <- 'DATOS/'
 carga_lista_barrios <- function() {
   ruta_fichero <- 'barrios_londres.csv'
   df = read_csv(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_character()))
+  df <- df %>% arrange(Borough)
   return(df)
 }
 
@@ -60,6 +61,46 @@ body <- dashboardBody(
         # Estado indicadores
         accordion_panel(
           title = "Indicadores",
+          fluidRow(
+            column(6, tags$h5("Edad media")),
+            column(6, tags$h5("Población raza blanca"))
+          ),
+          fluidRow(
+            column(6, plotOutput("plt_01"), height="300px"),
+            column(6, plotOutput("plt_02"), height="300px")
+          ),
+          fluidRow(
+            column(6, tags$h5("Salario medio")),
+            column(6, tags$h5("Población con estudios superiores"))
+          ),
+          fluidRow(
+            column(6, plotOutput("plt_03"), height="300px"),
+            column(6, plotOutput("plt_04"), height="300px")
+          ),
+          fluidRow(
+            column(6, tags$h5("Volumen de tráfico")),
+            column(6, tags$h5("Esperanza media de vida"))
+          ),
+          fluidRow(
+            column(6, plotOutput("plt_05"), height="300px"),
+            column(6, plotOutput("plt_06"), height="300px")
+          ),
+          fluidRow(
+            column(6, tags$h5("Media de delitos por semana")),
+            column(6, tags$h5("Volumen de servicios (restaurantes, tiendas)"))
+          ),
+          fluidRow(
+            column(6, plotOutput("plt_07"), height="300px"),
+            column(6, plotOutput("plt_08"), height="300px")
+          ),
+          fluidRow(
+            column(6, tags$h5("Precio medio de la vivienda")),
+            column(6, tags$h5("Precio medio del alquiler social"))
+          ),
+          fluidRow(
+            column(6, plotOutput("plt_09"), height="300px"),
+            column(6, plotOutput("plt_10"), height="300px")
+          )
         ),
         # Comparador de barrios
         accordion_panel(

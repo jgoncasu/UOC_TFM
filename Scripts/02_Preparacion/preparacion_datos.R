@@ -69,6 +69,17 @@ prep_indicador_01_edad <- function(df_STG_datos) {
 }
 
 ################################################################################
+# 01) Prepara los datos en bruto demográficos (edad)
+################################################################################
+datos_brutos_01_edad <- function(df_STG_datos) {
+  # Selecciona el campo con el valor para el indicador
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Avg_Age)
+  colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_01_AGE")
+  
+  return(df)
+}
+
+################################################################################
 # 02) Carga los datos demográficos (raciales)
 ################################################################################
 carga_datos_02_raza <- function() {
@@ -116,6 +127,17 @@ prep_indicador_02_raza <- function(df_STG_datos) {
     select(-VAR_LONDON)
   
   return(df) 
+}
+
+################################################################################
+# 02) Prepara los datos en bruto demográficos (raciales)
+################################################################################
+datos_brutos_02_raza <- function(df_STG_datos) {
+  # Selecciona el campo con el valor para el indicador
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, White)
+  colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_02_RACE_WHITE")
+  
+  return(df)
 }
 
 ################################################################################
@@ -171,6 +193,17 @@ prep_indicador_03_empleo <- function(df_STG_datos) {
 }
 
 ################################################################################
+# 03) Prepara los datos en bruto de empleo
+################################################################################
+datos_brutos_03_empleo <- function(df_STG_datos) {
+  # Selecciona el campo con el valor para el indicador
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Week_Earnings)
+  colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_03_WEEK_EARNINGS")
+  
+  return(df)
+}
+
+################################################################################
 # 04) Carga los datos educativos
 ################################################################################
 carga_datos_04_estudios <- function() {
@@ -223,6 +256,17 @@ prep_indicador_04_estudios <- function(df_STG_datos) {
 }
 
 ################################################################################
+# 04) Prepara los datos en bruto educativos
+################################################################################
+datos_brutos_04_estudios <- function(df_STG_datos) {
+  # Selecciona el campo con el valor para el indicador
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Percent)
+  colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_04_PERCENT_NVQ4")
+  
+  return(df)
+}
+
+################################################################################
 # 05) Carga los datos medio ambientales
 ################################################################################
 carga_datos_05_trafico <- function() {
@@ -270,6 +314,17 @@ prep_indicador_05_trafico <- function(df_STG_datos) {
     select(-VAR_LONDON)
   
   return(df) 
+}
+
+################################################################################
+# 05) Prepara los datos en bruto medio ambientales
+################################################################################
+datos_brutos_05_trafico <- function(df_STG_datos) {
+  # Selecciona el campo con el valor para el indicador
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Car_Traffic)
+  colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_05_CAR_TRAFFIC")
+  
+  return(df)
 }
 
 ################################################################################
@@ -325,6 +380,17 @@ prep_indicador_06_esperanza_vida <- function(df_STG_datos) {
 }
 
 ################################################################################
+# 06) Prepara los datos en bruto sanitarios
+################################################################################
+datos_brutos_06_esperanza_vida <- function(df_STG_datos) {
+  # Selecciona el campo con el valor para el indicador
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Avg_Sex)
+  colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_06_EXP_LIFE")
+  
+  return(df)
+}
+
+################################################################################
 # 07) Carga los datos sobre seguridad
 ################################################################################
 carga_datos_07_delitos <- function() {
@@ -372,6 +438,17 @@ prep_indicador_07_delitos <- function(df_STG_datos) {
     select(-VAR_LONDON)
   
   return(df) 
+}
+
+################################################################################
+# 07) Prepara los datos en bruto sobre seguridad
+################################################################################
+datos_brutos_07_delitos <- function(df_STG_datos) {
+  # Selecciona el campo con el valor para el indicador
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Crimes)
+  colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_07_CRIMES")
+  
+  return(df)
 }
 
 ################################################################################
@@ -427,6 +504,17 @@ prep_indicador_08_servicios <- function(df_STG_datos) {
 }
 
 ################################################################################
+# 08) Prepara los datos en bruto sobre servicios
+################################################################################
+datos_brutos_08_servicios <- function(df_STG_datos) {
+  # Selecciona el campo con el valor para el indicador
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Total)
+  colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_08_SERVICES")
+  
+  return(df)
+}
+
+################################################################################
 # 09) Carga los datos sobre vivienda (precio)
 ################################################################################
 carga_datos_09_vivienda_precio <- function() {
@@ -474,6 +562,17 @@ prep_indicador_09_vivienda_precio <- function(df_STG_datos) {
     select(-VAR_LONDON)
   
   return(df) 
+}
+
+################################################################################
+# 09) Prepara los datos en bruto sobre vivienda (precio)
+################################################################################
+datos_brutos_09_vivienda_precio <- function(df_STG_datos) {
+  # Selecciona el campo con el valor para el indicador
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Price)
+  colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAR_09_HOUSE_PRICE")
+  
+  return(df)
 }
 
 ################################################################################
@@ -526,9 +625,19 @@ prep_indicador_10_vivienda_alquiler <- function(df_STG_datos) {
   return(df) 
 }
 
+################################################################################
+# 10) Prepara los datos en bruto sobre vivienda (alquiler)
+################################################################################
+datos_brutos_10_vivienda_alquiler <- function(df_STG_datos) {
+  # Selecciona el campo con el valor para el indicador
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Rent)
+  colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_10_HOUSE_RENT")
+  
+  return(df)
+}
 
 ################################################################################
-# 11) Fusiona todos los datos
+# 11) Fusiona los datos de los indicadores
 ################################################################################
 fusiona_indicadores <- function(df_01_edad, df_02_raza, df_03_empleo, df_04_estudios, df_05_trafico,
                                 df_06_esperanza_vida, df_07_delitos, df_08_servicios, df_09_vivienda_precio, df_10_vivienda_alquiler) {
@@ -548,12 +657,40 @@ fusiona_indicadores <- function(df_01_edad, df_02_raza, df_03_empleo, df_04_estu
   return(df)
 }
 
-
 ################################################################################
 # 12) Guarda los datos
 ################################################################################
 guardar_indicadores <- function(df) {
   ruta_fichero <- 'DAT_Indicadores_Londres.csv'
+  write.csv(df, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)
+}
+
+################################################################################
+# 13) Fusiona los datos en bruto para las visualizaciones
+################################################################################
+fusiona_datos_en_bruto <- function(df_brutos_01_edad, df_brutos_02_raza, df_brutos_03_empleo, df_brutos_04_estudios, df_brutos_05_trafico,
+                                df_brutos_06_esperanza_vida, df_brutos_07_delitos, df_brutos_08_servicios, df_brutos_09_vivienda_precio, df_brutos_10_vivienda_alquiler) {
+  df <- merge(df_brutos_01_edad, df_brutos_02_raza, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  
+  #print(df)
+  
+  df <- merge(df, df_brutos_03_empleo, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  df <- merge(df, df_brutos_04_estudios, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  df <- merge(df, df_brutos_05_trafico, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  df <- merge(df, df_brutos_06_esperanza_vida, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  df <- merge(df, df_brutos_07_delitos, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  df <- merge(df, df_brutos_08_servicios, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  df <- merge(df, df_brutos_09_vivienda_precio, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  df <- merge(df, df_brutos_10_vivienda_alquiler, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  
+  return(df)
+}
+
+################################################################################
+# 14) Guarda los datos en bruto
+################################################################################
+guardar_datos_brutos <- function(df) {
+  ruta_fichero <- 'DAT_Brutos_Londres.csv'
   write.csv(df, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)
 }
 
@@ -596,37 +733,66 @@ df_STG_10_vivienda_alquiler <- carga_datos_10_vivienda_alquiler()
 #print(df_STG_10_vivienda_alquiler)
 
 
-
-
-print("***** PASO 1: PREPARACIÓN INDICADOR 01 - EDAD *****")
+print("***** PASO 11: PREPARACIÓN INDICADOR 01 - EDAD *****")
 df_01_edad <- prep_indicador_01_edad(df_STG_01_edad)
 #print(df_01_edad)
-print("***** PASO 2: PREPARACIÓN INDICADOR 02 - RAZA *****")
+print("***** PASO 12: PREPARACIÓN INDICADOR 02 - RAZA *****")
 df_02_raza <- prep_indicador_02_raza(df_STG_02_raza)
 #print(df_02_raza)
-print("***** PASO 3: PREPARACIÓN INDICADOR 03 - EMPLEO *****")
+print("***** PASO 13: PREPARACIÓN INDICADOR 03 - EMPLEO *****")
 df_03_empleo <- prep_indicador_03_empleo(df_STG_03_empleo)
 #print(df_03_empleo)
-print("***** PASO 4: PREPARACIÓN INDICADOR 04 - ESTUDIOS *****")
+print("***** PASO 14: PREPARACIÓN INDICADOR 04 - ESTUDIOS *****")
 df_04_estudios <- prep_indicador_04_estudios(df_STG_04_estudios)
 #print(df_04_estudios)
-print("***** PASO 5: PREPARACIÓN INDICADOR 05 - TRÁFICO *****")
+print("***** PASO 15: PREPARACIÓN INDICADOR 05 - TRÁFICO *****")
 df_05_trafico <- prep_indicador_05_trafico(df_STG_05_trafico)
 #print(df_05_trafico)
-print("***** PASO 6: PREPARACIÓN INDICADOR 06 - ESPERANZA DE VIDA *****")
+print("***** PASO 16: PREPARACIÓN INDICADOR 06 - ESPERANZA DE VIDA *****")
 df_06_esperanza_vida <- prep_indicador_06_esperanza_vida(df_STG_06_esperanza_vida)
 #print(df_06_esperanza_vida)
-print("***** PASO 7: PREPARACIÓN INDICADOR 07 - DELITOS *****")
+print("***** PASO 17: PREPARACIÓN INDICADOR 07 - DELITOS *****")
 df_07_delitos <- prep_indicador_07_delitos(df_STG_07_delitos)
 #print(df_07_delitos)
-print("***** PASO 8: PREPARACIÓN INDICADOR 08 - SERVICIOS *****")
+print("***** PASO 18: PREPARACIÓN INDICADOR 08 - SERVICIOS *****")
 df_08_servicios <- prep_indicador_08_servicios(df_STG_08_servicios)
 #print(df_08_servicios)
-print("***** PASO 9: PREPARACIÓN INDICADOR 09 - PRECIO DE LA VIVIENDA *****")
+print("***** PASO 19: PREPARACIÓN INDICADOR 09 - PRECIO DE LA VIVIENDA *****")
 df_09_vivienda_precio <- prep_indicador_09_vivienda_precio(df_STG_09_vivienda_precio)
 #print(df_09_vivienda_precio)
-print("***** PASO 10: PREPARACIÓN INDICADOR 10 - ALQUILER *****")
+print("***** PASO 20: PREPARACIÓN INDICADOR 10 - ALQUILER *****")
 df_10_vivienda_alquiler <- prep_indicador_10_vivienda_alquiler(df_STG_10_vivienda_alquiler)
+#print(df_10_vivienda_alquiler)
+
+print("***** PASO 21: DATOS EN BRUTO 01 - EDAD *****")
+df_brutos_01_edad <- datos_brutos_01_edad(df_STG_01_edad)
+#print(df_01_edad)
+print("***** PASO 22: DATOS EN BRUTO 02 - RAZA *****")
+df_brutos_02_raza <- datos_brutos_02_raza(df_STG_02_raza)
+#print(df_02_raza)
+print("***** PASO 23: DATOS EN BRUTO 03 - EMPLEO *****")
+df_brutos_03_empleo <- datos_brutos_03_empleo(df_STG_03_empleo)
+#print(df_03_empleo)
+print("***** PASO 24: DATOS EN BRUTO 04 - ESTUDIOS *****")
+df_brutos_04_estudios <- datos_brutos_04_estudios(df_STG_04_estudios)
+#print(df_04_estudios)
+print("***** PASO 25: DATOS EN BRUTO 05 - TRÁFICO *****")
+df_brutos_05_trafico <- datos_brutos_05_trafico(df_STG_05_trafico)
+#print(df_05_trafico)
+print("***** PASO 26: DATOS EN BRUTO 06 - ESPERANZA DE VIDA *****")
+df_brutos_06_esperanza_vida <- datos_brutos_06_esperanza_vida(df_STG_06_esperanza_vida)
+#print(df_06_esperanza_vida)
+print("***** PASO 27: DATOS EN BRUTO 07 - DELITOS *****")
+df_brutos_07_delitos <- datos_brutos_07_delitos(df_STG_07_delitos)
+#print(df_07_delitos)
+print("***** PASO 28: DATOS EN BRUTO 08 - SERVICIOS *****")
+df_brutos_08_servicios <- datos_brutos_08_servicios(df_STG_08_servicios)
+#print(df_08_servicios)
+print("***** PASO 29: DATOS EN BRUTO 09 - PRECIO DE LA VIVIENDA *****")
+df_brutos_09_vivienda_precio <- datos_brutos_09_vivienda_precio(df_STG_09_vivienda_precio)
+#print(df_09_vivienda_precio)
+print("***** PASO 30: DATOS EN BRUTOR 10 - ALQUILER *****")
+df_brutos_10_vivienda_alquiler <- datos_brutos_10_vivienda_alquiler(df_STG_10_vivienda_alquiler)
 #print(df_10_vivienda_alquiler)
 
 print("***** PASO 11: PREPARACIÓN DE DATOS PARA ANÁLISIS *****")
@@ -637,9 +803,10 @@ print("***** PASO 12: GUARDAR DATOS PARA ANÁLISIS *****")
 guardar_indicadores(df)
 
 print("***** PASO 13: EXTRACCIÓN DATOS EN BRUTO PARA VISUALIZACIÓN *****")
-df <- fusiona_datos_en_bruto(df_01_edad, df_02_raza, df_03_empleo, df_04_estudios, df_05_trafico,
-                             df_06_esperanza_vida, df_07_delitos, df_08_servicios, df_09_vivienda_precio, df_10_vivienda_alquiler)
+df_brutos <- fusiona_datos_en_bruto(df_brutos_01_edad, df_brutos_02_raza, df_brutos_03_empleo, df_brutos_04_estudios, df_brutos_05_trafico,
+                             df_brutos_06_esperanza_vida, df_brutos_07_delitos, df_brutos_08_servicios, df_brutos_09_vivienda_precio, df_brutos_10_vivienda_alquiler)
 
 print("***** PASO 14: GUARDAR DATOS EN BRUTO PARA VISUALIZACIÓN *****")
+guardar_datos_brutos(df_brutos)
 
 
