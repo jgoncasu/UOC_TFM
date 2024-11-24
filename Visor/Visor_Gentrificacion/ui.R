@@ -16,7 +16,9 @@ carga_lista_barrios <- function() {
 }
 
 df_barrios <- carga_lista_barrios()
+df_barrios_sin_londres <- df_barrios %>% filter(Borough != "London")
 lista_barrios <- setNames(df_barrios$Code, df_barrios$Borough)
+lista_solo_barrios <- setNames(df_barrios_sin_londres$Code, df_barrios_sin_londres$Borough)
 
 ################################################################################
 # Interfaz
@@ -58,10 +60,39 @@ body <- dashboardBody(
         accordion_panel(
           title = "Gentrificación de barrios",
         ),
-
-        # Análisis visual indicadores
+        
+        # Análisis visual de indicadores
         accordion_panel(
-          title = "Análisis visual indicadores"
+          title = "Análisis visual de indicadores",
+          # Filtro por barrios
+          selectizeInput(
+            inputId = "selBoroughRadar",
+            label = "Filtro por barrios",
+            choices = lista_solo_barrios,
+            multiple = FALSE
+          ),
+          fluidRow(
+            column(6, tags$h5("Año 2011"))
+            #column(6, tags$h5("Año 2021"))
+          ),
+          fluidRow(
+            column(6, plotOutput("radar_2011"), height="300px"),
+            column(6, plotOutput("dot_2011"), height="300px")
+          ),
+          fluidRow(
+            column(6, tags$h5("Año 2021"))
+          ),
+          fluidRow(
+            column(6, plotOutput("radar_2021"), height="300px"),
+            column(6, plotOutput("dot_2021"), height="300px")
+          ),
+          fluidRow(
+            column(6, tags$h5("Año 2031"))
+          ),
+          fluidRow(
+            column(6, plotOutput("radar_2031"), height="300px"),
+            column(6, plotOutput("dot_2031"), height="300px")
+          )
         ),
         
         # Explorador de indicadores
@@ -87,8 +118,7 @@ body <- dashboardBody(
             multiple = TRUE#,
             #options = list(maxItems = 3)
           ),
-          
-          
+
           fluidRow(
             column(6, tags$h5("Edad media")),
             column(6, tags$h5("Población raza blanca"))

@@ -9,6 +9,9 @@ if (!require('cluster')) install.packages('cluster'); library('cluster')
 if (!require('DT')) install.packages('DT'); library('DT')
 if (!require('ggplot2')) install.packages('ggplot2'); library('ggplot2')
 if (!require('lubridate')) install.packages('lubridate'); library('lubridate')
+# install.packages("devtools")
+# devtools::install_github("ricardo-bion/ggradar")
+library('ggradar')
 
 theme_set(theme_bw())
 
@@ -52,7 +55,18 @@ carga_indicadores <- function() {
 # Lee los orígenes de datos
 ################################################################################
 df_indicadores <- carga_indicadores()
+# Valores mínimos y máximos para los gráficos de radar
+df_tmp <- df_indicadores %>% select(starts_with("VAR_"))
+min_value <- min(df_tmp[, sapply(df_tmp, is.numeric)], na.rm = TRUE)
+max_value <- max(df_tmp[, sapply(df_tmp, is.numeric)], na.rm = TRUE)
 df_datos_brutos <- carga_datos_brutos()
+
+#df_tmp <- df_indicadores %>% select(starts_with("VAR_"))
+df_min <- data.frame(t(apply(df_indicadores %>% select(starts_with("VAR_")), 2, min, na.rm = TRUE)))
+colnames(df_min) <- c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
+df_max <- data.frame(t(apply(df_indicadores %>% select(starts_with("VAR_")), 2, max, na.rm = TRUE)))
+colnames(df_max) <- c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
+
 
 ################################################################################
 # Lógica de la aplicación
@@ -110,20 +124,122 @@ function(input, output, session) {
     
     return(df)
   })
+  
+  carga_indicadores_radar_barrios <- reactive({
+    # Filtra por barrios
+    filtro <- c("E12000007", input$selBoroughRadar)
+    df <- df_indicadores %>% filter(CODE %in% c("E12000007", input$selBoroughRadar))
+    df <- df %>% select(BOROUGH, YEAR, starts_with("VAR_"))
+    colnames(df) <- c("Barrio", "Año", "Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
+    return(df)    
+  })    
 
+  ################################################################################
+  # Análisis visual de indicadores
+  ################################################################################
+  # Radar de indicadores para el barrio
+  plot_indicadores_2011 <- function() {
+    #df <- carga_indicadores_radar_barrios() %>% filter(Año == 2011) %>% select(-Año)
+    #print(df)
+    ggradar(carga_indicadores_radar_barrios() %>% filter(Año == 2011) %>% select(-Año), 
+            grid.min = min_value, grid.max = max_value, legend.position = "bottom", 
+            values.radar = c(min_value, (abs(min_value) + abs(max_value)) / 2, max_value),
+            group.line.width = 1,
+            group.point.size = 3,
+            group.colours = c("#DF536B", "#2297E6"))
+  }
+  
+  plot_indicadores_2021 <- function() {
+    ggradar(carga_indicadores_radar_barrios() %>% filter(Año == 2021) %>% select(-Año), 
+            grid.min = min_value, grid.max = max_value, legend.position = "bottom", 
+            values.radar = c(min_value, (abs(min_value) + abs(max_value)) / 2, max_value),
+            group.line.width = 1,
+            group.point.size = 3,
+            group.colours = c("#DF536B", "#2297E6"))
+  }
+  
+  plot_indicadores_2031 <- function() {
+    ggradar(carga_indicadores_radar_barrios() %>% filter(Año == 2031) %>% select(-Año), 
+            grid.min = min_value, grid.max = max_value, legend.position = "bottom", 
+            values.radar = c(min_value, (abs(min_value) + abs(max_value)) / 2, max_value),
+            group.line.width = 1,
+            group.point.size = 3,
+            group.colours = c("#DF536B", "#2297E6"))
+  }
+  
+  output$radar_2011 <- renderPlot({
+    plot_indicadores_2011()
+  })
+  
+  output$radar_2021 <- renderPlot({
+    plot_indicadores_2021()
+  })
+  
+  output$radar_2031 <- renderPlot({
+    plot_indicadores_2031()
+  })
+  
+  plot_dot_2011 <- function() {
+    df_tmp <- carga_indicadores_radar_barrios() %>% filter(Año == 2011) %>%
+      pivot_longer(
+        cols = c(Edad, Pob_Blanca, Salario, Estudios, Trafico, Esp_Vida, Delitos, Servicios, Pr_Vivienda, Alquiler),
+        names_to = "Variable",
+        values_to = "Valor"
+      )
+    ggplot(df_tmp,
+           aes(x=Valor, y=factor(Variable, levels = c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler"))
+               , label=Valor)) +
+      geom_point(stat='identity', aes(col=Barrio), size=5) +
+      scale_color_manual(values=c("#DF536B", "#2297E6")) +
+      labs(y = "Variables", x = "% Variación")
+  }
+
+  plot_dot_2021 <- function() {
+    df_tmp <- carga_indicadores_radar_barrios() %>% filter(Año == 2021) %>%
+      pivot_longer(
+        cols = c(Edad, Pob_Blanca, Salario, Estudios, Trafico, Esp_Vida, Delitos, Servicios, Pr_Vivienda, Alquiler),
+        names_to = "Variable",
+        values_to = "Valor"
+      )
+    ggplot(df_tmp,
+           aes(x=Valor, y=factor(Variable, levels = c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler"))
+               , label=Valor)) +
+      geom_point(stat='identity', aes(col=Barrio), size=5) +
+      scale_color_manual(values=c("#DF536B", "#2297E6")) +
+      labs(y = "Variables", x = "% Variación")
+  }
+
+  plot_dot_2031 <- function() {
+    df_tmp <- carga_indicadores_radar_barrios() %>% filter(Año == 2031) %>%
+      pivot_longer(
+        cols = c(Edad, Pob_Blanca, Salario, Estudios, Trafico, Esp_Vida, Delitos, Servicios, Pr_Vivienda, Alquiler),
+        names_to = "Variable",
+        values_to = "Valor"
+      )
+    ggplot(df_tmp,
+           aes(x=Valor, y=factor(Variable, levels = c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler"))
+               , label=Valor)) +
+      geom_point(stat='identity', aes(col=Barrio), size=5) +
+      scale_color_manual(values=c("#DF536B", "#2297E6")) +
+      labs(y = "Variables", x = "% Variación")
+  }
+  
+  output$dot_2011 <- renderPlot({
+    plot_dot_2011()
+  })
+
+  output$dot_2021 <- renderPlot({
+    plot_dot_2021()
+  })
+  
+  output$dot_2031 <- renderPlot({
+    plot_dot_2031()
+  })
+  
   ################################################################################
   # Explorador de indicadores
   ################################################################################
-  # Tabla del explorador de indicadores
-#  output$tblIndicadoresLondres <- DT::renderDT(
-#      expr = carga_indicadores_londres_anyos(), rownames = FALSE, options = list(scrollX = TRUE,
-#                                                                                 dom = 't',
-#                                                                                 columnDefs = list(list(visible = FALSE, targets = c(0))))
-#  )
-
   output$tblIndicadoresLondres <- DT::renderDT(
-    #df <- carga_indicadores_londres_anyos()
-    #df <- df %>% mutate(across(starts_with("var"), ~ .x / 100))
     expr = DT::datatable(
       carga_indicadores_londres_anyos() %>% mutate(across(starts_with("var"), ~ .x / 100)), rownames = FALSE, options = list(scrollX = TRUE,
                                                                                  dom = 't',
@@ -150,8 +266,6 @@ function(input, output, session) {
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
-    print(input$selBorough)
-    print(filtro)
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Edad)) +
       theme(legend.position = "top") +
@@ -185,7 +299,6 @@ function(input, output, session) {
   
   plot_datos_brutos_04 <- function() {
     test <- carga_datos_brutos_barrios()
-    print(test$Estudios)
     if (length(input$selBorough) == 0) # Si no hay filtros, se filtra por el total de la ciudad de Londres
       filtro <- c("E12000007")
     else
