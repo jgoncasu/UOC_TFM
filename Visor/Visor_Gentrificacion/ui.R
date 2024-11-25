@@ -2,6 +2,19 @@ library(shiny)
 library(shinydashboard)
 library(bslib)
 if (!require('DT')) install.packages('DT'); library('DT')
+if (!require('leaflet')) install.packages('leaflet'); library('leaflet')
+if (!require('dplyr')) install.packages('dplyr'); library('dplyr')
+if (!require('readxl')) install.packages('readxl'); library('readxl')
+if (!require('tidyr')) install.packages('tidyr'); library('tidyr')
+if (!require('tidyverse')) install.packages('tidyverse'); library('tidyverse')
+if (!require('factoextra')) install.packages('factoextra'); library('factoextra')
+if (!require('cluster')) install.packages('cluster'); library('cluster')
+if (!require('DT')) install.packages('DT'); library('DT')
+if (!require('ggplot2')) install.packages('ggplot2'); library('ggplot2')
+if (!require('lubridate')) install.packages('lubridate'); library('lubridate')
+# install.packages("devtools")
+# devtools::install_github("ricardo-bion/ggradar")
+library('ggradar')
 
 PATH_FICHEROS_DATOS <- 'DATOS/'
 
@@ -59,6 +72,7 @@ body <- dashboardBody(
         # Mapa gentrificación
         accordion_panel(
           title = "Gentrificación de barrios",
+          leafletOutput(outputId = "mapLondon", width="600px", height="400px")
         ),
         
         # Análisis visual de indicadores

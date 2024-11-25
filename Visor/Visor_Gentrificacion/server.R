@@ -135,6 +135,28 @@ function(input, output, session) {
   })    
 
   ################################################################################
+  # Mapa gentrifcación barrios de Londres
+  ################################################################################
+  output$mapLondon <- renderLeaflet({
+    leaflet() %>%
+      addTiles() %>%
+      #addProviderTiles("Esri.WorldImagery") %>%
+      #addProviderTiles("Stamen.TerrainBackground") %>%
+      addMarkers(lng = -0.1277,
+                 lat = 51.5072,
+                 popup = "You are here",
+                 options = markerOptions(draggable = TRUE, riseOnHover = TRUE)) %>%
+      addCircleMarkers(lng = -0.1377,
+                       lat = 51.5472,
+                       popup = "You are here",
+                       fillColor = "lightblue", opacity = 0.8,
+                       options = markerOptions(draggable = TRUE, title = "Whoops")) %>%
+      setView(map, lng = -0.1276,
+              lat = 51.5072,
+              zoom = 9.5)
+  })
+  
+  ################################################################################
   # Análisis visual de indicadores
   ################################################################################
   # Radar de indicadores para el barrio
