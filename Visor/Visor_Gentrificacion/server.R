@@ -12,6 +12,7 @@ if (!require('lubridate')) install.packages('lubridate'); library('lubridate')
 # install.packages("devtools")
 # devtools::install_github("ricardo-bion/ggradar")
 library('ggradar')
+if (!require('sf')) install.packages('sf'); library('sf')
 
 theme_set(theme_bw())
 
@@ -52,6 +53,29 @@ carga_indicadores <- function() {
 }
 
 ################################################################################
+# Carga los datos en bruto
+################################################################################
+carga_clusters <- function() {
+  ruta_fichero <- 'DAT_Clusters_Gentrificacion_Londres.csv'
+  df = read_csv(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_double()
+  ))
+  return(df)
+}
+
+################################################################################
+# Carga el shapefile con los barrios de Londres
+################################################################################
+carga_shapefile <- function() {
+  ruta_fichero <- '/shapefile/London_Borough_Excluding_MHW.shp'
+  shp = st_read(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""))
+  return(shp)
+}
+
+################################################################################
 # Lee los orígenes de datos
 ################################################################################
 df_indicadores <- carga_indicadores()
@@ -67,6 +91,10 @@ colnames(df_min) <- c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "E
 df_max <- data.frame(t(apply(df_indicadores %>% select(starts_with("VAR_")), 2, max, na.rm = TRUE)))
 colnames(df_max) <- c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
 
+shp <- carga_shapefile()
+
+df_clusters <- carga_clusters()
+df_clusters <- df_clusters %>% inner_join(shp, by = c("CODE" = "GSS_CODE"))
 
 ################################################################################
 # Lógica de la aplicación
@@ -132,13 +160,32 @@ function(input, output, session) {
     df <- df %>% select(BOROUGH, YEAR, starts_with("VAR_"))
     colnames(df) <- c("Barrio", "Año", "Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
     return(df)    
-  })    
-
+  })
+  
+  carga_clusters_anyo <- reactive({
+    df <- df_clusters %>% filter(YEAR == input$sldYear)
+    colnames(df) <- c("Codigo", "Barrio", "Año", "Cluster", "Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
+    
+    return(df)
+  })
+  
   ################################################################################
   # Mapa gentrifcación barrios de Londres
   ################################################################################
   output$mapLondon <- renderLeaflet({
-    leaflet() %>%
+    #clusters <- df_clusters %>% filter(YEAR == input$sldYear)
+    clusters <- st_as_sf(df_clusters %>% filter(YEAR == input$sldYear))
+    print("A1 CLUSTERS")
+    print(st_crs(shp))
+    print("A2 CLUSTERS")
+    shp_tra <- st_transform(clusters, crs = 4326)
+    print(st_crs(shp_tra))
+    print("A3 CLUSTERS")
+    
+    
+    clusters <- st_make_valid(clusters)
+    pal <- colorFactor(palette = "Set1", domain = clusters$CLUSTER)
+    leaflet(data = shp_tra) %>%
       addTiles() %>%
       #addProviderTiles("Esri.WorldImagery") %>%
       #addProviderTiles("Stamen.TerrainBackground") %>%
@@ -151,6 +198,15 @@ function(input, output, session) {
                        popup = "You are here",
                        fillColor = "lightblue", opacity = 0.8,
                        options = markerOptions(draggable = TRUE, title = "Whoops")) %>%
+      #addPolygons(data = clusters, fillColor = ~pal(CLUSTER), weight = 1, color = "#000000", fillOpacity = 0.5) %>%
+      addPolygons(fillColor = ~pal(CLUSTER), weight = 1, color = "black", fillOpacity = 0.7, popup = ~paste0("Barrio", BOROUGH, "<br>Cluster: ", CLUSTER)) %>%
+      #addPolygons(
+      #            #fillColor = ~pal(CLUSTER), 
+      #            fillColor = "green",
+      #            weight = 1, 
+      #            color = "black",
+      #            fillOpacity = 0.7,
+      #            popup = ~paste0("Barrio", BOROUGH, "<br>Cluster: ", CLUSTER)) %>%
       setView(map, lng = -0.1276,
               lat = 51.5072,
               zoom = 9.5)
