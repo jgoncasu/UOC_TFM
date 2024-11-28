@@ -175,14 +175,8 @@ function(input, output, session) {
   output$mapLondon <- renderLeaflet({
     #clusters <- df_clusters %>% filter(YEAR == input$sldYear)
     clusters <- st_as_sf(df_clusters %>% filter(YEAR == input$sldYear))
-    print("A1 CLUSTERS")
-    print(st_crs(shp))
-    print("A2 CLUSTERS")
     shp_tra <- st_transform(clusters, crs = 4326)
-    print(st_crs(shp_tra))
-    print("A3 CLUSTERS")
-    
-    
+
     clusters <- st_make_valid(clusters)
     pal <- colorFactor(palette = "Set1", domain = clusters$CLUSTER)
     leaflet(data = shp_tra) %>%
@@ -198,19 +192,123 @@ function(input, output, session) {
                        popup = "You are here",
                        fillColor = "lightblue", opacity = 0.8,
                        options = markerOptions(draggable = TRUE, title = "Whoops")) %>%
-      #addPolygons(data = clusters, fillColor = ~pal(CLUSTER), weight = 1, color = "#000000", fillOpacity = 0.5) %>%
-      addPolygons(fillColor = ~pal(CLUSTER), weight = 1, color = "black", fillOpacity = 0.7, popup = ~paste0("Barrio", BOROUGH, "<br>Cluster: ", CLUSTER)) %>%
-      #addPolygons(
-      #            #fillColor = ~pal(CLUSTER), 
-      #            fillColor = "green",
-      #            weight = 1, 
-      #            color = "black",
-      #            fillOpacity = 0.7,
-      #            popup = ~paste0("Barrio", BOROUGH, "<br>Cluster: ", CLUSTER)) %>%
-      setView(map, lng = -0.1276,
-              lat = 51.5072,
+      addPolygons(fillColor = ~pal(CLUSTER), 
+                  weight = 1, 
+                  color = "black", 
+                  fillOpacity = 0.7, 
+                  popup = ~paste0("Barrio", BOROUGH, "<br>Cluster: ", CLUSTER),
+                  layerId = ~CODE) %>%
+      setView(map, lng = -0.0876,
+              lat = 51.4872,
               zoom = 9.5)
   })
+  
+  observeEvent(input$mapLondon_shape_click, {
+      click <- input$mapLondon_shape_click
+      if (!is.null(click)) {
+        clicked_code <- click$id
+        barrio <- df %>% filter(CODE == clicked_code & YEAR == input$sldYear) #%>% distinct(BOROUGH)
+        print(barrio)
+        #output$txt_barrio <- renderText(paste0("BARRIO: ", barrio$BOROUGH))
+        
+        vb_tmp_01 <- valueBox(
+          value = barrio$VAR_01_AGE,
+          subtitle = "Indicador: Variación edad media",
+          color = "red",
+          width = NULL,
+          icon = icon("arrow-trend-down", style = "color: white; opacity: 0.6;")
+        )
+        output$ind_barrio_01 <- renderValueBox(vb_tmp_01)
+
+        vb_tmp_02 <- valueBox(
+          value = barrio$VAR_02_RACE_WHITE,
+          subtitle = "Indicador: Variación habitantes raza blanca",
+          color = "green",
+          width = NULL,
+          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
+        )
+        output$ind_barrio_02 <- renderValueBox(vb_tmp_02)
+
+        vb_tmp_03 <- valueBox(
+          value = barrio$VAR_03_WEEK_EARNINGS,
+          subtitle = "Indicador: Variación salario semanal",
+          color = "green",
+          width = NULL,
+          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
+        )
+        output$ind_barrio_03 <- renderValueBox(vb_tmp_03)
+
+        vb_tmp_04 <- valueBox(
+          value = barrio$VAR_04_PERCENT_NVQ4,
+          subtitle = "Indicador: Variación titulados superiores",
+          color = "green",
+          width = NULL,
+          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
+        )
+        output$ind_barrio_04 <- renderValueBox(vb_tmp_04)
+
+        vb_tmp_05 <- valueBox(
+          value = barrio$VAR_05_CAR_TRAFFIC,
+          subtitle = "Indicador: Variación tráfico",
+          color = "red",
+          width = NULL,
+          icon = icon("arrow-trend-down", style = "color: white; opacity: 0.6;")
+        )
+        output$ind_barrio_05 <- renderValueBox(vb_tmp_05)
+
+        vb_tmp_06 <- valueBox(
+          value = barrio$VAR_06_EXP_LIFE,
+          subtitle = "Indicador: Variación esperanza de vida",
+          color = "green",
+          width = NULL,
+          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
+        )
+        output$ind_barrio_06 <- renderValueBox(vb_tmp_06)
+
+        vb_tmp_07 <- valueBox(
+          value = barrio$VAR_07_CRIMES,
+          subtitle = "Indicador: Variación delitos semanales",
+          color = "red",
+          width = NULL,
+          icon = icon("arrow-trend-down", style = "color: white; opacity: 0.6;")
+        )
+        output$ind_barrio_07 <- renderValueBox(vb_tmp_07)
+
+        vb_tmp_08 <- valueBox(
+          value = barrio$VAR_08_SERVICES,
+          subtitle = "Indicador: Variación servicios (restaurantes, tiendas)",
+          color = "green",
+          width = NULL,
+          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
+        )
+        output$ind_barrio_08 <- renderValueBox(vb_tmp_08)
+
+        vb_tmp_09 <- valueBox(
+          value = barrio$VAR_09_HOUSE_PRICE,
+          subtitle = "Indicador: Variación precio de la vivienda",
+          color = "green",
+          width = NULL,
+          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
+        )
+        output$ind_barrio_09 <- renderValueBox(vb_tmp_09)
+
+        vb_tmp_10 <- valueBox(
+          value = barrio$VAR_10_HOUSE_RENT,
+          subtitle = "Indicador: Variación precio del alquiler",
+          color = "green",
+          width = NULL,
+          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
+        )
+        output$ind_barrio_10 <- renderValueBox(vb_tmp_10)
+        
+        
+        #output$txt_barrio <- paste0("BARRIO: ", barrio$BOROUGH)
+        #output$info <- renderText({
+        #  paste0("Has clicado en: ", clicked_borough)
+        #})
+      }
+  })
+  
   
   ################################################################################
   # Análisis visual de indicadores

@@ -69,11 +69,56 @@ body <- dashboardBody(
   tags$br(),
   tags$h2("Análisis de la gentrificación en Londres"),
   page_fluid(
-      accordion(
+    tags$style(HTML("
+      .col-sm-4 {
+        width: 100% !important;
+        margin: 0 !important;
+      }
+    ")),
+    
+    accordion(
         # Mapa gentrificación
         accordion_panel(
           title = "Gentrificación de barrios",
-          leafletOutput(outputId = "mapLondon", width="600px", height="400px")
+          leafletOutput(outputId = "mapLondon", width="650px", height="550px"),
+          verbatimTextOutput("info"),
+          # ValueBoxes para mostrar la información de los indicadores del barrio
+          #fluidRow(
+          #  column(12, textOutput("txt_barrio"))
+          #),
+          fluidRow(
+            div(style = "display: flex; flex-wrap: wrap; gap: 5px; ",
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_01")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_02")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_03")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_04")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_05")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_06")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_07")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_08")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_09")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_10"))
+            )
+#            column(4, valueBoxOutput("ind_barrio_01")),
+#            column(4, valueBoxOutput("ind_barrio_02")),
+#            column(4, valueBoxOutput("ind_barrio_03")),
+#            column(4, valueBoxOutput("ind_barrio_04")),
+#            column(4, valueBoxOutput("ind_barrio_05"))
+          )#,
+#          fluidRow(
+#            div(style = "display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;",
+#                div(style = "flex: 1 1 18%; max-width: 18%", valueBoxOutput("ind_barrio_06")),
+#                div(style = "flex: 1 1 18%; max-width: 18%", valueBoxOutput("ind_barrio_07")),
+#                div(style = "flex: 1 1 18%; max-width: 18%", valueBoxOutput("ind_barrio_08")),
+#                div(style = "flex: 1 1 18%; max-width: 18%", valueBoxOutput("ind_barrio_09")),
+#                div(style = "flex: 1 1 18%; max-width: 18%", valueBoxOutput("ind_barrio_10"))
+#            )
+            #            column(4, valueBoxOutput("ind_barrio_06")),
+#            column(4, valueBoxOutput("ind_barrio_07")),
+#            column(4, valueBoxOutput("ind_barrio_08")),
+#            column(4, valueBoxOutput("ind_barrio_09")),
+#            column(4, valueBoxOutput("ind_barrio_10"))
+#          )
         ),
         
         # Análisis visual de indicadores
