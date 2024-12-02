@@ -49,29 +49,13 @@ limpieza_indicador_01_edad <- function(df) {
   # Elimina los datos previos a 2001
   df <- df %>% filter (Year >= 2001)
   
-  # Imputa valores NA de los años 1999 y 2000 para los grupos de edad mayores a 85 años
-#  df <- df %>% mutate(
-#    M_86 = ifelse(Year %in% c(1999, 2000), round(M_85 / 6, 0), M_86),
-#    M_87 = ifelse(Year %in% c(1999, 2000), round(M_85 / 6, 0), M_87),
-#    M_88 = ifelse(Year %in% c(1999, 2000), round(M_85 / 6, 0), M_88),
-#    M_89 = ifelse(Year %in% c(1999, 2000), round(M_85 / 6, 0), M_89),
-#    M_90 = ifelse(Year %in% c(1999, 2000), trunc(M_85 / 6, 0), M_90),
-#    M_85 = ifelse(Year %in% c(1999, 2000), round(M_85 / 6, 0), M_85),
-#    F_86 = ifelse(Year %in% c(1999, 2000), round(F_85 / 6, 0), F_86),
-#    F_87 = ifelse(Year %in% c(1999, 2000), round(F_85 / 6, 0), F_87),
-#    F_88 = ifelse(Year %in% c(1999, 2000), round(F_85 / 6, 0), F_88),
-#    F_89 = ifelse(Year %in% c(1999, 2000), round(F_85 / 6, 0), F_89),
-#    F_90 = ifelse(Year %in% c(1999, 2000), trunc(F_85 / 6, 0), F_90),
-#    F_85 = ifelse(Year %in% c(1999, 2000), round(F_85 / 6, 0), F_85),  
-#  )
-
   # Calcula la media de edad por año entre hombre y mujeres
   edades <- 0:90
   total_hombres <- rowSums(df %>% select(starts_with("M_")), na.rm = TRUE)
   total_mujeres <- rowSums(df %>% select(starts_with("F_")), na.rm = TRUE)
   total_poblacion <- total_hombres + total_mujeres
-  df["Mean_Age_Men"] <- round(rowSums(df %>% select(starts_with("M_")) * edades, na.rm = TRUE) / total_hombres, 2)
-  df["Mean_Age_Women"] <- round(rowSums(df %>% select(starts_with("F_")) * edades, na.rm = TRUE) / total_mujeres, 2)
+#  df["Mean_Age_Men"] <- round(rowSums(df %>% select(starts_with("M_")) * edades, na.rm = TRUE) / total_hombres, 2)
+#  df["Mean_Age_Women"] <- round(rowSums(df %>% select(starts_with("F_")) * edades, na.rm = TRUE) / total_mujeres, 2)
   df["Avg_Age"] <- round(rowSums((df %>% select(starts_with("M_")) + df %>% select(starts_with("F_"))) * edades, na.rm = TRUE) / total_poblacion, 2)
 
   # Elimina las columnas de datos agrupados por edad
@@ -83,30 +67,31 @@ limpieza_indicador_01_edad <- function(df) {
   for (barrio in unique(df$Borough)) {
     df_barrio <- df %>% filter(Borough == barrio)
     # Men
-    ts_data_men <- ts(df_barrio$Mean_Age_Men, start = 2001, end = 2020, frequency = 1)
-    model_men <- auto.arima(ts_data_men)
-    forecast_values_men <- round(forecast(model_men, h = length(anyos_pred))$mean, 2)
+#    ts_data_men <- ts(df_barrio$Mean_Age_Men, start = 2001, end = 2020, frequency = 1)
+#    model_men <- auto.arima(ts_data_men)
+#    forecast_values_men <- round(forecast(model_men, h = length(anyos_pred))$mean, 2)
     # Women
-    ts_data_women <- ts(df_barrio$Mean_Age_Women, start = 2001, end = 2020, frequency = 1)
-    model_women <- auto.arima(ts_data_women)
-    forecast_values_women <- round(forecast(model_women, h = length(anyos_pred))$mean, 2)
+#    ts_data_women <- ts(df_barrio$Mean_Age_Women, start = 2001, end = 2020, frequency = 1)
+#    model_women <- auto.arima(ts_data_women)
+#    forecast_values_women <- round(forecast(model_women, h = length(anyos_pred))$mean, 2)
     # Avg_Age
     ts_data_avg <- ts(df_barrio$Avg_Age, start = 2001, end = 2020, frequency = 1)
-    model_avg <- auto.arima(ts_data_avg)
+    model_avg <- auto.arima(ts_data_avg, ic = c("aicc", "aic", "bic"))
     forecast_values_avg <- round(forecast(model_avg, h = length(anyos_pred))$mean, 2)
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
                               Borough = rep(c(barrio), length(anyos_pred)),
                               Year = anyos_pred,
-                              Mean_Age_Men = forecast_values_men,
-                              Mean_Age_Women = forecast_values_women,
+#                              Mean_Age_Men = forecast_values_men,
+#                              Mean_Age_Women = forecast_values_women,
                               Avg_Age = forecast_values_avg)
     
     df <- rbind(df, forecast_df)
   }
   
   # Ordena los datos por barrio
-  df <- df %>% select(Code, Borough, Year, Mean_Age_Men, Mean_Age_Women, Avg_Age) %>% arrange(Code, Year) 
-
+#  df <- df %>% select(Code, Borough, Year, Mean_Age_Men, Mean_Age_Women, Avg_Age) %>% arrange(Code, Year) 
+  df <- df %>% select(Code, Borough, Year, Avg_Age) %>% arrange(Code, Year) 
+  
   return(df)
 }
 
