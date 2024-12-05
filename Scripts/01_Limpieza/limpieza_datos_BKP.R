@@ -54,6 +54,8 @@ limpieza_indicador_01_edad <- function(df) {
   total_hombres <- rowSums(df %>% select(starts_with("M_")), na.rm = TRUE)
   total_mujeres <- rowSums(df %>% select(starts_with("F_")), na.rm = TRUE)
   total_poblacion <- total_hombres + total_mujeres
+#  df["Mean_Age_Men"] <- round(rowSums(df %>% select(starts_with("M_")) * edades, na.rm = TRUE) / total_hombres, 2)
+#  df["Mean_Age_Women"] <- round(rowSums(df %>% select(starts_with("F_")) * edades, na.rm = TRUE) / total_mujeres, 2)
   df["Avg_Age"] <- round(rowSums((df %>% select(starts_with("M_")) + df %>% select(starts_with("F_"))) * edades, na.rm = TRUE) / total_poblacion, 2)
 
   # Elimina las columnas de datos agrupados por edad
@@ -63,7 +65,15 @@ limpieza_indicador_01_edad <- function(df) {
   # Estimar valores hasta 2031
   anyos_pred <- 2021:2031
   for (barrio in unique(df$Borough)) {
-    df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
+    df_barrio <- df %>% filter(Borough == barrio)
+    # Men
+#    ts_data_men <- ts(df_barrio$Mean_Age_Men, start = 2001, end = 2020, frequency = 1)
+#    model_men <- auto.arima(ts_data_men)
+#    forecast_values_men <- round(forecast(model_men, h = length(anyos_pred))$mean, 2)
+    # Women
+#    ts_data_women <- ts(df_barrio$Mean_Age_Women, start = 2001, end = 2020, frequency = 1)
+#    model_women <- auto.arima(ts_data_women)
+#    forecast_values_women <- round(forecast(model_women, h = length(anyos_pred))$mean, 2)
     # Avg_Age
     ts_data_avg <- ts(df_barrio$Avg_Age, start = 2001, end = 2020, frequency = 1)
     model_avg <- auto.arima(ts_data_avg, ic = c("aicc", "aic", "bic"))
@@ -79,6 +89,7 @@ limpieza_indicador_01_edad <- function(df) {
   }
   
   # Ordena los datos por barrio
+#  df <- df %>% select(Code, Borough, Year, Mean_Age_Men, Mean_Age_Women, Avg_Age) %>% arrange(Code, Year) 
   df <- df %>% select(Code, Borough, Year, Avg_Age) %>% arrange(Code, Year) 
   
   return(df)
@@ -140,7 +151,6 @@ limpieza_indicador_02_raza <- function(df_aux, df) {
   barrios_a_eliminar <- setdiff(barrios, barrios_londres)
   df_aux <- df_aux %>% filter(!(Borough %in% barrios_a_eliminar))
   
-  # Multiplica por 1000 los valores leídos
   df_aux <- df_aux %>%
     mutate(across(starts_with("White_"), as.numeric),
            across(starts_with("BAME_"), as.numeric)
@@ -155,7 +165,7 @@ limpieza_indicador_02_raza <- function(df_aux, df) {
   # Estimar valores para 2010
   anyos_pred <- 2010
   for (barrio in unique(df_aux$Borough)) {
-    df_barrio <- df_aux %>% filter(Borough == barrio) %>% arrange(Year)
+    df_barrio <- df_aux %>% filter(Borough == barrio)
     # White
     ts_data_white <- ts(df_barrio$White, start = 2001, end = 2009, frequency = 1)
     model_white <- auto.arima(ts_data_white)
@@ -221,9 +231,6 @@ limpieza_indicador_02_raza <- function(df_aux, df) {
     mutate(Code = ifelse(!is.na(Code_barrio), Code_barrio, Code)) %>%
     select(-Code_barrio)
   
-  # Agrega la columna porcentaje de blancos
-  df <- df %>% mutate(Percent_White = round((White / (BAME + White)) * 100, 2)) %>% select(-White, -BAME)
-  
   # Ordena los datos
   df <- df %>% arrange(Code, Borough, Year)
   
@@ -268,6 +275,13 @@ limpieza_indicador_03_empleo <- function(df) {
     mutate(Code = ifelse(!is.na(Code_barrio), Code_barrio, Code)) %>%
     select(-Code_barrio)
 
+  # Imputamos valores para "City of London", mismos que ya tiene los años posteriores
+  df <- df %>%
+    mutate(across(starts_with("Year_"),
+                  ~ ifelse(Borough == "City of London" & is.na(.),
+                         ifelse(as.numeric(gsub("Year_", "", cur_column())) < 2009,
+                                Year_2009, Year_2018),.)))
+
   # Se pasan las columnas de años a una sola columna
   df <- df %>%
     pivot_longer(cols = starts_with("Year_"),
@@ -279,7 +293,7 @@ limpieza_indicador_03_empleo <- function(df) {
   # Estimar valores hasta 2031
   anyos_pred <- 2023:2031
   for (barrio in unique(df$Borough)) {
-    df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
+    df_barrio <- df %>% filter(Borough == barrio)
     ts_data <- ts(df_barrio$Week_Earnings, start = 2002, end = 2022, frequency = 1)
     model <- auto.arima(ts_data)
     forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
@@ -317,7 +331,7 @@ carga_indicador_04_estudios <- function() {
 
 limpieza_indicador_04_estudios <- function(df) {
   # Filtrar por NVQ4+ y eliminar campo intervalo de confianza
-  df <- df %>% filter(Qualifications == "NVQ4+") %>% select(-c(Confidence, Qualifications, Number, Habitants))
+  df <- df %>% filter(Qualifications == "NVQ4+") %>% select(-c(Confidence, Qualifications))
 
   # Eliminar registros que no sean barrios de Londres
   barrios_londres <- unlist(lista_barrios)
@@ -325,10 +339,30 @@ limpieza_indicador_04_estudios <- function(df) {
   barrios_a_eliminar <- setdiff(barrios, barrios_londres)
   df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
   
+  # Reemplazar , por . decimal, eliminar entrecomillado en campo Number
+  df <- df %>%
+    mutate(Number = as.numeric(gsub(",", "", gsub('"', "", Number))))
+  
+  # Imputar valores nulos para el porcentaje
+  df <- df %>%
+    mutate(Percent = ifelse(Borough == "City of London" & is.na(Percent), 80, Percent))
+  
+  # Actualiza el valor del campo Number en base a los campos Habitants y Percent
+  df <- df %>%
+    mutate(Number = ifelse(Borough == "City of London" & is.na(Number), round((Habitants * Percent) / 100), Number))
+
   # Estimar valores hasta 2031
   anyos_pred <- 2022:2031
   for (barrio in unique(df$Borough)) {
-    df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
+    df_barrio <- df %>% filter(Borough == barrio)
+    # Number
+    ts_data_number <- ts(df_barrio$Number, start = 2004, end = 2021, frequency = 1)
+    model_number <- auto.arima(ts_data_number)
+    forecast_values_number <- round(forecast(model_number, h = length(anyos_pred))$mean, 0)
+    # Habitants
+    ts_data_habitants <- ts(df_barrio$Habitants, start = 2004, end = 2021, frequency = 1)
+    model_habitants <- auto.arima(ts_data_habitants)
+    forecast_values_habitants <- round(forecast(model_habitants, h = length(anyos_pred))$mean, 0)
     # Percent
     ts_data_percent <- ts(df_barrio$Percent, start = 2004, end = 2021, frequency = 1)
     model_percent <- auto.arima(ts_data_percent)
@@ -336,6 +370,8 @@ limpieza_indicador_04_estudios <- function(df) {
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
                               Borough = rep(c(barrio), length(anyos_pred)),
                               Year = anyos_pred,
+                              Number = forecast_values_number,
+                              Habitants = forecast_values_habitants,
                               Percent = forecast_values_percent)
     
     df <- rbind(df, forecast_df)
@@ -383,7 +419,7 @@ limpieza_indicador_05_trafico <- function(df) {
   # Estimar valores hasta 2031
   anyos_pred <- 2024:2031
   for (barrio in unique(df$Borough)) {
-    df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
+    df_barrio <- df %>% filter(Borough == barrio)
     ts_data <- ts(df_barrio$Car_Traffic, start = 1993, end = 2023, frequency = 1)
     model <- auto.arima(ts_data)
     forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 0)
@@ -449,15 +485,21 @@ limpieza_indicador_06_esperanza_vida <- function(df) {
   # Pivot sexo a columnas
   df <- df %>%
     pivot_wider(names_from = Sex, values_from = Life_Expectancy)
-  
   # Asignamos la edad media (suponiendo mismo número de mujeres que de hombres)
-  df <- df %>% mutate(Avg_Sex = round(rowMeans(select(., Female, Male), na.rm = TRUE), 2))
-  df <- df %>% select(-c(Female, Male))
+  df <- df %>% mutate(Avg_Sex = rowMeans(select(., Female, Male), na.rm = TRUE))
 
   # Estimar valores hasta 2031
   anyos_pred <- 2023:2031
   for (barrio in unique(df$Borough)) {
-    df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
+    df_barrio <- df %>% filter(Borough == barrio)
+    # Female
+    ts_data_female <- ts(df_barrio$Female, start = 2003, end = 2022, frequency = 1)
+    model_female <- auto.arima(ts_data_female)
+    forecast_values_female <- round(forecast(model_female, h = length(anyos_pred))$mean, 2)
+    # Male
+    ts_data_male <- ts(df_barrio$Male, start = 2003, end = 2022, frequency = 1)
+    model_male <- auto.arima(ts_data_male)
+    forecast_values_male <- round(forecast(model_male, h = length(anyos_pred))$mean, 2)
     # Avg_Sex
     ts_data_avg <- ts(df_barrio$Avg_Sex, start = 2003, end = 2022, frequency = 1)
     model_avg <- auto.arima(ts_data_avg)
@@ -465,10 +507,30 @@ limpieza_indicador_06_esperanza_vida <- function(df) {
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
                               Borough = rep(c(barrio), length(anyos_pred)),
                               Year = anyos_pred,
+                              Female = forecast_values_female,
+                              Male = forecast_values_male,
                               Avg_Sex = forecast_values_avg)
-
+    
     df <- rbind(df, forecast_df)
   }
+  
+  # Imputamos valores para City of London con la media de todos los barrios
+  avg_values <- df %>% filter(Borough != "London") %>%
+    group_by(Year) %>%
+    summarise(
+      Female = round(mean(Female, na.rm = TRUE), 2),
+      Male = round(mean(Male, na.rm = TRUE), 2),
+      Avg_Sex = round(mean(Avg_Sex, na.rm = TRUE), 2),
+      .groups = "drop"
+    ) %>%
+    filter(Year >= 2003 & Year <= 2031)
+  df_CoL <- avg_values %>%
+    mutate(
+      Code = "E09000001",
+      Borough = "City of London"
+    ) %>%
+    select(Code, Borough, Year, Female, Male, Avg_Sex)
+  df <- bind_rows(df, df_CoL)
   
   # Ordenar datos por barrio, sexo y año
   df <- df %>% arrange(Code, Year)
@@ -539,8 +601,7 @@ limpieza_indicador_07_delitos <- function(df_aux, df) {
     
   # Calcular media mensual
   df_aux <- df_aux %>%
-    mutate(Crimes = Crimes / 12)
-    #mutate(Crimes = round(Crimes / 12, 2))
+    mutate(Crimes = round(Crimes / 12, 2))
   
   # Filtra los datos hasta 2009
   df_aux <- df_aux %>%
@@ -564,26 +625,26 @@ limpieza_indicador_07_delitos <- function(df_aux, df) {
     group_by(Borough) %>%
     summarise(across(starts_with("M_"), sum, na.rm = TRUE))
 
-  # Crear columna media por mes
+  # Crear columna media por año
   df <- df %>%
     rowwise() %>%  # Permite realizar operaciones fila por fila
     mutate(across(starts_with("M_"), as.numeric)) %>%  # Asegura que los datos sean numéricos
     summarise(
       Borough = first(Borough),
-      # Calcula la media mensual para cada año
-      Mean_2010 = mean(c_across(starts_with("M_2010")), na.rm = TRUE),
-      Mean_2011 = mean(c_across(starts_with("M_2011")), na.rm = TRUE),
-      Mean_2012 = mean(c_across(starts_with("M_2012")), na.rm = TRUE),
-      Mean_2013 = mean(c_across(starts_with("M_2013")), na.rm = TRUE),
-      Mean_2014 = mean(c_across(starts_with("M_2014")), na.rm = TRUE),
-      Mean_2015 = mean(c_across(starts_with("M_2015")), na.rm = TRUE),
-      Mean_2016 = mean(c_across(starts_with("M_2016")), na.rm = TRUE),
-      Mean_2017 = mean(c_across(starts_with("M_2017")), na.rm = TRUE),
-      Mean_2018 = mean(c_across(starts_with("M_2018")), na.rm = TRUE),
-      Mean_2019 = mean(c_across(starts_with("M_2019")), na.rm = TRUE),
-      Mean_2020 = mean(c_across(starts_with("M_2020")), na.rm = TRUE),
-      Mean_2021 = mean(c_across(starts_with("M_2021")), na.rm = TRUE),
-      Mean_2022 = mean(c_across(starts_with("M_2022")), na.rm = TRUE)
+      # Calcula la media anual para cada año
+      Mean_2010 = round(mean(c_across(starts_with("M_2010")), na.rm = TRUE), 2),
+      Mean_2011 = round(mean(c_across(starts_with("M_2011")), na.rm = TRUE), 2),
+      Mean_2012 = round(mean(c_across(starts_with("M_2012")), na.rm = TRUE), 2),
+      Mean_2013 = round(mean(c_across(starts_with("M_2013")), na.rm = TRUE), 2),
+      Mean_2014 = round(mean(c_across(starts_with("M_2014")), na.rm = TRUE), 2),
+      Mean_2015 = round(mean(c_across(starts_with("M_2015")), na.rm = TRUE), 2),
+      Mean_2016 = round(mean(c_across(starts_with("M_2016")), na.rm = TRUE), 2),
+      Mean_2017 = round(mean(c_across(starts_with("M_2017")), na.rm = TRUE), 2),
+      Mean_2018 = round(mean(c_across(starts_with("M_2018")), na.rm = TRUE), 2),
+      Mean_2019 = round(mean(c_across(starts_with("M_2019")), na.rm = TRUE), 2),
+      Mean_2020 = round(mean(c_across(starts_with("M_2020")), na.rm = TRUE), 2),
+      Mean_2021 = round(mean(c_across(starts_with("M_2021")), na.rm = TRUE), 2),
+      Mean_2022 = round(mean(c_across(starts_with("M_2022")), na.rm = TRUE), 2),
   )
 
   df <- df %>%
@@ -595,29 +656,28 @@ limpieza_indicador_07_delitos <- function(df_aux, df) {
                  names_to = "Year",
                  names_prefix = "Mean_",
                  values_to = "Crimes") %>%
-    mutate(Year = as.integer(Year))
+    mutate(Year = as.numeric(Year))
 
   # Fusiona los dos dataframes
-  df <- bind_rows(df, df_aux) %>% select(Code, Borough, Year, Crimes)
+  df <- bind_rows(df, df_aux)
   
+  # Estimar valores hasta 2031
   anyos_pred <- 2023:2031
   for (barrio in unique(df$Borough)) {
     if (barrio != "London") {
-      df_barrio <- df %>% filter(Borough == barrio & Year >= 2001) %>% arrange(Year)
+      df_barrio <- df %>% filter(Borough == barrio)
       ts_data <- ts(df_barrio$Crimes, start = 2001, end = 2022, frequency = 1)
-      #model <- auto.arima(ts_data)
-      model <- Arima(ts_data, order = c(0, 2, 1))
+      model <- auto.arima(ts_data)
       forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
-      forecast_values <- forecast(model, h = length(anyos_pred))$mean
       forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
                                 Borough = rep(c(barrio), length(anyos_pred)),
                                 Year = anyos_pred,
                                 Crimes = forecast_values)
+      
       df <- rbind(df, forecast_df)
     }
   }
-  df <- df %>% mutate(Crimes = round(Crimes, 2))
-
+  
   # Calcula los valores para la ciudad de Londres sumando todos los barrios
   df_london <- df %>%
     filter(Year >= 2010) %>%
@@ -626,6 +686,22 @@ limpieza_indicador_07_delitos <- function(df_aux, df) {
     mutate(Code = "E12000007", Borough = "London")
   df <- bind_rows(df, df_london)
 
+  # Imputamos valores para City of London con la media de todos los barrios
+  avg_values <- df %>% filter(Borough != "London") %>%
+    group_by(Year) %>%
+    summarise(
+      Crimes = round(mean(Crimes, na.rm = TRUE), 2),
+      .groups = "drop"
+    ) %>%
+    filter(Year >= 2001 & Year <= 2031)
+  df_CoL <- avg_values %>%
+    mutate(
+      Code = "E09000001",
+      Borough = "City of London"
+    ) %>%
+    select(Code, Borough, Year, Crimes)
+  df <- bind_rows(df, df_CoL)
+  
   # Ordenar los datos y mostrar las columnas en orden correcto
   df <- df %>% filter(Year >= 2001) %>% select(Code, Borough, Year, Crimes) %>% arrange(Code, Year)
   
@@ -698,7 +774,7 @@ limpieza_indicador_08_servicios <- function(df) {
   # Estimar valores hasta 2031
   anyos_pred <- 2025:2031
   for (barrio in unique(df$Borough)) {
-    df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
+    df_barrio <- df %>% filter(Borough == barrio)
     # Retail
     ts_data_retail <- ts(df_barrio$Retail, start = 2003, end = 2024, frequency = 1)
     model_retail <- auto.arima(ts_data_retail)
@@ -716,7 +792,7 @@ limpieza_indicador_08_servicios <- function(df) {
     df <- rbind(df, forecast_df)
   }
   
-  df <- df %>% mutate(Total = Retail + Food_Hotels) %>% select(-c(Retail, Food_Hotels))
+  df <- df %>% mutate(Total = Retail + Food_Hotels)
   
   # Ordenar salida
   df <- df %>% arrange(Code, Year)
@@ -786,7 +862,7 @@ limpieza_indicador_09_vivienda_precio <- function(df) {
   # Estimar valores hasta 2031
   anyos_pred <- 2025:2031
   for (barrio in unique(df$Borough)) {
-    df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
+    df_barrio <- df %>% filter(Borough == barrio)
     ts_data <- ts(df_barrio$Price, start = 1995, end = 2024, frequency = 1)
     model <- auto.arima(ts_data)
     forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
@@ -850,7 +926,7 @@ limpieza_indicador_10_vivienda_alquiler <- function(df) {
   # Estimar valores hasta 2031
   anyos_pred <- 2024:2031
   for (barrio in unique(df$Borough)) {
-    df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
+    df_barrio <- df %>% filter(Borough == barrio)
     ts_data <- ts(df_barrio$Rent, start = 1997, end = 2023, frequency = 1)
     model <- auto.arima(ts_data)
     forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
@@ -862,7 +938,7 @@ limpieza_indicador_10_vivienda_alquiler <- function(df) {
     df <- rbind(df, forecast_df)
   }
 
-  # Calcula los valores para la ciudad de Londres con la media de todos los barrios
+  # Calcula los valores para la ciudad de Londres sumando todos los barrios
   df_london <- df %>%
     group_by(Year) %>%
     summarise(Rent = round(mean(Rent, na.rm = TRUE), 2), .groups = "drop") %>%

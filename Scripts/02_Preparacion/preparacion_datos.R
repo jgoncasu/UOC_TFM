@@ -19,6 +19,22 @@ carga_lista_barrios <- function() {
 }
 
 ################################################################################
+# 00) Calcula la variación de un indicador en un barrio
+################################################################################
+calcula_variacion_barrio <- function(valor_inicial, valor_final, anyos) {
+  valor <- round(((valor_final / valor_inicial)^(1 / anyos)) - 1, 4) * 100
+  return(valor)
+}
+
+################################################################################
+# 00) Calcula la variación de un indicador respecto a Londres
+################################################################################
+calcula_variacion_londres <- function(valor_barrio, valor_londres) {
+  valor <- round(((valor_barrio - valor_londres) /  abs(valor_londres)) * 100, 4)
+  return(valor)
+}
+
+################################################################################
 # 01) Carga los datos demográficos (edad)
 ################################################################################
 carga_datos_01_edad <- function() {
@@ -42,7 +58,8 @@ prep_indicador_01_edad <- function(df_STG_datos) {
     mutate(
       VAR_01_AGE = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ round((VAL_01_AGE - lag(VAL_01_AGE)) / lag(VAL_01_AGE) * 100, 2)
+        TRUE ~ calcula_variacion_barrio(VAL_01_AGE, lag(VAL_01_AGE), 10)
+        #TRUE ~ round((VAL_01_AGE - lag(VAL_01_AGE)) / lag(VAL_01_AGE) * 100, 2)
       )
     ) %>%
     ungroup()
@@ -59,11 +76,15 @@ prep_indicador_01_edad <- function(df_STG_datos) {
     mutate (
       IND_01_AGE = if_else(
         !is.na(VAR_LONDON) & VAR_LONDON != 0,
-        round(((VAR_01_AGE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        calcula_variacion_londres(VAR_01_AGE, VAR_LONDON),
+        #round(((VAR_01_AGE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
         0
       )
     ) %>%
     select(-VAR_LONDON)
+  
+  print("DATOS DE LONDRES")
+  print(df %>% filter(BOROUGH == "London") %>% select(YEAR, VAL_01_AGE, VAR_01_AGE, IND_01_AGE) %>% arrange(YEAR))
 
   return(df)
 }
@@ -84,7 +105,7 @@ datos_brutos_01_edad <- function(df_STG_datos) {
 ################################################################################
 carga_datos_02_raza <- function() {
   ruta_fichero <- 'STG_02_indicador_raza.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer(), col_integer()))
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_double()))
   return(df)
 }
 
@@ -93,7 +114,7 @@ carga_datos_02_raza <- function() {
 ################################################################################
 prep_indicador_02_raza <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, White)
+  df <- df_STG_datos %>% filter(Year %in% c(2001, 2011, 2021, 2031)) %>% select(Code, Borough, Year, Percent_White)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_02_RACE_WHITE")
 
   # Calcula la variación del indicador en las tres décadas
@@ -103,7 +124,8 @@ prep_indicador_02_raza <- function(df_STG_datos) {
     mutate(
       VAR_02_RACE_WHITE = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ round((VAL_02_RACE_WHITE - lag(VAL_02_RACE_WHITE)) / lag(VAL_02_RACE_WHITE) * 100, 2)
+        TRUE ~ calcula_variacion_barrio(VAL_02_RACE_WHITE, lag(VAL_02_RACE_WHITE), 10)
+        #TRUE ~ round((VAL_02_RACE_WHITE - lag(VAL_02_RACE_WHITE)) / lag(VAL_02_RACE_WHITE) * 100, 2)
       )
     ) %>%
     ungroup()
@@ -120,7 +142,8 @@ prep_indicador_02_raza <- function(df_STG_datos) {
     mutate (
       IND_02_RACE_WHITE = if_else(
         !is.na(VAR_LONDON) & VAR_LONDON != 0,
-        round(((VAR_02_RACE_WHITE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        calcula_variacion_londres(VAR_02_RACE_WHITE, VAR_LONDON),
+        #round(((VAR_02_RACE_WHITE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
         0
       )
     ) %>%
@@ -134,7 +157,7 @@ prep_indicador_02_raza <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_02_raza <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, White)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Percent_White)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_02_RACE_WHITE")
   
   return(df)
@@ -166,7 +189,8 @@ prep_indicador_03_empleo <- function(df_STG_datos) {
     mutate(
       VAR_03_WEEK_EARNINGS = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ round((VAL_03_WEEK_EARNINGS - lag(VAL_03_WEEK_EARNINGS)) / lag(VAL_03_WEEK_EARNINGS) * 100, 2)
+        TRUE ~ calcula_variacion_barrio(VAL_03_WEEK_EARNINGS, lag(VAL_03_WEEK_EARNINGS), 10)
+        #TRUE ~ round((VAL_03_WEEK_EARNINGS - lag(VAL_03_WEEK_EARNINGS)) / lag(VAL_03_WEEK_EARNINGS) * 100, 2)
       )
     ) %>%
     ungroup()
@@ -183,7 +207,8 @@ prep_indicador_03_empleo <- function(df_STG_datos) {
     mutate (
       IND_03_WEEK_EARNINGS = if_else(
         !is.na(VAR_LONDON) & VAR_LONDON != 0,
-        round(((VAR_03_WEEK_EARNINGS - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        calcula_variacion_londres(VAR_03_WEEK_EARNINGS, VAR_LONDON),
+        #round(((VAR_03_WEEK_EARNINGS - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
         0
       )
     ) %>%
@@ -208,7 +233,7 @@ datos_brutos_03_empleo <- function(df_STG_datos) {
 ################################################################################
 carga_datos_04_estudios <- function() {
   ruta_fichero <- 'STG_04_indicador_estudios.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double(), col_integer(), col_double()))
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
   return(df)
 }
 
@@ -229,7 +254,8 @@ prep_indicador_04_estudios <- function(df_STG_datos) {
     mutate(
       VAR_04_PERCENT_NVQ4 = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ round((VAL_04_PERCENT_NVQ4 - lag(VAL_04_PERCENT_NVQ4)) / lag(VAL_04_PERCENT_NVQ4) * 100, 2)
+        TRUE ~ calcula_variacion_barrio(VAL_04_PERCENT_NVQ4, lag(VAL_04_PERCENT_NVQ4), 10)
+        #TRUE ~ round((VAL_04_PERCENT_NVQ4 - lag(VAL_04_PERCENT_NVQ4)) / lag(VAL_04_PERCENT_NVQ4) * 100, 2)
       )
     ) %>%
     ungroup()
@@ -246,7 +272,8 @@ prep_indicador_04_estudios <- function(df_STG_datos) {
     mutate (
       IND_04_PERCENT_NVQ4 = if_else(
         !is.na(VAR_LONDON) & VAR_LONDON != 0,
-        round(((VAR_04_PERCENT_NVQ4 - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        calcula_variacion_londres(VAR_04_PERCENT_NVQ4, VAR_LONDON),
+        #round(((VAR_04_PERCENT_NVQ4 - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
         0
       )
     ) %>%
@@ -290,7 +317,8 @@ prep_indicador_05_trafico <- function(df_STG_datos) {
     mutate(
       VAR_05_CAR_TRAFFIC = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ round((VAL_05_CAR_TRAFFIC - lag(VAL_05_CAR_TRAFFIC)) / lag(VAL_05_CAR_TRAFFIC) * 100, 2)
+        TRUE ~ calcula_variacion_barrio(VAL_05_CAR_TRAFFIC, lag(VAL_05_CAR_TRAFFIC), 10)
+        #TRUE ~ round((VAL_05_CAR_TRAFFIC - lag(VAL_05_CAR_TRAFFIC)) / lag(VAL_05_CAR_TRAFFIC) * 100, 2)
       )
     ) %>%
     ungroup()
@@ -307,7 +335,8 @@ prep_indicador_05_trafico <- function(df_STG_datos) {
     mutate (
       IND_05_CAR_TRAFFIC = if_else(
         !is.na(VAR_LONDON) & VAR_LONDON != 0,
-        round(((VAR_05_CAR_TRAFFIC - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        calcula_variacion_londres(VAR_05_CAR_TRAFFIC, VAR_LONDON),
+        #round(((VAR_05_CAR_TRAFFIC - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
         0
       )
     ) %>%
@@ -332,7 +361,7 @@ datos_brutos_05_trafico <- function(df_STG_datos) {
 ################################################################################
 carga_datos_06_esperanza_vida <- function() {
   ruta_fichero <- 'STG_06_indicador_esperanza_vida.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double(), col_double(), col_double()))
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_double()))
   return(df)
 }
 
@@ -353,7 +382,8 @@ prep_indicador_06_esperanza_vida <- function(df_STG_datos) {
     mutate(
       VAR_06_EXP_LIFE = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ round((VAL_06_EXP_LIFE - lag(VAL_06_EXP_LIFE)) / lag(VAL_06_EXP_LIFE) * 100, 2)
+        TRUE ~ calcula_variacion_barrio(VAL_06_EXP_LIFE, lag(VAL_06_EXP_LIFE), 10)
+        #TRUE ~ round((VAL_06_EXP_LIFE - lag(VAL_06_EXP_LIFE)) / lag(VAL_06_EXP_LIFE) * 100, 2)
       )
     ) %>%
     ungroup()
@@ -370,7 +400,8 @@ prep_indicador_06_esperanza_vida <- function(df_STG_datos) {
     mutate (
       IND_06_EXP_LIFE = if_else(
         !is.na(VAR_LONDON) & VAR_LONDON != 0,
-        round(((VAR_06_EXP_LIFE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        calcula_variacion_londres(VAR_06_EXP_LIFE, VAR_LONDON),
+        #round(((VAR_06_EXP_LIFE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
         0
       )
     ) %>%
@@ -414,7 +445,8 @@ prep_indicador_07_delitos <- function(df_STG_datos) {
     mutate(
       VAR_07_CRIMES = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ round((VAL_07_CRIMES - lag(VAL_07_CRIMES)) / lag(VAL_07_CRIMES) * 100, 2)
+        TRUE ~ calcula_variacion_barrio(VAL_07_CRIMES, lag(VAL_07_CRIMES), 10)
+        #TRUE ~ round((VAL_07_CRIMES - lag(VAL_07_CRIMES)) / lag(VAL_07_CRIMES) * 100, 2)
       )
     ) %>%
     ungroup()
@@ -431,7 +463,8 @@ prep_indicador_07_delitos <- function(df_STG_datos) {
     mutate (
       IND_07_CRIMES = if_else(
         !is.na(VAR_LONDON) & VAR_LONDON != 0,
-        round(((VAR_07_CRIMES - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        calcula_variacion_londres(VAR_07_CRIMES, VAR_LONDON),
+        #round(((VAR_07_CRIMES - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
         0
       )
     ) %>%
@@ -456,7 +489,7 @@ datos_brutos_07_delitos <- function(df_STG_datos) {
 ################################################################################
 carga_datos_08_servicios <- function() {
   ruta_fichero <- 'STG_08_indicador_servicios.csv'
-  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer(), col_integer(), col_integer()))
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer()))
   return(df)
 }
 
@@ -477,7 +510,8 @@ prep_indicador_08_servicios <- function(df_STG_datos) {
     mutate(
       VAR_08_SERVICES = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ round((VAL_08_SERVICES - lag(VAL_08_SERVICES)) / lag(VAL_08_SERVICES) * 100, 2)
+        TRUE ~ calcula_variacion_barrio(VAL_08_SERVICES, lag(VAL_08_SERVICES), 10)
+        #TRUE ~ round((VAL_08_SERVICES - lag(VAL_08_SERVICES)) / lag(VAL_08_SERVICES) * 100, 2)
       )
     ) %>%
     ungroup()
@@ -494,7 +528,8 @@ prep_indicador_08_servicios <- function(df_STG_datos) {
     mutate (
       IND_08_SERVICES = if_else(
         !is.na(VAR_LONDON) & VAR_LONDON != 0,
-        round(((VAR_08_SERVICES - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        calcula_variacion_londres(VAR_08_SERVICES, VAR_LONDON),
+        #round(((VAR_08_SERVICES - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
         0
       )
     ) %>%
@@ -538,7 +573,8 @@ prep_indicador_09_vivienda_precio <- function(df_STG_datos) {
     mutate(
       VAR_09_HOUSE_PRICE = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ round((VAL_09_HOUSE_PRICE - lag(VAL_09_HOUSE_PRICE)) / lag(VAL_09_HOUSE_PRICE) * 100, 2)
+        TRUE ~ calcula_variacion_barrio(VAL_09_HOUSE_PRICE, lag(VAL_09_HOUSE_PRICE), 10)
+        #TRUE ~ round((VAL_09_HOUSE_PRICE - lag(VAL_09_HOUSE_PRICE)) / lag(VAL_09_HOUSE_PRICE) * 100, 2)
       )
     ) %>%
     ungroup()
@@ -555,7 +591,8 @@ prep_indicador_09_vivienda_precio <- function(df_STG_datos) {
     mutate (
       IND_09_HOUSE_PRICE = if_else(
         !is.na(VAR_LONDON) & VAR_LONDON != 0,
-        round(((VAR_09_HOUSE_PRICE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        calcula_variacion_londres(VAR_09_HOUSE_PRICE, VAR_LONDON),
+        #round(((VAR_09_HOUSE_PRICE - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
         0
       )
     ) %>%
@@ -599,7 +636,8 @@ prep_indicador_10_vivienda_alquiler <- function(df_STG_datos) {
     mutate(
       VAR_10_HOUSE_RENT = case_when(
         YEAR == 2001 ~ 0,
-        TRUE ~ round((VAL_10_HOUSE_RENT - lag(VAL_10_HOUSE_RENT)) / lag(VAL_10_HOUSE_RENT) * 100, 2)
+        TRUE ~ calcula_variacion_barrio(VAL_10_HOUSE_RENT, lag(VAL_10_HOUSE_RENT), 10)
+        #TRUE ~ round((VAL_10_HOUSE_RENT - lag(VAL_10_HOUSE_RENT)) / lag(VAL_10_HOUSE_RENT) * 100, 2)
       )
     ) %>%
     ungroup()
@@ -616,7 +654,8 @@ prep_indicador_10_vivienda_alquiler <- function(df_STG_datos) {
     mutate (
       IND_10_HOUSE_RENT = if_else(
         !is.na(VAR_LONDON) & VAR_LONDON != 0,
-        round(((VAR_10_HOUSE_RENT - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
+        calcula_variacion_londres(VAR_10_HOUSE_RENT, VAR_LONDON),
+        #round(((VAR_10_HOUSE_RENT - VAR_LONDON) / abs(VAR_LONDON)) * 100, 2),
         0
       )
     ) %>%
