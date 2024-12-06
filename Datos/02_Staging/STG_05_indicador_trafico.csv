@@ -22,14 +22,14 @@
 "E09000002","Barking and Dagenham",2021,457
 "E09000002","Barking and Dagenham",2022,485
 "E09000002","Barking and Dagenham",2023,483
-"E09000002","Barking and Dagenham",2024,483
-"E09000002","Barking and Dagenham",2025,483
-"E09000002","Barking and Dagenham",2026,483
-"E09000002","Barking and Dagenham",2027,483
-"E09000002","Barking and Dagenham",2028,483
-"E09000002","Barking and Dagenham",2029,483
-"E09000002","Barking and Dagenham",2030,483
-"E09000002","Barking and Dagenham",2031,483
+"E09000002","Barking and Dagenham",2024,484
+"E09000002","Barking and Dagenham",2025,485
+"E09000002","Barking and Dagenham",2026,486
+"E09000002","Barking and Dagenham",2027,487
+"E09000002","Barking and Dagenham",2028,489
+"E09000002","Barking and Dagenham",2029,490
+"E09000002","Barking and Dagenham",2030,491
+"E09000002","Barking and Dagenham",2031,492
 "E09000003","Barnet",2001,1389
 "E09000003","Barnet",2002,1402
 "E09000003","Barnet",2003,1406
@@ -208,14 +208,14 @@
 "E09000008","Croydon",2021,1012
 "E09000008","Croydon",2022,1036
 "E09000008","Croydon",2023,1052
-"E09000008","Croydon",2024,1032
-"E09000008","Croydon",2025,1032
-"E09000008","Croydon",2026,1032
-"E09000008","Croydon",2027,1032
-"E09000008","Croydon",2028,1032
-"E09000008","Croydon",2029,1032
-"E09000008","Croydon",2030,1032
-"E09000008","Croydon",2031,1032
+"E09000008","Croydon",2024,1049
+"E09000008","Croydon",2025,1047
+"E09000008","Croydon",2026,1044
+"E09000008","Croydon",2027,1042
+"E09000008","Croydon",2028,1039
+"E09000008","Croydon",2029,1037
+"E09000008","Croydon",2030,1034
+"E09000008","Croydon",2031,1031
 "E09000009","Ealing",2001,1166
 "E09000009","Ealing",2002,1173
 "E09000009","Ealing",2003,1162
@@ -239,14 +239,14 @@
 "E09000009","Ealing",2021,960
 "E09000009","Ealing",2022,990
 "E09000009","Ealing",2023,977
-"E09000009","Ealing",2024,977
-"E09000009","Ealing",2025,977
-"E09000009","Ealing",2026,977
-"E09000009","Ealing",2027,977
-"E09000009","Ealing",2028,977
-"E09000009","Ealing",2029,977
-"E09000009","Ealing",2030,977
-"E09000009","Ealing",2031,977
+"E09000009","Ealing",2024,973
+"E09000009","Ealing",2025,970
+"E09000009","Ealing",2026,966
+"E09000009","Ealing",2027,963
+"E09000009","Ealing",2028,959
+"E09000009","Ealing",2029,955
+"E09000009","Ealing",2030,952
+"E09000009","Ealing",2031,948
 "E09000010","Enfield",2001,1213
 "E09000010","Enfield",2002,1236
 "E09000010","Enfield",2003,1274
@@ -456,14 +456,14 @@
 "E09000016","Havering",2021,1197
 "E09000016","Havering",2022,1270
 "E09000016","Havering",2023,1296
-"E09000016","Havering",2024,1258
-"E09000016","Havering",2025,1258
-"E09000016","Havering",2026,1258
-"E09000016","Havering",2027,1258
-"E09000016","Havering",2028,1258
-"E09000016","Havering",2029,1258
-"E09000016","Havering",2030,1258
-"E09000016","Havering",2031,1258
+"E09000016","Havering",2024,1303
+"E09000016","Havering",2025,1310
+"E09000016","Havering",2026,1317
+"E09000016","Havering",2027,1323
+"E09000016","Havering",2028,1330
+"E09000016","Havering",2029,1337
+"E09000016","Havering",2030,1344
+"E09000016","Havering",2031,1351
 "E09000017","Hillingdon",2001,1929
 "E09000017","Hillingdon",2002,1973
 "E09000017","Hillingdon",2003,1936
@@ -518,14 +518,14 @@
 "E09000018","Hounslow",2021,1180
 "E09000018","Hounslow",2022,1287
 "E09000018","Hounslow",2023,1313
-"E09000018","Hounslow",2024,1272
-"E09000018","Hounslow",2025,1272
-"E09000018","Hounslow",2026,1272
-"E09000018","Hounslow",2027,1272
-"E09000018","Hounslow",2028,1272
-"E09000018","Hounslow",2029,1272
-"E09000018","Hounslow",2030,1272
-"E09000018","Hounslow",2031,1272
+"E09000018","Hounslow",2024,1311
+"E09000018","Hounslow",2025,1310
+"E09000018","Hounslow",2026,1308
+"E09000018","Hounslow",2027,1306
+"E09000018","Hounslow",2028,1305
+"E09000018","Hounslow",2029,1303
+"E09000018","Hounslow",2030,1301
+"E09000018","Hounslow",2031,1299
 "E09000019","Islington",2001,373
 "E09000019","Islington",2002,373
 "E09000019","Islington",2003,367
@@ -611,14 +611,14 @@
 "E09000021","Kingston upon Thames",2021,744
 "E09000021","Kingston upon Thames",2022,754
 "E09000021","Kingston upon Thames",2023,768
-"E09000021","Kingston upon Thames",2024,755
-"E09000021","Kingston upon Thames",2025,755
-"E09000021","Kingston upon Thames",2026,755
-"E09000021","Kingston upon Thames",2027,755
-"E09000021","Kingston upon Thames",2028,755
-"E09000021","Kingston upon Thames",2029,755
-"E09000021","Kingston upon Thames",2030,755
-"E09000021","Kingston upon Thames",2031,755
+"E09000021","Kingston upon Thames",2024,765
+"E09000021","Kingston upon Thames",2025,762
+"E09000021","Kingston upon Thames",2026,760
+"E09000021","Kingston upon Thames",2027,757
+"E09000021","Kingston upon Thames",2028,754
+"E09000021","Kingston upon Thames",2029,751
+"E09000021","Kingston upon Thames",2030,748
+"E09000021","Kingston upon Thames",2031,746
 "E09000022","Lambeth",2001,733
 "E09000022","Lambeth",2002,723
 "E09000022","Lambeth",2003,689
@@ -704,14 +704,14 @@
 "E09000024","Merton",2021,476
 "E09000024","Merton",2022,490
 "E09000024","Merton",2023,497
-"E09000024","Merton",2024,489
-"E09000024","Merton",2025,489
-"E09000024","Merton",2026,489
+"E09000024","Merton",2024,495
+"E09000024","Merton",2025,493
+"E09000024","Merton",2026,491
 "E09000024","Merton",2027,489
-"E09000024","Merton",2028,489
-"E09000024","Merton",2029,489
-"E09000024","Merton",2030,489
-"E09000024","Merton",2031,489
+"E09000024","Merton",2028,487
+"E09000024","Merton",2029,485
+"E09000024","Merton",2030,483
+"E09000024","Merton",2031,482
 "E09000025","Newham",2001,715
 "E09000025","Newham",2002,712
 "E09000025","Newham",2003,706
@@ -766,14 +766,14 @@
 "E09000026","Redbridge",2021,866
 "E09000026","Redbridge",2022,920
 "E09000026","Redbridge",2023,895
-"E09000026","Redbridge",2024,895
-"E09000026","Redbridge",2025,895
-"E09000026","Redbridge",2026,895
-"E09000026","Redbridge",2027,895
-"E09000026","Redbridge",2028,895
-"E09000026","Redbridge",2029,895
-"E09000026","Redbridge",2030,895
-"E09000026","Redbridge",2031,895
+"E09000026","Redbridge",2024,898
+"E09000026","Redbridge",2025,902
+"E09000026","Redbridge",2026,905
+"E09000026","Redbridge",2027,909
+"E09000026","Redbridge",2028,912
+"E09000026","Redbridge",2029,915
+"E09000026","Redbridge",2030,919
+"E09000026","Redbridge",2031,922
 "E09000027","Richmond upon Thames",2001,778
 "E09000027","Richmond upon Thames",2002,785
 "E09000027","Richmond upon Thames",2003,773
@@ -859,14 +859,14 @@
 "E09000029","Sutton",2021,546
 "E09000029","Sutton",2022,580
 "E09000029","Sutton",2023,582
-"E09000029","Sutton",2024,570
-"E09000029","Sutton",2025,570
-"E09000029","Sutton",2026,570
-"E09000029","Sutton",2027,570
-"E09000029","Sutton",2028,570
-"E09000029","Sutton",2029,570
-"E09000029","Sutton",2030,570
-"E09000029","Sutton",2031,570
+"E09000029","Sutton",2024,581
+"E09000029","Sutton",2025,581
+"E09000029","Sutton",2026,580
+"E09000029","Sutton",2027,580
+"E09000029","Sutton",2028,579
+"E09000029","Sutton",2029,578
+"E09000029","Sutton",2030,578
+"E09000029","Sutton",2031,577
 "E09000030","Tower Hamlets",2001,733
 "E09000030","Tower Hamlets",2002,741
 "E09000030","Tower Hamlets",2003,734
@@ -890,14 +890,14 @@
 "E09000030","Tower Hamlets",2021,573
 "E09000030","Tower Hamlets",2022,586
 "E09000030","Tower Hamlets",2023,594
-"E09000030","Tower Hamlets",2024,594
-"E09000030","Tower Hamlets",2025,594
-"E09000030","Tower Hamlets",2026,594
-"E09000030","Tower Hamlets",2027,594
-"E09000030","Tower Hamlets",2028,594
-"E09000030","Tower Hamlets",2029,594
-"E09000030","Tower Hamlets",2030,594
-"E09000030","Tower Hamlets",2031,594
+"E09000030","Tower Hamlets",2024,590
+"E09000030","Tower Hamlets",2025,586
+"E09000030","Tower Hamlets",2026,583
+"E09000030","Tower Hamlets",2027,579
+"E09000030","Tower Hamlets",2028,575
+"E09000030","Tower Hamlets",2029,571
+"E09000030","Tower Hamlets",2030,567
+"E09000030","Tower Hamlets",2031,563
 "E09000031","Waltham Forest",2001,630
 "E09000031","Waltham Forest",2002,627
 "E09000031","Waltham Forest",2003,628
@@ -1014,11 +1014,11 @@
 "E12000007","London",2021,22504
 "E12000007","London",2022,23270
 "E12000007","London",2023,23482
-"E12000007","London",2024,23181
-"E12000007","London",2025,23181
-"E12000007","London",2026,23181
-"E12000007","London",2027,23181
-"E12000007","London",2028,23181
-"E12000007","London",2029,23181
-"E12000007","London",2030,23181
-"E12000007","London",2031,23181
+"E12000007","London",2024,23413
+"E12000007","London",2025,23343
+"E12000007","London",2026,23274
+"E12000007","London",2027,23205
+"E12000007","London",2028,23136
+"E12000007","London",2029,23066
+"E12000007","London",2030,22997
+"E12000007","London",2031,22928
