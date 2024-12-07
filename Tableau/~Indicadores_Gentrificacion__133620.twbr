@@ -529,8 +529,8 @@
         <column-instance column='[YEAR]' derivation='None' name='[none:YEAR:qk]' pivot='key' type='quantitative' />
       </datasource-dependencies>
       <filter class='quantitative' column='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:YEAR:qk]' included-values='in-range'>
-        <min>2031</min>
-        <max>2031</max>
+        <min>2011</min>
+        <max>2011</max>
       </filter>
     </shared-view>
   </shared-views>
@@ -567,7 +567,7 @@
         </view>
         <style>
           <style-rule element='mark'>
-            <encoding attr='color' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' palette='tableau-map-blue-green' type='interpolated' />
+            <encoding attr='color' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' max='0.39' min='-0.58' palette='tableau-map-blue-green' type='interpolated' />
           </style-rule>
           <style-rule element='legend'>
             <format attr='font-family' value='Bahnschrift SemiBold' />
@@ -578,11 +578,11 @@
             <format attr='font-size' value='12' />
           </style-rule>
           <style-rule element='legend-title-text'>
-            <format attr='color' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' value='Indicador 10 - Precio alquiler&#10;Índice de variación (2021 - 2031)'>
+            <format attr='color' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' value='Indicador 09 - Precio vivienda&#10;Índice de variación (2001 - 2011)'>
               <formatted-text>
-                <run fontalignment='2' fontcolor='#225183' fontname='Bahnschrift Light Condensed'>Indicador 10 - Precio alquiler</run>
+                <run fontalignment='2' fontcolor='#225183' fontname='Bahnschrift Light Condensed'>Indicador 09 - Precio vivienda</run>
                 <run fontalignment='2'>Æ&#10;</run>
-                <run fontalignment='2' fontcolor='#225183' fontname='Bahnschrift Light Condensed'>Índice de variación (2021 - 2031)</run>
+                <run fontalignment='2' fontcolor='#225183' fontname='Bahnschrift Light Condensed'>Índice de variación (2001 - 2011)</run>
               </formatted-text>
             </format>
           </style-rule>
@@ -700,8 +700,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='700' minheight='700' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='24' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='23' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='28' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='27' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
                 <zone fixed-size='60' h='8500' id='8' mode='dropdown' name='Indicadores 2011' param='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VARIABLE:nk]' type-v2='filter' w='16000' x='83200' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -791,7 +791,7 @@
     </dashboard>
   </dashboards>
   <windows source-height='51'>
-    <window class='worksheet' maximized='true' name='Indicadores 2011'>
+    <window class='worksheet' name='Indicadores 2011'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -821,14 +821,14 @@
       </cards>
       <simple-id uuid='{D0B3D76F-3D8C-4A1B-AFF2-F5A872AE3E58}' />
     </window>
-    <window class='dashboard' name='Dashboard'>
+    <window class='dashboard' maximized='true' name='Dashboard'>
       <viewpoints>
         <viewpoint name='Indicadores 2011'>
           <zoom type='entire-view' />
           <map-scale-visibility value='0' />
         </viewpoint>
       </viewpoints>
-      <active id='-1' />
+      <active id='8' />
       <simple-id uuid='{16EC552E-6C48-427C-879E-BDE8DA3AA252}' />
     </window>
     <window class='dashboard' name='Historia 1'>

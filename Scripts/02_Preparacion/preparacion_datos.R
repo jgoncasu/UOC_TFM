@@ -762,20 +762,20 @@ guardar_indicadores_visualizacion <- function(df) {
     rename(VALUE = value)
   
   # Normalización de las variaciones locales
-  df_var <- df_global %>%
-    filter(grepl("^VAR_", VARIABLE)) %>%
-    mutate(NORMALIZED_VALUE = scale(VALUE))
+  #df_var <- df_global %>%
+  #  filter(grepl("^VAR_", VARIABLE)) %>%
+  #  mutate(NORMALIZED_VALUE = scale(VALUE))
   
   # Normalización de los indicadores
-  df_ind <- df_global %>%
-    filter(grepl("^IND_", VARIABLE)) %>%
-    mutate(NORMALIZED_VALUE = scale(VALUE))
+  #df_ind <- df_global %>%
+  #  filter(grepl("^IND_", VARIABLE)) %>%
+  #  mutate(NORMALIZED_VALUE = scale(VALUE))
   
   # Fusión de los valores
-  df_tmp <- bind_rows(df_var, df_ind)
-  colnames(df_tmp) <- c("CODE", "BOROUGH", "YEAR", "VARIABLE", "VALUE")
-  df_global <- bind_rows(df_global %>% filter(grepl("^VAL_", VARIABLE)), df_tmp)
-  df_global <- df_global %>% arrange(CODE, BOROUGH, YEAR, VARIABLE)
+  #df_tmp <- bind_rows(df_var, df_ind)
+  #colnames(df_tmp) <- c("CODE", "BOROUGH", "YEAR", "VARIABLE", "VALUE")
+  #df_global <- bind_rows(df_global %>% filter(grepl("^VAL_", VARIABLE)), df_tmp)
+  #df_global <- df_global %>% arrange(CODE, BOROUGH, YEAR, VARIABLE)
   
   ruta_fichero <- 'DAT_Indicadores_Visualizacion_Londres.csv'
   write.csv2(df_global, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)
