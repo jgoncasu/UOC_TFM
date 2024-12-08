@@ -45,16 +45,16 @@
 "E09000003","Barnet",2019,53.2
 "E09000003","Barnet",2020,61.7
 "E09000003","Barnet",2021,56.1
-"E09000003","Barnet",2022,57.21
-"E09000003","Barnet",2023,58.31
-"E09000003","Barnet",2024,59.42
-"E09000003","Barnet",2025,60.52
-"E09000003","Barnet",2026,61.63
-"E09000003","Barnet",2027,62.74
-"E09000003","Barnet",2028,63.84
-"E09000003","Barnet",2029,64.95
-"E09000003","Barnet",2030,66.05
-"E09000003","Barnet",2031,67.16
+"E09000003","Barnet",2022,56.1
+"E09000003","Barnet",2023,56.1
+"E09000003","Barnet",2024,56.1
+"E09000003","Barnet",2025,56.1
+"E09000003","Barnet",2026,56.1
+"E09000003","Barnet",2027,56.1
+"E09000003","Barnet",2028,56.1
+"E09000003","Barnet",2029,56.1
+"E09000003","Barnet",2030,56.1
+"E09000003","Barnet",2031,56.1
 "E09000004","Bexley",2004,15.8
 "E09000004","Bexley",2005,18.8
 "E09000004","Bexley",2006,22.4
@@ -101,16 +101,16 @@
 "E09000005","Brent",2019,47.7
 "E09000005","Brent",2020,50.3
 "E09000005","Brent",2021,51
-"E09000005","Brent",2022,52.56
-"E09000005","Brent",2023,54.12
-"E09000005","Brent",2024,55.68
-"E09000005","Brent",2025,57.24
-"E09000005","Brent",2026,58.79
-"E09000005","Brent",2027,60.35
-"E09000005","Brent",2028,61.91
-"E09000005","Brent",2029,63.47
-"E09000005","Brent",2030,65.03
-"E09000005","Brent",2031,66.59
+"E09000005","Brent",2022,51
+"E09000005","Brent",2023,51
+"E09000005","Brent",2024,51
+"E09000005","Brent",2025,51
+"E09000005","Brent",2026,51
+"E09000005","Brent",2027,51
+"E09000005","Brent",2028,51
+"E09000005","Brent",2029,51
+"E09000005","Brent",2030,51
+"E09000005","Brent",2031,51
 "E09000006","Bromley",2004,34.7
 "E09000006","Bromley",2005,31.6
 "E09000006","Bromley",2006,35.1
@@ -325,16 +325,16 @@
 "E09000013","Hammersmith and Fulham",2019,70
 "E09000013","Hammersmith and Fulham",2020,65.3
 "E09000013","Hammersmith and Fulham",2021,74.4
-"E09000013","Hammersmith and Fulham",2022,76.02
-"E09000013","Hammersmith and Fulham",2023,77.64
-"E09000013","Hammersmith and Fulham",2024,79.25
-"E09000013","Hammersmith and Fulham",2025,80.87
-"E09000013","Hammersmith and Fulham",2026,82.49
-"E09000013","Hammersmith and Fulham",2027,84.11
-"E09000013","Hammersmith and Fulham",2028,85.72
-"E09000013","Hammersmith and Fulham",2029,87.34
-"E09000013","Hammersmith and Fulham",2030,88.96
-"E09000013","Hammersmith and Fulham",2031,90.58
+"E09000013","Hammersmith and Fulham",2022,74.4
+"E09000013","Hammersmith and Fulham",2023,74.4
+"E09000013","Hammersmith and Fulham",2024,74.4
+"E09000013","Hammersmith and Fulham",2025,74.4
+"E09000013","Hammersmith and Fulham",2026,74.4
+"E09000013","Hammersmith and Fulham",2027,74.4
+"E09000013","Hammersmith and Fulham",2028,74.4
+"E09000013","Hammersmith and Fulham",2029,74.4
+"E09000013","Hammersmith and Fulham",2030,74.4
+"E09000013","Hammersmith and Fulham",2031,74.4
 "E09000014","Haringey",2004,35.3
 "E09000014","Haringey",2005,36.7
 "E09000014","Haringey",2006,40.1
@@ -353,16 +353,16 @@
 "E09000014","Haringey",2019,59
 "E09000014","Haringey",2020,65.2
 "E09000014","Haringey",2021,56.2
-"E09000014","Haringey",2022,57.43
-"E09000014","Haringey",2023,58.66
-"E09000014","Haringey",2024,59.89
-"E09000014","Haringey",2025,61.12
-"E09000014","Haringey",2026,62.35
-"E09000014","Haringey",2027,63.58
-"E09000014","Haringey",2028,64.81
-"E09000014","Haringey",2029,66.04
-"E09000014","Haringey",2030,67.26
-"E09000014","Haringey",2031,68.49
+"E09000014","Haringey",2022,56.2
+"E09000014","Haringey",2023,56.2
+"E09000014","Haringey",2024,56.2
+"E09000014","Haringey",2025,56.2
+"E09000014","Haringey",2026,56.2
+"E09000014","Haringey",2027,56.2
+"E09000014","Haringey",2028,56.2
+"E09000014","Haringey",2029,56.2
+"E09000014","Haringey",2030,56.2
+"E09000014","Haringey",2031,56.2
 "E09000015","Harrow",2004,33.6
 "E09000015","Harrow",2005,31.9
 "E09000015","Harrow",2006,32.6
@@ -381,16 +381,16 @@
 "E09000015","Harrow",2019,50.1
 "E09000015","Harrow",2020,59.5
 "E09000015","Harrow",2021,57.7
-"E09000015","Harrow",2022,59.12
-"E09000015","Harrow",2023,60.54
-"E09000015","Harrow",2024,61.95
-"E09000015","Harrow",2025,63.37
-"E09000015","Harrow",2026,64.79
-"E09000015","Harrow",2027,66.21
-"E09000015","Harrow",2028,67.62
-"E09000015","Harrow",2029,69.04
-"E09000015","Harrow",2030,70.46
-"E09000015","Harrow",2031,71.88
+"E09000015","Harrow",2022,57.7
+"E09000015","Harrow",2023,57.7
+"E09000015","Harrow",2024,57.7
+"E09000015","Harrow",2025,57.7
+"E09000015","Harrow",2026,57.7
+"E09000015","Harrow",2027,57.7
+"E09000015","Harrow",2028,57.7
+"E09000015","Harrow",2029,57.7
+"E09000015","Harrow",2030,57.7
+"E09000015","Harrow",2031,57.7
 "E09000016","Havering",2004,12
 "E09000016","Havering",2005,17.6
 "E09000016","Havering",2006,18.3
@@ -549,16 +549,16 @@
 "E09000021","Kingston upon Thames",2019,59.3
 "E09000021","Kingston upon Thames",2020,61.2
 "E09000021","Kingston upon Thames",2021,65.2
-"E09000021","Kingston upon Thames",2022,66.58
-"E09000021","Kingston upon Thames",2023,67.96
-"E09000021","Kingston upon Thames",2024,69.35
-"E09000021","Kingston upon Thames",2025,70.73
-"E09000021","Kingston upon Thames",2026,72.11
-"E09000021","Kingston upon Thames",2027,73.49
-"E09000021","Kingston upon Thames",2028,74.88
-"E09000021","Kingston upon Thames",2029,76.26
-"E09000021","Kingston upon Thames",2030,77.64
-"E09000021","Kingston upon Thames",2031,79.02
+"E09000021","Kingston upon Thames",2022,65.2
+"E09000021","Kingston upon Thames",2023,65.2
+"E09000021","Kingston upon Thames",2024,65.2
+"E09000021","Kingston upon Thames",2025,65.2
+"E09000021","Kingston upon Thames",2026,65.2
+"E09000021","Kingston upon Thames",2027,65.2
+"E09000021","Kingston upon Thames",2028,65.2
+"E09000021","Kingston upon Thames",2029,65.2
+"E09000021","Kingston upon Thames",2030,65.2
+"E09000021","Kingston upon Thames",2031,65.2
 "E09000022","Lambeth",2004,40.7
 "E09000022","Lambeth",2005,39.8
 "E09000022","Lambeth",2006,40.5
@@ -745,16 +745,16 @@
 "E09000028","Southwark",2019,62
 "E09000028","Southwark",2020,65.7
 "E09000028","Southwark",2021,57.1
-"E09000028","Southwark",2022,57.35
-"E09000028","Southwark",2023,57.6
-"E09000028","Southwark",2024,57.85
-"E09000028","Southwark",2025,58.11
-"E09000028","Southwark",2026,58.36
-"E09000028","Southwark",2027,58.61
-"E09000028","Southwark",2028,58.86
-"E09000028","Southwark",2029,59.11
-"E09000028","Southwark",2030,59.36
-"E09000028","Southwark",2031,59.61
+"E09000028","Southwark",2022,57.1
+"E09000028","Southwark",2023,57.1
+"E09000028","Southwark",2024,57.1
+"E09000028","Southwark",2025,57.1
+"E09000028","Southwark",2026,57.1
+"E09000028","Southwark",2027,57.1
+"E09000028","Southwark",2028,57.1
+"E09000028","Southwark",2029,57.1
+"E09000028","Southwark",2030,57.1
+"E09000028","Southwark",2031,57.1
 "E09000029","Sutton",2004,25.1
 "E09000029","Sutton",2005,30
 "E09000029","Sutton",2006,32.9
@@ -801,16 +801,16 @@
 "E09000030","Tower Hamlets",2019,60.5
 "E09000030","Tower Hamlets",2020,59
 "E09000030","Tower Hamlets",2021,52
-"E09000030","Tower Hamlets",2022,53.45
-"E09000030","Tower Hamlets",2023,54.89
-"E09000030","Tower Hamlets",2024,56.34
-"E09000030","Tower Hamlets",2025,57.79
-"E09000030","Tower Hamlets",2026,59.24
-"E09000030","Tower Hamlets",2027,60.68
-"E09000030","Tower Hamlets",2028,62.13
-"E09000030","Tower Hamlets",2029,63.58
-"E09000030","Tower Hamlets",2030,65.02
-"E09000030","Tower Hamlets",2031,66.47
+"E09000030","Tower Hamlets",2022,52
+"E09000030","Tower Hamlets",2023,52
+"E09000030","Tower Hamlets",2024,52
+"E09000030","Tower Hamlets",2025,52
+"E09000030","Tower Hamlets",2026,52
+"E09000030","Tower Hamlets",2027,52
+"E09000030","Tower Hamlets",2028,52
+"E09000030","Tower Hamlets",2029,52
+"E09000030","Tower Hamlets",2030,52
+"E09000030","Tower Hamlets",2031,52
 "E09000031","Waltham Forest",2004,23.8
 "E09000031","Waltham Forest",2005,22.6
 "E09000031","Waltham Forest",2006,26.4
