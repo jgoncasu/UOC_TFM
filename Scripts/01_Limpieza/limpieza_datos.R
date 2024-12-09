@@ -26,65 +26,32 @@ carga_lista_barrios <- function() {
 ################################################################################
 
 carga_indicador_01_edad <- function() {
-  ruta_fichero <- '01_Demograficos/ons-mye-custom-age-tool-2020.xlsx'
+  ruta_fichero <- '01_Demograficos/custom_age_central_lower_2019.csv'
   nulos <- c("", "-")
-  edades <- 0:90
-  col_hombres <- paste0("M_", edades)
-  col_mujeres <- paste0("F_", edades)
-  columnas <- c("Code", "Year", "Borough", col_hombres, "No_Males", col_mujeres)
-  df = read_excel(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), sheet = "Single year of age", skip = 3, na = nulos, col_names = columnas)
+  edades <- 1:90
+  col_edades <- paste0("Persons_", edades)
+  columnas <- c("Code", "Borough", "Year", col_edades)
+  df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), skip = 1, na = nulos, col_names = columnas, show_col_types = FALSE)
   return(df)
 }
 
 limpieza_indicador_01_edad <- function(df) {
-  # Elimina la columna "No_Males"
-  df$No_Males <- NULL
-  
-  # Filtra los registros que no corresponden con barrios de Londres
-  barrios_londres <- unlist(lista_barrios)
-  barrios <- unique(df$Borough)
-  barrios_a_eliminar <- setdiff(barrios, barrios_londres)
-  df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
 
-  # Elimina los datos previos a 2001
-  df <- df %>% filter (Year >= 2001)
+  # Convierte los datos a tipo entero
+  df <- df %>%
+    mutate(across(starts_with("Persons_"), as.integer))
   
-  # Calcula la media de edad por año entre hombre y mujeres
-  edades <- 0:90
-  total_hombres <- rowSums(df %>% select(starts_with("M_")), na.rm = TRUE)
-  total_mujeres <- rowSums(df %>% select(starts_with("F_")), na.rm = TRUE)
-  total_poblacion <- total_hombres + total_mujeres
-  df["Avg_Age"] <- round(rowSums((df %>% select(starts_with("M_")) + df %>% select(starts_with("F_"))) * edades, na.rm = TRUE) / total_poblacion, 2)
-
-  # Elimina las columnas de datos agrupados por edad
-  df <- df %>% select(-starts_with("M_"))
-  df <- df %>% select(-starts_with("F_"))
-
-  # Estimar valores hasta 2031
-  anyos_pred <- 2021:2031
-  for (barrio in unique(df$Borough)) {
-    df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
-    ts_data <- ts(df_barrio$Avg_Age, start = 2001, end = 2020, frequency = 1)
-    if (barrio != "Hackney") {
-      model <- Arima(ts_data, order = c(1,1,0))
-      forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
-    }
-    else {
-      model <- auto.arima(ts_data)
-      forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
-    }
-    if (all(forecast_values == forecast_values[1])) {
-      model <- auto.arima(ts_data)
-      forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
-    }
-    forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
-                              Borough = rep(c(barrio), length(anyos_pred)),
-                              Year = anyos_pred,
-                              Avg_Age = forecast_values)
-    
-    df <- rbind(df, forecast_df)
-  }
+  # Calcula la edad media de los habitantes
+  df <- df %>%
+    rowwise() %>%
+    mutate(
+      Avg_Age = round(sum(c_across(starts_with("Persons_")) * 1:90) / sum(c_across(starts_with("Persons_"))), 2)
+    ) %>%
+  ungroup()
   
+  # Elimina las columnas de datos por edad
+  df <- df %>% select(-starts_with("Persons_"))
+
   # Ordena los datos por barrio
   df <- df %>% select(Code, Borough, Year, Avg_Age) %>% arrange(Code, Year) 
   

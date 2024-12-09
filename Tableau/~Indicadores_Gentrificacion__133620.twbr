@@ -529,8 +529,8 @@
         <column-instance column='[YEAR]' derivation='None' name='[none:YEAR:qk]' pivot='key' type='quantitative' />
       </datasource-dependencies>
       <filter class='quantitative' column='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:YEAR:qk]' included-values='in-range'>
-        <min>2011</min>
-        <max>2021</max>
+        <min>2021</min>
+        <max>2031</max>
       </filter>
     </shared-view>
   </shared-views>
@@ -567,7 +567,7 @@
         </view>
         <style>
           <style-rule element='mark'>
-            <encoding attr='color' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' max='4.95' min='-7.14' palette='tableau-map-temperatur' reverse='true' type='interpolated' />
+            <encoding attr='color' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' palette='tableau-map-temperatur' reverse='true' type='interpolated' />
           </style-rule>
           <style-rule element='legend'>
             <format attr='font-family' value='Bahnschrift SemiBold' />
@@ -578,9 +578,9 @@
             <format attr='font-size' value='12' />
           </style-rule>
           <style-rule element='legend-title-text'>
-            <format attr='color' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' value='Indicador 01 - Edad media&#10;Índice de variación (2021 - 2031)'>
+            <format attr='color' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' value='Indicador 10 - Precio alquiler&#10;Índice de variación (2021 - 2031)'>
               <formatted-text>
-                <run fontalignment='2' fontcolor='#225183' fontname='Bahnschrift Light Condensed'>Indicador 01 - Edad media</run>
+                <run fontalignment='2' fontcolor='#225183' fontname='Bahnschrift Light Condensed'>Indicador 10 - Precio alquiler</run>
                 <run fontalignment='2'>Æ&#10;</run>
                 <run fontalignment='2' fontcolor='#225183' fontname='Bahnschrift Light Condensed'>Índice de variación (2021 - 2031)</run>
               </formatted-text>
