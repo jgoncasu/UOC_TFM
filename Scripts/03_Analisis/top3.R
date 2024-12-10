@@ -135,7 +135,7 @@ muestra_top_3_ind_03 <- function(df) {
 }
 
 ################################################################################
-# 03) Muestra el top3 del indicador 04
+# 04) Muestra el top3 del indicador 04
 ################################################################################
 muestra_top_3_ind_04 <- function(df) {
   df <- df %>%
@@ -167,6 +167,70 @@ muestra_top_3_ind_04 <- function(df) {
 }
 
 ################################################################################
+# 05) Muestra el top3 del indicador 05
+################################################################################
+muestra_top_3_ind_05 <- function(df) {
+  df <- df %>%
+    group_by(CODE, BOROUGH) %>%
+    arrange(YEAR) %>%
+    mutate(VAL_05_CAR_TRAFFIC_PREV = lag(VAL_05_CAR_TRAFFIC)) %>% 
+    ungroup()
+  
+  # Filtrar los top 3 de cada año
+  top3_df <- df %>%
+    filter(YEAR %in% c(2011, 2021, 2031), BOROUGH != "London") %>%
+    group_by(YEAR) %>%
+    arrange(YEAR, IND_05_CAR_TRAFFIC) %>%
+    slice_head(n = 3) %>%
+    select(CODE, BOROUGH, YEAR, VAL_05_CAR_TRAFFIC_PREV, VAL_05_CAR_TRAFFIC, VAR_05_CAR_TRAFFIC, IND_05_CAR_TRAFFIC) %>%
+    ungroup()
+  london_df <- df %>%
+    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2031)) %>%
+    select(CODE, BOROUGH, YEAR, VAL_05_CAR_TRAFFIC_PREV, VAL_05_CAR_TRAFFIC, VAR_05_CAR_TRAFFIC, IND_05_CAR_TRAFFIC)
+  final_df <- bind_rows(top3_df, london_df) %>%
+    arrange(YEAR, IND_05_CAR_TRAFFIC) %>%
+    mutate(across(c(VAL_05_CAR_TRAFFIC_PREV, VAL_05_CAR_TRAFFIC), 
+                  ~ sprintf("%.2f", .x))) %>%
+    mutate(across(c(VAR_05_CAR_TRAFFIC, IND_05_CAR_TRAFFIC), 
+                  ~ sprintf("%.3f", .x)))
+  rows_with_ampersand <- apply(final_df %>% select(YEAR, BOROUGH, VAL_05_CAR_TRAFFIC_PREV, VAL_05_CAR_TRAFFIC, VAR_05_CAR_TRAFFIC, IND_05_CAR_TRAFFIC), 1, function(x) paste(x, collapse = " & "))
+  cat(paste(rows_with_ampersand, collapse = "\n"))
+  return(final_df)
+}
+
+################################################################################
+# 06) Muestra el top3 del indicador 06
+################################################################################
+muestra_top_3_ind_06 <- function(df) {
+  df <- df %>%
+    group_by(CODE, BOROUGH) %>%
+    arrange(YEAR) %>%
+    mutate(VAL_06_EXP_LIFE_PREV = lag(VAL_06_EXP_LIFE)) %>% 
+    ungroup()
+  
+  # Filtrar los top 3 de cada año
+  top3_df <- df %>%
+    filter(YEAR %in% c(2011, 2021, 2031), BOROUGH != "London") %>%
+    group_by(YEAR) %>%
+    arrange(YEAR, desc(IND_06_EXP_LIFE)) %>%
+    slice_head(n = 3) %>%
+    select(CODE, BOROUGH, YEAR, VAL_06_EXP_LIFE_PREV, VAL_06_EXP_LIFE, VAR_06_EXP_LIFE, IND_06_EXP_LIFE) %>%
+    ungroup()
+  london_df <- df %>%
+    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2031)) %>%
+    select(CODE, BOROUGH, YEAR, VAL_06_EXP_LIFE_PREV, VAL_06_EXP_LIFE, VAR_06_EXP_LIFE, IND_06_EXP_LIFE)
+  final_df <- bind_rows(top3_df, london_df) %>%
+    arrange(YEAR, desc(IND_06_EXP_LIFE)) %>%
+    mutate(across(c(VAL_06_EXP_LIFE_PREV, VAL_06_EXP_LIFE), 
+                  ~ sprintf("%.2f", .x))) %>%
+    mutate(across(c(VAR_06_EXP_LIFE, IND_06_EXP_LIFE), 
+                  ~ sprintf("%.3f", .x)))
+  rows_with_ampersand <- apply(final_df %>% select(YEAR, BOROUGH, VAL_06_EXP_LIFE_PREV, VAL_06_EXP_LIFE, VAR_06_EXP_LIFE, IND_06_EXP_LIFE), 1, function(x) paste(x, collapse = " & "))
+  cat(paste(rows_with_ampersand, collapse = "\n"))
+  return(final_df)
+}
+
+################################################################################
 
 df_barrios <- carga_lista_barrios()
 
@@ -176,4 +240,6 @@ df_datos <- carga_indicadores()
 #df_tmp <- muestra_top_3_ind_01(df_datos)
 #df_tmp <- muestra_top_3_ind_02(df_datos)
 #df_tmp <- muestra_top_3_ind_03(df_datos)
-df_tmp <- muestra_top_3_ind_04(df_datos)
+#df_tmp <- muestra_top_3_ind_04(df_datos)
+#df_tmp <- muestra_top_3_ind_05(df_datos)
+df_tmp <- muestra_top_3_ind_06(df_datos)

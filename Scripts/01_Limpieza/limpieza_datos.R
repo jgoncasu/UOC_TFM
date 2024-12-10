@@ -15,7 +15,6 @@ PATH_FICHEROS_SALIDA <- 'DATOS/02_Staging/'
 
 carga_lista_barrios <- function() {
   ruta_fichero <- '00_Barrios/barrios_londres.csv'
-  #ruta_fichero <- '00_Barrios/barrios_londres_Con_Londres_y_UK.csv'
   df = read_csv(paste(PATH_FICHEROS_ENTRADA, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_character()))
   return(df)
 }
@@ -51,6 +50,9 @@ limpieza_indicador_01_edad <- function(df) {
   
   # Elimina las columnas de datos por edad
   df <- df %>% select(-starts_with("Persons_"))
+  
+  # Filtra los datos hasta 2025
+  df <- df %>% filter(Year <= 2025)
 
   # Ordena los datos por barrio
   df <- df %>% select(Code, Borough, Year, Avg_Age) %>% arrange(Code, Year) 
@@ -132,13 +134,11 @@ limpieza_indicador_02_raza <- function(df_aux, df) {
     df_barrio <- df_aux %>% filter(Borough == barrio) %>% arrange(Year)
     # White
     ts_data_white <- ts(df_barrio$White, start = 2001, end = 2009, frequency = 1)
-    #model_white <- auto.arima(ts_data_white)
-    model_white <- Arima(ts_data_white, order = c(0,2,0))
+    model_white <- auto.arima(ts_data_white)
     forecast_values_white <- round(forecast(model_white, h = length(anyos_pred))$mean, 0)
     # BAME
     ts_data_bame <- ts(df_barrio$BAME, start = 2001, end = 2009, frequency = 1)
-    #model_bame <- auto.arima(ts_data_bame)
-    model_bame <- Arima(ts_data_bame, order = c(0,2,0))
+    model_bame <- auto.arima(ts_data_bame)
     forecast_values_bame <- round(forecast(model_bame, h = length(anyos_pred))$mean, 0)
     # Percent
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
@@ -146,7 +146,6 @@ limpieza_indicador_02_raza <- function(df_aux, df) {
                               Year = anyos_pred,
                               BAME = forecast_values_bame,
                               White = forecast_values_white)
-    
     df_aux <- rbind(df_aux, forecast_df)
   }
   
@@ -155,8 +154,8 @@ limpieza_indicador_02_raza <- function(df_aux, df) {
   # Filtrar solo los registros "All ages"
   df <- df %>% filter(Age == "All ages")
 
-    # Eliminar datos más allá de 2031 y las columnas Sex y Age
-  col_anyos_eliminar <- paste0("Year_", 2032:2050)
+    # Eliminar datos más allá de 2025 y las columnas Sex y Age
+  col_anyos_eliminar <- paste0("Year_", 2026:2050)
   df <- df %>% select(-c(col_anyos_eliminar, "Sex", "Age"))
   
   # Crear registro White = White British + White Irish + Other White
@@ -252,18 +251,16 @@ limpieza_indicador_03_empleo <- function(df) {
                  values_to = "Week_Earnings") %>%
     mutate(Year = as.numeric(Year))
 
-  # Estimar valores hasta 2031
-  anyos_pred <- 2023:2031
+  # Estimar valores hasta 2025
+  anyos_pred <- 2023:2025
   for (barrio in unique(df$Borough)) {
     df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
     ts_data <- ts(df_barrio$Week_Earnings, start = 2002, end = 2022, frequency = 1)
-    model <- Arima(ts_data, order = c(1,1,0))
+    model <- auto.arima(ts_data)
     forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
     if (all(forecast_values == forecast_values[1])) {
-      model <- auto.arima(ts_data)
+      model <- Arima(ts_data, order = c(1,1,0))
       forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
-      if (all(forecast_values == forecast_values[1]))
-        print(barrio)
     }
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
                               Borough = rep(c(barrio), length(anyos_pred)),
@@ -309,16 +306,16 @@ limpieza_indicador_04_estudios <- function(df) {
   barrios_a_eliminar <- setdiff(barrios, barrios_londres)
   df <- df %>% filter(!(Borough %in% barrios_a_eliminar))
   
-  # Estimar valores hasta 2031
-  anyos_pred <- 2022:2031
+  # Estimar valores hasta 2025
+  anyos_pred <- 2022:2025
   for (barrio in unique(df$Borough)) {
     df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
     # Percent
     ts_data <- ts(df_barrio$Percent, start = 2004, end = 2021, frequency = 1)
-    model <- Arima(ts_data, order = c(0,1,0))
+    model <- auto.arima(ts_data)
     forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
     if (all(forecast_values == forecast_values[1])) {
-      model <- auto.arima(ts_data)
+      model <- Arima(ts_data, order = c(2,1,0))
       forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
     }
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
@@ -368,26 +365,38 @@ limpieza_indicador_05_trafico <- function(df) {
                  values_to = "Car_Traffic") %>%
     mutate(Year = as.numeric(Year))
 
-  # Estimar valores hasta 2031
-  anyos_pred <- 2024:2031
+  # Estimar valores hasta 2025
+  anyos_pred <- 2024:2025
   for (barrio in unique(df$Borough)) {
-    df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
-    ts_data <- ts(df_barrio$Car_Traffic, start = 1993, end = 2023, frequency = 1)
-    model <- Arima(ts_data, order = c(1,0,0))
-    forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 0)
-    if (all(forecast_values == forecast_values[1])) {
+    if (barrio != "London") {
+      df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
+      ts_data <- ts(df_barrio$Car_Traffic, start = 1993, end = 2023, frequency = 1)
       model <- auto.arima(ts_data)
+      #model <- Arima(ts_data, order = c(1,0,0))
       forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 0)
-      if (all(forecast_values == forecast_values[1]))
-        print(barrio)
+      if (all(forecast_values == forecast_values[1])) {
+        model <- Arima(ts_data, order = c(1,0,0))
+        #model <- auto.arima(ts_data)
+        forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 0)
+        if (all(forecast_values == forecast_values[1]))
+          print(barrio)
+      }
+      forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
+                                Borough = rep(c(barrio), length(anyos_pred)),
+                                Year = anyos_pred,
+                                Car_Traffic = forecast_values)
+      
+      df <- rbind(df, forecast_df)
     }
-    forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
-                              Borough = rep(c(barrio), length(anyos_pred)),
-                              Year = anyos_pred,
-                              Car_Traffic = forecast_values)
-    
-    df <- rbind(df, forecast_df)
   }
+
+  # Calcula los valores para la ciudad de Londres sumando todos los barrios (Solo para los valores estimados)
+  df_london <- df %>%
+    filter(Year >= 2024) %>%
+    group_by(Year) %>%
+    summarise(Car_Traffic = sum(Car_Traffic, na.rm = TRUE), .groups = "drop") %>%
+    mutate(Code = "E12000007", Borough = "London")
+  df <- bind_rows(df, df_london)
   
   # Ordenar por barrio
   df <- df %>% filter(Year >= 2001) %>% arrange(Code, Year)
@@ -448,16 +457,16 @@ limpieza_indicador_06_esperanza_vida <- function(df) {
   df <- df %>% mutate(Avg_Sex = round(rowMeans(select(., Female, Male), na.rm = TRUE), 2))
   df <- df %>% select(-c(Female, Male))
 
-  # Estimar valores hasta 2031
-  anyos_pred <- 2023:2031
+  # Estimar valores hasta 2025
+  anyos_pred <- 2023:2025
   for (barrio in unique(df$Borough)) {
     df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
     # Avg_Sex
     ts_data <- ts(df_barrio$Avg_Sex, start = 2003, end = 2022, frequency = 1)
-    model <- Arima(ts_data, order = c(0,2,0))
+    model <- model <- auto.arima(ts_data)
     forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
     if (all(forecast_values == forecast_values[1])) {
-      model <- model <- auto.arima(ts_data)
+      model <- Arima(ts_data, order = c(0,2,1))
       forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
     }
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
@@ -596,18 +605,16 @@ limpieza_indicador_07_delitos <- function(df_aux, df) {
   # Fusiona los dos dataframes
   df <- bind_rows(df, df_aux) %>% select(Code, Borough, Year, Crimes)
   
-  anyos_pred <- 2023:2031
+  anyos_pred <- 2023:2025
   for (barrio in unique(df$Borough)) {
     if (barrio != "London") {
-      df_barrio <- df %>% filter(Borough == barrio & Year >= 2001) %>% arrange(Year)
-      ts_data <- ts(df_barrio$Crimes, start = 2001, end = 2022, frequency = 1)
-      model <- Arima(ts_data, order = c(1,0,0))
+      df_barrio <- df %>% filter(Borough == barrio & Year >= 2010) %>% arrange(Year)
+      ts_data <- ts(df_barrio$Crimes, start = 2010, end = 2022, frequency = 1)
+      model <- auto.arima(ts_data)
       forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
       if (all(forecast_values == forecast_values[1])) {
-        model <- auto.arima(ts_data)
+        model <- Arima(ts_data, order = c(1,0,0))
         forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
-        if (all(forecast_values == forecast_values[1]))
-          print(barrio)
       }
       forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
                                 Borough = rep(c(barrio), length(anyos_pred)),
@@ -698,16 +705,16 @@ limpieza_indicador_08_servicios <- function(df) {
   # Obtiene el total de servicios
   df <- df %>% mutate(Total = Retail + Food_Hotels) %>% select(-c(Retail, Food_Hotels))
   
-  # Estimar valores hasta 2031
-  anyos_pred <- 2025:2031
+  # Estimar valores hasta 2025
+  anyos_pred <- 2025
   for (barrio in unique(df$Borough)) {
     df_barrio <- df %>% filter(Borough == barrio & Year >= 2009 & Year != 2020 & Year != 2015) %>% arrange(Year)
     # Total de servicios
     ts_data <- ts(df_barrio$Total, start = 2011, end = 2024, frequency = 1)
-    model <- Arima(ts_data, order = c(0,1,0))
+    model <- auto.arima(ts_data)
     forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 0)
-    if (all(forecast_values == forecast_values[1])) {
-      model <- auto.arima(ts_data)
+    if (forecast_values[1] == df_barrio %>% filter(Year == 2024) %>% pull(Total)) {
+      model <- Arima(ts_data, order = c(0,0,0))
       forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 0)
     }
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
@@ -783,17 +790,13 @@ limpieza_indicador_09_vivienda_precio <- function(df) {
   df <- df %>%
     mutate(Price = round(Price, 2))
 
-  # Estimar valores hasta 2031
-  anyos_pred <- 2025:2031
+  # Estimar valores hasta 2025
+  anyos_pred <- 2025
   for (barrio in unique(df$Borough)) {
     df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
     ts_data <- ts(df_barrio$Price, start = 1995, end = 2024, frequency = 1)
-    model <- Arima(ts_data, order = c(0,1,1))
+    model <- auto.arima(ts_data)
     forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
-    if (all(forecast_values == forecast_values[1])) {
-      model <- auto.arima(ts_data)
-      forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
-    }
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
                               Borough = rep(c(barrio), length(anyos_pred)),
                               Year = anyos_pred,
@@ -851,19 +854,13 @@ limpieza_indicador_10_vivienda_alquiler <- function(df) {
                  values_to = "Rent") %>%
     mutate(Year = as.numeric(Year))
 
-  # Estimar valores hasta 2031
-  anyos_pred <- 2024:2031
+  # Estimar valores hasta 2025
+  anyos_pred <- 2024:2025
   for (barrio in unique(df$Borough)) {
     df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
     ts_data <- ts(df_barrio$Rent, start = 1997, end = 2023, frequency = 1)
-    model <- Arima(ts_data, order = c(0,1,0))
+    model <- auto.arima(ts_data)
     forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
-    if (all(forecast_values == forecast_values[1])) {
-      model <- auto.arima(ts_data)
-      forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 2)
-      if (all(forecast_values == forecast_values[1]))
-        print(barrio)
-    }
     forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
                               Borough = rep(c(barrio), length(anyos_pred)),
                               Year = anyos_pred,
