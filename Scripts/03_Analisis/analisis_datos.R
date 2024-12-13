@@ -164,13 +164,40 @@ calcula_clusters_jerarquico <- function(df, titulo_dendograma, fichero_salida) {
   print("RESULTADO ALGORITMO")
   print(clust)
   
-  print(df)
   dendograma <- pltree(clust, cex = 1, hang = -1, main = titulo_dendograma, labels = as.list(df$BOROUGH), ylab=NA, xlab=NA)
   #dendograma <- pltree(clust, cex = 0.6, hang = -1, main = titulo_dendograma)
   print(dendograma)
   
-#  gap_stat <- clusGap(df, FUN = hcut, nstart = 33, K.max = 10, B = 50)
-#  result <- fviz_gap_stat(gap_stat)
+  gap_stat <- clusGap(df_scaled, FUN = hcut, nstart = 1, K.max = 10, B = 100)
+  print(fviz_gap_stat(gap_stat))
+  
+  print("RESULTADO CLUSTERING")
+  # Matriz de distancia
+  d <- dist(df_scaled, method = "euclidean")
+  # Clustering jerárquico
+  final_clust <- hclust(d, method = "ward.D2")
+  # Corta el dendograma en 4 grupos
+  groups <- cutree(final_clust, k = 14)
+  print(groups)
+  # Número de observaciones en cada grupo
+  table(groups)
+  #print(table(groups))
+#  # Crea los grupos
+  final_data <- cbind(df_scaled, cluster = groups)
+  #print(final_data)
+#  head(final_data)
+#  
+#  print("A1")
+  final_data <- as.data.frame(final_data)
+  print(typeof(final_data))
+  df_summary <- final_data %>%
+    group_by(cluster) %>%
+    summarise(across(starts_with("IND_"), mean, na.rm = TRUE))
+  view(df_summary)
+  #print(aggregate(final_data, by=list(cluster=final_data$cluster), mean))
+#  print("A2")
+  
+  
 #  return(result)
 }
 
@@ -206,72 +233,19 @@ calcula_correlacion(df_correlacion, 'Matriz de correlación')
 # Cálculo de clústers usando Hierarchical clustering
 
 # Período 2001-2011
-df_analisis_2011 <- df_datos %>% filter(YEAR == 2011 & BOROUGH != 'London') %>% select(-c(CODE, YEAR))
-result_clusters_2011 <- calcula_clusters_jerarquico(df_analisis_2011, 'Dendograma 2001-2011', 'RES_Clusters_2011.csv')
-print("RESULTADO 2001-2011")
+#df_analisis_2011 <- df_datos %>% filter(YEAR == 2011 & BOROUGH != 'London') %>% select(-c(CODE, YEAR))
+#result_clusters_2011 <- calcula_clusters_jerarquico(df_analisis_2011, 'Dendograma 2001-2011', 'RES_Clusters_2011.csv')
+#print("RESULTADO 2001-2011")
 #print(result_clusters_2011)
 
 # Período 2011-2021
-df_analisis_2021 <- df_datos %>% filter(YEAR == 2021 & BOROUGH != 'London') %>% select(-c(CODE, YEAR))
-result_clusters_2021 <- calcula_clusters_jerarquico(df_analisis_2021, 'Dendograma 2011-2021', 'RES_Clusters_2021.csv')
-print("RESULTADO 2011-2021")
+#df_analisis_2021 <- df_datos %>% filter(YEAR == 2021 & BOROUGH != 'London') %>% select(-c(CODE, YEAR))
+#result_clusters_2021 <- calcula_clusters_jerarquico(df_analisis_2021, 'Dendograma 2011-2021', 'RES_Clusters_2021.csv')
+#print("RESULTADO 2011-2021")
 
 # Período 2021-2025
 df_analisis_2025 <- df_datos %>% filter(YEAR == 2025 & BOROUGH != 'London') %>% select(-c(CODE, YEAR))
 result_clusters_2025 <- calcula_clusters_jerarquico(df_analisis_2025, 'Dendograma 2021-2025', 'RES_Clusters_2025.csv')
 print("RESULTADO 2021-2025")
 
-## Calcula los clusters en base a las columnas VAR
-##for (i in c(2011, 2021, 2031)) {
-##  df_tmp <- df_datos_VAR %>% filter(YEAR == i, !BOROUGH %in% c("London"))
-##  calcula_clusters_VAR(df_tmp)
-##}
-#
-## Calcula los clusters usando K-Means
-#for (i in c(2011, 2021, 2025)) {
-#  df_tmp <- df_datos %>% filter(YEAR == i) %>% select(-c(CODE, BOROUGH, YEAR)) 
-#  #%>% select(CODE, BOROUGH, YEAR, IND_01_AGE, IND_02_RACE_WHITE, IND_03_WEEK_EARNINGS, IND_04_PERCENT_NVQ4, IND_05_CAR_TRAFFIC, IND_06_EXP_LIFE, IND_07_CRIMES, IND_08_SERVICES, IND_09_HOUSE_PRICE, IND_10_HOUSE_RENT)
-##  calcula_clusters_kmeans(df_tmp)
-#}
-#
-## Calcula los clusters usando K-Medoids
-#for (i in c(2011, 2021, 2025)) {
-#  df_tmp <- df_datos %>% filter(YEAR == i) %>% select(-c(CODE, BOROUGH, YEAR)) 
-#  #%>% select(CODE, BOROUGH, YEAR, IND_01_AGE, IND_02_RACE_WHITE, IND_03_WEEK_EARNINGS, IND_04_PERCENT_NVQ4, IND_05_CAR_TRAFFIC, IND_06_EXP_LIFE, IND_07_CRIMES, IND_08_SERVICES, IND_09_HOUSE_PRICE, IND_10_HOUSE_RENT)
-##  calcula_clusters_kmedoids(df_tmp)
-#}
-#
-## Calcula los clusters usando Hierarchical clustering
-#for (i in c(2011, 2021, 2025)) {
-#  df_tmp <- df_datos %>% filter(YEAR == i) %>% select(-c(CODE, BOROUGH, YEAR)) 
-#  #%>% select(CODE, BOROUGH, YEAR, IND_01_AGE, IND_02_RACE_WHITE, IND_03_WEEK_EARNINGS, IND_04_PERCENT_NVQ4, IND_05_CAR_TRAFFIC, IND_06_EXP_LIFE, IND_07_CRIMES, IND_08_SERVICES, IND_09_HOUSE_PRICE, IND_10_HOUSE_RENT)
-#  calcula_clusters_hcluster(df_tmp)
-#}
-#
-## Calcula las componentes principales
-#for (i in c(2011, 2021, 2025)) {
-#  df_tmp <- df_datos %>% filter(YEAR == i) %>% select(-c(CODE, BOROUGH, YEAR)) 
-#  #%>% select(CODE, BOROUGH, YEAR, IND_01_AGE, IND_02_RACE_WHITE, IND_03_WEEK_EARNINGS, IND_04_PERCENT_NVQ4, IND_05_CAR_TRAFFIC, IND_06_EXP_LIFE, IND_07_CRIMES, IND_08_SERVICES, IND_09_HOUSE_PRICE, IND_10_HOUSE_RENT)
-#  calcula_pca(df_tmp)
-#}
-#
-#for (i in c(2011, 2021, 2025)) {
-#  df_tmp <- df_datos %>% filter(YEAR == i) %>% select(-c(CODE, BOROUGH, YEAR))
-#  calcula_correlacion(df_tmp)
-#}
-#
-#
-## Para cada año, calcular clústers
-#  # Calcular K
-#  # Graficar
-#  # Mostrar clústers
-#  # Mostrar valores medios
-
-# Selecciona columnas IND
-
-# Para cada año, calcular clústers
-  # Calcular K
-  # Graficar
-  # Mostrar clústers
-  # Mostrar valores medios
 
