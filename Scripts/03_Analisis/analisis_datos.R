@@ -8,6 +8,7 @@ if (!require('cluster')) install.packages('cluster'); library('cluster')
 #if (!require('ggcorrplot')) install.packages('ggcorrplot'); library('ggcorrplot')
 if (!require('corrplot')) install.packages('corrplot'); library('corrplot')
 library(RColorBrewer)
+library(data.table)
 
 # Constantes
 PATH_FICHEROS_BARRIOS <- 'DATOS/01_Fuentes/'
@@ -148,57 +149,106 @@ ac <- function(x, df) {
   round(agnes(df, method = x)$ac, 2)
 }
 
-calcula_clusters_jerarquico <- function(df, titulo_dendograma, fichero_salida) {
+analisis_clusters <- function (df, periodo) {
   # Se escalan los valores para que tengan una media = 0 y una desviación estándar = 1
-  df_scaled <- scale(df[2:11])
+  df_scaled <- scale(df[4:13])
   #df <- scale(df)
-
+  
   # Calcula el método de cálculo de la distancia entre clusters  
   m <- c( "average", "single", "complete", "ward")
   names(m) <- c( "average", "single", "complete", "ward")
   print("Algoritmo para el cálculo de la distancia entre clusters")
   print(sapply(m, ac, df = df_scaled))
-
+  
   # Se aplica el clustering jerárquico  
   clust <- agnes(df_scaled, method = "ward")
   print("RESULTADO ALGORITMO")
   print(clust)
   
-  dendograma <- pltree(clust, cex = 1, hang = -1, main = titulo_dendograma, labels = as.list(df$BOROUGH), ylab=NA, xlab=NA)
+  dendograma <- pltree(clust, cex = 1, hang = -1, main = paste0('Dendograma ', periodo), labels = as.list(df$BOROUGH), ylab=NA, xlab=NA)
   #dendograma <- pltree(clust, cex = 0.6, hang = -1, main = titulo_dendograma)
   print(dendograma)
   
   gap_stat <- clusGap(df_scaled, FUN = hcut, nstart = 1, K.max = 10, B = 100)
-  print(fviz_gap_stat(gap_stat))
-  
-  print("RESULTADO CLUSTERING")
-  # Matriz de distancia
+  #print(fviz_gap_stat(gap_stat))
+  # Visualización del número óptimo de clusters
+  dat <- data.table(gap_stat$Tab)
+  dat[, k := .I]
+  p <- ggplot(dat, aes(k, gap)) + geom_line() + geom_point(size = 3) +
+    geom_errorbar(aes(ymax = gap + SE.sim, ymin = gap - SE.sim), width = 0.25) +
+    ggtitle(paste0("Número óptimo de clusters ", periodo)) +
+    labs(x = "Número de clusters", y = "Gap Statistic") +
+    theme(plot.title = element_text(size = 16, hjust = 0.5, face = "bold"),
+          axis.title = element_text(size = 12, face = "bold")) +
+    scale_x_continuous(breaks = seq(1, 10, by = 1)) +
+    theme_minimal()
+  print(p)
+}
+
+calcula_clusters_jerarquico <- function(df, periodo, fichero_salida, k) {
+  print(paste0("RESULTADO CLUSTERING K = ", k))
+  # Se calculan los grupos para el K parametrizado
+  df_scaled <- scale(df[4:13])
   d <- dist(df_scaled, method = "euclidean")
-  # Clustering jerárquico
   final_clust <- hclust(d, method = "ward.D2")
-  # Corta el dendograma en 4 grupos
-  groups <- cutree(final_clust, k = 14)
+  groups <- cutree(final_clust, k = k)
   print(groups)
-  # Número de observaciones en cada grupo
-  table(groups)
   #print(table(groups))
-#  # Crea los grupos
-  final_data <- cbind(df_scaled, cluster = groups)
-  #print(final_data)
-#  head(final_data)
-#  
-#  print("A1")
-  final_data <- as.data.frame(final_data)
-  print(typeof(final_data))
-  df_summary <- final_data %>%
-    group_by(cluster) %>%
+  df_clusters <- cbind(df_scaled, CLUSTER = groups)
+  print(head(df_clusters))
+  
+  df_clusters <- as.data.frame(df_clusters)
+  # Calcula los índices de gentrificación
+  df_tmp <- df_clusters %>% mutate(
+    IND_01_AGE = -1 * IND_01_AGE,
+    IND_05_CAR_TRAFFIC = -1 * IND_05_CAR_TRAFFIC,
+    IND_07_CRIMES = -1 * IND_07_CRIMES
+  )
+  
+  df_tmp <- df_tmp %>% group_by(CLUSTER) %>%
+    summarise(
+      mean_IND_01_AGE = mean(IND_01_AGE, na.rm = TRUE),
+      mean_IND_02_RACE_WHITE = mean(IND_02_RACE_WHITE, na.rm = TRUE),
+      mean_IND_03_WEEK_EARNINGS = mean(IND_03_WEEK_EARNINGS, na.rm = TRUE),
+      mean_IND_04_PERCENT_NVQ4 = mean(IND_04_PERCENT_NVQ4, na.rm = TRUE),
+      mean_IND_05_CAR_TRAFFIC = mean(IND_05_CAR_TRAFFIC, na.rm = TRUE),
+      mean_IND_06_EXP_LIFE = mean(IND_06_EXP_LIFE, na.rm = TRUE),
+      mean_IND_07_CRIMES = mean(IND_07_CRIMES, na.rm = TRUE),
+      mean_IND_08_SERVICES = mean(IND_08_SERVICES, na.rm = TRUE),
+      mean_IND_09_HOUSE_PRICE = mean(IND_09_HOUSE_PRICE, na.rm = TRUE),
+      mean_IND_10_HOUSE_RENT = mean(IND_10_HOUSE_RENT, na.rm = TRUE)
+    )
+  
+  df_indice <- df_tmp %>%
+    rowwise() %>%
+    mutate(
+      GENTRIFICATION_INDEX = sum(
+        c_across(starts_with("mean_")),
+        na.rm = TRUE
+      )
+    ) %>%
+    ungroup() %>%
+    select(CLUSTER, GENTRIFICATION_INDEX)
+  df_indice <- df_indice %>%
+    arrange(desc(GENTRIFICATION_INDEX)) %>%
+    mutate(CLUSTER_NEW = row_number())
+  
+  print(df_indice)
+  df_clusters <- df_clusters %>%
+    inner_join(df_indice %>% select(CLUSTER, CLUSTER_NEW, GENTRIFICATION_INDEX), by="CLUSTER") %>%
+    mutate(CLUSTER = CLUSTER_NEW) %>%
+    select(-CLUSTER_NEW)
+  print(head(df_clusters))
+  
+  #final_data <- as.data.frame(final_data)
+  print(typeof(df_clusters))
+  df_summary <- df_clusters %>%
+    group_by(CLUSTER) %>%
     summarise(across(starts_with("IND_"), mean, na.rm = TRUE))
   view(df_summary)
   #print(aggregate(final_data, by=list(cluster=final_data$cluster), mean))
-#  print("A2")
-  
-  
-#  return(result)
+
+  return(df_clusters)
 }
 
 
@@ -233,19 +283,38 @@ calcula_correlacion(df_correlacion, 'Matriz de correlación')
 # Cálculo de clústers usando Hierarchical clustering
 
 # Período 2001-2011
-#df_analisis_2011 <- df_datos %>% filter(YEAR == 2011 & BOROUGH != 'London') %>% select(-c(CODE, YEAR))
-#result_clusters_2011 <- calcula_clusters_jerarquico(df_analisis_2011, 'Dendograma 2001-2011', 'RES_Clusters_2011.csv')
+df_analisis_2011 <- df_datos %>% filter(YEAR == 2011 & BOROUGH != 'London') #%>% select(-c(CODE, YEAR))
+analisis_clusters(df_analisis_2011, '2001-2011')
+df_aux <- data.frame(CODE = NA, BOROUGH = NA, YEAR = NA, IND_01_AGE = NA, IND_02_RACE_WHITE = NA, IND_03_WEEK_EARNINGS = NA, IND_04_PERCENT_NVQ4 = NA,
+                     IND_05_CAR_TRAFFIC = NA, IND_06_EXP_LIFE = NA, IND_07_CRIMES = NA, IND_08_SERVICES = NA, IND_09_HOUSE_PRICE = NA, IND_10_HOUSE_RENT = NA,
+                     CLUSTER = NA, GENTRIFICATION_INDEX = NA, K = NA)
+print("A1")
+for (k in c(2:10)) {
+  print("A2")
+  result_clusters_2011 <- calcula_clusters_jerarquico(df_analisis_2011, '2001-2011', 'RES_Clusters_2011.csv', k)
+  print("A3")
+  df_analisis_2011 <- cbind(df_analisis_2011, result_clusters_2011 %>% select(CLUSTER, GENTRIFICATION_INDEX))
+  print("A4")
+  df_analisis_2011 <- df_analisis_2011 %>% mutate(K = k)
+  print("A5")
+  df_aux <- rbind(df_aux, df_analisis_2011)
+  print("A6")
+}
+print("A7")
+print(df_aux)
 #print("RESULTADO 2001-2011")
 #print(result_clusters_2011)
 
 # Período 2011-2021
 #df_analisis_2021 <- df_datos %>% filter(YEAR == 2021 & BOROUGH != 'London') %>% select(-c(CODE, YEAR))
-#result_clusters_2021 <- calcula_clusters_jerarquico(df_analisis_2021, 'Dendograma 2011-2021', 'RES_Clusters_2021.csv')
+#analisis_clusters(df_analisis_2021, '2011-2021')
+#result_clusters_2021 <- calcula_clusters_jerarquico(df_analisis_2021, '2011-2021', 'RES_Clusters_2021.csv')
 #print("RESULTADO 2011-2021")
 
 # Período 2021-2025
-df_analisis_2025 <- df_datos %>% filter(YEAR == 2025 & BOROUGH != 'London') %>% select(-c(CODE, YEAR))
-result_clusters_2025 <- calcula_clusters_jerarquico(df_analisis_2025, 'Dendograma 2021-2025', 'RES_Clusters_2025.csv')
-print("RESULTADO 2021-2025")
+#df_analisis_2025 <- df_datos %>% filter(YEAR == 2025 & BOROUGH != 'London') %>% select(-c(CODE, YEAR))
+#analisis_clusters(df_analisis_2025, '2021-2025')
+#result_clusters_2025 <- calcula_clusters_jerarquico(df_analisis_2025, '2021-2025', 'RES_Clusters_2025.csv')
+#print("RESULTADO 2021-2025")
 
 
