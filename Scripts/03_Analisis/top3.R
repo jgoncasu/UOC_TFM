@@ -32,7 +32,6 @@ carga_indicadores <- function() {
                                  col_double(), col_double(), col_double(),
                                  col_double(), col_double(), col_double(),
                                  col_double(), col_double(), col_double(),
-                                 col_double(), col_double(), col_double(),
                                  col_double(), col_double(), col_double()),
                 locale = locale(decimal_mark = ".", grouping_mark = ""))
   return(df)
@@ -50,17 +49,17 @@ muestra_top_3_ind_01 <- function(df) {
   
   # Filtrar los top 3 de cada año
   top3_df <- df %>%
-    filter(YEAR %in% c(2011, 2021, 2025), BOROUGH != "London") %>%
+    filter(YEAR %in% c(2010, 2020, 2025), BOROUGH != "London") %>%
     group_by(YEAR) %>%
-    arrange(YEAR, IND_01_AGE) %>%
+    arrange(YEAR, desc(IND_01_AGE)) %>%
     slice_head(n = 3) %>%
     select(CODE, BOROUGH, YEAR, VAL_01_AGE_PREV, VAL_01_AGE, VAR_01_AGE, IND_01_AGE) %>%
     ungroup()
   london_df <- df %>%
-    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2025)) %>%
+    filter(BOROUGH == "London", YEAR %in% c(2010, 2020, 2025)) %>%
     select(CODE, BOROUGH, YEAR, VAL_01_AGE_PREV, VAL_01_AGE, VAR_01_AGE, IND_01_AGE)
   final_df <- bind_rows(top3_df, london_df) %>%
-    arrange(YEAR, IND_01_AGE) %>%
+    arrange(YEAR, desc(IND_01_AGE)) %>%
     mutate(across(c(VAL_01_AGE_PREV, VAL_01_AGE), 
                   ~ sprintf("%.2f", .x))) %>%
     mutate(across(c(VAR_01_AGE, IND_01_AGE), 
@@ -82,14 +81,14 @@ muestra_top_3_ind_02 <- function(df) {
   
   # Filtrar los top 3 de cada año
   top3_df <- df %>%
-    filter(YEAR %in% c(2011, 2021, 2025), BOROUGH != "London") %>%
+    filter(YEAR %in% c(2010, 2020, 2025), BOROUGH != "London") %>%
     group_by(YEAR) %>%
     arrange(YEAR, desc(IND_02_RACE_WHITE)) %>%
     slice_head(n = 3) %>%
     select(CODE, BOROUGH, YEAR, VAL_02_RACE_WHITE_PREV, VAL_02_RACE_WHITE, VAR_02_RACE_WHITE, IND_02_RACE_WHITE) %>%
     ungroup()
   london_df <- df %>%
-    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2025)) %>%
+    filter(BOROUGH == "London", YEAR %in% c(2010, 2020, 2025)) %>%
     select(CODE, BOROUGH, YEAR, VAL_02_RACE_WHITE_PREV, VAL_02_RACE_WHITE, VAR_02_RACE_WHITE, IND_02_RACE_WHITE)
   final_df <- bind_rows(top3_df, london_df) %>%
     arrange(YEAR, desc(IND_02_RACE_WHITE)) %>%
@@ -114,14 +113,14 @@ muestra_top_3_ind_03 <- function(df) {
   
   # Filtrar los top 3 de cada año
   top3_df <- df %>%
-    filter(YEAR %in% c(2011, 2021, 2025), BOROUGH != "London") %>%
+    filter(YEAR %in% c(2010, 2020, 2025), BOROUGH != "London") %>%
     group_by(YEAR) %>%
     arrange(YEAR, desc(IND_03_WEEK_EARNINGS)) %>%
     slice_head(n = 3) %>%
     select(CODE, BOROUGH, YEAR, VAL_03_WEEK_EARNINGS_PREV, VAL_03_WEEK_EARNINGS, VAR_03_WEEK_EARNINGS, IND_03_WEEK_EARNINGS) %>%
     ungroup()
   london_df <- df %>%
-    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2025)) %>%
+    filter(BOROUGH == "London", YEAR %in% c(2010, 2020, 2025)) %>%
     select(CODE, BOROUGH, YEAR, VAL_03_WEEK_EARNINGS_PREV, VAL_03_WEEK_EARNINGS, VAR_03_WEEK_EARNINGS, IND_03_WEEK_EARNINGS)
   final_df <- bind_rows(top3_df, london_df) %>%
     arrange(YEAR, desc(IND_03_WEEK_EARNINGS)) %>%
@@ -146,14 +145,14 @@ muestra_top_3_ind_04 <- function(df) {
   
   # Filtrar los top 3 de cada año
   top3_df <- df %>%
-    filter(YEAR %in% c(2011, 2021, 2025), BOROUGH != "London") %>%
+    filter(YEAR %in% c(2010, 2020, 2025), BOROUGH != "London") %>%
     group_by(YEAR) %>%
     arrange(YEAR, desc(IND_04_PERCENT_NVQ4)) %>%
     slice_head(n = 3) %>%
     select(CODE, BOROUGH, YEAR, VAL_04_PERCENT_NVQ4_PREV, VAL_04_PERCENT_NVQ4, VAR_04_PERCENT_NVQ4, IND_04_PERCENT_NVQ4) %>%
     ungroup()
   london_df <- df %>%
-    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2025)) %>%
+    filter(BOROUGH == "London", YEAR %in% c(2010, 2020, 2025)) %>%
     select(CODE, BOROUGH, YEAR, VAL_04_PERCENT_NVQ4_PREV, VAL_04_PERCENT_NVQ4, VAR_04_PERCENT_NVQ4, IND_04_PERCENT_NVQ4)
   final_df <- bind_rows(top3_df, london_df) %>%
     arrange(YEAR, desc(IND_04_PERCENT_NVQ4)) %>%
@@ -178,14 +177,14 @@ muestra_top_3_ind_05 <- function(df) {
   
   # Filtrar los top 3 de cada año
   top3_df <- df %>%
-    filter(YEAR %in% c(2011, 2021, 2025), BOROUGH != "London") %>%
+    filter(YEAR %in% c(2010, 2020, 2025), BOROUGH != "London") %>%
     group_by(YEAR) %>%
     arrange(YEAR, IND_05_CAR_TRAFFIC) %>%
     slice_head(n = 3) %>%
     select(CODE, BOROUGH, YEAR, VAL_05_CAR_TRAFFIC_PREV, VAL_05_CAR_TRAFFIC, VAR_05_CAR_TRAFFIC, IND_05_CAR_TRAFFIC) %>%
     ungroup()
   london_df <- df %>%
-    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2025)) %>%
+    filter(BOROUGH == "London", YEAR %in% c(2010, 2020, 2025)) %>%
     select(CODE, BOROUGH, YEAR, VAL_05_CAR_TRAFFIC_PREV, VAL_05_CAR_TRAFFIC, VAR_05_CAR_TRAFFIC, IND_05_CAR_TRAFFIC)
   final_df <- bind_rows(top3_df, london_df) %>%
     arrange(YEAR, IND_05_CAR_TRAFFIC) %>%
@@ -210,14 +209,14 @@ muestra_top_3_ind_06 <- function(df) {
   
   # Filtrar los top 3 de cada año
   top3_df <- df %>%
-    filter(YEAR %in% c(2011, 2021, 2025), BOROUGH != "London") %>%
+    filter(YEAR %in% c(2010, 2020, 2025), BOROUGH != "London") %>%
     group_by(YEAR) %>%
     arrange(YEAR, desc(IND_06_EXP_LIFE)) %>%
     slice_head(n = 3) %>%
     select(CODE, BOROUGH, YEAR, VAL_06_EXP_LIFE_PREV, VAL_06_EXP_LIFE, VAR_06_EXP_LIFE, IND_06_EXP_LIFE) %>%
     ungroup()
   london_df <- df %>%
-    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2025)) %>%
+    filter(BOROUGH == "London", YEAR %in% c(2010, 2020, 2025)) %>%
     select(CODE, BOROUGH, YEAR, VAL_06_EXP_LIFE_PREV, VAL_06_EXP_LIFE, VAR_06_EXP_LIFE, IND_06_EXP_LIFE)
   final_df <- bind_rows(top3_df, london_df) %>%
     arrange(YEAR, desc(IND_06_EXP_LIFE)) %>%
@@ -242,14 +241,14 @@ muestra_top_3_ind_07 <- function(df) {
   
   # Filtrar los top 3 de cada año
   top3_df <- df %>%
-    filter(YEAR %in% c(2011, 2021, 2025), BOROUGH != "London") %>%
+    filter(YEAR %in% c(2010, 2020, 2025), BOROUGH != "London") %>%
     group_by(YEAR) %>%
     arrange(YEAR, IND_07_CRIMES) %>%
     slice_head(n = 3) %>%
     select(CODE, BOROUGH, YEAR, VAL_07_CRIMES_PREV, VAL_07_CRIMES, VAR_07_CRIMES, IND_07_CRIMES) %>%
     ungroup()
   london_df <- df %>%
-    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2025)) %>%
+    filter(BOROUGH == "London", YEAR %in% c(2010, 2020, 2025)) %>%
     select(CODE, BOROUGH, YEAR, VAL_07_CRIMES_PREV, VAL_07_CRIMES, VAR_07_CRIMES, IND_07_CRIMES)
   final_df <- bind_rows(top3_df, london_df) %>%
     arrange(YEAR, IND_07_CRIMES) %>%
@@ -274,14 +273,14 @@ muestra_top_3_ind_08 <- function(df) {
   
   # Filtrar los top 3 de cada año
   top3_df <- df %>%
-    filter(YEAR %in% c(2011, 2021, 2025), BOROUGH != "London") %>%
+    filter(YEAR %in% c(2010, 2020, 2025), BOROUGH != "London") %>%
     group_by(YEAR) %>%
     arrange(YEAR, desc(IND_08_SERVICES)) %>%
     slice_head(n = 3) %>%
     select(CODE, BOROUGH, YEAR, VAL_08_SERVICES_PREV, VAL_08_SERVICES, VAR_08_SERVICES, IND_08_SERVICES) %>%
     ungroup()
   london_df <- df %>%
-    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2025)) %>%
+    filter(BOROUGH == "London", YEAR %in% c(2010, 2020, 2025)) %>%
     select(CODE, BOROUGH, YEAR, VAL_08_SERVICES_PREV, VAL_08_SERVICES, VAR_08_SERVICES, IND_08_SERVICES)
   final_df <- bind_rows(top3_df, london_df) %>%
     arrange(YEAR, desc(IND_08_SERVICES)) %>%
@@ -306,14 +305,14 @@ muestra_top_3_ind_09 <- function(df) {
   
   # Filtrar los top 3 de cada año
   top3_df <- df %>%
-    filter(YEAR %in% c(2011, 2021, 2025), BOROUGH != "London") %>%
+    filter(YEAR %in% c(2010, 2020, 2025), BOROUGH != "London") %>%
     group_by(YEAR) %>%
     arrange(YEAR, desc(IND_09_HOUSE_PRICE)) %>%
     slice_head(n = 3) %>%
     select(CODE, BOROUGH, YEAR, VAL_09_HOUSE_PRICE_PREV, VAL_09_HOUSE_PRICE, VAR_09_HOUSE_PRICE, IND_09_HOUSE_PRICE) %>%
     ungroup()
   london_df <- df %>%
-    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2025)) %>%
+    filter(BOROUGH == "London", YEAR %in% c(2010, 2020, 2025)) %>%
     select(CODE, BOROUGH, YEAR, VAL_09_HOUSE_PRICE_PREV, VAL_09_HOUSE_PRICE, VAR_09_HOUSE_PRICE, IND_09_HOUSE_PRICE)
   final_df <- bind_rows(top3_df, london_df) %>%
     arrange(YEAR, desc(IND_09_HOUSE_PRICE)) %>%
@@ -338,14 +337,14 @@ muestra_top_3_ind_10 <- function(df) {
   
   # Filtrar los top 3 de cada año
   top3_df <- df %>%
-    filter(YEAR %in% c(2011, 2021, 2025), BOROUGH != "London") %>%
+    filter(YEAR %in% c(2010, 2020, 2025), BOROUGH != "London") %>%
     group_by(YEAR) %>%
     arrange(YEAR, desc(IND_10_HOUSE_RENT)) %>%
     slice_head(n = 3) %>%
     select(CODE, BOROUGH, YEAR, VAL_10_HOUSE_RENT_PREV, VAL_10_HOUSE_RENT, VAR_10_HOUSE_RENT, IND_10_HOUSE_RENT) %>%
     ungroup()
   london_df <- df %>%
-    filter(BOROUGH == "London", YEAR %in% c(2011, 2021, 2025)) %>%
+    filter(BOROUGH == "London", YEAR %in% c(2010, 2020, 2025)) %>%
     select(CODE, BOROUGH, YEAR, VAL_10_HOUSE_RENT_PREV, VAL_10_HOUSE_RENT, VAR_10_HOUSE_RENT, IND_10_HOUSE_RENT)
   final_df <- bind_rows(top3_df, london_df) %>%
     arrange(YEAR, desc(IND_10_HOUSE_RENT)) %>%
@@ -373,5 +372,5 @@ df_datos <- carga_indicadores()
 #df_tmp <- muestra_top_3_ind_06(df_datos)
 #df_tmp <- muestra_top_3_ind_07(df_datos)
 #df_tmp <- muestra_top_3_ind_08(df_datos)
-#df_tmp <- muestra_top_3_ind_09(df_datos)
-df_tmp <- muestra_top_3_ind_10(df_datos)
+df_tmp <- muestra_top_3_ind_09(df_datos)
+#↓df_tmp <- muestra_top_3_ind_10(df_datos)

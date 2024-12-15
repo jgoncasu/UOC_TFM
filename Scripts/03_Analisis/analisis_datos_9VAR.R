@@ -47,43 +47,6 @@ carga_indicadores <- function() {
 ################################################################################
 # 02) Calcula clústers
 ################################################################################
-calcula_clusters_kmeans <- function(df) {
-  #df <- scale(df[4:13])
-  df <- scale(df)
-  result <- fviz_nbclust(df, kmeans, method = "wss")
-  print(result)
-  gap_stat <- clusGap(df,
-                      FUN = kmeans,
-                      nstart = 33,
-                      K.max = 10,
-                      B = 50)
-  result2 <- fviz_gap_stat(gap_stat)
-  print(result2)
-
-  km <- kmeans(df, centers = 4, nstart = 33)
-  print(km)
-  
-  print(fviz_cluster(km, data = df))
-}
-
-calcula_clusters_kmedoids <- function(df) {
-  df <- scale(df)
-  result <- fviz_nbclust(df, pam, method = "wss")
-  print(result)
-  gap_stat <- clusGap(df,
-                      FUN = pam,
-                      nstart = 33,
-                      K.max = 10,
-                      B = 50)
-  result2 <- fviz_gap_stat(gap_stat)
-  print(result2)
-  
-  km <- pam(df, k = 4)
-  print(km)
-  
-  print(fviz_cluster(km, data = df))
-}
-
 calcula_clusters_hcluster <- function(df) {
   df <- scale(df)
   
@@ -103,34 +66,9 @@ calcula_clusters_hcluster <- function(df) {
   print(result)
 }
 
-calcula_pca <- function(df) {
-  #df <- scale(df)
-  
-  results <- prcomp(df, scale = TRUE)
-  results$rotation <- -1*results$rotation
-  
-  print(results$rotation)
-  
-  results$x <- -1*results$x
-  #print(results$x)
-  
-  print(biplot(results, scale = 0))
-  
-  var_explained = results$sdev^2 / sum(results$sdev^2)
-  print(var_explained)
-  
-  p <- qplot(c(1:10), var_explained) + 
-    geom_line() + 
-    xlab("Principal Component") + 
-    ylab("Variance Explained") +
-    ggtitle("Scree Plot") +
-    ylim(0, 1)
-  print(p)
-}
-
 calcula_correlacion <- function(df, titulo) {
   corr_matrix <- round(cor(df), 2)
-  etiquetas <- c("01 - Edad", "02 - Raza", "03 - Salario", "04 - Estudios", "05 - Tráfico", "06 - Esp.Vida", "07 - Delitos", "08 - Servicios", "09 - Pr.Vivienda", "10 - Pr.Alquiler")
+  etiquetas <- c("01 - Edad", "02 - Raza", "03 - Salario", "04 - Estudios", "05 - Tráfico", "06 - Esp.Vida", "07 - Delitos", "08 - Servicios", "09 - Pr.Vivienda")
   colnames(corr_matrix) <- etiquetas
   rownames(corr_matrix) <- etiquetas
   p <- corrplot(corr_matrix,
@@ -151,7 +89,7 @@ ac <- function(x, df) {
 
 analisis_clusters <- function (df, periodo) {
   # Se escalan los valores para que tengan una media = 0 y una desviación estándar = 1
-  df_scaled <- scale(df[4:13])
+  df_scaled <- scale(df[4:12])
 
   # Calcula el método de cálculo de la distancia entre clusters  
   m <- c( "average", "single", "complete", "ward")
@@ -183,16 +121,13 @@ analisis_clusters <- function (df, periodo) {
 calcula_clusters_jerarquico <- function(df, periodo, k) {
   print(paste0("RESULTADO CLUSTERING K = ", k))
   # Se calculan los grupos para el K parametrizado
-  df_scaled <- scale(df[4:13])
+  df_scaled <- scale(df[4:12])
   d <- dist(df_scaled, method = "euclidean")
   final_clust <- hclust(d, method = "ward.D2")
   groups <- cutree(final_clust, k = k)
   print(table(groups))
   df_clusters <- cbind(df_scaled, CLUSTER = groups)
   
-  # NEW
-  df_clusters_full <- cbind(df, CLUSTER = groups)
-
   df_clusters <- as.data.frame(df_clusters)
   # Calcula los índices de gentrificación
   df_tmp <- df_clusters %>% mutate(
@@ -210,16 +145,16 @@ calcula_clusters_jerarquico <- function(df, periodo, k) {
       mean_IND_06_EXP_LIFE = mean(IND_06_EXP_LIFE, na.rm = TRUE),
       mean_IND_07_CRIMES = mean(IND_07_CRIMES, na.rm = TRUE),
       mean_IND_08_SERVICES = mean(IND_08_SERVICES, na.rm = TRUE),
-      mean_IND_09_HOUSE_PRICE = mean(IND_09_HOUSE_PRICE, na.rm = TRUE),
-      mean_IND_10_HOUSE_RENT = mean(IND_10_HOUSE_RENT, na.rm = TRUE)
+      mean_IND_09_HOUSE_PRICE = mean(IND_09_HOUSE_PRICE, na.rm = TRUE)#,
+      #mean_IND_10_HOUSE_RENT = mean(IND_10_HOUSE_RENT, na.rm = TRUE)
     )
 
   df_indice <- df_tmp %>%
     rowwise() %>%
     mutate(
       GENTRIFICATION_INDEX = round(sum(
-        c_across(starts_with("mean_")),
-        na.rm = TRUE
+      c_across(starts_with("mean_")),
+      na.rm = TRUE
       ), 2)
     ) %>%
     ungroup() %>%
@@ -232,7 +167,7 @@ calcula_clusters_jerarquico <- function(df, periodo, k) {
     inner_join(df_indice %>% select(CLUSTER, CLUSTER_NEW, GENTRIFICATION_INDEX), by="CLUSTER") %>%
     mutate(CLUSTER = CLUSTER_NEW) %>%
     select(-CLUSTER_NEW)
-  colnames(df_tmp) <- c("CLUSTER","AGE","RACE","SALARY","NVQ4","TRAFFIC","EXPLIFE","CRIMES","SERVICES","HOUSING","RENT","INDEX")
+  colnames(df_tmp) <- c("CLUSTER","AGE","RACE","SALARY","NVQ4","TRAFFIC","EXPLIFE","CRIMES","SERVICES","HOUSING","INDEX")
   print(df_tmp)
   
   df_clusters <- df_clusters %>%
@@ -254,7 +189,7 @@ calcula_clusters_jerarquico <- function(df, periodo, k) {
 # 03) Guarda los datos de los clusters
 ################################################################################
 guardar_clusters <- function(df) {
-  ruta_fichero <- 'DAT_Clusters_Gentrificacion_Londres.csv'
+  ruta_fichero <- 'DAT_Clusters_Gentrificacion_Londres_9VAR.csv'
   write.csv2(df, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)
 }
 
@@ -272,7 +207,7 @@ df_barrios <- carga_lista_barrios()
 df_datos <- carga_indicadores()
 
 # Selecciona columnas IND
-df_datos <- df_datos %>% select(-starts_with("VAL_"), -starts_with("VAR_")) #%>% filter(!BOROUGH %in% c("London"))
+df_datos <- df_datos %>% select(-starts_with("VAL_"), -starts_with("VAR_"), -IND_10_HOUSE_RENT) #%>% filter(!BOROUGH %in% c("London"))
 
 df_correlacion <- df_datos %>% filter(BOROUGH != 'London') %>% select(-c(CODE, BOROUGH, YEAR))
 
@@ -285,7 +220,7 @@ calcula_correlacion(df_correlacion, 'Matriz de correlación')
 df_analisis_2010 <- df_datos %>% filter(YEAR == 2010 & BOROUGH != 'London')
 analisis_clusters(df_analisis_2010, '2001-2010')
 df_aux <- data.frame(CODE = NA, BOROUGH = NA, YEAR = NA, IND_01_AGE = NA, IND_02_RACE_WHITE = NA, IND_03_WEEK_EARNINGS = NA, IND_04_PERCENT_NVQ4 = NA,
-                     IND_05_CAR_TRAFFIC = NA, IND_06_EXP_LIFE = NA, IND_07_CRIMES = NA, IND_08_SERVICES = NA, IND_09_HOUSE_PRICE = NA, IND_10_HOUSE_RENT = NA,
+                     IND_05_CAR_TRAFFIC = NA, IND_06_EXP_LIFE = NA, IND_07_CRIMES = NA, IND_08_SERVICES = NA, IND_09_HOUSE_PRICE = NA,
                      CLUSTER = NA, GENTRIFICATION_INDEX = NA, K = NA)
 for (k in c(2:10)) {
   result_clusters_2011 <- calcula_clusters_jerarquico(df_analisis_2010, '2001-2010', k)
@@ -300,7 +235,7 @@ df_resultado <- df_aux
 df_analisis_2020 <- df_datos %>% filter(YEAR == 2020 & BOROUGH != 'London')
 analisis_clusters(df_analisis_2020, '2011-2020')
 df_aux <- data.frame(CODE = NA, BOROUGH = NA, YEAR = NA, IND_01_AGE = NA, IND_02_RACE_WHITE = NA, IND_03_WEEK_EARNINGS = NA, IND_04_PERCENT_NVQ4 = NA,
-                     IND_05_CAR_TRAFFIC = NA, IND_06_EXP_LIFE = NA, IND_07_CRIMES = NA, IND_08_SERVICES = NA, IND_09_HOUSE_PRICE = NA, IND_10_HOUSE_RENT = NA,
+                     IND_05_CAR_TRAFFIC = NA, IND_06_EXP_LIFE = NA, IND_07_CRIMES = NA, IND_08_SERVICES = NA, IND_09_HOUSE_PRICE = NA,
                      CLUSTER = NA, GENTRIFICATION_INDEX = NA, K = NA)
 for (k in c(2:10)) {
   result_clusters_2020 <- calcula_clusters_jerarquico(df_analisis_2020, '2011-2020', k)
@@ -315,7 +250,7 @@ df_resultado <- rbind(df_resultado, df_aux)
 df_analisis_2025 <- df_datos %>% filter(YEAR == 2025 & BOROUGH != 'London')
 analisis_clusters(df_analisis_2025, '2021-2025')
 df_aux <- data.frame(CODE = NA, BOROUGH = NA, YEAR = NA, IND_01_AGE = NA, IND_02_RACE_WHITE = NA, IND_03_WEEK_EARNINGS = NA, IND_04_PERCENT_NVQ4 = NA,
-                     IND_05_CAR_TRAFFIC = NA, IND_06_EXP_LIFE = NA, IND_07_CRIMES = NA, IND_08_SERVICES = NA, IND_09_HOUSE_PRICE = NA, IND_10_HOUSE_RENT = NA,
+                     IND_05_CAR_TRAFFIC = NA, IND_06_EXP_LIFE = NA, IND_07_CRIMES = NA, IND_08_SERVICES = NA, IND_09_HOUSE_PRICE = NA,
                      CLUSTER = NA, GENTRIFICATION_INDEX = NA, K = NA)
 for (k in c(2:10)) {
   result_clusters_2025 <- calcula_clusters_jerarquico(df_analisis_2025, '2021-2025', k)

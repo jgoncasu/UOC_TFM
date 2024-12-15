@@ -52,41 +52,41 @@ prep_indicador_01_edad <- function(df_STG_datos) {
   # Guarda el valor inicial para 2001
   df_2001 <- df_STG_datos %>% 
     filter(Year == 2001) %>%
-    select(Code, Borough, Year, Avg_Age)
+    select(Code, Borough, Year, Pct_25_40)
   
-  # Calcula la media para el periodo 2001-2011
-  df_2011 <- df_STG_datos %>%
-    filter(Year >= 2001 & Year <= 2011) %>%
+  # Calcula la media para el periodo 2001-2010
+  df_2010 <- df_STG_datos %>%
+    filter(Year >= 2001 & Year <= 2010) %>%
     group_by(Code, Borough) %>%
     summarise(
-      Avg_Age = mean(Avg_Age, na.rm = TRUE),
+      Pct_25_40 = mean(Pct_25_40, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2011) %>%
-    select(Code, Borough, Year, Avg_Age)
+    mutate(Year = 2010) %>%
+    select(Code, Borough, Year, Pct_25_40)
   
-  # Calcula la media para el periodo 2011-2021
-  df_2021 <- df_STG_datos %>%
-    filter(Year >= 2011 & Year <= 2021) %>%
+  # Calcula la media para el periodo 2011-2020
+  df_2020 <- df_STG_datos %>%
+    filter(Year >= 2011 & Year <= 2020) %>%
     group_by(Code, Borough) %>%
     summarise(
-      Avg_Age = mean(Avg_Age, na.rm = TRUE),
+      Pct_25_40 = mean(Pct_25_40, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2021) %>%
-    select(Code, Borough, Year, Avg_Age)
+    mutate(Year = 2020) %>%
+    select(Code, Borough, Year, Pct_25_40)
   
   # Calcula la media para el periodo 2021-2025
   df_2025 <- df_STG_datos %>%
     filter(Year >= 2021 & Year <= 2025) %>%
     group_by(Code, Borough) %>%
     summarise(
-      Avg_Age = mean(Avg_Age, na.rm = TRUE),
+      Pct_25_40 = mean(Pct_25_40, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
     mutate(Year = 2025) %>%
-    select(Code, Borough, Year, Avg_Age)
-  df <- bind_rows(df_2001, df_2011, df_2021, df_2025)
+    select(Code, Borough, Year, Pct_25_40)
+  df <- bind_rows(df_2001, df_2010, df_2020, df_2025)
 
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_01_AGE")
   
@@ -98,7 +98,7 @@ prep_indicador_01_edad <- function(df_STG_datos) {
       VAR_01_AGE = case_when(
         YEAR == 2001 ~ 0,
         YEAR == 2025 ~ calcula_variacion_barrio(lag(VAL_01_AGE), VAL_01_AGE, 5),
-        TRUE ~ calcula_variacion_barrio(lag(VAL_01_AGE), VAL_01_AGE, 11)
+        TRUE ~ calcula_variacion_barrio(lag(VAL_01_AGE), VAL_01_AGE, 10)
       )
     ) %>%
     ungroup()
@@ -137,7 +137,7 @@ prep_indicador_01_edad <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_01_edad <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Avg_Age)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2025) %>% select(Code, Borough, Year, Pct_25_40)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_01_AGE")
   
   return(df)
@@ -162,26 +162,26 @@ prep_indicador_02_raza <- function(df_STG_datos) {
     filter(Year == 2001) %>%
     select(Code, Borough, Year, Percent_White)
   
-  # Calcula la media para el periodo 2001-2011
-  df_2011 <- df_STG_datos %>%
-    filter(Year >= 2001 & Year <= 2011) %>%
+  # Calcula la media para el periodo 2001-2010
+  df_2010 <- df_STG_datos %>%
+    filter(Year >= 2001 & Year <= 2010) %>%
     group_by(Code, Borough) %>%
     summarise(
       Percent_White = mean(Percent_White, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2011) %>%
+    mutate(Year = 2010) %>%
     select(Code, Borough, Year, Percent_White)
   
-  # Calcula la media para el periodo 2011-2021
-  df_2021 <- df_STG_datos %>%
-    filter(Year >= 2011 & Year <= 2021) %>%
+  # Calcula la media para el periodo 2011-2020
+  df_2020 <- df_STG_datos %>%
+    filter(Year >= 2011 & Year <= 2020) %>%
     group_by(Code, Borough) %>%
     summarise(
       Percent_White = mean(Percent_White, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2021) %>%
+    mutate(Year = 2020) %>%
     select(Code, Borough, Year, Percent_White)
   
   # Calcula la media para el periodo 2021-2025
@@ -194,11 +194,11 @@ prep_indicador_02_raza <- function(df_STG_datos) {
     ) %>%
     mutate(Year = 2025) %>%
     select(Code, Borough, Year, Percent_White)
-  df <- bind_rows(df_2001, df_2011, df_2021, df_2025)
+  df <- bind_rows(df_2001, df_2010, df_2020, df_2025)
   
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_02_RACE_WHITE")
   
-  # Calcula la variación del indicador en las tres décadas
+  # Calcula la variación del indicador en los tres períodos
   df <- df %>%
     arrange(CODE, BOROUGH, YEAR) %>%
     group_by(CODE, BOROUGH) %>%
@@ -206,7 +206,7 @@ prep_indicador_02_raza <- function(df_STG_datos) {
       VAR_02_RACE_WHITE = case_when(
         YEAR == 2001 ~ 0,
         YEAR == 2025 ~ calcula_variacion_barrio(lag(VAL_02_RACE_WHITE), VAL_02_RACE_WHITE, 5),
-        TRUE ~ calcula_variacion_barrio(lag(VAL_02_RACE_WHITE), VAL_02_RACE_WHITE, 11)
+        TRUE ~ calcula_variacion_barrio(lag(VAL_02_RACE_WHITE), VAL_02_RACE_WHITE, 10)
       )
     ) %>%
     ungroup()
@@ -246,7 +246,7 @@ prep_indicador_02_raza <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_02_raza <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Percent_White)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2025) %>% select(Code, Borough, Year, Percent_White)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_02_RACE_WHITE")
   
   return(df)
@@ -273,25 +273,25 @@ prep_indicador_03_empleo <- function(df_STG_datos) {
     select(Code, Borough, Year, Week_Earnings)
   
   # Calcula la media para el periodo 2001-2011
-  df_2011 <- df_STG_datos %>%
-    filter(Year >= 2002 & Year <= 2011) %>%
+  df_2010 <- df_STG_datos %>%
+    filter(Year >= 2002 & Year <= 2010) %>%
     group_by(Code, Borough) %>%
     summarise(
       Week_Earnings = mean(Week_Earnings, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2011) %>%
+    mutate(Year = 2010) %>%
     select(Code, Borough, Year, Week_Earnings)
   
   # Calcula la media para el periodo 2011-2021
-  df_2021 <- df_STG_datos %>%
-    filter(Year >= 2011 & Year <= 2021) %>%
+  df_2020 <- df_STG_datos %>%
+    filter(Year >= 2011 & Year <= 2020) %>%
     group_by(Code, Borough) %>%
     summarise(
       Week_Earnings = mean(Week_Earnings, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2021) %>%
+    mutate(Year = 2020) %>%
     select(Code, Borough, Year, Week_Earnings)
   
   # Calcula la media para el periodo 2021-2025
@@ -304,7 +304,7 @@ prep_indicador_03_empleo <- function(df_STG_datos) {
     ) %>%
     mutate(Year = 2025) %>%
     select(Code, Borough, Year, Week_Earnings)
-  df <- bind_rows(df_2001, df_2011, df_2021, df_2025)
+  df <- bind_rows(df_2001, df_2010, df_2020, df_2025)
   
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_03_WEEK_EARNINGS")
   
@@ -315,9 +315,9 @@ prep_indicador_03_empleo <- function(df_STG_datos) {
     mutate(
       VAR_03_WEEK_EARNINGS = case_when(
         YEAR == 2001 ~ 0,
-        YEAR == 2011 ~ calcula_variacion_barrio(lag(VAL_03_WEEK_EARNINGS), VAL_03_WEEK_EARNINGS, 10),
+        YEAR == 2010 ~ calcula_variacion_barrio(lag(VAL_03_WEEK_EARNINGS), VAL_03_WEEK_EARNINGS, 9),
         YEAR == 2025 ~ calcula_variacion_barrio(lag(VAL_03_WEEK_EARNINGS), VAL_03_WEEK_EARNINGS, 5),
-        TRUE ~ calcula_variacion_barrio(lag(VAL_03_WEEK_EARNINGS), VAL_03_WEEK_EARNINGS, 11)
+        TRUE ~ calcula_variacion_barrio(lag(VAL_03_WEEK_EARNINGS), VAL_03_WEEK_EARNINGS, 10)
       )
     ) %>%
     ungroup()
@@ -356,7 +356,7 @@ prep_indicador_03_empleo <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_03_empleo <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Week_Earnings)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2025) %>% select(Code, Borough, Year, Week_Earnings)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_03_WEEK_EARNINGS")
   
   return(df)
@@ -382,26 +382,26 @@ prep_indicador_04_estudios <- function(df_STG_datos) {
     mutate(Year = 2001) %>%
     select(Code, Borough, Year, Percent)
   
-  # Calcula la media para el periodo 2001-2011
-  df_2011 <- df_STG_datos %>%
-    filter(Year >= 2004 & Year <= 2011) %>%
+  # Calcula la media para el periodo 2001-2010
+  df_2010 <- df_STG_datos %>%
+    filter(Year >= 2004 & Year <= 2010) %>%
     group_by(Code, Borough) %>%
     summarise(
       Percent = mean(Percent, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2011) %>%
+    mutate(Year = 2010) %>%
     select(Code, Borough, Year, Percent)
   
-  # Calcula la media para el periodo 2011-2021
-  df_2021 <- df_STG_datos %>%
-    filter(Year >= 2011 & Year <= 2021) %>%
+  # Calcula la media para el periodo 2011-2020
+  df_2020 <- df_STG_datos %>%
+    filter(Year >= 2011 & Year <= 2020) %>%
     group_by(Code, Borough) %>%
     summarise(
       Percent = mean(Percent, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2021) %>%
+    mutate(Year = 2020) %>%
     select(Code, Borough, Year, Percent)
   
   # Calcula la media para el periodo 2021-2025
@@ -414,7 +414,7 @@ prep_indicador_04_estudios <- function(df_STG_datos) {
     ) %>%
     mutate(Year = 2025) %>%
     select(Code, Borough, Year, Percent)
-  df <- bind_rows(df_2001, df_2011, df_2021, df_2025)
+  df <- bind_rows(df_2001, df_2010, df_2020, df_2025)
   
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_04_PERCENT_NVQ4")
   
@@ -425,9 +425,9 @@ prep_indicador_04_estudios <- function(df_STG_datos) {
     mutate(
       VAR_04_PERCENT_NVQ4 = case_when(
         YEAR == 2001 ~ 0,
-        YEAR == 2011 ~ calcula_variacion_barrio(lag(VAL_04_PERCENT_NVQ4), VAL_04_PERCENT_NVQ4, 8),
+        YEAR == 2011 ~ calcula_variacion_barrio(lag(VAL_04_PERCENT_NVQ4), VAL_04_PERCENT_NVQ4, 7),
         YEAR == 2025 ~ calcula_variacion_barrio(lag(VAL_04_PERCENT_NVQ4), VAL_04_PERCENT_NVQ4, 5),
-        TRUE ~ calcula_variacion_barrio(lag(VAL_04_PERCENT_NVQ4), VAL_04_PERCENT_NVQ4, 11)
+        TRUE ~ calcula_variacion_barrio(lag(VAL_04_PERCENT_NVQ4), VAL_04_PERCENT_NVQ4, 10)
       )
     ) %>%
     ungroup()
@@ -466,7 +466,7 @@ prep_indicador_04_estudios <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_04_estudios <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Percent)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2025) %>% select(Code, Borough, Year, Percent)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_04_PERCENT_NVQ4")
   
   return(df)
@@ -491,26 +491,26 @@ prep_indicador_05_trafico <- function(df_STG_datos) {
     filter(Year == 2001) %>%
     select(Code, Borough, Year, Car_Traffic)
   
-  # Calcula la media para el periodo 2001-2011
-  df_2011 <- df_STG_datos %>%
-    filter(Year >= 2001 & Year <= 2011) %>%
+  # Calcula la media para el periodo 2001-2010
+  df_2010 <- df_STG_datos %>%
+    filter(Year >= 2001 & Year <= 2010) %>%
     group_by(Code, Borough) %>%
     summarise(
       Car_Traffic = mean(Car_Traffic, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2011) %>%
+    mutate(Year = 2010) %>%
     select(Code, Borough, Year, Car_Traffic)
   
-  # Calcula la media para el periodo 2011-2021
-  df_2021 <- df_STG_datos %>%
-    filter(Year >= 2011 & Year <= 2021) %>%
+  # Calcula la media para el periodo 2011-2020
+  df_2020 <- df_STG_datos %>%
+    filter(Year >= 2011 & Year <= 2020) %>%
     group_by(Code, Borough) %>%
     summarise(
       Car_Traffic = mean(Car_Traffic, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2021) %>%
+    mutate(Year = 2020) %>%
     select(Code, Borough, Year, Car_Traffic)
   
   # Calcula la media para el periodo 2021-2025
@@ -523,7 +523,7 @@ prep_indicador_05_trafico <- function(df_STG_datos) {
     ) %>%
     mutate(Year = 2025) %>%
     select(Code, Borough, Year, Car_Traffic)
-  df <- bind_rows(df_2001, df_2011, df_2021, df_2025)
+  df <- bind_rows(df_2001, df_2010, df_2020, df_2025)
   
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_05_CAR_TRAFFIC")
   
@@ -535,7 +535,7 @@ prep_indicador_05_trafico <- function(df_STG_datos) {
       VAR_05_CAR_TRAFFIC = case_when(
         YEAR == 2001 ~ 0,
         YEAR == 2025 ~ calcula_variacion_barrio(lag(VAL_05_CAR_TRAFFIC), VAL_05_CAR_TRAFFIC, 5),
-        TRUE ~ calcula_variacion_barrio(lag(VAL_05_CAR_TRAFFIC), VAL_05_CAR_TRAFFIC, 11)
+        TRUE ~ calcula_variacion_barrio(lag(VAL_05_CAR_TRAFFIC), VAL_05_CAR_TRAFFIC, 10)
       )
     ) %>%
     ungroup()
@@ -574,7 +574,7 @@ prep_indicador_05_trafico <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_05_trafico <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Car_Traffic)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2025) %>% select(Code, Borough, Year, Car_Traffic)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_05_CAR_TRAFFIC")
   
   return(df)
@@ -600,26 +600,26 @@ prep_indicador_06_esperanza_vida <- function(df_STG_datos) {
     mutate(Year = 2001) %>%
     select(Code, Borough, Year, Avg_Sex)
   
-  # Calcula la media para el periodo 2001-2011
-  df_2011 <- df_STG_datos %>%
-    filter(Year >= 2003 & Year <= 2011) %>%
+  # Calcula la media para el periodo 2001-2010
+  df_2010 <- df_STG_datos %>%
+    filter(Year >= 2003 & Year <= 2010) %>%
     group_by(Code, Borough) %>%
     summarise(
       Avg_Sex = mean(Avg_Sex, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2011) %>%
+    mutate(Year = 2010) %>%
     select(Code, Borough, Year, Avg_Sex)
   
-  # Calcula la media para el periodo 2011-2021
-  df_2021 <- df_STG_datos %>%
-    filter(Year >= 2011 & Year <= 2021) %>%
+  # Calcula la media para el periodo 2011-2020
+  df_2020 <- df_STG_datos %>%
+    filter(Year >= 2011 & Year <= 2020) %>%
     group_by(Code, Borough) %>%
     summarise(
       Avg_Sex = mean(Avg_Sex, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2021) %>%
+    mutate(Year = 2020) %>%
     select(Code, Borough, Year, Avg_Sex)
   
   # Calcula la media para el periodo 2021-2025
@@ -632,7 +632,7 @@ prep_indicador_06_esperanza_vida <- function(df_STG_datos) {
     ) %>%
     mutate(Year = 2025) %>%
     select(Code, Borough, Year, Avg_Sex)
-  df <- bind_rows(df_2001, df_2011, df_2021, df_2025)
+  df <- bind_rows(df_2001, df_2010, df_2020, df_2025)
   
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_06_EXP_LIFE")
   
@@ -643,9 +643,9 @@ prep_indicador_06_esperanza_vida <- function(df_STG_datos) {
     mutate(
       VAR_06_EXP_LIFE = case_when(
         YEAR == 2001 ~ 0,
-        YEAR == 2011 ~ calcula_variacion_barrio(lag(VAL_06_EXP_LIFE), VAL_06_EXP_LIFE, 9),
+        YEAR == 2011 ~ calcula_variacion_barrio(lag(VAL_06_EXP_LIFE), VAL_06_EXP_LIFE, 8),
         YEAR == 2025 ~ calcula_variacion_barrio(lag(VAL_06_EXP_LIFE), VAL_06_EXP_LIFE, 5),
-        TRUE ~ calcula_variacion_barrio(lag(VAL_06_EXP_LIFE), VAL_06_EXP_LIFE, 11)
+        TRUE ~ calcula_variacion_barrio(lag(VAL_06_EXP_LIFE), VAL_06_EXP_LIFE, 10)
       )
     ) %>%
     ungroup()
@@ -684,7 +684,7 @@ prep_indicador_06_esperanza_vida <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_06_esperanza_vida <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Avg_Sex)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2025) %>% select(Code, Borough, Year, Avg_Sex)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_06_EXP_LIFE")
   
   return(df)
@@ -709,26 +709,26 @@ prep_indicador_07_delitos <- function(df_STG_datos) {
     filter(Year == 2001) %>%
     select(Code, Borough, Year, Crimes)
   
-  # Calcula la media para el periodo 2001-2011
-  df_2011 <- df_STG_datos %>%
-    filter(Year >= 2001 & Year <= 2011) %>%
+  # Calcula la media para el periodo 2001-2010
+  df_2010 <- df_STG_datos %>%
+    filter(Year >= 2001 & Year <= 2010) %>%
     group_by(Code, Borough) %>%
     summarise(
       Crimes = mean(Crimes, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2011) %>%
+    mutate(Year = 2010) %>%
     select(Code, Borough, Year, Crimes)
   
-  # Calcula la media para el periodo 2011-2021
-  df_2021 <- df_STG_datos %>%
-    filter(Year >= 2011 & Year <= 2021) %>%
+  # Calcula la media para el periodo 2011-2020
+  df_2020 <- df_STG_datos %>%
+    filter(Year >= 2011 & Year <= 2020) %>%
     group_by(Code, Borough) %>%
     summarise(
       Crimes = mean(Crimes, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2021) %>%
+    mutate(Year = 2020) %>%
     select(Code, Borough, Year, Crimes)
   
   # Calcula la media para el periodo 2021-2025
@@ -741,7 +741,7 @@ prep_indicador_07_delitos <- function(df_STG_datos) {
     ) %>%
     mutate(Year = 2025) %>%
     select(Code, Borough, Year, Crimes)
-  df <- bind_rows(df_2001, df_2011, df_2021, df_2025)
+  df <- bind_rows(df_2001, df_2010, df_2020, df_2025)
   
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_07_CRIMES")
   
@@ -753,7 +753,7 @@ prep_indicador_07_delitos <- function(df_STG_datos) {
       VAR_07_CRIMES = case_when(
         YEAR == 2001 ~ 0,
         YEAR == 2025 ~ calcula_variacion_barrio(lag(VAL_07_CRIMES), VAL_07_CRIMES, 5),
-        TRUE ~ calcula_variacion_barrio(lag(VAL_07_CRIMES), VAL_07_CRIMES, 11)
+        TRUE ~ calcula_variacion_barrio(lag(VAL_07_CRIMES), VAL_07_CRIMES, 10)
       )
     ) %>%
     ungroup()
@@ -792,7 +792,7 @@ prep_indicador_07_delitos <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_07_delitos <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Crimes)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2025) %>% select(Code, Borough, Year, Crimes)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_07_CRIMES")
   
   return(df)
@@ -818,26 +818,26 @@ prep_indicador_08_servicios <- function(df_STG_datos) {
     mutate(Year = 2001) %>%
     select(Code, Borough, Year, Total)
   
-  # Calcula la media para el periodo 2001-2011
-  df_2011 <- df_STG_datos %>%
-    filter(Year >= 2003 & Year <= 2011) %>%
+  # Calcula la media para el periodo 2001-2010
+  df_2010 <- df_STG_datos %>%
+    filter(Year >= 2003 & Year <= 2010) %>%
     group_by(Code, Borough) %>%
     summarise(
       Total = mean(Total, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2011) %>%
+    mutate(Year = 2010) %>%
     select(Code, Borough, Year, Total)
   
-  # Calcula la media para el periodo 2011-2021
-  df_2021 <- df_STG_datos %>%
-    filter(Year >= 2011 & Year <= 2021) %>%
+  # Calcula la media para el periodo 2011-2020
+  df_2020 <- df_STG_datos %>%
+    filter(Year >= 2011 & Year <= 2020) %>%
     group_by(Code, Borough) %>%
     summarise(
       Total = mean(Total, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2021) %>%
+    mutate(Year = 2020) %>%
     select(Code, Borough, Year, Total)
   
   # Calcula la media para el periodo 2021-2025
@@ -850,7 +850,7 @@ prep_indicador_08_servicios <- function(df_STG_datos) {
     ) %>%
     mutate(Year = 2025) %>%
     select(Code, Borough, Year, Total)
-  df <- bind_rows(df_2001, df_2011, df_2021, df_2025)
+  df <- bind_rows(df_2001, df_2010, df_2020, df_2025)
   
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_08_SERVICES")
   
@@ -861,9 +861,9 @@ prep_indicador_08_servicios <- function(df_STG_datos) {
     mutate(
       VAR_08_SERVICES = case_when(
         YEAR == 2001 ~ 0,
-        YEAR == 2011 ~ calcula_variacion_barrio(lag(VAL_08_SERVICES), VAL_08_SERVICES, 9),
+        YEAR == 2011 ~ calcula_variacion_barrio(lag(VAL_08_SERVICES), VAL_08_SERVICES, 8),
         YEAR == 2025 ~ calcula_variacion_barrio(lag(VAL_08_SERVICES), VAL_08_SERVICES, 5),
-        TRUE ~ calcula_variacion_barrio(lag(VAL_08_SERVICES), VAL_08_SERVICES, 11)
+        TRUE ~ calcula_variacion_barrio(lag(VAL_08_SERVICES), VAL_08_SERVICES, 10)
       )
     ) %>%
     ungroup()
@@ -902,7 +902,7 @@ prep_indicador_08_servicios <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_08_servicios <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Total)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2025) %>% select(Code, Borough, Year, Total)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_08_SERVICES")
   
   return(df)
@@ -927,26 +927,26 @@ prep_indicador_09_vivienda_precio <- function(df_STG_datos) {
     filter(Year == 2001) %>%
     select(Code, Borough, Year, Price)
   
-  # Calcula la media para el periodo 2001-2011
-  df_2011 <- df_STG_datos %>%
-    filter(Year >= 2001 & Year <= 2011) %>%
+  # Calcula la media para el periodo 2001-2010
+  df_2010 <- df_STG_datos %>%
+    filter(Year >= 2001 & Year <= 2010) %>%
     group_by(Code, Borough) %>%
     summarise(
       Price = mean(Price, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2011) %>%
+    mutate(Year = 2010) %>%
     select(Code, Borough, Year, Price)
   
-  # Calcula la media para el periodo 2011-2021
-  df_2021 <- df_STG_datos %>%
-    filter(Year >= 2011 & Year <= 2021) %>%
+  # Calcula la media para el periodo 2011-2020
+  df_2020 <- df_STG_datos %>%
+    filter(Year >= 2011 & Year <= 2020) %>%
     group_by(Code, Borough) %>%
     summarise(
       Price = mean(Price, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2021) %>%
+    mutate(Year = 2020) %>%
     select(Code, Borough, Year, Price)
   
   # Calcula la media para el periodo 2021-2025
@@ -959,7 +959,7 @@ prep_indicador_09_vivienda_precio <- function(df_STG_datos) {
     ) %>%
     mutate(Year = 2025) %>%
     select(Code, Borough, Year, Price)
-  df <- bind_rows(df_2001, df_2011, df_2021, df_2025)
+  df <- bind_rows(df_2001, df_2010, df_2020, df_2025)
   
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_09_HOUSE_PRICE")
   
@@ -971,7 +971,7 @@ prep_indicador_09_vivienda_precio <- function(df_STG_datos) {
       VAR_09_HOUSE_PRICE = case_when(
         YEAR == 2001 ~ 0,
         YEAR == 2025 ~ calcula_variacion_barrio(lag(VAL_09_HOUSE_PRICE), VAL_09_HOUSE_PRICE, 5),
-        TRUE ~ calcula_variacion_barrio(lag(VAL_09_HOUSE_PRICE), VAL_09_HOUSE_PRICE, 11)
+        TRUE ~ calcula_variacion_barrio(lag(VAL_09_HOUSE_PRICE), VAL_09_HOUSE_PRICE, 10)
       )
     ) %>%
     ungroup()
@@ -1010,7 +1010,7 @@ prep_indicador_09_vivienda_precio <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_09_vivienda_precio <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Price)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2025) %>% select(Code, Borough, Year, Price)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAR_09_HOUSE_PRICE")
   
   return(df)
@@ -1035,26 +1035,26 @@ prep_indicador_10_vivienda_alquiler <- function(df_STG_datos) {
     filter(Year == 2001) %>%
     select(Code, Borough, Year, Rent)
   
-  # Calcula la media para el periodo 2001-2011
-  df_2011 <- df_STG_datos %>%
-    filter(Year >= 2001 & Year <= 2011) %>%
+  # Calcula la media para el periodo 2001-2010
+  df_2010 <- df_STG_datos %>%
+    filter(Year >= 2001 & Year <= 2010) %>%
     group_by(Code, Borough) %>%
     summarise(
       Rent = mean(Rent, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2011) %>%
+    mutate(Year = 2010) %>%
     select(Code, Borough, Year, Rent)
   
-  # Calcula la media para el periodo 2011-2021
-  df_2021 <- df_STG_datos %>%
-    filter(Year >= 2011 & Year <= 2021) %>%
+  # Calcula la media para el periodo 2011-2020
+  df_2020 <- df_STG_datos %>%
+    filter(Year >= 2011 & Year <= 2020) %>%
     group_by(Code, Borough) %>%
     summarise(
       Rent = mean(Rent, na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    mutate(Year = 2021) %>%
+    mutate(Year = 2020) %>%
     select(Code, Borough, Year, Rent)
   
   # Calcula la media para el periodo 2021-2025
@@ -1067,7 +1067,7 @@ prep_indicador_10_vivienda_alquiler <- function(df_STG_datos) {
     ) %>%
     mutate(Year = 2025) %>%
     select(Code, Borough, Year, Rent)
-  df <- bind_rows(df_2001, df_2011, df_2021, df_2025)
+  df <- bind_rows(df_2001, df_2010, df_2020, df_2025)
   
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_10_HOUSE_RENT")
   
@@ -1079,7 +1079,7 @@ prep_indicador_10_vivienda_alquiler <- function(df_STG_datos) {
       VAR_10_HOUSE_RENT = case_when(
         YEAR == 2001 ~ 0,
         YEAR == 2025 ~ calcula_variacion_barrio(lag(VAL_10_HOUSE_RENT), VAL_10_HOUSE_RENT, 5),
-        TRUE ~ calcula_variacion_barrio(lag(VAL_10_HOUSE_RENT), VAL_10_HOUSE_RENT, 11)
+        TRUE ~ calcula_variacion_barrio(lag(VAL_10_HOUSE_RENT), VAL_10_HOUSE_RENT, 10)
       )
     ) %>%
     ungroup()
@@ -1118,7 +1118,7 @@ prep_indicador_10_vivienda_alquiler <- function(df_STG_datos) {
 ################################################################################
 datos_brutos_10_vivienda_alquiler <- function(df_STG_datos) {
   # Selecciona el campo con el valor para el indicador
-  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2031) %>% select(Code, Borough, Year, Rent)
+  df <- df_STG_datos %>% filter(Year >= 2001 & Year <= 2025) %>% select(Code, Borough, Year, Rent)
   colnames(df) <- c("CODE", "BOROUGH", "YEAR", "VAL_10_HOUSE_RENT")
   
   return(df)
@@ -1138,7 +1138,7 @@ fusiona_indicadores <- function(df_01_edad, df_02_raza, df_03_empleo, df_04_estu
   df <- merge(df, df_07_delitos, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
   df <- merge(df, df_08_servicios, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
   df <- merge(df, df_09_vivienda_precio, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
-  df <- merge(df, df_10_vivienda_alquiler, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  #df <- merge(df, df_10_vivienda_alquiler, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
   
   return(df)
 }
@@ -1166,7 +1166,7 @@ fusiona_datos_en_bruto <- function(df_brutos_01_edad, df_brutos_02_raza, df_brut
   df <- merge(df, df_brutos_07_delitos, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
   df <- merge(df, df_brutos_08_servicios, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
   df <- merge(df, df_brutos_09_vivienda_precio, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
-  df <- merge(df, df_brutos_10_vivienda_alquiler, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
+  #df <- merge(df, df_brutos_10_vivienda_alquiler, by = c("CODE", "BOROUGH", "YEAR"), all = TRUE)
   
   return(df)
 }
@@ -1176,7 +1176,6 @@ fusiona_datos_en_bruto <- function(df_brutos_01_edad, df_brutos_02_raza, df_brut
 ################################################################################
 guardar_datos_brutos <- function(df) {
   ruta_fichero <- 'DAT_Brutos_Londres.csv'
-  #write.csv(df, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)
   write.csv2(df, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)
 }
 
@@ -1195,8 +1194,7 @@ guardar_indicadores_visualizacion <- function(df) {
                "VAL_06_EXP_LIFE","VAR_06_EXP_LIFE","IND_06_EXP_LIFE",
                "VAL_07_CRIMES","VAR_07_CRIMES","IND_07_CRIMES",
                "VAL_08_SERVICES","VAR_08_SERVICES","IND_08_SERVICES",
-               "VAL_09_HOUSE_PRICE","VAR_09_HOUSE_PRICE","IND_09_HOUSE_PRICE",
-               "VAL_10_HOUSE_RENT","VAR_10_HOUSE_RENT","IND_10_HOUSE_RENT"
+               "VAL_09_HOUSE_PRICE","VAR_09_HOUSE_PRICE","IND_09_HOUSE_PRICE"
                ),
       names_to = "VARIABLE"
     )
@@ -1204,22 +1202,6 @@ guardar_indicadores_visualizacion <- function(df) {
   # Renombrar columnas
   df_global <- df_global %>%
     rename(VALUE = value)
-  
-  # Normalización de las variaciones locales
-  #df_var <- df_global %>%
-  #  filter(grepl("^VAR_", VARIABLE)) %>%
-  #  mutate(NORMALIZED_VALUE = scale(VALUE))
-  
-  # Normalización de los indicadores
-  #df_ind <- df_global %>%
-  #  filter(grepl("^IND_", VARIABLE)) %>%
-  #  mutate(NORMALIZED_VALUE = scale(VALUE))
-  
-  # Fusión de los valores
-  #df_tmp <- bind_rows(df_var, df_ind)
-  #colnames(df_tmp) <- c("CODE", "BOROUGH", "YEAR", "VARIABLE", "VALUE")
-  #df_global <- bind_rows(df_global %>% filter(grepl("^VAL_", VARIABLE)), df_tmp)
-  #df_global <- df_global %>% arrange(CODE, BOROUGH, YEAR, VARIABLE)
   
   ruta_fichero <- 'DAT_Indicadores_Visualizacion_Londres.csv'
   write.csv2(df_global, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)

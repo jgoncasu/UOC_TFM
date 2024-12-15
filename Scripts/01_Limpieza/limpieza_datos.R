@@ -41,21 +41,28 @@ limpieza_indicador_01_edad <- function(df) {
     mutate(across(starts_with("Persons_"), as.integer))
   
   # Calcula la edad media de los habitantes
+#  df <- df %>%
+#    rowwise() %>%
+#    mutate(
+#      Avg_Age = round(sum(c_across(starts_with("Persons_")) * 1:90) / sum(c_across(starts_with("Persons_"))), 2)
+#    ) %>%
+#  ungroup()
   df <- df %>%
     rowwise() %>%
     mutate(
-      Avg_Age = round(sum(c_across(starts_with("Persons_")) * 1:90) / sum(c_across(starts_with("Persons_"))), 2)
-    ) %>%
-  ungroup()
+      Total_25_40 = sum(c_across(starts_with("Persons_")[25:40])),
+      Total_Population = sum(c_across(starts_with("Persons_"))),
+      Pct_25_40 = round((Total_25_40 / Total_Population) * 100, 2)
+    )
   
   # Elimina las columnas de datos por edad
-  df <- df %>% select(-starts_with("Persons_"))
+  df <- df %>% select(-starts_with("Persons_"), -Total_25_40, -Total_Population)
   
   # Filtra los datos hasta 2025
   df <- df %>% filter(Year <= 2025)
 
   # Ordena los datos por barrio
-  df <- df %>% select(Code, Borough, Year, Avg_Age) %>% arrange(Code, Year) 
+  df <- df %>% select(Code, Borough, Year, Pct_25_40) %>% arrange(Code, Year) 
   
   return(df)
 }

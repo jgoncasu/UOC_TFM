@@ -16,8 +16,9 @@ if (!require('sf')) install.packages('sf'); library('sf')
 # install.packages("devtools")
 # devtools::install_github("ricardo-bion/ggradar")
 library('ggradar')
+library(shinyjs)
 
-PATH_FICHEROS_DATOS <- 'DATOS/'
+PATH_FICHEROS_DATOS <- 'DATOS_VISOR/'
 
 ################################################################################
 # Carga los barrios
@@ -45,16 +46,13 @@ header <- dashboardHeader(
 sidebar <- dashboardSidebar(
   tags$br(),
   # Filtro por periodos
-  sliderInput(
+  selectInput(
     inputId = "sldYear",
     label = "Seleccione un año",
-    min = 2011,
-    max = 2031,
-    value = 2021,
-    step = 10,
-    ticks = FALSE
-  )#,
-  
+    choices = list("2010" = 2010, "2020" = 2020, "2025" = 2025),
+    selected = 2010
+  )
+
   # Filtro por barrios
 #  selectizeInput(
 #    inputId = "selBorough",
@@ -69,6 +67,8 @@ body <- dashboardBody(
   tags$br(),
   tags$h2("Análisis de la gentrificación en Londres"),
   page_fluid(
+    useShinyjs(),
+    
     tags$style(HTML("
       .col-sm-4 {
         width: 100% !important;
@@ -80,6 +80,14 @@ body <- dashboardBody(
         # Mapa gentrificación
         accordion_panel(
           title = "Gentrificación de barrios",
+          sliderInput(
+            inputId = "selK",
+            label = "Seleccione un valor de K",
+            min = 2,
+            max = 20,
+            value = 2,
+            step = 1
+          ),
           leafletOutput(outputId = "mapLondon", width="650px", height="550px"),
           verbatimTextOutput("info"),
           # ValueBoxes para mostrar la información de los indicadores del barrio
@@ -87,7 +95,12 @@ body <- dashboardBody(
           #  column(12, textOutput("txt_barrio"))
           #),
           fluidRow(
-            div(style = "display: flex; flex-wrap: wrap; gap: 5px; ",
+            div(id = "indiceContainer",
+                style = "display: flex; flex-wrap: wrap; gap: 5px; ",
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_cluster"))
+                ),
+            div(id = "valueBoxContainer",
+                style = "display: flex; flex-wrap: wrap; gap: 5px; ",
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_01")),
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_02")),
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_03")),
@@ -99,26 +112,7 @@ body <- dashboardBody(
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_09")),
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_10"))
             )
-#            column(4, valueBoxOutput("ind_barrio_01")),
-#            column(4, valueBoxOutput("ind_barrio_02")),
-#            column(4, valueBoxOutput("ind_barrio_03")),
-#            column(4, valueBoxOutput("ind_barrio_04")),
-#            column(4, valueBoxOutput("ind_barrio_05"))
-          )#,
-#          fluidRow(
-#            div(style = "display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;",
-#                div(style = "flex: 1 1 18%; max-width: 18%", valueBoxOutput("ind_barrio_06")),
-#                div(style = "flex: 1 1 18%; max-width: 18%", valueBoxOutput("ind_barrio_07")),
-#                div(style = "flex: 1 1 18%; max-width: 18%", valueBoxOutput("ind_barrio_08")),
-#                div(style = "flex: 1 1 18%; max-width: 18%", valueBoxOutput("ind_barrio_09")),
-#                div(style = "flex: 1 1 18%; max-width: 18%", valueBoxOutput("ind_barrio_10"))
-#            )
-            #            column(4, valueBoxOutput("ind_barrio_06")),
-#            column(4, valueBoxOutput("ind_barrio_07")),
-#            column(4, valueBoxOutput("ind_barrio_08")),
-#            column(4, valueBoxOutput("ind_barrio_09")),
-#            column(4, valueBoxOutput("ind_barrio_10"))
-#          )
+          )
         ),
         
         # Análisis visual de indicadores
@@ -132,26 +126,26 @@ body <- dashboardBody(
             multiple = FALSE
           ),
           fluidRow(
-            column(6, tags$h5("Año 2011"))
-            #column(6, tags$h5("Año 2021"))
+            column(6, tags$h5("Año 2010"))
+            #column(6, tags$h5("Año 2020"))
           ),
           fluidRow(
-            column(6, plotOutput("radar_2011"), height="300px"),
-            column(6, plotOutput("dot_2011"), height="300px")
+            column(6, plotOutput("radar_2010"), height="300px"),
+            column(6, plotOutput("dot_2010"), height="300px")
           ),
           fluidRow(
-            column(6, tags$h5("Año 2021"))
+            column(6, tags$h5("Año 2020"))
           ),
           fluidRow(
-            column(6, plotOutput("radar_2021"), height="300px"),
-            column(6, plotOutput("dot_2021"), height="300px")
+            column(6, plotOutput("radar_2020"), height="300px"),
+            column(6, plotOutput("dot_2020"), height="300px")
           ),
           fluidRow(
-            column(6, tags$h5("Año 2031"))
+            column(6, tags$h5("Año 2025"))
           ),
           fluidRow(
-            column(6, plotOutput("radar_2031"), height="300px"),
-            column(6, plotOutput("dot_2031"), height="300px")
+            column(6, plotOutput("radar_2025"), height="300px"),
+            column(6, plotOutput("dot_2025"), height="300px")
           )
         ),
         
@@ -165,9 +159,9 @@ body <- dashboardBody(
           DTOutput("tblIndicadores")
         ),
         
-        # Evolución datos por décadas
+        # Evolución datos por períodos
         accordion_panel(
-          title = "Evolución datos por décadas",
+          title = "Evolución datos por períodos",
 
           # Filtro por barrios
           selectizeInput(

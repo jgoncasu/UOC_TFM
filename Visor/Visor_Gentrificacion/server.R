@@ -16,14 +16,14 @@ if (!require('sf')) install.packages('sf'); library('sf')
 
 theme_set(theme_bw())
 
-PATH_FICHEROS_DATOS <- 'DATOS/'
+PATH_FICHEROS_DATOS <- 'DATOS_VISOR/'
 
 ################################################################################
 # Carga los datos en bruto
 ################################################################################
 carga_datos_brutos <- function() {
   ruta_fichero <- 'DAT_Brutos_Londres.csv'
-  df = read_csv(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(),
+  df = read_csv2(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(),
                                                                                    col_double(), col_double(), col_double(),
                                                                                    col_double(), col_integer(), col_double(),
                                                                                    col_double(), col_integer(), col_double(),
@@ -37,15 +37,15 @@ carga_datos_brutos <- function() {
 ################################################################################
 carga_indicadores <- function() {
   ruta_fichero <- 'DAT_Indicadores_Londres.csv'
-  df = read_csv(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(),
-                                                                                   col_double(), col_double(), col_double(),
-                                                                                   col_integer(), col_double(), col_double(),
+  df = read_csv2(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(),
                                                                                    col_double(), col_double(), col_double(),
                                                                                    col_double(), col_double(), col_double(),
-                                                                                   col_integer(), col_double(), col_double(),
                                                                                    col_double(), col_double(), col_double(),
                                                                                    col_double(), col_double(), col_double(),
-                                                                                   col_integer(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(),
                                                                                    col_double(), col_double(), col_double(),
                                                                                    col_double(), col_double(), col_double()
   ))
@@ -57,11 +57,11 @@ carga_indicadores <- function() {
 ################################################################################
 carga_clusters <- function() {
   ruta_fichero <- 'DAT_Clusters_Gentrificacion_Londres.csv'
-  df = read_csv(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), col_integer(),
-                                                                                   col_double(), col_double(), col_double(),
-                                                                                   col_double(), col_double(), col_double(),
-                                                                                   col_double(), col_double(), col_double(),
-                                                                                   col_double()
+  df = read_csv2(paste(PATH_FICHEROS_DATOS, ruta_fichero, sep=""), col_types = list(col_character(), col_character(), col_integer(), 
+                                                                                   col_double(), col_double(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_double(), col_double(),
+                                                                                   col_double(), col_double(), col_integer(), col_double(),
+                                                                                   col_integer()
   ))
   return(df)
 }
@@ -76,24 +76,63 @@ carga_shapefile <- function() {
 }
 
 ################################################################################
+# Según el año, calcula la longitud del periodo
+################################################################################
+longitud_periodo <- function(anyo) {
+  if (anyo != 2025)
+    return(9)
+  else
+    return(4)
+}
+
+################################################################################
+# Devuelve un nombre de color en base a un valor:
+#   < 0: rojo
+#   = 0: gris
+#   > 0: verde
+################################################################################
+valor2color <- function(valor) {
+  if (valor < 0)
+    return("red")
+  if (valor > 0)
+    return("green")
+  else
+    return("blue")
+}
+
+################################################################################
+# Devuelve un icono en base a un valor
+################################################################################
+valor2icono <- function(valor) {
+  if (valor < 0)
+    return("arrow-trend-down")
+  if (valor > 0)
+    return("arrow-trend-up")
+  else
+    return("equals")
+}
+
+
+################################################################################
 # Lee los orígenes de datos
 ################################################################################
 df_indicadores <- carga_indicadores()
 # Valores mínimos y máximos para los gráficos de radar
-df_tmp <- df_indicadores %>% select(starts_with("VAR_"))
+df_tmp <- df_indicadores %>% select(starts_with("IND_"))
 min_value <- min(df_tmp[, sapply(df_tmp, is.numeric)], na.rm = TRUE)
 max_value <- max(df_tmp[, sapply(df_tmp, is.numeric)], na.rm = TRUE)
 df_datos_brutos <- carga_datos_brutos()
 
 #df_tmp <- df_indicadores %>% select(starts_with("VAR_"))
-df_min <- data.frame(t(apply(df_indicadores %>% select(starts_with("VAR_")), 2, min, na.rm = TRUE)))
+df_min <- data.frame(t(apply(df_indicadores %>% select(starts_with("IND_")), 2, min, na.rm = TRUE)))
 colnames(df_min) <- c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
-df_max <- data.frame(t(apply(df_indicadores %>% select(starts_with("VAR_")), 2, max, na.rm = TRUE)))
+df_max <- data.frame(t(apply(df_indicadores %>% select(starts_with("IND_")), 2, max, na.rm = TRUE)))
 colnames(df_max) <- c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
 
 shp <- carga_shapefile()
 
 df_clusters <- carga_clusters()
+print(df_clusters)
 df_clusters <- df_clusters %>% inner_join(shp, by = c("CODE" = "GSS_CODE"))
 
 ################################################################################
@@ -107,22 +146,23 @@ function(input, output, session) {
   carga_indicadores_londres_anyos <- reactive({
     # Filtra por años
     df <- df_indicadores %>% filter(YEAR == input$sldYear & BOROUGH == "London")
-    df <- df %>% select(-starts_with("IND_"))
-    colnames(df) <- c("Codigo", "Barrio", "Año", "Edad", "Var01", "Pob_Blanca", "Var02", "Salario", "Var03", "Estudios", "Var04", "Trafico", "Var05", "Esp_Vida", "Var06", "Delitos", "Var07", "Servicios", "Var08", "Pr_Vivienda", "Var09", "Alquiler", "Var10")
+    df <- df %>% select(-starts_with("VAR_"))
+    colnames(df) <- c("Codigo", "Barrio", "Año", "Edad", "Ind01", "Pob_Blanca", "Ind02", "Salario", "Ind03", "Estudios", "Ind04", "Trafico", "Ind05", "Esp_Vida", "Ind06", "Delitos", "Ind07", "Servicios", "Ind08", "Pr_Vivienda", "Ind09", "Alquiler", "Ind10")
     return(df)
   })
   
   carga_indicadores_anyos <- reactive({
     # Filtra por años
     df <- df_indicadores %>% filter(YEAR == input$sldYear & BOROUGH != "London")
-    df <- df %>% select(-starts_with("IND_")) %>% arrange(BOROUGH)
-    colnames(df) <- c("Codigo", "Barrio", "Año", "Edad", "Var01", "Pob_Blanca", "Var02", "Salario", "Var03", "Estudios", "Var04", "Trafico", "Var05", "Esp_Vida", "Var06", "Delitos", "Var07", "Servicios", "Var08", "Pr_Vivienda", "Var09", "Alquiler", "Var10")
+    df <- df %>% select(-starts_with("VAR_")) %>% arrange(BOROUGH)
+    colnames(df) <- c("Codigo", "Barrio", "Año", "Edad", "Ind01", "Pob_Blanca", "Ind02", "Salario", "Ind03", "Estudios", "Ind04", "Trafico", "Ind05", "Esp_Vida", "Ind06", "Delitos", "Ind07", "Servicios", "Ind08", "Pr_Vivienda", "Ind09", "Alquiler", "Ind10")
     return(df)
   })
   
   carga_datos_brutos_anyos <- reactive({
     # Filtra por años
-    df <- df_datos_brutos %>% filter(YEAR <= input$sldYear & YEAR >= (input$sldYear - 10))
+    limite <- longitud_periodo(as.integer(input$sldYear))
+    df <- df_datos_brutos %>% filter(YEAR <= input$sldYear & YEAR >= (as.integer(input$sldYear) - limite))
     df <- df %>% arrange(BOROUGH)
     colnames(df) <- c("Codigo", "Barrio", "Año", "Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
     return(df)
@@ -130,7 +170,8 @@ function(input, output, session) {
   
   carga_datos_brutos_barrios <- reactive({
     # Filtra por años
-    df <- df_datos_brutos %>% filter(YEAR <= input$sldYear & YEAR >= (input$sldYear - 10))
+    limite <- longitud_periodo(as.integer(input$sldYear))
+    df <- df_datos_brutos %>% filter(YEAR <= input$sldYear & YEAR >= (as.integer(input$sldYear) - limite))
     # Filtra por barrios
     if (length(input$selBorough) > 0)
       df <- df %>% filter(CODE %in% input$selBorough)
@@ -138,7 +179,7 @@ function(input, output, session) {
     colnames(df) <- c("Codigo", "Barrio", "Año", "Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
     return(df)
   })
-
+  
   carga_indicadores_barrios <- reactive({
     # Filtra por años
     df <- df_indicadores %>% filter(YEAR == input$sldYear)
@@ -146,9 +187,9 @@ function(input, output, session) {
     # Filtra por barrios
     if (length(input$selBorough) > 0)
       df <- df %>% filter(CODE %in% input$selBorough)
-
-    df <- df %>% select(-starts_with("IND_"), -CODE) %>% arrange(BOROUGH)
-    colnames(df) <- c("Barrio", "Año", "Edad", "Var01", "Pob_Blanca", "Var02", "Salario", "Var03", "Estudios", "Var04", "Trafico", "Var05", "Esp_Vida", "Var06", "Delitos", "Var07", "Servicios", "Var08", "Pr_Vivienda", "Var09", "Alquiler", "Var10")
+    
+    df <- df %>% select(-starts_with("VAR_"), -CODE) %>% arrange(BOROUGH)
+    colnames(df) <- c("Barrio", "Año", "Edad", "Ind01", "Pob_Blanca", "Ind02", "Salario", "Ind03", "Estudios", "Ind04", "Trafico", "Ind05", "Esp_Vida", "Ind06", "Delitos", "Ind07", "Servicios", "Ind08", "Pr_Vivienda", "Ind09", "Alquiler", "Ind10")
     
     return(df)
   })
@@ -163,150 +204,173 @@ function(input, output, session) {
   })
   
   carga_clusters_anyo <- reactive({
-    df <- df_clusters %>% filter(YEAR == input$sldYear)
+    df <- df_clusters %>% filter(YEAR == input$sldYear & K == input$selK)
     colnames(df) <- c("Codigo", "Barrio", "Año", "Cluster", "Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler")
     
     return(df)
   })
+
   
   ################################################################################
-  # Mapa gentrifcación barrios de Londres
+  # Mapa gentrificación barrios de Londres
   ################################################################################
   output$mapLondon <- renderLeaflet({
     #clusters <- df_clusters %>% filter(YEAR == input$sldYear)
-    clusters <- st_as_sf(df_clusters %>% filter(YEAR == input$sldYear))
+    clusters <- st_as_sf(df_clusters %>% filter(YEAR == input$sldYear & K == input$selK))
     shp_tra <- st_transform(clusters, crs = 4326)
-
+    
     clusters <- st_make_valid(clusters)
     pal <- colorFactor(palette = "Set1", domain = clusters$CLUSTER)
     leaflet(data = shp_tra) %>%
       addTiles() %>%
       #addProviderTiles("Esri.WorldImagery") %>%
       #addProviderTiles("Stamen.TerrainBackground") %>%
-      addMarkers(lng = -0.1277,
-                 lat = 51.5072,
-                 popup = "You are here",
-                 options = markerOptions(draggable = TRUE, riseOnHover = TRUE)) %>%
-      addCircleMarkers(lng = -0.1377,
-                       lat = 51.5472,
-                       popup = "You are here",
-                       fillColor = "lightblue", opacity = 0.8,
-                       options = markerOptions(draggable = TRUE, title = "Whoops")) %>%
       addPolygons(fillColor = ~pal(CLUSTER), 
                   weight = 1, 
                   color = "black", 
                   fillOpacity = 0.7, 
-                  popup = ~paste0("Barrio", BOROUGH, "<br>Cluster: ", CLUSTER),
+                  popup = ~paste0("Barrio: <b>", BOROUGH, "</b><br>Cluster: <b>", CLUSTER, "</b>"),
                   layerId = ~CODE) %>%
       setView(map, lng = -0.0876,
               lat = 51.4872,
               zoom = 9.5)
   })
   
+  observeEvent(input$sldYear, {
+    shinyjs::hide(id = "indiceContainer")
+    shinyjs::hide(id = "valueBoxContainer")
+  })
+  
+  observeEvent(input$selK, {
+    shinyjs::hide(id = "indiceContainer")
+    shinyjs::hide(id = "valueBoxContainer")
+  })
+  
   observeEvent(input$mapLondon_shape_click, {
-      click <- input$mapLondon_shape_click
-      if (!is.null(click)) {
-        clicked_code <- click$id
-        barrio <- df %>% filter(CODE == clicked_code & YEAR == input$sldYear) #%>% distinct(BOROUGH)
-        print(barrio)
-        #output$txt_barrio <- renderText(paste0("BARRIO: ", barrio$BOROUGH))
-        
-        vb_tmp_01 <- valueBox(
-          value = barrio$VAR_01_AGE,
-          subtitle = "Indicador: Variación edad media",
-          color = "red",
-          width = NULL,
-          icon = icon("arrow-trend-down", style = "color: white; opacity: 0.6;")
+    click <- input$mapLondon_shape_click
+    if (!is.null(click)) {
+      clicked_code <- click$id
+      barrio <- df_clusters %>% filter(CODE == clicked_code & YEAR == input$sldYear & K == input$selK) #%>% distinct(BOROUGH)
+      cluster_barrio <- df_clusters %>%
+        filter(YEAR == input$sldYear & K == input$selK & CLUSTER == barrio$CLUSTER) %>%
+        summarise(
+          GENTRIFICATION_INDEX = round(mean(GENTRIFICATION_INDEX, na.rm = TRUE), 2),
+          mean_IND_01_AGE = round(mean(IND_01_AGE, na.rm = TRUE), 2),
+          mean_IND_02_RACE_WHITE = round(mean(IND_02_RACE_WHITE, na.rm = TRUE), 2),
+          mean_IND_03_WEEK_EARNINGS = round(mean(IND_03_WEEK_EARNINGS, na.rm = TRUE), 2),
+          mean_IND_04_PERCENT_NVQ4 = round(mean(IND_04_PERCENT_NVQ4, na.rm = TRUE), 2),
+          mean_IND_05_CAR_TRAFFIC = round(mean(IND_05_CAR_TRAFFIC, na.rm = TRUE), 2),
+          mean_IND_06_EXP_LIFE = round(mean(IND_06_EXP_LIFE, na.rm = TRUE), 2),
+          mean_IND_07_CRIMES = round(mean(IND_07_CRIMES, na.rm = TRUE), 2),
+          mean_IND_08_SERVICES = round(mean(IND_08_SERVICES, na.rm = TRUE), 2),
+          mean_IND_09_HOUSE_PRICE = round(mean(IND_09_HOUSE_PRICE, na.rm = TRUE), 2),
+          mean_IND_10_HOUSE_RENT = round(mean(IND_10_HOUSE_RENT, na.rm = TRUE), 2)
         )
-        output$ind_barrio_01 <- renderValueBox(vb_tmp_01)
+      print(cluster_barrio)
+      #output$txt_barrio <- renderText(paste0("BARRIO: ", barrio$BOROUGH))
+      
+      vb_tmp_ind <- valueBox(
+        value = cluster_barrio$GENTRIFICATION_INDEX,
+        subtitle = "Índice Gentrificación",
+        color = "orange",
+        width = NULL,
+        icon = icon("circle-info")
+      )
+      output$ind_cluster <- renderValueBox(vb_tmp_ind)
+      
+      vb_tmp_01 <- valueBox(
+        value = cluster_barrio$mean_IND_01_AGE,
+        subtitle = "Indicador: Variación edad media",
+        color = valor2color(cluster_barrio$mean_IND_01_AGE),
+        width = NULL,
+        icon = icon(valor2icono(cluster_barrio$mean_IND_01_AGE), style = "color: white; opacity: 0.6;")
+      )
+      output$ind_barrio_01 <- renderValueBox(vb_tmp_01)
 
-        vb_tmp_02 <- valueBox(
-          value = barrio$VAR_02_RACE_WHITE,
-          subtitle = "Indicador: Variación habitantes raza blanca",
-          color = "green",
-          width = NULL,
-          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
-        )
-        output$ind_barrio_02 <- renderValueBox(vb_tmp_02)
+      vb_tmp_02 <- valueBox(
+        value = cluster_barrio$mean_IND_02_RACE_WHITE,
+        subtitle = "Indicador: Variación habitantes raza blanca",
+        color = valor2color(cluster_barrio$mean_IND_02_RACE_WHITE),
+        width = NULL,
+        icon = icon(valor2icono(cluster_barrio$mean_IND_02_RACE_WHITE), style = "color: white; opacity: 0.6;")
+      )
+      output$ind_barrio_02 <- renderValueBox(vb_tmp_02)
 
-        vb_tmp_03 <- valueBox(
-          value = barrio$VAR_03_WEEK_EARNINGS,
-          subtitle = "Indicador: Variación salario semanal",
-          color = "green",
-          width = NULL,
-          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
-        )
-        output$ind_barrio_03 <- renderValueBox(vb_tmp_03)
-
-        vb_tmp_04 <- valueBox(
-          value = barrio$VAR_04_PERCENT_NVQ4,
-          subtitle = "Indicador: Variación titulados superiores",
-          color = "green",
-          width = NULL,
-          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
-        )
-        output$ind_barrio_04 <- renderValueBox(vb_tmp_04)
-
-        vb_tmp_05 <- valueBox(
-          value = barrio$VAR_05_CAR_TRAFFIC,
-          subtitle = "Indicador: Variación tráfico",
-          color = "red",
-          width = NULL,
-          icon = icon("arrow-trend-down", style = "color: white; opacity: 0.6;")
-        )
-        output$ind_barrio_05 <- renderValueBox(vb_tmp_05)
-
-        vb_tmp_06 <- valueBox(
-          value = barrio$VAR_06_EXP_LIFE,
-          subtitle = "Indicador: Variación esperanza de vida",
-          color = "green",
-          width = NULL,
-          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
-        )
-        output$ind_barrio_06 <- renderValueBox(vb_tmp_06)
-
-        vb_tmp_07 <- valueBox(
-          value = barrio$VAR_07_CRIMES,
-          subtitle = "Indicador: Variación delitos semanales",
-          color = "red",
-          width = NULL,
-          icon = icon("arrow-trend-down", style = "color: white; opacity: 0.6;")
-        )
-        output$ind_barrio_07 <- renderValueBox(vb_tmp_07)
-
-        vb_tmp_08 <- valueBox(
-          value = barrio$VAR_08_SERVICES,
-          subtitle = "Indicador: Variación servicios (restaurantes, tiendas)",
-          color = "green",
-          width = NULL,
-          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
-        )
-        output$ind_barrio_08 <- renderValueBox(vb_tmp_08)
-
-        vb_tmp_09 <- valueBox(
-          value = barrio$VAR_09_HOUSE_PRICE,
-          subtitle = "Indicador: Variación precio de la vivienda",
-          color = "green",
-          width = NULL,
-          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
-        )
-        output$ind_barrio_09 <- renderValueBox(vb_tmp_09)
-
-        vb_tmp_10 <- valueBox(
-          value = barrio$VAR_10_HOUSE_RENT,
-          subtitle = "Indicador: Variación precio del alquiler",
-          color = "green",
-          width = NULL,
-          icon = icon("arrow-trend-up", style = "color: white; opacity: 0.6;")
-        )
-        output$ind_barrio_10 <- renderValueBox(vb_tmp_10)
-        
-        
-        #output$txt_barrio <- paste0("BARRIO: ", barrio$BOROUGH)
-        #output$info <- renderText({
-        #  paste0("Has clicado en: ", clicked_borough)
-        #})
-      }
+      vb_tmp_03 <- valueBox(
+        value = cluster_barrio$mean_IND_03_WEEK_EARNINGS,
+        subtitle = "Indicador: Variación salario semanal",
+        color = valor2color(cluster_barrio$mean_IND_03_WEEK_EARNINGS),
+        width = NULL,
+        icon = icon(valor2icono(cluster_barrio$mean_IND_03_WEEK_EARNINGS), style = "color: white; opacity: 0.6;")
+      )
+      output$ind_barrio_03 <- renderValueBox(vb_tmp_03)
+      
+      vb_tmp_04 <- valueBox(
+        value = cluster_barrio$mean_IND_04_PERCENT_NVQ4,
+        subtitle = "Indicador: Variación titulados superiores",
+        color = valor2color(cluster_barrio$mean_IND_04_PERCENT_NVQ4),
+        width = NULL,
+        icon = icon(valor2icono(cluster_barrio$mean_IND_04_PERCENT_NVQ4), style = "color: white; opacity: 0.6;")
+      )
+      output$ind_barrio_04 <- renderValueBox(vb_tmp_04)
+      
+      vb_tmp_05 <- valueBox(
+        value = cluster_barrio$mean_IND_05_CAR_TRAFFIC,
+        subtitle = "Indicador: Variación tráfico",
+        color = valor2color(cluster_barrio$mean_IND_05_CAR_TRAFFIC),
+        width = NULL,
+        icon = icon(valor2icono(cluster_barrio$mean_IND_05_CAR_TRAFFIC), style = "color: white; opacity: 0.6;")
+      )
+      output$ind_barrio_05 <- renderValueBox(vb_tmp_05)
+      
+      vb_tmp_06 <- valueBox(
+        value = cluster_barrio$mean_IND_06_EXP_LIFE,
+        subtitle = "Indicador: Variación esperanza de vida",
+        color = valor2color(cluster_barrio$mean_IND_06_EXP_LIFE),
+        width = NULL,
+        icon = icon(valor2icono(cluster_barrio$mean_IND_06_EXP_LIFE), style = "color: white; opacity: 0.6;")
+      )
+      output$ind_barrio_06 <- renderValueBox(vb_tmp_06)
+      
+      vb_tmp_07 <- valueBox(
+        value = cluster_barrio$mean_IND_07_CRIMES,
+        subtitle = "Indicador: Variación delitos semanales",
+        color = valor2color(cluster_barrio$mean_IND_07_CRIMES),
+        width = NULL,
+        icon = icon(valor2icono(cluster_barrio$mean_IND_07_CRIMES), style = "color: white; opacity: 0.6;")
+      )
+      output$ind_barrio_07 <- renderValueBox(vb_tmp_07)
+      
+      vb_tmp_08 <- valueBox(
+        value = cluster_barrio$mean_IND_08_SERVICES,
+        subtitle = "Indicador: Variación servicios (restaurantes, tiendas)",
+        color = valor2color(cluster_barrio$mean_IND_08_SERVICES),
+        width = NULL,
+        icon = icon(valor2icono(cluster_barrio$mean_IND_08_SERVICES), style = "color: white; opacity: 0.6;")
+      )
+      output$ind_barrio_08 <- renderValueBox(vb_tmp_08)
+      
+      vb_tmp_09 <- valueBox(
+        value = cluster_barrio$mean_IND_09_HOUSE_PRICE,
+        subtitle = "Indicador: Variación precio de la vivienda",
+        color = valor2color(cluster_barrio$mean_IND_09_HOUSE_PRICE),
+        width = NULL,
+        icon = icon(valor2icono(cluster_barrio$mean_IND_09_HOUSE_PRICE), style = "color: white; opacity: 0.6;")
+      )
+      output$ind_barrio_09 <- renderValueBox(vb_tmp_09)
+      
+      vb_tmp_10 <- valueBox(
+        value = cluster_barrio$mean_IND_10_HOUSE_RENT,
+        subtitle = "Indicador: Variación precio del alquiler",
+        color = valor2color(cluster_barrio$mean_IND_10_HOUSE_RENT),
+        width = NULL,
+        icon = icon(valor2icono(cluster_barrio$mean_IND_10_HOUSE_RENT), style = "color: white; opacity: 0.6;")
+      )
+      output$ind_barrio_10 <- renderValueBox(vb_tmp_10)
+      
+      shinyjs::show(id = "indiceContainer")
+      shinyjs::show(id = "valueBoxContainer")
+    }
   })
   
   
@@ -314,10 +378,8 @@ function(input, output, session) {
   # Análisis visual de indicadores
   ################################################################################
   # Radar de indicadores para el barrio
-  plot_indicadores_2011 <- function() {
-    #df <- carga_indicadores_radar_barrios() %>% filter(Año == 2011) %>% select(-Año)
-    #print(df)
-    ggradar(carga_indicadores_radar_barrios() %>% filter(Año == 2011) %>% select(-Año), 
+  plot_indicadores_2010 <- function() {
+    ggradar(carga_indicadores_radar_barrios() %>% filter(Año == 2010) %>% select(-Año), 
             grid.min = min_value, grid.max = max_value, legend.position = "bottom", 
             values.radar = c(min_value, (abs(min_value) + abs(max_value)) / 2, max_value),
             group.line.width = 1,
@@ -325,8 +387,8 @@ function(input, output, session) {
             group.colours = c("#DF536B", "#2297E6"))
   }
   
-  plot_indicadores_2021 <- function() {
-    ggradar(carga_indicadores_radar_barrios() %>% filter(Año == 2021) %>% select(-Año), 
+  plot_indicadores_2020 <- function() {
+    ggradar(carga_indicadores_radar_barrios() %>% filter(Año == 2020) %>% select(-Año), 
             grid.min = min_value, grid.max = max_value, legend.position = "bottom", 
             values.radar = c(min_value, (abs(min_value) + abs(max_value)) / 2, max_value),
             group.line.width = 1,
@@ -334,8 +396,8 @@ function(input, output, session) {
             group.colours = c("#DF536B", "#2297E6"))
   }
   
-  plot_indicadores_2031 <- function() {
-    ggradar(carga_indicadores_radar_barrios() %>% filter(Año == 2031) %>% select(-Año), 
+  plot_indicadores_2025 <- function() {
+    ggradar(carga_indicadores_radar_barrios() %>% filter(Año == 2025) %>% select(-Año), 
             grid.min = min_value, grid.max = max_value, legend.position = "bottom", 
             values.radar = c(min_value, (abs(min_value) + abs(max_value)) / 2, max_value),
             group.line.width = 1,
@@ -343,50 +405,20 @@ function(input, output, session) {
             group.colours = c("#DF536B", "#2297E6"))
   }
   
-  output$radar_2011 <- renderPlot({
-    plot_indicadores_2011()
+  output$radar_2010 <- renderPlot({
+    plot_indicadores_2010()
   })
   
-  output$radar_2021 <- renderPlot({
-    plot_indicadores_2021()
+  output$radar_2020 <- renderPlot({
+    plot_indicadores_2020()
   })
   
-  output$radar_2031 <- renderPlot({
-    plot_indicadores_2031()
+  output$radar_2025 <- renderPlot({
+    plot_indicadores_2025()
   })
   
-  plot_dot_2011 <- function() {
-    df_tmp <- carga_indicadores_radar_barrios() %>% filter(Año == 2011) %>%
-      pivot_longer(
-        cols = c(Edad, Pob_Blanca, Salario, Estudios, Trafico, Esp_Vida, Delitos, Servicios, Pr_Vivienda, Alquiler),
-        names_to = "Variable",
-        values_to = "Valor"
-      )
-    ggplot(df_tmp,
-           aes(x=Valor, y=factor(Variable, levels = c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler"))
-               , label=Valor)) +
-      geom_point(stat='identity', aes(col=Barrio), size=5) +
-      scale_color_manual(values=c("#DF536B", "#2297E6")) +
-      labs(y = "Variables", x = "% Variación")
-  }
-
-  plot_dot_2021 <- function() {
-    df_tmp <- carga_indicadores_radar_barrios() %>% filter(Año == 2021) %>%
-      pivot_longer(
-        cols = c(Edad, Pob_Blanca, Salario, Estudios, Trafico, Esp_Vida, Delitos, Servicios, Pr_Vivienda, Alquiler),
-        names_to = "Variable",
-        values_to = "Valor"
-      )
-    ggplot(df_tmp,
-           aes(x=Valor, y=factor(Variable, levels = c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler"))
-               , label=Valor)) +
-      geom_point(stat='identity', aes(col=Barrio), size=5) +
-      scale_color_manual(values=c("#DF536B", "#2297E6")) +
-      labs(y = "Variables", x = "% Variación")
-  }
-
-  plot_dot_2031 <- function() {
-    df_tmp <- carga_indicadores_radar_barrios() %>% filter(Año == 2031) %>%
+  plot_dot_2010 <- function() {
+    df_tmp <- carga_indicadores_radar_barrios() %>% filter(Año == 2010) %>%
       pivot_longer(
         cols = c(Edad, Pob_Blanca, Salario, Estudios, Trafico, Esp_Vida, Delitos, Servicios, Pr_Vivienda, Alquiler),
         names_to = "Variable",
@@ -400,64 +432,96 @@ function(input, output, session) {
       labs(y = "Variables", x = "% Variación")
   }
   
-  output$dot_2011 <- renderPlot({
-    plot_dot_2011()
-  })
-
-  output$dot_2021 <- renderPlot({
-    plot_dot_2021()
+  plot_dot_2020 <- function() {
+    df_tmp <- carga_indicadores_radar_barrios() %>% filter(Año == 2020) %>%
+      pivot_longer(
+        cols = c(Edad, Pob_Blanca, Salario, Estudios, Trafico, Esp_Vida, Delitos, Servicios, Pr_Vivienda, Alquiler),
+        names_to = "Variable",
+        values_to = "Valor"
+      )
+    ggplot(df_tmp,
+           aes(x=Valor, y=factor(Variable, levels = c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler"))
+               , label=Valor)) +
+      geom_point(stat='identity', aes(col=Barrio), size=5) +
+      scale_color_manual(values=c("#DF536B", "#2297E6")) +
+      labs(y = "Variables", x = "% Variación")
+  }
+  
+  plot_dot_2025 <- function() {
+    df_tmp <- carga_indicadores_radar_barrios() %>% filter(Año == 2025) %>%
+      pivot_longer(
+        cols = c(Edad, Pob_Blanca, Salario, Estudios, Trafico, Esp_Vida, Delitos, Servicios, Pr_Vivienda, Alquiler),
+        names_to = "Variable",
+        values_to = "Valor"
+      )
+    ggplot(df_tmp,
+           aes(x=Valor, y=factor(Variable, levels = c("Edad", "Pob_Blanca", "Salario", "Estudios", "Trafico", "Esp_Vida", "Delitos", "Servicios", "Pr_Vivienda", "Alquiler"))
+               , label=Valor)) +
+      geom_point(stat='identity', aes(col=Barrio), size=5) +
+      scale_color_manual(values=c("#DF536B", "#2297E6")) +
+      labs(y = "Variables", x = "% Variación")
+  }
+  
+  output$dot_2010 <- renderPlot({
+    plot_dot_2010()
   })
   
-  output$dot_2031 <- renderPlot({
-    plot_dot_2031()
+  output$dot_2020 <- renderPlot({
+    plot_dot_2020()
   })
+  
+  output$dot_2025 <- renderPlot({
+    plot_dot_2025()
+  })
+  
   
   ################################################################################
   # Explorador de indicadores
   ################################################################################
   output$tblIndicadoresLondres <- DT::renderDT(
     expr = DT::datatable(
-      carga_indicadores_londres_anyos() %>% mutate(across(starts_with("var"), ~ .x / 100)), rownames = FALSE, options = list(scrollX = TRUE,
-                                                                                 dom = 't',
-                                                                                 columnDefs = list(list(visible = FALSE, targets = c(0))))
-    ) %>% formatStyle(c('Var01','Var02','Var03','Var04','Var05','Var06','Var07','Var08','Var09','Var10'), 
-                      color = styleInterval(c(-0.0001, 0), c('red', 'black', 'limegreen'))) %>%
-      formatPercentage(c('Var01','Var02','Var03','Var04','Var05','Var06','Var07','Var08','Var09','Var10'), 2)
+      carga_indicadores_londres_anyos() %>% mutate(across(starts_with("ind"), ~ .x / 100)), rownames = FALSE, options = list(scrollX = TRUE,
+                                                                                                                             dom = 't',
+                                                                                                                             columnDefs = list(list(visible = FALSE, targets = c(0))))
+    ) %>% formatStyle(c('Ind01','Ind02','Ind03','Ind04','Ind05','Ind06','Ind07','Ind08','Ind09','Ind10'), 
+                      color = styleInterval(c(-0.0001, 0), c('red', 'black', 'limegreen'))) 
   )
   
   output$tblIndicadores <- DT::renderDT(
     expr = DT::datatable(
       carga_indicadores_anyos() %>% mutate(across(starts_with("var"), ~ .x / 100)), rownames = FALSE, options = list(scrollX = TRUE, 
-                                                                  columnDefs = list(list(visible=FALSE, targets=c(0))))
-    ) %>% formatStyle(c('Var01','Var02','Var03','Var04','Var05','Var06','Var07','Var08','Var09','Var10'), 
-                      color = styleInterval(c(-0.01, 0), c('red', 'black', 'limegreen'))) %>%
-      formatPercentage(c('Var01','Var02','Var03','Var04','Var05','Var06','Var07','Var08','Var09','Var10'), 2)
+                                                                                                                     columnDefs = list(list(visible=FALSE, targets=c(0))))
+    ) %>% formatStyle(c('Ind01','Ind02','Ind03','Ind04','Ind05','Ind06','Ind07','Ind08','Ind09','Ind10'), 
+                      color = styleInterval(c(-0.01, 0), c('red', 'black', 'limegreen')))
   )
-  
+
+    
   ################################################################################
-  # Evolución datos por décadas
+  # Evolución datos por períodos
   ################################################################################
   plot_datos_brutos_01 <- function() {
     if (length(input$selBorough) == 0) # Si no hay filtros, se filtra por el total de la ciudad de Londres
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
+    limite <- longitud_periodo(as.integer(input$sldYear))
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Edad)) +
       theme(legend.position = "top") +
-      scale_x_discrete(name="Año", limits=seq(input$sldYear - 10,input$sldYear, by=2))
+      scale_x_discrete(name="Año", limits=seq(as.integer(input$sldYear) - limite, input$sldYear, by=2))
     return(g)
   }
-
+  
   plot_datos_brutos_02 <- function() {
     if (length(input$selBorough) == 0) # Si no hay filtros, se filtra por el total de la ciudad de Londres
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
+    limite <- longitud_periodo(as.integer(input$sldYear))
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Pob_Blanca)) +
       theme(legend.position = "top") +
-      scale_x_discrete(name="Año", limits=seq(input$sldYear - 10,input$sldYear, by=2))
+      scale_x_discrete(name="Año", limits=seq(as.integer(input$sldYear) - limite, input$sldYear, by=2))
     return(g)
   }
   
@@ -466,10 +530,11 @@ function(input, output, session) {
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
+    limite <- longitud_periodo(as.integer(input$sldYear))
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Salario)) +
       theme(legend.position = "top") +
-      scale_x_discrete(name="Año", limits=seq(input$sldYear - 10,input$sldYear, by=2))
+      scale_x_discrete(name="Año", limits=seq(as.integer(input$sldYear) - limite, input$sldYear, by=2))
     return(g)
   }
   
@@ -479,10 +544,11 @@ function(input, output, session) {
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
+    limite <- longitud_periodo(as.integer(input$sldYear))
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Estudios)) +
       theme(legend.position = "top") +
-      scale_x_discrete(name="Año", limits=seq(input$sldYear - 10,input$sldYear, by=2))
+      scale_x_discrete(name="Año", limits=seq(as.integer(input$sldYear) - limite, input$sldYear, by=2))
     return(g)
   }
   
@@ -491,10 +557,11 @@ function(input, output, session) {
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
+    limite <- longitud_periodo(as.integer(input$sldYear))
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Trafico)) +
       theme(legend.position = "top") +
-      scale_x_discrete(name="Año", limits=seq(input$sldYear - 10,input$sldYear, by=2))
+      scale_x_discrete(name="Año", limits=seq(as.integer(input$sldYear) - limite, input$sldYear, by=2))
     return(g)
   }
   
@@ -503,10 +570,11 @@ function(input, output, session) {
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
+    limite <- longitud_periodo(as.integer(input$sldYear))
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Esp_Vida)) +
       theme(legend.position = "top") +
-      scale_x_discrete(name="Año", limits=seq(input$sldYear - 10,input$sldYear, by=2))
+      scale_x_discrete(name="Año", limits=seq(as.integer(input$sldYear) - limite,input$sldYear, by=2))
     return(g)
   }
   
@@ -515,10 +583,11 @@ function(input, output, session) {
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
+    limite <- longitud_periodo(as.integer(input$sldYear))
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Delitos)) +
       theme(legend.position = "top") +
-      scale_x_discrete(name="Año", limits=seq(input$sldYear - 10,input$sldYear, by=2))
+      scale_x_discrete(name="Año", limits=seq(as.integer(input$sldYear) - limite, input$sldYear, by=2))
     return(g)
   }
   
@@ -527,10 +596,11 @@ function(input, output, session) {
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
+    limite <- longitud_periodo(as.integer(input$sldYear))
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Servicios)) +
       theme(legend.position = "top") +
-      scale_x_discrete(name="Año", limits=seq(input$sldYear - 10,input$sldYear, by=2))
+      scale_x_discrete(name="Año", limits=seq(as.integer(input$sldYear) - limite, input$sldYear, by=2))
     return(g)
   }
   
@@ -539,10 +609,11 @@ function(input, output, session) {
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
+    limite <- longitud_periodo(as.integer(input$sldYear))
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Pr_Vivienda)) +
       theme(legend.position = "top") +
-      scale_x_discrete(name="Año", limits=seq(input$sldYear - 10,input$sldYear, by=2))
+      scale_x_discrete(name="Año", limits=seq(as.integer(input$sldYear) - limite, input$sldYear, by=2))
     return(g)
   }
   
@@ -551,10 +622,11 @@ function(input, output, session) {
       filtro <- c("E12000007")
     else
       filtro <- input$selBorough
+    limite <- longitud_periodo(as.integer(input$sldYear))
     g <- ggplot(carga_datos_brutos_barrios() %>% filter(Codigo %in% filtro), aes(x=Año, group=Barrio, color=Barrio)) +
       geom_line(aes(y=Alquiler)) +
       theme(legend.position = "top") +
-      scale_x_discrete(name="Año", limits=seq(input$sldYear - 10,input$sldYear, by=2))
+      scale_x_discrete(name="Año", limits=seq(as.integer(input$sldYear) - limite, input$sldYear, by=2))
     return(g)
   }
   
@@ -562,7 +634,7 @@ function(input, output, session) {
   output$plt_01 <- renderPlot({
     plot_datos_brutos_01()
   })
-
+  
   output$plt_02 <- renderPlot({
     plot_datos_brutos_02()
   })
@@ -599,11 +671,13 @@ function(input, output, session) {
     plot_datos_brutos_10()
   })
 
+    
   ################################################################################
   # Explorador de datos
   ################################################################################
   # Tabla del explorador de datos
   output$tblDatos <- DT::renderDT(expr = carga_datos_brutos_anyos(), rownames = FALSE, options = list(scrollX = TRUE, 
-                                                                                                        #dom = 'tlip', 
-                                                                                                        columnDefs = list(list(visible=FALSE, targets=c(0)))))
+                                                                                                      #dom = 'tlip', 
+                                                                                                      columnDefs = list(list(visible=FALSE, targets=c(0)))))
+  
 }
