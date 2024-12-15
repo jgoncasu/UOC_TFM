@@ -109,8 +109,7 @@ body <- dashboardBody(
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_06")),
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_07")),
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_08")),
-                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_09")),
-                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_10"))
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_09"))
             )
           )
         ),
@@ -174,7 +173,7 @@ body <- dashboardBody(
           ),
 
           fluidRow(
-            column(6, tags$h5("Edad media")),
+            column(6, tags$h5("Hab. 24-50 años")),
             column(6, tags$h5("Población raza blanca"))
           ),
           fluidRow(
@@ -207,11 +206,9 @@ body <- dashboardBody(
           ),
           fluidRow(
             column(6, tags$h5("Precio medio de la vivienda")),
-            column(6, tags$h5("Precio medio del alquiler social"))
           ),
           fluidRow(
             column(6, plotOutput("plt_09"), height="100px"),
-            column(6, plotOutput("plt_10"), height="100px")
           )
         ),
 

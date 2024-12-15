@@ -1,0 +1,883 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20241.24.0208.0337                               -->
+<workbook original-version='18.1' source-build='2024.1.0 (20241.24.0208.0337)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AccessibleZoneTabOrder.true...AccessibleZoneTabOrder />
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <BasicButtonObject />
+    <CollapsiblePane />
+    <MapboxVectorStylesAndLayers />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SetMembershipControl />
+    <SheetIdentifierTracking />
+    <SpatialFileLayer />
+    <WindowsPersistSimpleIdentifiers />
+    <WorksheetBackgroundTransparency />
+    <ZoneBackgroundTransparency />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <_.fcp.AnimationOnByDefault.false...style>
+    <_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule element='animation'>
+      <_.fcp.AnimationOnByDefault.false...format attr='animation-on' value='ao-on' />
+    </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
+  </_.fcp.AnimationOnByDefault.false...style>
+  <datasources>
+    <datasource caption='London_Borough_Excluding_MHW' inline='true' name='federated.1he91sy0nyjwkl16cx6kg13s557w' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='London_Borough_Excluding_MHW' name='ogrdirect.1ywxeg809zzsx01bvi9sg12it4d9'>
+            <connection class='ogrdirect' directory='D:/Formación/UOC/Asignaturas/12 - TFM/M3/UOC_TFM/Datos/03_Preparados/shapefile' filename='London_Borough_Excluding_MHW.shp' password='' server='' tablename='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='ogrdirect.1ywxeg809zzsx01bvi9sg12it4d9' name='London_Borough_Excluding_MHW.shp' table='[London_Borough_Excluding_MHW.shp]' type='table'>
+          <columns>
+            <column datatype='string' name='NAME' ordinal='0' />
+            <column datatype='string' name='GSS_CODE' ordinal='1' />
+            <column datatype='real' name='HECTARES' ordinal='2' />
+            <column datatype='real' name='NONLD_AREA' ordinal='3' />
+            <column datatype='string' name='ONS_INNER' ordinal='4' />
+            <column datatype='string' name='SUB_2009' ordinal='5' />
+            <column datatype='string' name='SUB_2006' ordinal='6' />
+            <column datatype='spatial' name='Geometry' ordinal='7' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='ogrdirect.1ywxeg809zzsx01bvi9sg12it4d9' name='London_Borough_Excluding_MHW.shp' table='[London_Borough_Excluding_MHW.shp]' type='table'>
+          <columns>
+            <column datatype='string' name='NAME' ordinal='0' />
+            <column datatype='string' name='GSS_CODE' ordinal='1' />
+            <column datatype='real' name='HECTARES' ordinal='2' />
+            <column datatype='real' name='NONLD_AREA' ordinal='3' />
+            <column datatype='string' name='ONS_INNER' ordinal='4' />
+            <column datatype='string' name='SUB_2009' ordinal='5' />
+            <column datatype='string' name='SUB_2006' ordinal='6' />
+            <column datatype='spatial' name='Geometry' ordinal='7' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>NAME</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[NAME]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>NAME</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_CA615A05701C4914A724A9D433E56E39]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>GSS_CODE</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[GSS_CODE]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>GSS_CODE</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_CA615A05701C4914A724A9D433E56E39]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>HECTARES</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[HECTARES]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>HECTARES</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_CA615A05701C4914A724A9D433E56E39]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>NONLD_AREA</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[NONLD_AREA]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>NONLD_AREA</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_CA615A05701C4914A724A9D433E56E39]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ONS_INNER</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[ONS_INNER]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>ONS_INNER</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_CA615A05701C4914A724A9D433E56E39]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>SUB_2009</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[SUB_2009]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>SUB_2009</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_CA615A05701C4914A724A9D433E56E39]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>SUB_2006</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[SUB_2006]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>SUB_2006</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_CA615A05701C4914A724A9D433E56E39]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Geometry</remote-name>
+            <remote-type>8</remote-type>
+            <local-name>[Geometry]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>Geometry</remote-alias>
+            <ordinal>7</ordinal>
+            <caption>Geometría</caption>
+            <local-type>spatial</local-type>
+            <aggregation>Collect</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_CA615A05701C4914A724A9D433E56E39]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Gss Code' datatype='string' name='[GSS_CODE]' role='dimension' type='nominal' />
+      <column caption='Geometría' datatype='spatial' name='[Geometry]' role='measure' type='nominal' />
+      <column caption='Hectares' datatype='real' name='[HECTARES]' role='measure' type='quantitative' />
+      <column caption='Name' datatype='string' name='[NAME]' role='dimension' type='nominal' />
+      <column caption='Nonld Area' datatype='real' name='[NONLD_AREA]' role='measure' type='quantitative' />
+      <column caption='Ons Inner' datatype='string' name='[ONS_INNER]' role='dimension' type='nominal' />
+      <column caption='Sub 2006' datatype='string' name='[SUB_2006]' role='dimension' type='nominal' />
+      <column caption='Sub 2009' datatype='string' name='[SUB_2009]' role='dimension' type='nominal' />
+      <_.fcp.ObjectModelTableType.true...column caption='London_Borough_Excluding_MHW.shp' datatype='table' name='[__tableau_internal_object_id__].[London_Borough_Excluding_MHW.shp_CA615A05701C4914A724A9D433E56E39]' role='measure' type='quantitative' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;España&quot;' />
+      </semantic-values>
+      <date-options start-of-week='monday' />
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='London_Borough_Excluding_MHW.shp' id='London_Borough_Excluding_MHW.shp_CA615A05701C4914A724A9D433E56E39'>
+            <properties context=''>
+              <relation connection='ogrdirect.1ywxeg809zzsx01bvi9sg12it4d9' name='London_Borough_Excluding_MHW.shp' table='[London_Borough_Excluding_MHW.shp]' type='table'>
+                <columns>
+                  <column datatype='string' name='NAME' ordinal='0' />
+                  <column datatype='string' name='GSS_CODE' ordinal='1' />
+                  <column datatype='real' name='HECTARES' ordinal='2' />
+                  <column datatype='real' name='NONLD_AREA' ordinal='3' />
+                  <column datatype='string' name='ONS_INNER' ordinal='4' />
+                  <column datatype='string' name='SUB_2009' ordinal='5' />
+                  <column datatype='string' name='SUB_2006' ordinal='6' />
+                  <column datatype='spatial' name='Geometry' ordinal='7' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+    <datasource caption='DAT_Indicadores_Londres.csv+ (Varias conexiones)' inline='true' name='federated.184zldg1ln39wv194zdsr09t7q3j' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='London_Borough_Excluding_MHW' name='ogrdirect.122z4dw00b7j1r1gkn96t1sjtk6z'>
+            <connection class='ogrdirect' directory='D:/Formación/UOC/Asignaturas/12 - TFM/M3/UOC_TFM/Datos/03_Preparados/shapefile' filename='London_Borough_Excluding_MHW.shp' password='' server='' tablename='' />
+          </named-connection>
+          <named-connection caption='DAT_Indicadores_Visualizacion_Londres' name='textscan.1sa58qa1mser8c17cbzzz0dpnju2'>
+            <connection class='textscan' directory='D:/Formación/UOC/Asignaturas/12 - TFM/M3/UOC_TFM/Datos/03_Preparados' filename='DAT_Indicadores_Visualizacion_Londres.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='textscan.1sa58qa1mser8c17cbzzz0dpnju2' name='DAT_Indicadores_Visualizacion_Londres.csv' table='[DAT_Indicadores_Visualizacion_Londres#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='es_ES' separator=';'>
+            <column datatype='string' name='CODE' ordinal='0' />
+            <column datatype='string' name='BOROUGH' ordinal='1' />
+            <column datatype='integer' name='YEAR' ordinal='2' />
+            <column datatype='string' name='VARIABLE' ordinal='3' />
+            <column datatype='real' name='VALUE' ordinal='4' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation type='collection'>
+          <relation connection='textscan.1sa58qa1mser8c17cbzzz0dpnju2' name='DAT_Indicadores_Visualizacion_Londres.csv' table='[DAT_Indicadores_Visualizacion_Londres#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='es_ES' separator=';'>
+              <column datatype='string' name='CODE' ordinal='0' />
+              <column datatype='string' name='BOROUGH' ordinal='1' />
+              <column datatype='integer' name='YEAR' ordinal='2' />
+              <column datatype='string' name='VARIABLE' ordinal='3' />
+              <column datatype='real' name='VALUE' ordinal='4' />
+            </columns>
+          </relation>
+          <relation connection='ogrdirect.122z4dw00b7j1r1gkn96t1sjtk6z' name='London_Borough_Excluding_MHW.shp' table='[London_Borough_Excluding_MHW.shp]' type='table'>
+            <columns>
+              <column datatype='string' name='NAME' ordinal='0' />
+              <column datatype='string' name='GSS_CODE' ordinal='1' />
+              <column datatype='real' name='HECTARES' ordinal='2' />
+              <column datatype='real' name='NONLD_AREA' ordinal='3' />
+              <column datatype='string' name='ONS_INNER' ordinal='4' />
+              <column datatype='string' name='SUB_2009' ordinal='5' />
+              <column datatype='string' name='SUB_2006' ordinal='6' />
+              <column datatype='spatial' name='Geometry' ordinal='7' />
+            </columns>
+          </relation>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[DAT_Indicadores_Visualizacion_Londres.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;es&quot;</attribute>
+              <attribute datatype='string' name='currency'>&quot;€&quot;</attribute>
+              <attribute datatype='string' name='decimal-char'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;;&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;es_ES&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+              <attribute datatype='string' name='thousands-char'>&quot;.&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>CODE</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[CODE]</local-name>
+            <parent-name>[DAT_Indicadores_Visualizacion_Londres.csv]</parent-name>
+            <remote-alias>CODE</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LES_RES' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[DAT_Indicadores_Visualizacion_Londres.csv_F456488FCC5D4FDAB6F209F9ACC8887F]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BOROUGH</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[BOROUGH]</local-name>
+            <parent-name>[DAT_Indicadores_Visualizacion_Londres.csv]</parent-name>
+            <remote-alias>BOROUGH</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LES_RES' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[DAT_Indicadores_Visualizacion_Londres.csv_F456488FCC5D4FDAB6F209F9ACC8887F]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>YEAR</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[YEAR]</local-name>
+            <parent-name>[DAT_Indicadores_Visualizacion_Londres.csv]</parent-name>
+            <remote-alias>YEAR</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[DAT_Indicadores_Visualizacion_Londres.csv_F456488FCC5D4FDAB6F209F9ACC8887F]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>VARIABLE</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[VARIABLE]</local-name>
+            <parent-name>[DAT_Indicadores_Visualizacion_Londres.csv]</parent-name>
+            <remote-alias>VARIABLE</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LES_RES' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[DAT_Indicadores_Visualizacion_Londres.csv_F456488FCC5D4FDAB6F209F9ACC8887F]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>VALUE</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[VALUE]</local-name>
+            <parent-name>[DAT_Indicadores_Visualizacion_Londres.csv]</parent-name>
+            <remote-alias>VALUE</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[DAT_Indicadores_Visualizacion_Londres.csv_F456488FCC5D4FDAB6F209F9ACC8887F]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>NAME</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[NAME]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>NAME</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>GSS_CODE</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[GSS_CODE]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>GSS_CODE</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>HECTARES</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[HECTARES]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>HECTARES</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>NONLD_AREA</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[NONLD_AREA]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>NONLD_AREA</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ONS_INNER</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[ONS_INNER]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>ONS_INNER</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>SUB_2009</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[SUB_2009]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>SUB_2009</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>SUB_2006</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[SUB_2006]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>SUB_2006</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Geometry</remote-name>
+            <remote-type>8</remote-type>
+            <local-name>[Geometry]</local-name>
+            <parent-name>[London_Borough_Excluding_MHW.shp]</parent-name>
+            <remote-alias>Geometry</remote-alias>
+            <ordinal>12</ordinal>
+            <caption>Geometría</caption>
+            <local-type>spatial</local-type>
+            <aggregation>Collect</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Borough' datatype='string' name='[BOROUGH]' role='dimension' type='nominal' />
+      <column caption='Code' datatype='string' name='[CODE]' role='dimension' type='nominal' />
+      <column caption='Gss Code' datatype='string' name='[GSS_CODE]' role='dimension' type='nominal' />
+      <column caption='Geometría' datatype='spatial' name='[Geometry]' role='measure' type='nominal' />
+      <column caption='Hectares' datatype='real' name='[HECTARES]' role='measure' type='quantitative' />
+      <column caption='Name' datatype='string' name='[NAME]' role='dimension' type='nominal' />
+      <column caption='Nonld Area' datatype='real' name='[NONLD_AREA]' role='measure' type='quantitative' />
+      <column caption='Ons Inner' datatype='string' name='[ONS_INNER]' role='dimension' type='nominal' />
+      <column caption='Sub 2006' datatype='string' name='[SUB_2006]' role='dimension' type='nominal' />
+      <column caption='Sub 2009' datatype='string' name='[SUB_2009]' role='dimension' type='nominal' />
+      <column caption='Value' datatype='real' name='[VALUE]' role='measure' type='quantitative' />
+      <column caption='Variable' datatype='string' name='[VARIABLE]' role='dimension' type='nominal' />
+      <column caption='Year' datatype='integer' name='[YEAR]' role='dimension' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='DAT_Indicadores_Visualizacion_Londres.csv' datatype='table' name='[__tableau_internal_object_id__].[DAT_Indicadores_Visualizacion_Londres.csv_F456488FCC5D4FDAB6F209F9ACC8887F]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='London_Borough_Excluding_MHW.shp' datatype='table' name='[__tableau_internal_object_id__].[London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149]' role='measure' type='quantitative' />
+      <column-instance column='[VALUE]' derivation='Sum' name='[sum:VALUE:ok]' pivot='key' type='ordinal' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[sum:VALUE:ok]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>11092078.556400001</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>32.590600000000002</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;España&quot;' />
+      </semantic-values>
+      <date-options start-of-week='monday' />
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='DAT_Indicadores_Visualizacion_Londres.csv' id='DAT_Indicadores_Visualizacion_Londres.csv_F456488FCC5D4FDAB6F209F9ACC8887F'>
+            <properties context=''>
+              <relation connection='textscan.1sa58qa1mser8c17cbzzz0dpnju2' name='DAT_Indicadores_Visualizacion_Londres.csv' table='[DAT_Indicadores_Visualizacion_Londres#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='es_ES' separator=';'>
+                  <column datatype='string' name='CODE' ordinal='0' />
+                  <column datatype='string' name='BOROUGH' ordinal='1' />
+                  <column datatype='integer' name='YEAR' ordinal='2' />
+                  <column datatype='string' name='VARIABLE' ordinal='3' />
+                  <column datatype='real' name='VALUE' ordinal='4' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+          <object caption='London_Borough_Excluding_MHW.shp' id='London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149'>
+            <properties context=''>
+              <relation connection='ogrdirect.122z4dw00b7j1r1gkn96t1sjtk6z' name='London_Borough_Excluding_MHW.shp' table='[London_Borough_Excluding_MHW.shp]' type='table'>
+                <columns>
+                  <column datatype='string' name='NAME' ordinal='0' />
+                  <column datatype='string' name='GSS_CODE' ordinal='1' />
+                  <column datatype='real' name='HECTARES' ordinal='2' />
+                  <column datatype='real' name='NONLD_AREA' ordinal='3' />
+                  <column datatype='string' name='ONS_INNER' ordinal='4' />
+                  <column datatype='string' name='SUB_2009' ordinal='5' />
+                  <column datatype='string' name='SUB_2006' ordinal='6' />
+                  <column datatype='spatial' name='Geometry' ordinal='7' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+        <relationships>
+          <relationship>
+            <expression op='='>
+              <expression op='[CODE]' />
+              <expression op='[GSS_CODE]' />
+            </expression>
+            <first-end-point object-id='DAT_Indicadores_Visualizacion_Londres.csv_F456488FCC5D4FDAB6F209F9ACC8887F' />
+            <second-end-point object-id='London_Borough_Excluding_MHW.shp_78A709A9480B454AAD2EBBF9DAD8C149' />
+          </relationship>
+        </relationships>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <mapsources>
+    <mapsource name='Tableau' />
+  </mapsources>
+  <shared-views>
+    <shared-view name='federated.184zldg1ln39wv194zdsr09t7q3j'>
+      <datasources>
+        <datasource caption='DAT_Indicadores_Londres.csv+ (Varias conexiones)' name='federated.184zldg1ln39wv194zdsr09t7q3j' />
+      </datasources>
+      <datasource-dependencies datasource='federated.184zldg1ln39wv194zdsr09t7q3j'>
+        <column caption='Year' datatype='integer' name='[YEAR]' role='dimension' type='quantitative' />
+        <column-instance column='[YEAR]' derivation='None' name='[none:YEAR:qk]' pivot='key' type='quantitative' />
+      </datasource-dependencies>
+      <filter class='quantitative' column='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:YEAR:qk]' included-values='in-range'>
+        <min>2010</min>
+        <max>2010</max>
+      </filter>
+    </shared-view>
+  </shared-views>
+  <worksheets>
+    <worksheet name='Hoja 2'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{220EEDCE-F50E-4BE0-BC90-C3C0C5362169}' />
+    </worksheet>
+    <worksheet name='Indicadores 2011'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='DAT_Indicadores_Londres.csv+ (Varias conexiones)' name='federated.184zldg1ln39wv194zdsr09t7q3j' />
+          </datasources>
+          <mapsources>
+            <mapsource name='Tableau' />
+          </mapsources>
+          <datasource-dependencies datasource='federated.184zldg1ln39wv194zdsr09t7q3j'>
+            <column caption='Geometría' datatype='spatial' name='[Geometry]' role='measure' type='nominal' />
+            <column caption='Name' datatype='string' name='[NAME]' role='dimension' type='nominal' />
+            <column caption='Value' datatype='real' name='[VALUE]' role='measure' type='quantitative' />
+            <column caption='Variable' datatype='string' name='[VARIABLE]' role='dimension' type='nominal' />
+            <column caption='Year' datatype='integer' name='[YEAR]' role='dimension' type='quantitative' />
+            <column-instance column='[Geometry]' derivation='Collect' name='[clct:Geometry:nk]' pivot='key' type='nominal' />
+            <column-instance column='[NAME]' derivation='None' name='[none:NAME:nk]' pivot='key' type='nominal' />
+            <column-instance column='[VALUE]' derivation='None' name='[none:VALUE:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[VARIABLE]' derivation='None' name='[none:VARIABLE:nk]' pivot='key' type='nominal' />
+            <column-instance column='[YEAR]' derivation='None' name='[none:YEAR:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VARIABLE:nk]'>
+            <groupfilter function='member' level='[none:VARIABLE:nk]' member='&quot;IND_09_HOUSE_PRICE&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.184zldg1ln39wv194zdsr09t7q3j].[none:YEAR:qk]</column>
+            <column>[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VARIABLE:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' palette='tableau-map-temperatur' reverse='true' type='interpolated' />
+          </style-rule>
+          <style-rule element='legend'>
+            <format attr='font-family' value='Bahnschrift SemiBold' />
+            <format attr='font-size' value='8' />
+          </style-rule>
+          <style-rule element='legend-title'>
+            <format attr='font-family' value='Bahnschrift SemiBold' />
+            <format attr='font-size' value='12' />
+          </style-rule>
+          <style-rule element='legend-title-text'>
+            <format attr='color' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' value='Indicador 08 - Servicios&#10;Índice de variación (2001 - 2010)'>
+              <formatted-text>
+                <run fontalignment='2' fontcolor='#225183' fontname='Bahnschrift Light Condensed'>Indicador 08 - Servicios</run>
+                <run fontalignment='2'>Æ&#10;</run>
+                <run fontalignment='2' fontcolor='#225183' fontname='Bahnschrift Light Condensed'>Índice de variación (2001 - 2010)</run>
+              </formatted-text>
+            </format>
+          </style-rule>
+          <style-rule element='map'>
+            <format attr='washout' value='0.0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' />
+              <text column='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:NAME:nk]' />
+              <lod column='[federated.184zldg1ln39wv194zdsr09t7q3j].[clct:Geometry:nk]' />
+              <geometry column='[federated.184zldg1ln39wv194zdsr09t7q3j].[clct:Geometry:nk]' />
+            </encodings>
+            <style>
+              <style-rule element='cell'>
+                <format attr='vertical-align' value='auto' />
+                <format attr='wrap' value='auto' />
+                <format attr='text-align' value='auto' />
+              </style-rule>
+              <style-rule element='datalabel'>
+                <format attr='color-mode' value='auto' />
+                <format attr='font-family' value='Bahnschrift Light Condensed' />
+                <format attr='font-size' value='7' />
+                <format attr='font-weight' value='normal' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-mode' value='all' />
+                <format attr='mark-labels-cull' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.184zldg1ln39wv194zdsr09t7q3j].[Latitude (generated)]</rows>
+        <cols>[federated.184zldg1ln39wv194zdsr09t7q3j].[Longitude (generated)]</cols>
+      </table>
+      <simple-id uuid='{1E6ADB61-37BF-46D3-A9CA-FB76F6D84F5F}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard _.fcp.AccessibleZoneTabOrder.true...enable-sort-zone-taborder='true' name='Dashboard'>
+      <style />
+      <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
+      <datasources>
+        <datasource caption='DAT_Indicadores_Londres.csv+ (Varias conexiones)' name='federated.184zldg1ln39wv194zdsr09t7q3j' />
+      </datasources>
+      <datasource-dependencies datasource='federated.184zldg1ln39wv194zdsr09t7q3j'>
+        <column caption='Variable' datatype='string' name='[VARIABLE]' role='dimension' type='nominal' />
+        <column caption='Year' datatype='integer' name='[YEAR]' role='dimension' type='quantitative' />
+        <column-instance column='[VARIABLE]' derivation='None' name='[none:VARIABLE:nk]' pivot='key' type='nominal' />
+        <column-instance column='[YEAR]' derivation='None' name='[none:YEAR:qk]' pivot='key' type='quantitative' />
+      </datasource-dependencies>
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98000' id='7' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='98000' id='5' type-v2='layout-basic' w='82400' x='800' y='1000'>
+              <zone h='98000' id='3' name='Indicadores 2011' w='82400' x='800' y='1000'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+            <zone fixed-size='160' h='98000' id='6' is-fixed='true' param='vert' type-v2='layout-flow' w='16000' x='83200' y='1000'>
+              <zone fixed-size='60' h='8500' id='8' is-fixed='true' mode='dropdown' name='Indicadores 2011' param='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VARIABLE:nk]' type-v2='filter' w='16000' x='83200' y='1000'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='6875' id='20' name='Indicadores 2011' param='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:YEAR:qk]' show-null-ctrls='false' show-slider='false' type-v2='filter' values='relevant' w='16000' x='83200' y='9500'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+        <zone h='3000' id='10' type-v2='dashboard-object' w='2400' x='79200' y='8000'>
+          <button action=''>
+            <toggle-action>tabdoc:toggle-button-click-action window-id=&quot;{16EC552E-6C48-427C-879E-BDE8DA3AA252}&quot; zone-id=&quot;10&quot; zone-ids=[9]</toggle-action>
+            <button-visual-state />
+            <button-visual-state />
+          </button>
+        </zone>
+        <zone h='11000' id='9' name='Indicadores 2011' pane-specification-id='0' param='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' type-v2='color' w='24800' x='57700' y='16125' />
+        <zone h='3000' id='19' type-v2='dashboard-object' w='2400' x='79200' y='1000'>
+          <button action=''>
+            <toggle-action>tabdoc:toggle-button-click-action window-id=&quot;{16EC552E-6C48-427C-879E-BDE8DA3AA252}&quot; zone-id=&quot;19&quot; zone-ids=[6]</toggle-action>
+            <button-visual-state />
+            <button-visual-state />
+          </button>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='700' minheight='700' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='28' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='27' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
+                <zone fixed-size='60' h='8500' id='8' mode='dropdown' name='Indicadores 2011' param='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VARIABLE:nk]' type-v2='filter' w='16000' x='83200' y='1000'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='6875' id='20' name='Indicadores 2011' param='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:YEAR:qk]' show-null-ctrls='false' show-slider='false' type-v2='filter' values='relevant' w='16000' x='83200' y='9500'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='98000' id='3' is-fixed='true' name='Indicadores 2011' w='82400' x='800' y='1000'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='11000' id='9' name='Indicadores 2011' pane-specification-id='0' param='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' type-v2='color' w='24800' x='57700' y='16125'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{BDB9FEBE-74B2-477A-A01E-432F94E57088}' />
+    </dashboard>
+    <dashboard name='Historia 1' type='storyboard'>
+      <style />
+      <size maxheight='964' maxwidth='1016' minheight='964' minwidth='1016' />
+      <zones>
+        <zone h='100000' id='2' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98340' id='1' param='vert' removable='false' type-v2='layout-flow' w='98426' x='787' y='830'>
+            <zone h='4357' id='3' type-v2='title' w='98426' x='787' y='830' />
+            <zone h='10477' id='4' is-fixed='true' paired-zone-id='5' removable='false' type-v2='flipboard-nav' w='98426' x='787' y='5187' />
+            <zone h='83506' id='5' paired-zone-id='4' removable='false' type-v2='flipboard' w='98426' x='787' y='15664'>
+              <flipboard active-id='1' nav-type='caption' show-nav-arrows='true'>
+                <story-points>
+                  <story-point captured-sheet='Dashboard' id='1'>
+                    <currentDeltas>
+                      <worksheet name='Indicadores 2011'>
+                        <style delta-type='added'>
+                          <style-rule element='axis'>
+                            <encoding attr='space' class='0' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[Latitude (generated)]' field-type='quantitative' max='6754673.4947812622' min='6658921.7027810263' projection='EPSG:3857' range-type='fixed' scope='rows' type='space' />
+                            <encoding attr='space' class='0' field='[federated.184zldg1ln39wv194zdsr09t7q3j].[Longitude (generated)]' field-type='quantitative' max='42617.05667535081' min='-65021.16684471698' projection='EPSG:3857' range-type='fixed' scope='cols' type='space' />
+                          </style-rule>
+                        </style>
+                      </worksheet>
+                    </currentDeltas>
+                    <capturedDeltas />
+                  </story-point>
+                </story-points>
+              </flipboard>
+            </zone>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <simple-id uuid='{D923BEF2-8797-4F48-97A6-90489DA37E57}' />
+    </dashboard>
+  </dashboards>
+  <windows source-height='63'>
+    <window class='worksheet' name='Indicadores 2011'>
+      <cards>
+        <edge name='left'>
+          <strip size='128'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='24'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='140'>
+            <card param='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:YEAR:qk]' show-domain='false' show-null-ctrls='false' type='filter' />
+            <card param='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VARIABLE:nk]' type='filter' />
+            <card pane-specification-id='0' param='[federated.184zldg1ln39wv194zdsr09t7q3j].[none:VALUE:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{D0B3D76F-3D8C-4A1B-AFF2-F5A872AE3E58}' />
+    </window>
+    <window class='dashboard' maximized='true' name='Dashboard'>
+      <viewpoints>
+        <viewpoint name='Indicadores 2011'>
+          <zoom type='entire-view' />
+          <map-scale-visibility value='0' />
+        </viewpoint>
+      </viewpoints>
+      <active id='8' />
+      <simple-id uuid='{16EC552E-6C48-427C-879E-BDE8DA3AA252}' />
+    </window>
+    <window class='dashboard' name='Historia 1'>
+      <viewpoints />
+      <active id='-1' />
+      <simple-id uuid='{56B22E47-C01A-4AA3-92BF-16633725E301}' />
+    </window>
+    <window class='worksheet' name='Hoja 2'>
+      <cards>
+        <edge name='left'>
+          <strip size='128'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='24'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{AA7ACCF7-DFB9-4CED-9C6A-C4C22557CFEC}' />
+    </window>
+  </windows>
+</workbook>

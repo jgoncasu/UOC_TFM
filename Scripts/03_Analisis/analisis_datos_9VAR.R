@@ -145,8 +145,7 @@ calcula_clusters_jerarquico <- function(df, periodo, k) {
       mean_IND_06_EXP_LIFE = mean(IND_06_EXP_LIFE, na.rm = TRUE),
       mean_IND_07_CRIMES = mean(IND_07_CRIMES, na.rm = TRUE),
       mean_IND_08_SERVICES = mean(IND_08_SERVICES, na.rm = TRUE),
-      mean_IND_09_HOUSE_PRICE = mean(IND_09_HOUSE_PRICE, na.rm = TRUE)#,
-      #mean_IND_10_HOUSE_RENT = mean(IND_10_HOUSE_RENT, na.rm = TRUE)
+      mean_IND_09_HOUSE_PRICE = mean(IND_09_HOUSE_PRICE, na.rm = TRUE)
     )
 
   df_indice <- df_tmp %>%
@@ -207,7 +206,7 @@ df_barrios <- carga_lista_barrios()
 df_datos <- carga_indicadores()
 
 # Selecciona columnas IND
-df_datos <- df_datos %>% select(-starts_with("VAL_"), -starts_with("VAR_"), -IND_10_HOUSE_RENT) #%>% filter(!BOROUGH %in% c("London"))
+df_datos <- df_datos %>% select(-starts_with("VAL_"), -starts_with("VAR_")) #%>% filter(!BOROUGH %in% c("London"))
 
 df_correlacion <- df_datos %>% filter(BOROUGH != 'London') %>% select(-c(CODE, BOROUGH, YEAR))
 
