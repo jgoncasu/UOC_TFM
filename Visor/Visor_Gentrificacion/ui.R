@@ -44,6 +44,15 @@ header <- dashboardHeader(
 )
 
 sidebar <- dashboardSidebar(
+  tags$style(HTML("
+    #divDefiniciones {
+      padding-left: 5px;
+    }
+    #divDefiniciones li {
+      list-style-type: none;
+      padding-bottom: 0px;
+    }
+  ")),
   tags$br(),
   # Filtro por periodos
   selectInput(
@@ -51,6 +60,28 @@ sidebar <- dashboardSidebar(
     label = "Seleccione un año",
     choices = list("2010" = 2010, "2020" = 2020, "2025" = 2025),
     selected = 2010
+  ),
+  tags$div(id="divDefiniciones",
+    tags$br(),
+    tags$h5(HTML("<strong><u>Definición de variables</u></strong>")),
+    tags$li(HTML("<strong>Pob_25_40 </strong>")),
+    tags$p(HTML("% población 25-40 años")),
+    tags$li(HTML("<strong>Pob_Blanca </strong>")),
+    tags$p(HTML("% población raza blanca")),
+    tags$li(HTML("<strong>Salario </strong>")),
+    tags$p(HTML("Salario semanal")),
+    tags$li(HTML("<strong>Estudios </strong>")),
+    tags$p(HTML("% población estudios superiores")),
+    tags$li(HTML("<strong>Trafico </strong>")),
+    tags$p(HTML("Cantidad tráfico (millones de km)")),
+    tags$li(HTML("<strong>Esp_Vida </strong>")),
+    tags$p(HTML("Esperanza de vida")),
+    tags$li(HTML("<strong>Delitos </strong>")),
+    tags$p(HTML("Delitos semanales")),
+    tags$li(HTML("<strong>Servicios </strong>")),
+    tags$p(HTML("Tiendas, restaurantes y hoteles")),
+    tags$li(HTML("<strong>Pr_Vivienda </strong>")),
+    tags$p(HTML("Precio vivienda"))
   )
 
   # Filtro por barrios
@@ -73,6 +104,21 @@ body <- dashboardBody(
       .col-sm-4 {
         width: 100% !important;
         margin: 0 !important;
+      }
+      .accordion-button {
+        background-color: #3c8dbc !important;
+        color: #fff !important;
+        font-weight: bold !important;
+      }
+      .accordion-button:not(.collapsed) {
+        background-color: #1D1F21 !important;
+        color: #fff !important;
+      }
+      .small-box {
+        margin-bottom: 5px;
+      }
+      #indiceContainer {
+        margin-top: 5px;
       }
     ")),
     
@@ -99,14 +145,20 @@ body <- dashboardBody(
                 style = "display: flex; flex-wrap: wrap; gap: 5px; ",
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_cluster"))
                 ),
-            div(id = "valueBoxContainer",
+            div(id = "valueBoxContainer01",
                 style = "display: flex; flex-wrap: wrap; gap: 5px; ",
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_01")),
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_02")),
-                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_03")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_03"))
+            ),
+            div(id = "valueBoxContainer02",
+                style = "display: flex; flex-wrap: wrap; gap: 5px; ",
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_04")),
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_05")),
-                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_06")),
+                div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_06"))
+            ),
+            div(id = "valueBoxContainer03",
+                style = "display: flex; flex-wrap: wrap; gap: 5px; ",
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_07")),
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_08")),
                 div(style = "flex: 1 1 18%; max-width: 18%; margin: 1px;", valueBoxOutput("ind_barrio_09"))
