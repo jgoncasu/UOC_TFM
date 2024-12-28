@@ -40,6 +40,21 @@ limpieza_indicador_01_edad <- function(df) {
   df <- df %>%
     mutate(across(starts_with("Persons_"), as.integer))
   
+  # Elimina los datos de Londres
+  df <- df %>%
+    filter(Borough != "London")
+  
+  # Crea los datos de Londres como suma del resto de barrios
+  persons_columns <- grep("^Persons_", names(df), value = TRUE)
+  sum_persons <- df %>%
+    group_by(Year) %>%
+    summarise(across(all_of(persons_columns), sum, na.rm = TRUE), .groups = "drop")
+  new_london_rows <- sum_persons %>%
+    mutate(Code = "E12000007", Borough = "London") %>%
+    relocate(Code, Borough, Year, everything())
+  df <- df %>%
+    bind_rows(new_london_rows)
+  
   # Calcula la edad media de los habitantes
 #  df <- df %>%
 #    rowwise() %>%
@@ -379,14 +394,10 @@ limpieza_indicador_05_trafico <- function(df) {
       df_barrio <- df %>% filter(Borough == barrio) %>% arrange(Year)
       ts_data <- ts(df_barrio$Car_Traffic, start = 1993, end = 2023, frequency = 1)
       model <- auto.arima(ts_data)
-      #model <- Arima(ts_data, order = c(1,0,0))
       forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 0)
       if (all(forecast_values == forecast_values[1])) {
         model <- Arima(ts_data, order = c(1,0,0))
-        #model <- auto.arima(ts_data)
         forecast_values <- round(forecast(model, h = length(anyos_pred))$mean, 0)
-        if (all(forecast_values == forecast_values[1]))
-          print(barrio)
       }
       forecast_df <- data.frame(Code = rep(c(df_barrio %>% slice_head(n = 1) %>% pull(Code)), length(anyos_pred)),
                                 Borough = rep(c(barrio), length(anyos_pred)),

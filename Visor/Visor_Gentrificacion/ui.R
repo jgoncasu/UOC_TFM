@@ -118,7 +118,13 @@ body <- dashboardBody(
         margin-bottom: 5px;
       }
       #indiceContainer {
-        margin-top: 5px;
+        margin-top: 0px;
+      }
+      .nota {
+        font-size: 10pt;
+      }
+      .shiny-plot-output {
+        height: 300px;
       }
     ")),
     
@@ -130,12 +136,13 @@ body <- dashboardBody(
             inputId = "selK",
             label = "Seleccione un valor de K",
             min = 2,
-            max = 20,
+            max = 10,
             value = 2,
             step = 1
           ),
           leafletOutput(outputId = "mapLondon", width="650px", height="550px"),
           verbatimTextOutput("info"),
+          tags$div(HTML("<span class='nota'><b>NOTA</b>: Pulse sobre un barrio para ver los indicadores del grupo</span>")),
           # ValueBoxes para mostrar la información de los indicadores del barrio
           #fluidRow(
           #  column(12, textOutput("txt_barrio"))
@@ -181,22 +188,22 @@ body <- dashboardBody(
             #column(6, tags$h5("Año 2020"))
           ),
           fluidRow(
-            column(6, plotOutput("radar_2010"), height="300px"),
-            column(6, plotOutput("dot_2010"), height="300px")
+            column(6, plotOutput("radar_2010"), height="200px"),
+            column(6, plotOutput("dot_2010"), height="200px")
           ),
           fluidRow(
             column(6, tags$h5("Año 2020"))
           ),
           fluidRow(
-            column(6, plotOutput("radar_2020"), height="300px"),
-            column(6, plotOutput("dot_2020"), height="300px")
+            column(6, plotOutput("radar_2020"), height="200px"),
+            column(6, plotOutput("dot_2020"), height="200px")
           ),
           fluidRow(
             column(6, tags$h5("Año 2025"))
           ),
           fluidRow(
-            column(6, plotOutput("radar_2025"), height="300px"),
-            column(6, plotOutput("dot_2025"), height="300px")
+            column(6, plotOutput("radar_2025"), height="200px"),
+            column(6, plotOutput("dot_2025"), height="200px")
           )
         ),
         

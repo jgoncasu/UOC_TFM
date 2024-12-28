@@ -230,7 +230,14 @@ function(input, output, session) {
     shp_tra <- st_transform(clusters, crs = 4326)
     
     clusters <- st_make_valid(clusters)
-    pal <- colorFactor(palette = "Set1", domain = clusters$CLUSTER)
+    pal <- colorFactor(palette = "RdYlBu", domain = clusters$CLUSTER)
+    unique_clusters <- unique(shp_tra$CLUSTER)
+    unique_gentr_index <- unique(shp_tra$GENTRIFICATION_INDEX)
+    
+    cluster_labels <- shp_tra %>%
+      distinct(CLUSTER, GENTRIFICATION_INDEX) %>%
+      arrange(CLUSTER)
+    
     leaflet(data = shp_tra) %>%
       addTiles() %>%
       #addProviderTiles("Esri.WorldImagery") %>%
@@ -239,11 +246,28 @@ function(input, output, session) {
                   weight = 1, 
                   color = "black", 
                   fillOpacity = 0.7, 
-                  popup = ~paste0("Barrio: <b>", BOROUGH, "</b><br>Cluster: <b>", CLUSTER, "</b>"),
+                  #popup = ~paste0("Barrio: <b>", BOROUGH, "</b><br />Cluster: <b>", CLUSTER, "</b>"),
+                  label = ~paste0(toupper(BOROUGH), " - Cluster ", CLUSTER),
                   layerId = ~CODE) %>%
       setView(map, lng = -0.0876,
               lat = 51.4872,
-              zoom = 9.5)
+              zoom = 9.5) %>%
+      addLegend(
+        position = "bottomright",
+        title = "Índice de Gentrificación",
+        #pal = pal,
+        colors = pal(cluster_labels$CLUSTER),
+        #values = cluster_labels$GENTRIFICATION_INDEX,
+        labels = paste0("Clúster ", cluster_labels$CLUSTER, " (", cluster_labels$GENTRIFICATION_INDEX, ")"),
+        opacity = 0.7
+        #position = "bottomright",
+        #title = "Clúster",
+        #pal = pal,
+        ##values = unique_gentr_index,
+        ##labels = paste("Cluster ", unique_gentr_index)
+        #values = unique_clusters,
+        #labels = paste("Cluster ", unique_clusters)
+      )
   })
   
   observeEvent(input$sldYear, {

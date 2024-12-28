@@ -100,8 +100,8 @@ analisis_clusters <- function (df, periodo) {
   # Se aplica el clustering jerárquico  
   clust <- agnes(df_scaled, method = "ward")
 
-  dendograma <- pltree(clust, cex = 1, hang = -1, main = paste0('Dendograma ', periodo), labels = as.list(df$BOROUGH), ylab=NA, xlab=NA)
-  print(dendograma)
+  dendrograma <- pltree(clust, cex = 1, hang = -1, main = paste0('Dendrograma ', periodo), labels = as.list(df$BOROUGH), ylab=NA, xlab=NA)
+  print(dendrograma)
   
   gap_stat <- clusGap(df_scaled, FUN = hcut, nstart = 1, K.max = 10, B = 100)
   # Visualización del número óptimo de clusters
