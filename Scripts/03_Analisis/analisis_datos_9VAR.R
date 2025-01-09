@@ -264,7 +264,3 @@ df_resultado <- df_resultado %>% mutate(GENTRIFICATION_INDEX = round(GENTRIFICAT
 #view(df_resultado)
 
 guardar_clusters(df_resultado)
-
-###############################################################################
-
-#calcula_pca(df_correlacion)

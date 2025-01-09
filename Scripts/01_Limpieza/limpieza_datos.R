@@ -55,13 +55,7 @@ limpieza_indicador_01_edad <- function(df) {
   df <- df %>%
     bind_rows(new_london_rows)
   
-  # Calcula la edad media de los habitantes
-#  df <- df %>%
-#    rowwise() %>%
-#    mutate(
-#      Avg_Age = round(sum(c_across(starts_with("Persons_")) * 1:90) / sum(c_across(starts_with("Persons_"))), 2)
-#    ) %>%
-#  ungroup()
+  # Porcentaje de personas en el grupo de edad entre 25 y 40 años
   df <- df %>%
     rowwise() %>%
     mutate(

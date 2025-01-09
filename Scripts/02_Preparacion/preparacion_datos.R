@@ -1148,7 +1148,6 @@ fusiona_indicadores <- function(df_01_edad, df_02_raza, df_03_empleo, df_04_estu
 ################################################################################
 guardar_indicadores <- function(df) {
   ruta_fichero <- 'DAT_Indicadores_Londres.csv'
-  #write.csv(df, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)
   write.csv2(df, paste(PATH_FICHEROS_SALIDA, ruta_fichero, sep=""), row.names = FALSE)
 }
 
