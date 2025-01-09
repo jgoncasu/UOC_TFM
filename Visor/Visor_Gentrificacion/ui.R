@@ -134,7 +134,7 @@ body <- dashboardBody(
           title = "Gentrificación de barrios",
           sliderInput(
             inputId = "selK",
-            label = "Seleccione un valor de K",
+            label = "Seleccione el número de clústers",
             min = 2,
             max = 10,
             value = 2,
