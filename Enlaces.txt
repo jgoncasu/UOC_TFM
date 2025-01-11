@@ -1,5 +1,5 @@
 VISOR
-https://0u6v7k-jorge-gonzlez0del0castillo.shinyapps.io/visor
+https://0u6v7k-jorge-gonzlez0del0castillo.shinyapps.io/visor_gentrificacion/
 
 REPOSITORIO
 https://github.com/jgoncasu/UOC_TFM
